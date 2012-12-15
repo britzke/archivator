@@ -24,3 +24,6 @@ Aufsetzen einer Entwicklungsumgebung - Eclipse
    
 5. Weld-Bibliothek in der aktuellen Version (aktuell 1.1.10)
    zum Build-Path und zum Deployment-Assembly hinzufügen.
+
+6. Derby DB Bibliothek in der aktuellen Version (aktuell 10.9.1.0)
+   zum Build-Path und zum Deployment-Assembly hinzufügen.
