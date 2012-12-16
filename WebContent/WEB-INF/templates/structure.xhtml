@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<title><ui:insert name="title">archivator</ui:insert></title>
+</head>
+<body>
+
+	<div id="header">
+		<ui:insert name="header">archivator</ui:insert>
+	</div>
+	<div id="div1">
+		<ui:insert name="div1">
+			<ui:include src="/WEB-INF/templates/search.xhtml" />
+		</ui:insert>
+	</div>
+
+	<div id="login">
+		<ui:insert name="login">
+			<ui:include src="/WEB-INF/templates/login.xhtml" />
+		</ui:insert>
+	</div>
+
+	<div id="main">
+		<ui:insert name="main">
+			<ui:include src="/WEB-INF/templates/blank.xhtml" />
+		</ui:insert>
+	</div>
+</body>
+</html>
