@@ -9,21 +9,19 @@
 	<title>Free title</title>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form id="main">
 		<p:inputText id="inputSearch" value="#{searchBean.searchText}"></p:inputText>
 		<p:commandButton value="Suche" actionListener="#{searchBean.search}"
 			update="inputSearch" />
-		<p:panel id="searchHelp">
 			<p:panel header="Such-Hilfe"
 				rendered="#{searchBean.searchHelp}">
-				<p:commandButton value="oder" update="inputSearch"
-					actionListener="#{searchBean.addAndToSearchText}" />
 				<p:commandButton value="und" update="inputSearch"
+					actionListener="#{searchBean.addAndToSearchText}" />
+				<p:commandButton value="oder" update="inputSearch"
 					actionListener="#{searchBean.addOrToSearchText}" />
 			</p:panel>
-		</p:panel>
 		<p:commandLink value="Suchhilfe"
-			actionListener="#{searchBean.switchSearchHelp}" update="searchHelp" />
+			actionListener="#{searchBean.switchSearchHelp}" update="main" />
 	</h:form>
 </h:body>
 </html>
