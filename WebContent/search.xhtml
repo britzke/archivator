@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Free title</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:inputText id="inputSearch" value="#{searchBean.searchText}"></p:inputText>
+		<p:commandButton value="Suche" actionListener="#{searchBean.search}"
+			update="inputSearch" />
+		<p:panel id="searchHelp" header="Such-Hilfe"
+			rendered="#{searchBean.searchHelp}">
+			<p:commandButton value="oder" update="inputSearch" actionListener="#{searchBean.addAndToSearchText}"/>
+			<p:commandButton value="und" update="inputSearch" actionListener="#{searchBean.addOrToSearchText}"/>
+		</p:panel>
+		<p:commandLink value="Suchhilfe"
+			actionListener="#{searchBean.switchSearchHelp}" update="searchHelp" />
+	</h:form>
+</h:body>
+</html>
