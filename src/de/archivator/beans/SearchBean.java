@@ -28,13 +28,13 @@ import de.archivator.entities.*;
 public class SearchBean {
 
 	String searchText;
-	List<Archivale> archivalien;
+	List<Archivale> foundArchivalien;
 	boolean searchHelp;
 
 	public SearchBean() {
 		searchText = "";
 		searchHelp = false;
-		archivalien = new ArrayList<Archivale>();
+		foundArchivalien = new ArrayList<Archivale>();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -87,7 +87,7 @@ public class SearchBean {
 			}
 			CompassHits hits = session.find(searchText);
 			for (int i = 0; i < hits.getLength(); i++) {
-
+				foundArchivalien.add((Archivale)hits.data(i));
 			}
 		} finally {
 			session.close();
@@ -113,7 +113,7 @@ public class SearchBean {
 	 * @return the archivalien
 	 */
 	public List<Archivale> getArchivalien() {
-		return archivalien;
+		return foundArchivalien;
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class SearchBean {
 	 *            the archivalien to set
 	 */
 	public void setArchivalien(List<Archivale> archivalien) {
-		this.archivalien = archivalien;
+		this.foundArchivalien = archivalien;
 	}
 
 	/**
