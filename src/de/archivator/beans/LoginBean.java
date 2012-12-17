@@ -3,41 +3,115 @@
  */
 package de.archivator.beans;
 
-/**
- * Diese Bean stellt die Methoden für die Ansicht "login.xhtml" zur Verfügung.
- * 
- * @author bubi
- */
-public class LoginBean {
-	/**
-	 * Der Wert des InputText-Elementes, in das der Benutzer das Kennwort
-	 * eingeben kann.
-	 */
-	private String kennwort;
-	/**
-	 *  gibt an, ob der Benutzer angemeldet ist.
-	 */
-	private boolean angemeldet;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+/**
+ * 
+ */
+
+/**
+ * @author e0_wiezorek
+ * 
+ */
+@ManagedBean
+@SessionScoped
+public class LoginBean implements Serializable {
 	/**
-	 * @return the kennwort
+	 * 
 	 */
-	public String getKennwort() {
-		return kennwort;
+	private static final long serialVersionUID = 1L;
+
+	String user;
+	List<String> userList;
+	String correct;
+	Boolean angemeldet;
+
+	public LoginBean() {
+
+		userList = new ArrayList<String>();
+		userList.add("admin");
+		userList.add("root");
+
+		correct = "";
+
+		angemeldet = false;
+
+	}
+
+	public void anmeldung(ActionEvent actionEvent) {
+
+		for (int i = 0; i < userList.size(); i++) {
+			if (user.contentEquals(userList.get(i))) {
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null, new FacesMessage(
+						"Sie haben sich erfolgreich angemeldet!"));
+				correct = userList.get(i);
+				angemeldet = true;
+				// break; bricht die for ab
+				return;// bricht die ganze methode ab
+			} else {
+				correct = "";
+			}
+		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(
+				"Falsche Angabe. Bitte erneut versuchen!"));
+		angemeldet = false;
+	}
+
+	public void abmeldung(ActionEvent actionEvent) {
+
+		if (!(correct.isEmpty())) {
+			correct = "";
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(
+					"Sie haben sich erfolgreich abgemeldet!"));
+			angemeldet = false;
+		}
 	}
 
 	/**
-	 * @param kennwort
-	 *            the kennwort to set
+	 * @return the user
 	 */
-	public void setKennwort(String kennwort) {
-		this.kennwort = kennwort;
+	public String getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user
+	 *            the user to set
+	 */
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	/**
+	 * @return the correct
+	 */
+	public String getCorrect() {
+		return correct;
+	}
+
+	/**
+	 * @param correct
+	 *            the correct to set
+	 */
+	public void setCorrect(String correct) {
+		this.correct = correct;
 	}
 
 	/**
 	 * @return the angemeldet
 	 */
-	public boolean isAngemeldet() {
+	public Boolean getAngemeldet() {
 		return angemeldet;
 	}
 
@@ -45,26 +119,7 @@ public class LoginBean {
 	 * @param angemeldet
 	 *            the angemeldet to set
 	 */
-	public void setAngemeldet(boolean angemeldet) {
+	public void setAngemeldet(Boolean angemeldet) {
 		this.angemeldet = angemeldet;
-	}
-
-	/**
-	 * Meldet den Benutzer an.
-	 * 
-	 * @return "" (leere Zeichenkette) immer.
-	 */
-	public String login() {
-		return "";
-
-	}
-
-	/**
-	 * Meldet den Benutzer ab.
-	 * 
-	 * @return "" (leere Zeichenkette) immer.
-	 */
-	public String logout() {
-		return "";
 	}
 }
