@@ -32,7 +32,7 @@ public class LoginBean implements Serializable {
 	String user;
 	List<String> userList;
 	String correct;
-	Boolean angemeldet;
+	boolean angemeldet;
 
 	public LoginBean() {
 
@@ -41,9 +41,6 @@ public class LoginBean implements Serializable {
 		userList.add("root");
 
 		correct = "";
-
-		angemeldet = false;
-
 	}
 
 	public void anmeldung(ActionEvent actionEvent) {
