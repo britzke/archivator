@@ -6,8 +6,9 @@ import java.util.List;
 
 
 /**
- * The persistent class for the NAMEN database table.
- * 
+ * Classe für die Namen der Archivalien.
+ * @author junghans
+ * @version 1.0
  */
 @Entity
 @Table(name = "NAMEN")

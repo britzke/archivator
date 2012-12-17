@@ -6,8 +6,9 @@ import java.util.List;
 
 
 /**
- * The persistent class for the DOKUMENTARTEN database table.
- * 
+ * Classe für die Dokumentarten der Archivalien.
+ * @author junghans
+ * @version 1.0
  */
 @Entity
 @Table(name = "DOKUMENTARTEN")

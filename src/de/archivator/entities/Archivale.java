@@ -12,8 +12,9 @@ import java.util.List;
 
 
 /**
- * The persistent class for the ARCHIVALIEN database table.
- * 
+ * Classe fÃ¼r die Archivalien.
+ * @author junghans
+ * @version 1.0
  */
 @Entity
 @Table(name = "ARCHIVALIEN")
@@ -53,9 +54,9 @@ public class Archivale implements Serializable {
 	@ManyToMany(mappedBy="archivaliens")
 	private List<Organisationseinheit> organisationseinheitens;
 
-	//bi-directional many-to-many association to Schlagwörter
+	//bi-directional many-to-many association to SchlagwÃ¶rter
 	@ManyToMany(mappedBy="archivaliens")
-	private List<Schlagwort> schlagwörters;
+	private List<Schlagwort> schlagwÃ¶rters;
 
 	public Archivale() {
 	}
@@ -156,12 +157,12 @@ public class Archivale implements Serializable {
 		this.organisationseinheitens = organisationseinheitens;
 	}
 
-	public List<Schlagwort> getSchlagwörters() {
-		return this.schlagwörters;
+	public List<Schlagwort> getSchlagwÃ¶rters() {
+		return this.schlagwÃ¶rters;
 	}
 
-	public void setSchlagwörters(List<Schlagwort> schlagwörters) {
-		this.schlagwörters = schlagwörters;
+	public void setSchlagwÃ¶rters(List<Schlagwort> schlagwÃ¶rters) {
+		this.schlagwÃ¶rters = schlagwÃ¶rters;
 	}
 
 }

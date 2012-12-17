@@ -6,11 +6,12 @@ import java.util.List;
 
 
 /**
- * The persistent class for the SCHLAGWÖRTER database table.
- * 
+ * Classe fÃ¼r die SchlagwÃ¶rter der Archivalien.
+ * @author junghans
+ * @version 1.0
  */
 @Entity
-@Table(name = "SCHLAGWÖRTER")
+@Table(name = "SCHLAGWï¿½RTER")
 public class Schlagwort implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,9 +23,9 @@ public class Schlagwort implements Serializable {
 	//bi-directional many-to-many association to Archivalien
 	@ManyToMany
 	@JoinTable(
-		name="\"SCHLAGWÖRTER_Archivalien\""
+		name="\"SCHLAGWï¿½RTER_Archivalien\""
 		, joinColumns={
-			@JoinColumn(name="SCHLAGWÖRTER_ID")
+			@JoinColumn(name="SCHLAGWï¿½RTER_ID")
 			}
 		, inverseJoinColumns={
 			@JoinColumn(name="ARCHIVALIEN_ID")
