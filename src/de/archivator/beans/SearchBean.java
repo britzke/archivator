@@ -6,6 +6,7 @@ package de.archivator.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,6 +26,7 @@ import de.archivator.entities.*;
  * @author e0_schulz
  * 
  */
+@ManagedBean
 public class SearchBean {
 
 	String searchText;
@@ -32,7 +34,7 @@ public class SearchBean {
 	boolean searchHelp;
 
 	public SearchBean() {
-		searchText = "";
+		searchText = "leer";
 		searchHelp = false;
 		foundArchivalien = new ArrayList<Archivale>();
 	}
