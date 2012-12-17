@@ -13,10 +13,14 @@
 		<p:inputText id="inputSearch" value="#{searchBean.searchText}"></p:inputText>
 		<p:commandButton value="Suche" actionListener="#{searchBean.search}"
 			update="inputSearch" />
-		<p:panel id="searchHelp" header="Such-Hilfe"
-			rendered="#{searchBean.searchHelp}">
-			<p:commandButton value="oder" update="inputSearch" actionListener="#{searchBean.addAndToSearchText}"/>
-			<p:commandButton value="und" update="inputSearch" actionListener="#{searchBean.addOrToSearchText}"/>
+		<p:panel id="searchHelp">
+			<p:panel header="Such-Hilfe"
+				rendered="#{searchBean.searchHelp}">
+				<p:commandButton value="oder" update="inputSearch"
+					actionListener="#{searchBean.addAndToSearchText}" />
+				<p:commandButton value="und" update="inputSearch"
+					actionListener="#{searchBean.addOrToSearchText}" />
+			</p:panel>
 		</p:panel>
 		<p:commandLink value="Suchhilfe"
 			actionListener="#{searchBean.switchSearchHelp}" update="searchHelp" />
