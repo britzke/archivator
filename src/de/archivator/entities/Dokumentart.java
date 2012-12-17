@@ -31,7 +31,7 @@ public class Dokumentart implements Serializable {
 			@JoinColumn(name="ARCHIVALIEN_ID")
 			}
 		)
-	private List<Archivale> archivaliens;
+	private List<Archivale> archivalien;
 
 	public Dokumentart() {
 	}
@@ -52,12 +52,12 @@ public class Dokumentart implements Serializable {
 		this.name = name;
 	}
 
-	public List<Archivale> getArchivaliens() {
-		return this.archivaliens;
+	public List<Archivale> getArchivalien() {
+		return this.archivalien;
 	}
 
-	public void setArchivaliens(List<Archivale> archivaliens) {
-		this.archivaliens = archivaliens;
+	public void setArchivalien(List<Archivale> archivalien) {
+		this.archivalien = archivalien;
 	}
 
 }

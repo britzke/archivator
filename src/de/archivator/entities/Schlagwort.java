@@ -11,7 +11,7 @@ import java.util.List;
  * @version 1.0
  */
 @Entity
-@Table(name = "SCHLAGW�RTER")
+@Table(name = "SCHLAGWÖRTER")
 public class Schlagwort implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,15 +23,15 @@ public class Schlagwort implements Serializable {
 	//bi-directional many-to-many association to Archivalien
 	@ManyToMany
 	@JoinTable(
-		name="\"SCHLAGW�RTER_Archivalien\""
+		name="\"SCHLAGWÖRTER_Archivalien\""
 		, joinColumns={
-			@JoinColumn(name="SCHLAGW�RTER_ID")
+			@JoinColumn(name="SCHLAGWÖRTER_ID")
 			}
 		, inverseJoinColumns={
 			@JoinColumn(name="ARCHIVALIEN_ID")
 			}
 		)
-	private List<Archivale> archivaliens;
+	private List<Archivale> archivalien;
 
 	public Schlagwort() {
 	}
@@ -52,12 +52,12 @@ public class Schlagwort implements Serializable {
 		this.name = name;
 	}
 
-	public List<Archivale> getArchivaliens() {
-		return this.archivaliens;
+	public List<Archivale> getArchivalien() {
+		return this.archivalien;
 	}
 
-	public void setArchivaliens(List<Archivale> archivaliens) {
-		this.archivaliens = archivaliens;
+	public void setArchivalien(List<Archivale> archivalien) {
+		this.archivalien = archivalien;
 	}
 
 }

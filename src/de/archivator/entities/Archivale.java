@@ -43,20 +43,20 @@ public class Archivale implements Serializable {
 	private int von;
 
 	//bi-directional many-to-many association to Namen
-	@ManyToMany(mappedBy="archivaliens")
-	private List<Name> namens;
+	@ManyToMany(mappedBy="archivalien")
+	private List<Name> namen;
 
 	//bi-directional many-to-many association to Dokumentarten
-	@ManyToMany(mappedBy="archivaliens")
-	private List<Dokumentart> dokumentartens;
+	@ManyToMany(mappedBy="archivalien")
+	private List<Dokumentart> dokumentarten;
 
 	//bi-directional many-to-many association to Organisationseinheiten
-	@ManyToMany(mappedBy="archivaliens")
-	private List<Organisationseinheit> organisationseinheitens;
+	@ManyToMany(mappedBy="archivalien")
+	private List<Organisationseinheit> organisationseinheiten;
 
 	//bi-directional many-to-many association to Schlagwörter
-	@ManyToMany(mappedBy="archivaliens")
-	private List<Schlagwort> schlagwörters;
+	@ManyToMany(mappedBy="archivalien")
+	private List<Schlagwort> schlagwörter;
 
 	public Archivale() {
 	}
@@ -133,36 +133,36 @@ public class Archivale implements Serializable {
 		this.von = von;
 	}
 
-	public List<Name> getNamens() {
-		return this.namens;
+	public List<Name> getNamen() {
+		return this.namen;
 	}
 
-	public void setNamens(List<Name> namens) {
-		this.namens = namens;
+	public void setNamen(List<Name> namen) {
+		this.namen = namen;
 	}
 
-	public List<Dokumentart> getDokumentartens() {
-		return this.dokumentartens;
+	public List<Dokumentart> getDokumentarten() {
+		return this.dokumentarten;
 	}
 
-	public void setDokumentartens(List<Dokumentart> dokumentartens) {
-		this.dokumentartens = dokumentartens;
+	public void setDokumentarten(List<Dokumentart> dokumentarten) {
+		this.dokumentarten = dokumentarten;
 	}
 
-	public List<Organisationseinheit> getOrganisationseinheitens() {
-		return this.organisationseinheitens;
+	public List<Organisationseinheit> getOrganisationseinheiten() {
+		return this.organisationseinheiten;
 	}
 
-	public void setOrganisationseinheitens(List<Organisationseinheit> organisationseinheitens) {
-		this.organisationseinheitens = organisationseinheitens;
+	public void setOrganisationseinheiten(List<Organisationseinheit> organisationseinheiten) {
+		this.organisationseinheiten = organisationseinheiten;
 	}
 
-	public List<Schlagwort> getSchlagwörters() {
-		return this.schlagwörters;
+	public List<Schlagwort> getSchlagwörter() {
+		return this.schlagwörter;
 	}
 
-	public void setSchlagwörters(List<Schlagwort> schlagwörters) {
-		this.schlagwörters = schlagwörters;
+	public void setSchlagwörter(List<Schlagwort> schlagwörter) {
+		this.schlagwörter = schlagwörter;
 	}
 
 }
