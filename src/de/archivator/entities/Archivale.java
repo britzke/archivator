@@ -1,7 +1,13 @@
-package entities;
+package de.archivator.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import de.archivator.entities.Dokumentart;
+import de.archivator.entities.Name;
+import de.archivator.entities.Organisationseinheit;
+import de.archivator.entities.Schlagwort;
+
 import java.util.List;
 
 
