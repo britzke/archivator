@@ -1,6 +1,6 @@
 package de.archivator.beans;
 
-import de.archivator.enties.Archivale;
+import de.archivator.entities.Archivale;
 
 /**
  * Stellt die Funktionen für die view detail.xhtml zur Verfügung. Die Attribute

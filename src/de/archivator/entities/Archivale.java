@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.archivator.enties;
+package de.archivator.entities;
 
 /**
  * @author e0_mmueller
