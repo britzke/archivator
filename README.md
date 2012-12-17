@@ -11,13 +11,13 @@ erstellt.
 Aufsetzen einer Entwicklungsumgebung - Eclipse
 
 1. Clonen des Repositories unter Zuhilfenahme des New Project Wizards.
-   Es muss hier ein Dynamic Web Project angelegt werden. Gleichzeitig
+   Es muss hier ein Dynamic Web Project angelegt werden.
 
 2. JSF- und JPA-Facette hinzufügen mit den jeweils aktuellen Bibliotheken
    von MyFaces (2.1.10) und EclipseLink (2.4.1)
    
 3. Einrichten eines Servlet-Containers (Servers). Als Runtime wird
-   Tomcat in der aktuellen Version empfohlen.
+   Tomcat in der aktuellen Version (zur Zeit 7.0.34) empfohlen.
    
 4. Primefaces-Bibliothek in der aktuellen Version (aktuell 3.4.2)
    zum Build-Path und zum Deployment-Assembly hinzufügen.
