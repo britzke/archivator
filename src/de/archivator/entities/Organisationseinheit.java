@@ -11,7 +11,7 @@ import java.util.List;
  * @version 1.0
  */
 @Entity
-@Table(name = "ORGANISATIONSEINHEITEN")
+@Table(name = "ORGANISATIONSEINHEITEN", schema = "ARCHIV")
 public class Organisationseinheit implements Serializable {
 	private static final long serialVersionUID = 1L;
 

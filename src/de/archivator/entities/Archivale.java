@@ -17,7 +17,7 @@ import java.util.List;
  * @version 1.0
  */
 @Entity
-@Table(name = "ARCHIVALIEN")
+@Table(name = "ARCHIVALIEN", schema = "ARCHIV")
 public class Archivale implements Serializable {
 	private static final long serialVersionUID = 1L;
 
