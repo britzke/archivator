@@ -3,13 +3,12 @@ package de.archivator.beans;
 import de.archivator.enties.Archivale;
 
 /**
- * Stellt die Funktionen für die view detail.xhtml zur Verfügung.
- * Die Attribute einer Archivale werden in der DetailBean
- * zwischengespeichert und beim Wechsel auf die Detail Seite abgerufen
- * und dargestellt.
- * Dem Redakteur steht ausserdem ein Bearbeiten-Button zur Verfügung,
- * mit diesem gelangt er auf die Bearbeitungsansicht.
- * Mit dem Zurück-Button kommt man auf die “Suche”-Seite zurück.
+ * Stellt die Funktionen für die view detail.xhtml zur Verfügung. Die Attribute
+ * einer Archivale werden in der DetailBean zwischengespeichert und beim Wechsel
+ * auf die Detail Seite abgerufen und dargestellt. Dem Redakteur steht ausserdem
+ * ein Bearbeiten-Button zur Verfügung, mit diesem gelangt er auf die
+ * Bearbeitungsansicht. Mit dem Zurück-Button kommt man auf die “Suche”-Seite
+ * zurück.
  * 
  * @author mueller,dreher
  * 
@@ -17,8 +16,7 @@ import de.archivator.enties.Archivale;
 public class DetailBean {
 
 	/**
-	 * das aktuelle Archivale,
-	 * dass der Benutzer in der Ergebnisliste angewählt
+	 * das aktuelle Archivale, dass der Benutzer in der Ergebnisliste angewählt
 	 * hat (wird über ein f:setPropertyActionListener -Tag gesetzt)
 	 */
 	private Archivale aktuellesArchivale;
@@ -59,6 +57,17 @@ public class DetailBean {
 	 * wird.
 	 */
 	public void sortBy() {
+
+	}
+
+	/**
+	 * Diese Methode dient als action-Methode und wird ausgeführt, 
+	 * wenn der Benutzer die Schaltfläche 
+	 * zur Anzeige des Dokumentes anwählt.
+	 * @return diese Methode gibt einen leeren String zurück.
+	 */
+	public String showDocument() {
+		return "";
 
 	}
 }
