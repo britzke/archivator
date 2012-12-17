@@ -11,7 +11,7 @@ import java.util.List;
  * @version 1.0
  */
 @Entity
-@Table(name = "SCHLAGWÖRTER")
+@Table(name = "SCHLAGWÖRTER", schema = "ARCHIV")
 public class Schlagwort implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -11,7 +11,7 @@ import java.util.List;
  * @version 1.0
  */
 @Entity
-@Table(name = "DOKUMENTARTEN")
+@Table(name = "DOKUMENTARTEN", schema = "ARCHIV")
 public class Dokumentart implements Serializable {
 	private static final long serialVersionUID = 1L;
 
