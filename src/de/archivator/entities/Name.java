@@ -33,7 +33,7 @@ public class Name implements Serializable {
 			@JoinColumn(name="ARCHIVALIEN_ID")
 			}
 		)
-	private List<Archivale> archivaliens;
+	private List<Archivale> archivalien;
 
 	public Name() {
 	}
@@ -62,12 +62,12 @@ public class Name implements Serializable {
 		this.vorname = vorname;
 	}
 
-	public List<Archivale> getArchivaliens() {
-		return this.archivaliens;
+	public List<Archivale> getArchivalien() {
+		return this.archivalien;
 	}
 
-	public void setArchivaliens(List<Archivale> archivaliens) {
-		this.archivaliens = archivaliens;
+	public void setArchivalien(List<Archivale> archivalien) {
+		this.archivalien = archivalien;
 	}
 
 }
