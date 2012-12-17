@@ -27,3 +27,8 @@ Aufsetzen einer Entwicklungsumgebung - Eclipse
 
 6. Derby DB Bibliothek in der aktuellen Version (aktuell 10.9.1.0)
    zum Build-Path und zum Deployment-Assembly hinzufügen.
+
+7. Compass Bibliothek zum Build-Path und zum Deployment-Assembly
+   hinzufügen.
+   (Bitte daran denken Compass14-*.jar NICHT in die Libary mit 
+   auf zu nehmen)
