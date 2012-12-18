@@ -2,6 +2,9 @@ package de.archivator.beans;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
 import de.archivator.entities.Archivale;
 
 /**
@@ -10,6 +13,10 @@ import de.archivator.entities.Archivale;
  * @author MIAHansen 
  */
 public class BearbeitungsBean {
+	/**
+	 * Ermöglicht den Zugriff auf die Datenbank
+	 */
+	@Inject EntityManager entityManager;
 	/**
 	 * Das aktuelle Archival, welches durch bearbeite() oder 
 	 * lösche() verändert wird.

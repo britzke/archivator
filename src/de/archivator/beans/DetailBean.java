@@ -1,23 +1,30 @@
 package de.archivator.beans;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
 import de.archivator.entities.Archivale;
 
 /**
- * Stellt die Funktionen für die view detail.xhtml zur Verfügung. Die Attribute
+ * Stellt die Funktionen fï¿½r die view detail.xhtml zur Verfï¿½gung. Die Attribute
  * einer Archivale werden in der DetailBean zwischengespeichert und beim Wechsel
  * auf die Detail Seite abgerufen und dargestellt. Dem Redakteur steht ausserdem
- * ein Bearbeiten-Button zur Verfügung, mit diesem gelangt er auf die
- * Bearbeitungsansicht. Mit dem Zurück-Button kommt man auf die “Suche”-Seite
- * zurück.
+ * ein Bearbeiten-Button zur Verfï¿½gung, mit diesem gelangt er auf die
+ * Bearbeitungsansicht. Mit dem Zurï¿½ck-Button kommt man auf die ï¿½Sucheï¿½-Seite
+ * zurï¿½ck.
  * 
  * @author mueller,dreher
  * 
  */
 public class DetailBean {
+	/**
+	 * ErmÃ¶glicht den Zugriff auf die Datenbank
+	 */
+	@Inject EntityManager entityManager;
 
 	/**
-	 * das aktuelle Archivale, dass der Benutzer in der Ergebnisliste angewählt
-	 * hat (wird über ein f:setPropertyActionListener -Tag gesetzt)
+	 * das aktuelle Archivale, dass der Benutzer in der Ergebnisliste angewï¿½hlt
+	 * hat (wird ï¿½ber ein f:setPropertyActionListener -Tag gesetzt)
 	 */
 	private Archivale aktuellesArchivale;
 
@@ -32,7 +39,7 @@ public class DetailBean {
 	}
 
 	/**
-	 * Ermöglicht es die Eigenschaft aktuellesArchivale zu setzen.
+	 * Ermï¿½glicht es die Eigenschaft aktuellesArchivale zu setzen.
 	 * 
 	 * @param aktuellesArchivale
 	 *            Wert der aktuellenArchivale der gesetzt werden soll.
@@ -42,8 +49,8 @@ public class DetailBean {
 	}
 
 	/**
-	 * Diese Methode wird ausgeführt, wenn der “Zurück”-Button gedrückt wurde.
-	 * Er führt von der Detail-Anzeige eines Archivales zurück zur Recherche.
+	 * Diese Methode wird ausgefï¿½hrt, wenn der ï¿½Zurï¿½ckï¿½-Button gedrï¿½ckt wurde.
+	 * Er fï¿½hrt von der Detail-Anzeige eines Archivales zurï¿½ck zur Recherche.
 	 */
 	public void back() {
 
@@ -52,7 +59,7 @@ public class DetailBean {
 	/**
 	 * Die Methode sortiert die Archivalien in der Liste nach dem angeklickten
 	 * Kriterium, nach Alphabet oder numerischer Menge. Wenn das Kriterium
-	 * nochmal angeklickt wird, wird die Liste umgedreht. Sie wird ausgeführt,
+	 * nochmal angeklickt wird, wird die Liste umgedreht. Sie wird ausgefï¿½hrt,
 	 * wenn ein Sortierungskriterium in der obersten Zeile der Liste angeklickt
 	 * wird.
 	 */
@@ -61,10 +68,10 @@ public class DetailBean {
 	}
 
 	/**
-	 * Diese Methode dient als action-Methode und wird ausgeführt, 
-	 * wenn der Benutzer die Schaltfläche 
-	 * zur Anzeige des Dokumentes anwählt.
-	 * @return diese Methode gibt einen leeren String zurück.
+	 * Diese Methode dient als action-Methode und wird ausgefï¿½hrt, 
+	 * wenn der Benutzer die Schaltflï¿½che 
+	 * zur Anzeige des Dokumentes anwï¿½hlt.
+	 * @return diese Methode gibt einen leeren String zurï¿½ck.
 	 */
 	public String showDocument() {
 		return "";

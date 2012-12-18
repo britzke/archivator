@@ -2,6 +2,10 @@ package de.archivator.beans;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+
 import de.archivator.entities.Archivale;
 
 /**
@@ -10,7 +14,12 @@ import de.archivator.entities.Archivale;
  * 
  * @author bubi
  */
+@Named
 public class RechercheBean {
+	/**
+	 * Ermöglicht den Zugriff auf die Datenbank
+	 */
+	@Inject EntityManager entityManager;
 	/**
 	 * Das Suchkriterium, dass der Benutzer in das Formular search.xhtml
 	 * eingetragen hat.
