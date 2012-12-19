@@ -1,11 +1,7 @@
-/**
- * 
- */
 package de.archivator.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -14,95 +10,65 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 /**
- * 
- */
-
-/**
- * @author e0_wiezorek
- * 
+ * @author e0_wiezorek 
  */
 @ManagedBean
 @SessionScoped
 public class LoginBean implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	String user;
-	List<String> userList;
-	String correct;
-	boolean angemeldet;
+	// TODO Das kennwort muss variabel sein und nicht im Klartext gespeichert
+	private static final String PASSWORD = "secret";
 
-	public LoginBean() {
+	private String password;
+	private boolean angemeldet;
 
-		userList = new ArrayList<String>();
-		userList.add("admin");
-		userList.add("root");
+	/**
+	 * Diese Methode wird als ActionListener der Schaltfläche “anmelden”
+	 * angesprochen. Es wird die Eigenschaft “angemeldet” auf den Wert “true”
+	 * gesetzt, wenn die Eigenschaft “password” dem konstanten Kennwort
+	 * entspricht.
+	 * 
+	 * @param actionEvent
+	 *            Wird nicht beachtet.
+	 */
+	public void login(ActionEvent actionEvent) {
 
-		correct = "";
-	}
-
-	public void anmeldung(ActionEvent actionEvent) {
-
-		for (int i = 0; i < userList.size(); i++) {
-			if (user.contentEquals(userList.get(i))) {
-				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null, new FacesMessage(
-						"Sie haben sich erfolgreich angemeldet!"));
-				correct = userList.get(i);
-				angemeldet = true;
-				// break; bricht die for ab
-				return;// bricht die ganze methode ab
-			} else {
-				correct = "";
-			}
+		if (password.contentEquals(PASSWORD)) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(
+					"Sie haben sich erfolgreich angemeldet!"));
+			angemeldet = true;
 		}
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(
-				"Falsche Angabe. Bitte erneut versuchen!"));
-		angemeldet = false;
 	}
 
-	public void abmeldung(ActionEvent actionEvent) {
-
-		if (!(correct.isEmpty())) {
-			correct = "";
+	/**
+	 * Diese Methode wird als ActionListener der Schaltfläche “abmelden”
+	 * angesprochen. Es wird die Eigenschaft “angemeldet" auf den Wert “false”
+	 * gesetzt.
+	 * 
+	 * @param actionEvent
+	 *            Wird nicht beachtet.
+	 */
+	public void logout(ActionEvent actionEvent) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(
 					"Sie haben sich erfolgreich abgemeldet!"));
 			angemeldet = false;
-		}
 	}
 
 	/**
-	 * @return the user
+	 * @return the password
 	 */
-	public String getUser() {
-		return user;
+	public String getPassword() {
+		return password;
 	}
 
 	/**
-	 * @param user
-	 *            the user to set
+	 * @param password the password to set
 	 */
-	public void setUser(String user) {
-		this.user = user;
-	}
-
-	/**
-	 * @return the correct
-	 */
-	public String getCorrect() {
-		return correct;
-	}
-
-	/**
-	 * @param correct
-	 *            the correct to set
-	 */
-	public void setCorrect(String correct) {
-		this.correct = correct;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	/**

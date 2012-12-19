@@ -1,45 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
+<h:form xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+	
+	<p:messages/>
+	
+	<p:panelGrid columns="3" title="Login-Bereich"
+		rendered="#{!loginBean.angemeldet}">
+		<h:outputLabel for="password" value="Anmeldekennwort" />
+		<p:password id="password" value="#{loginBean.password}"
+			required="true" />
+		<p:commandButton id="login" actionListener="#{loginBean.login}"
+			value="Login" update="@all" />
+	</p:panelGrid>
 
-<h:head>
-	<title>Login</title>
-</h:head>
-<h:body>
-	<h:form>
+	<p:panelGrid columns="2" rendered="#{loginBean.angemeldet}">
+		<h:outputText value="angemeldet als Redakteur" />
+		<p:commandButton id="logout" actionListener="#{loginBean.logout}"
+			value="Logout" update="@all" />
+	</p:panelGrid>
 
-		<p:panel id="panel" header="Login-Bereich" style="margin-bottom:10px;">
-			<p:messages id="messages" />
-			<h:panelGrid columns="3">
-				<h:outputLabel for="user" value="User: *" />
-				<p:inputText id="user" value="#{lb.user}" required="true"
-					label="User">
-					<f:validateLength minimum="3" />
-				</p:inputText>
-				<p:message for="user" />
-			</h:panelGrid>
-		</p:panel>
-
-		<p:commandButton id="login" update="panel,display"
-			actionListener="#{lb.anmeldung}" value="Login"
-			style="margin-right:20px;">
-		</p:commandButton>
-
-		<p:panel id="display" rendered="true" header="Login-Bereich" style="margin-top:10px;">
-			<h:panelGrid columns="2">
-				<h:outputText value="Angemeldeter User: " />
-				<h:outputText id="txt1" value="#{lb.correct}" />
-			</h:panelGrid>
-		</p:panel>
-
-		<p:commandButton id="logout" rendered="true" update="panel,display"
-			actionListener="#{lb.abmeldung}" value="Logout"
-			style="margin-right:20px;">
-		</p:commandButton>
-	</h:form>
-</h:body>
-</html>
+</h:form>
