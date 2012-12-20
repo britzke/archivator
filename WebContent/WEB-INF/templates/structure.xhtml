@@ -4,14 +4,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-<title><ui:insert name="title">archivator</ui:insert></title>
+	<h:outputStylesheet library="css" name="archivator.css" />
+	<title><ui:insert name="title">archivator</ui:insert></title>
 </h:head>
 <h:body>
 	<div id="header">
 		<ui:insert name="header">archivator</ui:insert>
 	</div>
-	<div id="div1">
-		<ui:insert name="div1">
+	
+	<div id="search">
+		<ui:insert name="search">
 			<ui:include src="/WEB-INF/templates/search.xhtml" />
 		</ui:insert>
 	</div>
