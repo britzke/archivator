@@ -25,12 +25,12 @@ import javax.persistence.EntityManager;
 import de.archivator.entities.Archivale;
 
 /**
- * Stellt die Funktionen f�r die view detail.xhtml zur Verf�gung. Die Attribute
+ * Stellt die Funktionen für die view detail.xhtml zur Verfügung. Die Attribute
  * einer Archivale werden in der DetailBean zwischengespeichert und beim Wechsel
  * auf die Detail Seite abgerufen und dargestellt. Dem Redakteur steht ausserdem
- * ein Bearbeiten-Button zur Verf�gung, mit diesem gelangt er auf die
- * Bearbeitungsansicht. Mit dem Zur�ck-Button kommt man auf die �Suche�-Seite
- * zur�ck.
+ * ein Bearbeiten-Button zur Verfügung, mit diesem gelangt er auf die
+ * Bearbeitungsansicht. Mit dem Zurück-Button kommt man auf die "Suche"-Seite
+ * zurück.
  * 
  * @author mueller,dreher
  * 
@@ -42,8 +42,8 @@ public class DetailBean {
 	@Inject EntityManager entityManager;
 
 	/**
-	 * das aktuelle Archivale, dass der Benutzer in der Ergebnisliste angew�hlt
-	 * hat (wird �ber ein f:setPropertyActionListener -Tag gesetzt)
+	 * das aktuelle Archivale, dass der Benutzer in der Ergebnisliste angewählt
+	 * hat (wird über ein f:setPropertyActionListener -Tag gesetzt)
 	 */
 	private Archivale aktuellesArchivale;
 
@@ -58,7 +58,7 @@ public class DetailBean {
 	}
 
 	/**
-	 * Erm�glicht es die Eigenschaft aktuellesArchivale zu setzen.
+	 * Ermöglicht es die Eigenschaft aktuellesArchivale zu setzen.
 	 * 
 	 * @param aktuellesArchivale
 	 *            Wert der aktuellenArchivale der gesetzt werden soll.
@@ -68,8 +68,8 @@ public class DetailBean {
 	}
 
 	/**
-	 * Diese Methode wird ausgef�hrt, wenn der �Zur�ck�-Button gedr�ckt wurde.
-	 * Er f�hrt von der Detail-Anzeige eines Archivales zur�ck zur Recherche.
+	 * Diese Methode wird ausgeführt, wenn der "Zurück"-Button gedrückt wurde.
+	 * Er führt von der Detail-Anzeige eines Archivales zurück zur Recherche.
 	 */
 	public void back() {
 
@@ -78,7 +78,7 @@ public class DetailBean {
 	/**
 	 * Die Methode sortiert die Archivalien in der Liste nach dem angeklickten
 	 * Kriterium, nach Alphabet oder numerischer Menge. Wenn das Kriterium
-	 * nochmal angeklickt wird, wird die Liste umgedreht. Sie wird ausgef�hrt,
+	 * nochmal angeklickt wird, wird die Liste umgedreht. Sie wird ausgeführt,
 	 * wenn ein Sortierungskriterium in der obersten Zeile der Liste angeklickt
 	 * wird.
 	 */
@@ -88,8 +88,8 @@ public class DetailBean {
 
 	/**
 	 * Diese Methode dient als action-Methode und wird ausgef�hrt, 
-	 * wenn der Benutzer die Schaltfl�che 
-	 * zur Anzeige des Dokumentes anw�hlt.
+	 * wenn der Benutzer die Schaltfläche 
+	 * zur Anzeige des Dokumentes anwählt.
 	 * @return diese Methode gibt einen leeren String zur�ck.
 	 */
 	public String showDocument() {
