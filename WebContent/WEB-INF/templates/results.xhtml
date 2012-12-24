@@ -4,7 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:outputLabel>Ergebnisse</h:outputLabel>
 <p:separator></p:separator>
-	<p:dataList  value="#{rechercheBean.archivalie}"  var="archivale" paginator="true" rows="5" paginatorPosition="bottom" 
+	<p:dataList  value="#{rechercheBean.archivalien}"  var="archivale" paginator="true" rows="5" paginatorPosition="bottom" 
 	 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" >
 		<p:commandLink action="detail.xhtml">
 			<f:setPropertyActionListener
