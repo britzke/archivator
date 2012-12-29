@@ -27,7 +27,6 @@ import de.archivator.entities.Name;
 import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -49,8 +48,8 @@ public class Archivale implements Serializable {
 
 	private String betreff;
 
-	@Temporal(TemporalType.DATE)
-	private Date bis;
+	private int bisJahr;
+	private int vonJahr;
 
 	@Lob
 	private byte[] datei;
@@ -61,8 +60,6 @@ public class Archivale implements Serializable {
 
 	private int schubfach;
 
-	@Temporal(TemporalType.DATE)
-	private Date von;
 
 	//bi-directional many-to-many association to Namen
 	@ManyToMany(mappedBy="archivalien")
@@ -107,12 +104,20 @@ public class Archivale implements Serializable {
 		this.betreff = betreff;
 	}
 
-	public Date getBis() {
-		return this.bis;
+	public int getVonJahr() {
+		return this.vonJahr;
 	}
 
-	public void setBis(Date bis) {
-		this.bis = bis;
+	public void setVonJahr(int vonJahr) {
+		this.vonJahr = vonJahr;
+	}
+
+	public int getBisJahr() {
+		return this.bisJahr;
+	}
+
+	public void setBisJahr(int bisJahr) {
+		this.bisJahr = bisJahr;
 	}
 
 	public byte[] getDatei() {
@@ -145,14 +150,6 @@ public class Archivale implements Serializable {
 
 	public void setSchubfach(int schubfach) {
 		this.schubfach = schubfach;
-	}
-
-	public Date getVon() {
-		return this.von;
-	}
-
-	public void setVon(Date von) {
-		this.von = von;
 	}
 
 	public List<Name> getNamen() {
