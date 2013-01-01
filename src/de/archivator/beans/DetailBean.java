@@ -2,7 +2,7 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  <name of author>
+ * Copyright (C) 2012  müller, dreher, burghard.britzke
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,7 +19,11 @@
  */
 package de.archivator.beans;
 
+import java.io.Serializable;
+
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import de.archivator.entities.Archivale;
@@ -35,17 +39,17 @@ import de.archivator.entities.Archivale;
  * @author mueller,dreher
  * 
  */
-public class DetailBean {
-	/**
-	 * Ermöglicht den Zugriff auf die Datenbank
-	 */
-	@Inject EntityManager entityManager;
-
-	/**
-	 * das aktuelle Archivale, dass der Benutzer in der Ergebnisliste angewählt
-	 * hat (wird über ein f:setPropertyActionListener -Tag gesetzt)
-	 */
+@Named(value = "detailBean")
+@SessionScoped
+public class DetailBean implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Inject
+	EntityManager entityManager;
 	private Archivale aktuellesArchivale;
+
+	public DetailBean() {
+		System.out.println("DetailBean<init>()");
+	}
 
 	/**
 	 * Antwortet mit dem Wert der Eigenschaft aktuellesArchivale.
@@ -87,10 +91,10 @@ public class DetailBean {
 	}
 
 	/**
-	 * Diese Methode dient als action-Methode und wird ausgef�hrt, 
-	 * wenn der Benutzer die Schaltfläche 
-	 * zur Anzeige des Dokumentes anwählt.
-	 * @return diese Methode gibt einen leeren String zur�ck.
+	 * Diese Methode dient als action-Methode und wird ausgeführt, wenn der
+	 * Benutzer die Schaltfläche zur Anzeige des Dokumentes anwählt.
+	 * 
+	 * @return diese Methode gibt einen leeren String zurück.
 	 */
 	public String showDocument() {
 		return "";
