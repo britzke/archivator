@@ -62,47 +62,11 @@ public class EditBean implements Serializable {
 	private String archivaleNames;
 	private String archivaleSchlagwörter;
 
+	/**
+	 * Erzeugt eine neue EditBean.
+	 */
 	public EditBean() {
-		System.out.println("EditBean::<init>()");
-		aktuellesArchivale = new Archivale();
-		aktuellesArchivale.setBetreff("Weihnachsfeier der Abteilung MIA");
-		aktuellesArchivale.setInhalt("Lorem ipsum dolor sit amet, "
-				+ "consetetur sadipscing elitr, "
-				+ "sed diam nonumy eirmod tempor invidunt "
-				+ "ut labore et dolore magna aliquyam erat, "
-				+ "sed diam voluptua. At vero eos et accusam "
-				+ "et justo duo dolores et ea rebum. "
-				+ "Stet clita kasd gubergren, no sea takimata "
-				+ "sanctus est Lorem ipsum dolor sit amet. ");
-		aktuellesArchivale.setVonJahr(1980);
-		aktuellesArchivale.setBisJahr(1983);
-		aktuellesArchivale.setMappe(15);
-		aktuellesArchivale.setSchubfach(34);
-		Name name = new Name();
-		name.setVorname("Robert");
-		name.setNachname("Beloracz");
-		aktuellesArchivale.setNamen(new ArrayList<Name>());
-		aktuellesArchivale.getNamen().add(name);
-		name = new Name();
-		name.setVorname("Sophia");
-		name.setNachname("Weigel");
-		aktuellesArchivale.getNamen().add(name);
-		organisationseinheiten= new ArrayList<Organisationseinheit>();
-		Organisationseinheit or=new Organisationseinheit();
-		or.setName("Technik");
-		organisationseinheiten.add(or);
-		or=new Organisationseinheit();
-		or.setName("Chemie-Biologie");
-		organisationseinheiten.add(or);
-		or=new Organisationseinheit();
-		or.setName("Metallographie-Werkstoffanalyse");
-		organisationseinheiten.add(or);
-		or=new Organisationseinheit();
-		or.setName("Informatik");
-		organisationseinheiten.add(or);
-
-		archivaleNames="Robert Beloracz, Sophia Weigel";
-		archivaleSchlagwörter = "Weihnachten, Weihnachtsfeier, ETA";
+		System.out.println("EditBean::<init>()");		
 	}
 
 	/**
