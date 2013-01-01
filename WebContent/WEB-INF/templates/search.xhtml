@@ -2,15 +2,27 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" id="main">
-	<p:inputText id="inputSearch" value="#{searchBean.searchText}"></p:inputText>
-	<p:commandButton value="Suche" actionListener="#{searchBean.search}"
-		update="inputSearch" />
-	<p:panel header="Such-Hilfe" rendered="#{searchBean.searchHelp}">
-		<p:commandButton value="und" update="inputSearch"
-			actionListener="#{searchBean.addAndToSearchText}" />
-		<p:commandButton value="oder" update="inputSearch"
-			actionListener="#{searchBean.addOrToSearchText}" />
+
+	<p:panelGrid columns="3">
+		<p:inputText id="inputSearch" value="#{searchBean.searchText}"></p:inputText>
+		<p:commandButton value="Suche" actionListener="#{searchBean.search}"
+			update="@form" />
+	</p:panelGrid>
+
+	<p:panel header="erweiterte Suche" toggleable="true" collapsed="true" >
+	<p:panelGrid id="extendedSearch" columns="3">
+		<p:commandButton value="Betreff" update="@form"
+			actionListener="#{searchBean.betreffClicked}" />
+		<p:commandButton value="Name" update="@form"
+			actionListener="#{searchBean.nameClicked}" />
+		<p:commandButton value="und" update="@form"
+			actionListener="#{searchBean.andClicked}" />
+		<p:commandButton value="Schlagwort" update="@form"
+			actionListener="#{searchBean.schlagwortClicked}" />
+		<p:commandButton value="Titel" update="@form"
+			actionListener="#{searchBean.titelClicked}" />
+		<p:commandButton value="oder" update="@form"
+			actionListener="#{searchBean.orClicked}" />
+	</p:panelGrid>
 	</p:panel>
-	<p:commandLink value="Suchhilfe"
-		actionListener="#{searchBean.switchSearchHelp}" update="main" />
 </h:form>
