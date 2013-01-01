@@ -21,14 +21,19 @@ Aufsetzen einer Entwicklungsumgebung - Eclipse
    
 4. Primefaces-Bibliothek in der aktuellen Version (aktuell 3.4.2)
    zum Build-Path und zum Deployment-Assembly hinzufügen.
+
+5. Primefaces-Extensions in der aktuellen Version (z. Zt. 0.6.2)
+   zum Build-Path und zum Deployment-Assembly hinzufügen.
+   Notwendig sind mindestens primefaces-extensions-0.6.2.jar
+   sowie commons-lang3-3.1.jar. 
    
-5. Weld-Bibliothek in der aktuellen Version (aktuell 1.1.10)
+6. Weld-Bibliothek in der aktuellen Version (aktuell 1.1.10)
    zum Build-Path und zum Deployment-Assembly hinzufügen.
 
-6. Derby DB Bibliothek in der aktuellen Version (aktuell 10.9.1.0)
+7. Derby DB Bibliothek in der aktuellen Version (aktuell 10.9.1.0)
    zum Build-Path und zum Deployment-Assembly hinzufügen.
 
-7. Compass Bibliothek zum Build-Path und zum Deployment-Assembly
+8. Compass Bibliothek zum Build-Path und zum Deployment-Assembly
    hinzufügen.
    (Bitte daran denken Compass14-*.jar NICHT in die Libary mit 
    auf zu nehmen)
