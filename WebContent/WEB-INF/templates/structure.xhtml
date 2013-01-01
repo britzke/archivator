@@ -2,16 +2,19 @@
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:head>
 	<h:outputStylesheet library="css" name="archivator.css" />
 	<title><ui:insert name="title">archivator</ui:insert></title>
 </h:head>
 <h:body>
+	<pe:ajaxErrorHandler />
 	<div id="header">
 		<ui:insert name="header">archivator</ui:insert>
 	</div>
-	
+
 	<div id="search">
 		<ui:insert name="search">
 			<ui:include src="/WEB-INF/templates/search.xhtml" />
@@ -23,7 +26,7 @@
 			<ui:include src="/WEB-INF/templates/login.xhtml" />
 		</ui:insert>
 	</div>
-
+	<p:messages />
 	<div id="main">
 		<ui:insert name="main">
 			<ui:include src="/WEB-INF/templates/blank.xhtml" />

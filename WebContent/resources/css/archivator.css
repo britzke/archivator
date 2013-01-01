@@ -1,4 +1,58 @@
 @CHARSET "UTF-8";
-#search {float:left}
-#login {float:right}
-#main {clear:left}
+
+#search {
+	float: left
+}
+
+#login {
+	float: right
+}
+
+#main {
+	clear: both
+}
+
+.ui-messages {clear:both;}
+
+.ui-panelgrid td {
+	border-width: 0px !important;
+}
+
+.label {
+	font-weight: bold;
+}
+
+/* details */
+
+[id$=detailGrid] {
+	width: 100%;
+}
+
+/* Grids im detailPanel haben keine border */
+[id$=detailPanel] .ui-panelgrid tr {border: 0px none;}
+
+
+[id$=detailGrid]>tbody>tr>td {
+	padding: 10px 0px;
+	vertical-align: top
+}
+[id$=leftDetailGrid],
+[id$=leftDetailGrid] .ui-scrollpanel {
+	width:100%;
+}
+
+/* linke Spalte im DetailPanel ist links-bündig mit den Tabs */
+[id$=leftDetailGrid]>tbody>tr>td {padding-left: 0px; }
+
+/* Datumsfeld linksbündig mit den anderen Feldern */
+[id$=leftDetailGrid]>tbody>tr:first-child>td {
+	padding: 0px;
+}
+[id$=leftDetailGrid]>tbody>tr:first-child>td .ui-panelgrid td:first-child{
+	padding-left:0px;
+}
+
+
+/* Ort-Panel und ggf. Bild(er) fließen an den rechten Rand */
+[id$=rightDetailGrid] {float:right;}
+[id$=rightDetailGrid]>tbody>tr:first-child>td {padding:0px;} 
