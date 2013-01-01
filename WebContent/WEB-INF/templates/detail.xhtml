@@ -1,7 +1,90 @@
 <h:form xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	<h:outputLabel value="Details zu:  "></h:outputLabel>
-	<h:outputLabel  value="#{archivale.inhalt}"></h:outputLabel>
+
+	<p:commandButton icon="ui-icon-arrowreturnthick-1-w" />
+	<p:commandButton icon="ui-icon-pencil"
+		rendered="#{loginBean.angemeldet}" action="edit" />
+	<p:commandButton icon="ui-icon-minus"
+		rendered="#{loginBean.angemeldet}" action="lösche" />
+	<p:panel id="detailPanel"
+		header="Details zu '#{detailBean.aktuellesArchivale.betreff}'">
+		<p:panelGrid id="detailGrid" columns="2">
+			<p:panelGrid id="leftDetailGrid" columns="1">
+				<p:panelGrid columns="4">
+					<h:outputText value="Datum:" styleClass="label" />
+					<h:outputText value="#{detailBean.aktuellesArchivale.vonJahr}"/>
+					<h:outputText value=" - "
+						rendered="#{not empty detailBean.aktuellesArchivale.bisJahr}" />
+					<h:outputText value="#{detailBean.aktuellesArchivale.bisJahr}"
+						rendered="#{not empty detailBean.aktuellesArchivale.bisJahr}" />
+				</p:panelGrid>
+				<h:outputText value="Thema" styleClass="label" />
+				<h:outputText value="#{detailBean.aktuellesArchivale.betreff}" />
+				<h:outputText value="Beschreibung" styleClass="label" />
+				<p:scrollPanel style="width:450px;height:100px">
+					<h:outputText value="#{detailBean.aktuellesArchivale.inhalt}" />
+				</p:scrollPanel>
+			</p:panelGrid>
+			<p:panelGrid id="rightDetailGrid" columns="1">
+				<p:panel style="float:right" header="Ort">
+					<p:panelGrid columns="2">
+						<h:outputText value="Schubfach:" styleClass="label" />
+						<h:outputText value="#{detailBean.aktuellesArchivale.schubfach}" />
+						<h:outputText value="Mappe:" styleClass="label" />
+						<h:outputText value="#{detailBean.aktuellesArchivale.mappe}" />
+					</p:panelGrid>
+				</p:panel>
+				<p:graphicImage value="#{detailBean.aktuellesArchivale.datei}" />
+			</p:panelGrid>
+		</p:panelGrid>
+		<p:tabView>
+			<p:tab title="Personen">
+				<p:commandButton icon="ui-icon-pencil"
+					rendered="#{loginBean.angemeldet}" />
+				<p:dataTable value="#{detailBean.aktuellesArchivale.namen}"
+					var="namen">
+					<p:column headerText="Vor- und Nachname">
+						<h:outputText value="#{namen.vorname} #{namen.nachname}"></h:outputText>
+					</p:column>
+					<p:column rendered="#{loginBean.angemeldet}">
+						<p:button icon="ui-icon-minus" />
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+			<p:tab title="Organisationseinheiten">
+				<p:commandButton icon="ui-icon-pencil"
+					rendered="#{loginBean.angemeldet}" />
+				<p:dataTable
+					value="#{detailBean.aktuellesArchivale.organisationseinheiten}"
+					var="oe">
+					<p:column headerText="Schulen bzw. Abteilungen">
+						<h:outputText value="#{oe.name}"></h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+			<p:tab title="Dokumentarten">
+				<p:commandButton icon="ui-icon-pencil"
+					rendered="#{loginBean.angemeldet}" />
+				<p:dataTable value="#{detailBean.aktuellesArchivale.dokumentarten}"
+					var="da">
+					<p:column headerText="Dokumentarten">
+						<h:outputText value="#{da.name}"></h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+			<p:tab title="Schlagworte">
+				<p:commandButton icon="ui-icon-pencil"
+					rendered="#{loginBean.angemeldet}" />
+				<p:dataTable value="#{detailBean.aktuellesArchivale.schlagwörter}"
+					var="schlagworte">
+					<p:column headerText="Schlagworte">
+						<h:outputText value="#{schlagworte.name}"></h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+		</p:tabView>
+	</p:panel>
 </h:form>
