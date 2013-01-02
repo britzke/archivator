@@ -20,11 +20,18 @@
 package de.archivator.tests;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+import java.lang.reflect.Field;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import de.archivator.beans.EditBean;
+import de.archivator.entities.Archivale;
 
 /**
  * Testet die EditBean.
@@ -33,6 +40,9 @@ import de.archivator.beans.EditBean;
 public class EditBeanTest {
 
 	private EditBean proband;
+	private EntityManager entityManager;
+	private EntityTransaction entityTransaction;
+	private Archivale aktuellesArchivale;
 
 	/**
 	 * @throws java.lang.Exception
@@ -40,6 +50,19 @@ public class EditBeanTest {
 	@Before
 	public void setUp() throws Exception {
 		proband = new EditBean();
+		entityManager =  mock(EntityManager.class);
+		entityTransaction = mock(EntityTransaction.class);
+		when(entityManager.getTransaction()).thenReturn(entityTransaction);
+		aktuellesArchivale = mock(Archivale.class);
+		
+		// entityManager muss manuell injiziert werden
+		Field f= proband.getClass().getDeclaredField("entityManager");
+		f.setAccessible(true);
+		f.set(proband, entityManager);
+		// aktuellesArchivale muss manuell injiziert werden
+		f=proband.getClass().getDeclaredField("aktuellesArchivale");
+		f.setAccessible(true);
+		f.set(proband, aktuellesArchivale);
 	}
 
 	/**
@@ -47,7 +70,12 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testLösche() {
-		fail("Not yet implemented");
+		String navigation = proband.lösche();
+		assertEquals("lösche() muss auf die Index-Seite navigieren", "index", navigation);
+		verify(entityManager).getTransaction();
+		verify(entityTransaction).begin();
+		verify(entityManager).remove(aktuellesArchivale);
+		verify(entityTransaction).commit();
 	}
 
 	/**

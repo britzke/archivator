@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Name;
@@ -65,7 +66,7 @@ public class EditBean implements Serializable {
 	 * Erzeugt eine neue EditBean.
 	 */
 	public EditBean() {
-		System.out.println("EditBean::<init>()");		
+		//System.out.println("EditBean::<init>()");		
 	}
 
 	/**
@@ -194,7 +195,11 @@ public class EditBean implements Serializable {
 	 * Löscht das aktuelle Archivale aus der Datenbank.
 	 */
 	public String lösche() {
-		System.out.println("EditBean::lösche()...");
+		//System.out.println("EditBean::lösche()...");
+		EntityTransaction entityTransaction =entityManager.getTransaction();
+		entityTransaction.begin();
+		entityManager.remove(aktuellesArchivale);
+		entityTransaction.commit();
 		return "index";
 	}
 
