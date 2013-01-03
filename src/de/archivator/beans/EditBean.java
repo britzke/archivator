@@ -20,6 +20,7 @@
 package de.archivator.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -67,6 +68,35 @@ public class EditBean implements Serializable {
 	 */
 	public EditBean() {
 		//System.out.println("EditBean::<init>()");		
+		aktuellesArchivale = new Archivale();
+		aktuellesArchivale.setVonJahr(1980);
+		aktuellesArchivale.setBisJahr(1983);
+		aktuellesArchivale.setBetreff("Weihnachtsfeier MIA 80er");
+		aktuellesArchivale
+				.setInhalt("Lorem ipsum dolor sit amet, " +
+						"consectetur adipisicing elit, " +
+						"sed do eiusmod tempor incididunt ut labore " +
+						"et dolore magna aliqua. Ut enim ad minim veniam, " +
+						"quis nostrud exercitation ullamco laboris " +
+						"nisi ut aliquip ex ea commodo consequat. " +
+						"Duis aute irure dolor in reprehenderit " +
+						"in voluptate velit esse cillum dolore eu " +
+						"fugiat nulla pariatur. Excepteur sint occaecat " +
+						"cupidatat non proident, sunt in culpa qui " +
+						"officia deserunt mollit anim id est laborum.");
+		aktuellesArchivale.setMappe(15);
+		aktuellesArchivale.setSchubfach(35);
+		Name name = new Name();
+		name.setNachname("Beloracz");
+		name.setVorname("Robert");
+		ArrayList<Name> namen = new ArrayList<Name>();
+		namen.add(name);
+		name = new Name();
+		name.setNachname("Sophia");
+		name.setVorname("Weigel");
+		namen.add(name);
+		
+		aktuellesArchivale.setNamen(namen);
 	}
 
 	/**
@@ -207,7 +237,13 @@ public class EditBean implements Serializable {
 	 * Speichert das aktuelle Archivale in die Datenbank.
 	 */
 	public String speichere() {
-		System.out.println("EditBean::speichere()...");
+		//System.out.println("EditBean::speichere()...");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		if (aktuellesArchivale.getId() == 0) {
+			entityManager.persist(aktuellesArchivale);
+		}
+		entityTransaction.commit();
 		return "detail";
 	}
 

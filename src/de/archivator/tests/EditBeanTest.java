@@ -35,7 +35,7 @@ import de.archivator.entities.Archivale;
 
 /**
  * Testet die EditBean.
- * @author bubi
+ * @author burghard.britzke
  */
 public class EditBeanTest {
 
@@ -54,6 +54,7 @@ public class EditBeanTest {
 		entityTransaction = mock(EntityTransaction.class);
 		when(entityManager.getTransaction()).thenReturn(entityTransaction);
 		aktuellesArchivale = mock(Archivale.class);
+
 		
 		// entityManager muss manuell injiziert werden
 		Field f= proband.getClass().getDeclaredField("entityManager");
@@ -82,8 +83,29 @@ public class EditBeanTest {
 	 * Test method for {@link de.archivator.beans.EditBean#speichere()}.
 	 */
 	@Test
-	public void testSpeichere() {
-		fail("Not yet implemented");
+	public void testSpeichereNeuesArchivale() {
+		when(aktuellesArchivale.getId()).thenReturn(0); // mock new Archivale
+		String navigation = proband.speichere();
+		assertEquals("lösche() muss auf die Detailseite navigieren", "detail", navigation);
+		verify(entityManager).getTransaction();
+		verify(entityTransaction).begin();
+		verify(aktuellesArchivale).getId();
+		verify(entityManager).persist(aktuellesArchivale);
+		verify(entityTransaction).commit();
+	}
+	/**
+	 * Test method for {@link de.archivator.beans.EditBean#speichere()}.
+	 */
+	@Test
+	public void testSpeichereAltesArchivale() {
+		when(aktuellesArchivale.getId()).thenReturn(1); // mock db-existend Archivale
+		String navigation = proband.speichere();
+		assertEquals("lösche() muss auf die Detailseite navigieren", "detail", navigation);
+		verify(entityManager).getTransaction();
+		verify(entityTransaction).begin();
+		verify(aktuellesArchivale).getId();
+		verify(entityManager,never()).persist(aktuellesArchivale);
+		verify(entityTransaction).commit();
 	}
 
 	/**
