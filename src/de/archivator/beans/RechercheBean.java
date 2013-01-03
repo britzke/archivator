@@ -19,11 +19,24 @@
  */
 package de.archivator.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import org.compass.core.Compass;
+import org.compass.core.CompassHits;
+import org.compass.core.CompassSession;
+import org.compass.core.config.CompassConfiguration;
+import org.compass.gps.CompassGps;
+import org.compass.gps.CompassGpsDevice;
+import org.compass.gps.device.jpa.JpaGpsDevice;
+import org.compass.gps.impl.SingleCompassGps;
 
 import de.archivator.entities.Archivale;
 
@@ -38,7 +51,8 @@ public class RechercheBean {
 	/**
 	 * Ermöglicht den Zugriff auf die Datenbank
 	 */
-	@Inject EntityManager entityManager;
+	@Inject
+	EntityManager entityManager;
 	/**
 	 * Das Suchkriterium, dass der Benutzer in das Formular search.xhtml
 	 * eingetragen hat.
@@ -51,6 +65,13 @@ public class RechercheBean {
 	private List<Archivale> archivalien;
 
 	/**
+	 * Erzeugt eine neue RechercheBean. Initialisiert die Liste der Archivalien.
+	 */
+	public RechercheBean() {
+		archivalien = new ArrayList<Archivale>();
+	}
+
+	/**
 	 * @return the suchKriterium
 	 */
 	public String getSuchKriterium() {
@@ -58,7 +79,8 @@ public class RechercheBean {
 	}
 
 	/**
-	 * @param suchKriterium the suchKriterium to set
+	 * @param suchKriterium
+	 *            the suchKriterium to set
 	 */
 	public void setSuchKriterium(String suchKriterium) {
 		this.suchKriterium = suchKriterium;
@@ -72,20 +94,75 @@ public class RechercheBean {
 	}
 
 	/**
-	 * @param archivalien the archivalien to set
+	 * @param archivalien
+	 *            the archivalien to set
 	 */
 	public void setArchivalien(List<Archivale> archivalien) {
 		this.archivalien = archivalien;
 	}
 
+	@SuppressWarnings("unchecked")
+	private <T> List<T> getDatalist(Class<T> c, EntityManager em) {
+		List<T> list = new ArrayList<T>();
+		try {
+			String[] klasse_arr = c.getName().split("\\.");
+			String klasse;
+			if (klasse_arr.length != 0) {
+				klasse = klasse_arr[klasse_arr.length - 1];
+			} else {
+				klasse = c.getName();
+			}
+
+			Query q = em.createQuery("select n from " + klasse + " n");
+			list = q.getResultList();
+			for (T t : list) {
+				em.refresh(t);
+			}
+		} catch (Exception e) {
+			em.close();
+			e.printStackTrace();
+			return list;
+		}
+		em.close();
+		return list;
+	}
+
 	/**
 	 * Sucht nach den Archivalien, die durch die Eigenschaft "suchKriterium"
-	 * beschrieben werden.
+	 * beschrieben werden und speichert sie in die Liste "archivalien".
 	 * 
-	 * @return "" konstant.
+	 * @return "index" konstant.
 	 */
 	public String search() {
-		return "";
+		EntityManagerFactory emf = Persistence
+				.createEntityManagerFactory("archivator");
+		CompassConfiguration conf = new CompassConfiguration().configure()
+				.addClass(Archivale.class);
+		Compass compass = conf.buildCompass();
+
+		// A request scope operation
+		CompassSession session = compass.openSession();
+		CompassGps gps = new SingleCompassGps(compass);
+		CompassGpsDevice jpaDevice = new JpaGpsDevice("jpa", emf);
+		gps.addGpsDevice(jpaDevice);
+		gps.start();
+		gps.index();
+
+		try {
+			List<Archivale> l = this.getDatalist(Archivale.class,
+					emf.createEntityManager());
+
+			for (int i = 0; i < l.size(); i++) {
+				session.save(l.get(i));
+			}
+			CompassHits hits = session.find(suchKriterium);
+			for (int i = 0; i < hits.getLength(); i++) {
+				archivalien.add((Archivale) hits.data(i));
+			}
+		} finally {
+			session.close();
+		}
+		return "index";
 	}
 
 	/**
@@ -95,7 +172,7 @@ public class RechercheBean {
 	 * vorangestellt.
 	 */
 	public void betreffClicked() {
-
+		
 	}
 
 	/**
@@ -104,7 +181,7 @@ public class RechercheBean {
 	 * im suchKriterium, so wird der text " and " vorangestellt.
 	 */
 	public void nameClicked() {
-
+		
 	}
 
 	/**
@@ -114,7 +191,7 @@ public class RechercheBean {
 	 * vorangestellt.
 	 */
 	public void schlagwortClicked() {
-
+		
 	}
 
 	/**
@@ -124,7 +201,7 @@ public class RechercheBean {
 	 * vorangestellt.
 	 */
 	public void titelClicked() {
-
+		
 	}
 
 	/**
@@ -132,15 +209,14 @@ public class RechercheBean {
 	 * "[schlagwort] = " wird in die Eigenschaft suchKriterium gespeichert.
 	 */
 	public void andClicked() {
-
+		
 	}
 
 	/**
-	 * ActionListener-Methode für die Schaltfläche "or". Der Text
-	 * " or " wird in die Eigenschaft suchKriterium gespeichert.
+	 * ActionListener-Methode für die Schaltfläche "or". Der Text " or " wird in
+	 * die Eigenschaft suchKriterium gespeichert.
 	 */
 	public void orClicked() {
-
+		
 	}
-
 }

@@ -4,25 +4,25 @@
 	xmlns:p="http://primefaces.org/ui" id="main">
 
 	<p:panelGrid columns="3">
-		<p:inputText id="inputSearch" value="#{searchBean.searchText}"></p:inputText>
-		<p:commandButton value="Suche" actionListener="#{searchBean.search}"
+		<p:inputText id="inputSearch" value="#{rechercheBean.suchKriterium}"></p:inputText>
+		<p:commandButton value="Suche" action="#{rechercheBean.search}"
 			update="@form" />
 	</p:panelGrid>
 
 	<p:panel header="erweiterte Suche" toggleable="true" collapsed="true" >
 	<p:panelGrid id="extendedSearch" columns="3">
 		<p:commandButton value="Betreff" update="@form"
-			actionListener="#{searchBean.betreffClicked}" />
+			actionListener="#{rechercheBean.betreffClicked}" />
 		<p:commandButton value="Name" update="@form"
-			actionListener="#{searchBean.nameClicked}" />
+			actionListener="#{rechercheBean.nameClicked}" />
 		<p:commandButton value="und" update="@form"
-			actionListener="#{searchBean.andClicked}" />
+			actionListener="#{rechercheBean.andClicked}" />
 		<p:commandButton value="Schlagwort" update="@form"
-			actionListener="#{searchBean.schlagwortClicked}" />
+			actionListener="#{rechercheBean.schlagwortClicked}" />
 		<p:commandButton value="Titel" update="@form"
-			actionListener="#{searchBean.titelClicked}" />
+			actionListener="#{rechercheBean.titelClicked}" />
 		<p:commandButton value="oder" update="@form"
-			actionListener="#{searchBean.orClicked}" />
+			actionListener="#{rechercheBean.orClicked}" />
 	</p:panelGrid>
 	</p:panel>
 </h:form>
