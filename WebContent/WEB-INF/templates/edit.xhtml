@@ -16,13 +16,14 @@
 			oncomplete="anmeldungNotwendigDialog.hide()" />
 	</p:confirmDialog>
 
-	<p:commandButton id="zurück" icon="ui-icon-arrowreturnthick-1-w"
+	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
 		action="index">
-		<p:tooltip for="zurück" value="zurück zur Recherche"></p:tooltip>
+		<pe:tooltip for="zurückButton"
+			value="zurück zur Detailansicht (ohne Speichern)" />
 	</p:commandButton>
 	<p:commandButton id="löschButton" icon="ui-icon-minus"
 		rendered="#{loginBean.angemeldet}" oncomplete="löschDialog.show()">
-		<p:tooltip for="löschButton" value="lösche das aktuelle Archivale" />
+		<pe:tooltip for="löschButton" value="Löschen des aktuellen Archivales" />
 	</p:commandButton>
 	<p:confirmDialog widgetVar="löschDialog"
 		header="Bestätigung zum Löschen"
@@ -34,8 +35,8 @@
 	<p:commandButton id="speicherButton" icon="ui-icon-check"
 		rendered="#{loginBean.angemeldet}" action="editBean.speichere"
 		update="@form">
-		<p:tooltip for="speicherButton"
-			value="speichert das aktuelle Archivale" />
+		<pe:tooltip for="speicherButton"
+			value="Speichern des aktuellen Archivales" />
 	</p:commandButton>
 	<p:panel id="detailPanel" rendered="#{loginBean.angemeldet}"
 		header="Datenerfassung: '#{editBean.aktuellesArchivale.betreff}'">
@@ -72,8 +73,11 @@
 		</p:panelGrid>
 		<p:tabView rendered="#{loginBean.angemeldet}">
 			<p:tab title="Personen">
-				<p:commandButton icon="ui-icon-pencil"
-					action="#{editBean.loadNamen}" oncomplete="editNamenDialog.show()" />
+				<p:commandButton id="editNamenButton" icon="ui-icon-pencil"
+					action="#{editBean.loadNamen}" oncomplete="editNamenDialog.show()">
+					<pe:tooltip for="editNamenButton"
+						value="Bearbeiten der zugeordneten Namen" />
+				</p:commandButton>
 				<p:dataTable value="#{editBean.aktuellesArchivale.namen}"
 					var="namen">
 					<p:column headerText="Vor- und Nachname">
@@ -85,9 +89,12 @@
 				</p:dataTable>
 			</p:tab>
 			<p:tab title="Organisationseinheiten">
-				<p:commandButton icon="ui-icon-pencil"
+				<p:commandButton id="editOrganisationseinheitenButton" icon="ui-icon-pencil"
 					action="#{editBean.loadOrganisationseinheiten}"
-					oncomplete="editOrganisationseinheitenDialog.show()" />
+					oncomplete="editOrganisationseinheitenDialog.show()">
+					<pe:tooltip for="editOrganisationseinheitenButton"
+						value="Bearbeiten der zugeordneten Organisationseinheiten" />
+				</p:commandButton>
 				<p:dataTable
 					value="#{editBean.aktuellesArchivale.organisationseinheiten}"
 					var="oe">
@@ -105,9 +112,11 @@
 				</p:dataTable>
 			</p:tab>
 			<p:tab title="Schlagworte">
-				<p:commandButton icon="ui-icon-pencil"
+				<p:commandButton id="editSchlagwörterButton" icon="ui-icon-pencil"
 					action="#{editBean.loadSchlagworte}"
-					oncomplete="editSchlagworteDialog.show()" />
+					oncomplete="editSchlagworteDialog.show()" >
+					<pe:tooltip for="editSchlagwörterButton" value="Bearbeiten der zugeordneten Schlagwörter"/>
+					</p:commandButton>
 				<p:dataTable value="#{editBean.aktuellesArchivale.schlagwörter}"
 					var="schlagworte">
 					<p:column headerText="Schlagworte">

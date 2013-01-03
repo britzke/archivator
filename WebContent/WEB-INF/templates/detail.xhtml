@@ -2,13 +2,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<p:commandButton icon="ui-icon-arrowreturnthick-1-w" />
-	<p:commandButton icon="ui-icon-pencil"
-		rendered="#{loginBean.angemeldet}" action="edit" />
-	<p:commandButton icon="ui-icon-minus"
-		rendered="#{loginBean.angemeldet}" action="lösche" />
+	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w" >
+		<pe:tooltip for="zurückButton" value="zurück zum Rechercheergebnis"/>
+	</p:commandButton>
+	<p:commandButton id="editButton" icon="ui-icon-pencil"
+		rendered="#{loginBean.angemeldet}" action="edit" >
+		<pe:tooltip for="editButton" value="Bearbeiten des Archivales"/>
+		</p:commandButton>
+	<p:commandButton id="löscheButton" icon="ui-icon-minus"
+		rendered="#{loginBean.angemeldet}" action="lösche" >
+		<pe:tooltip for="löscheButton" value="Löschen des Archivales"/>
+		</p:commandButton>
 	<p:panel id="detailPanel"
 		header="Details zu '#{detailBean.aktuellesArchivale.betreff}'">
 		<p:panelGrid id="detailGrid" columns="2">
