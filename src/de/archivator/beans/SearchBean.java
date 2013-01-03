@@ -42,12 +42,13 @@ import de.archivator.entities.*;
  * @author e0_schulz
  * 
  */
+@Deprecated
 @ManagedBean
 public class SearchBean {
 
-	String searchText;
-	List<Archivale> foundArchivalien;
-	boolean searchHelp;
+	private String searchText;
+	private List<Archivale> foundArchivalien;
+	private boolean searchHelp;
 
 	public SearchBean() {
 		searchText = "leer";
