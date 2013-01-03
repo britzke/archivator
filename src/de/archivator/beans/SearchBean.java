@@ -83,7 +83,7 @@ public class SearchBean {
 
 	public void search(ActionEvent actionEvent) {
 		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("Archivator_main");
+				.createEntityManagerFactory("archivator");
 		CompassConfiguration conf = new CompassConfiguration().configure()
 				.addClass(Archivale.class);
 		Compass compass = conf.buildCompass();
