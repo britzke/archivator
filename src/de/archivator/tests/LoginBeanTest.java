@@ -2,7 +2,7 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  <name of author>
+ * Copyright (C) 2012  e0_hansen, burghard.britzke
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -38,37 +38,7 @@ public class LoginBeanTest {
 	public void setUp() throws Exception {
 	}
 
-	/**
-	 * Test method for {@link de.archivator.beans.LoginBean#getKennwort()}.
-	 */
-	@Test
-	public void testGetKennwort() {
-		
-	}
 
-	/**
-	 * Test method for {@link de.archivator.beans.LoginBean#setKennwort(java.lang.String)}.
-	 */
-	@Test
-	public void testSetKennwort() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for {@link de.archivator.beans.LoginBean#isAngemeldet()}.
-	 */
-	@Test
-	public void testIsAngemeldet() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for {@link de.archivator.beans.LoginBean#setAngemeldet(boolean)}.
-	 */
-	@Test
-	public void testSetAngemeldet() {
-		fail("Not yet implemented"); // TODO
-	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.LoginBean#login()}.
@@ -85,5 +55,4 @@ public class LoginBeanTest {
 	public void testLogout() {
 		fail("Not yet implemented"); // TODO
 	}
-
 }
