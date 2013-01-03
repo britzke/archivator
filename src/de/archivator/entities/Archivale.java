@@ -36,7 +36,7 @@ import java.util.List;
  * @version 1.0
  */
 @Entity
-@Table(name = "ARCHIVALIEN", schema = "ARCHIV")
+@Table(name = "ARCHIVALIEN", schema = "ARCHIVATOR")
 public class Archivale implements Serializable {
 	private static final long serialVersionUID = 1L;
 

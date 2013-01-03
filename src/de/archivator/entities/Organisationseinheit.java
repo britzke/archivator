@@ -30,7 +30,7 @@ import java.util.List;
  * @version 1.0
  */
 @Entity
-@Table(name = "ORGANISATIONSEINHEITEN", schema = "ARCHIV")
+@Table(name = "ORGANISATIONSEINHEITEN", schema = "ARCHIVATOR")
 public class Organisationseinheit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class Organisationseinheit implements Serializable {
 			}
 		, inverseJoinColumns={
 			@JoinColumn(name="ARCHIVALIEN_ID")
-			}
+			}, schema = "ARCHIVATOR"
 		)
 	private List<Archivale> archivalien;
 

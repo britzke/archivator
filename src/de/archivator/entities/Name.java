@@ -30,7 +30,7 @@ import java.util.List;
  * @version 1.0
  */
 @Entity
-@Table(name = "NAMEN", schema = "ARCHIV")
+@Table(name = "NAMEN", schema = "ARCHIVATOR")
 public class Name implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -44,13 +44,13 @@ public class Name implements Serializable {
 	//bi-directional many-to-many association to Archivalien
 	@ManyToMany
 	@JoinTable(
-		name="ARCHIVALIENNAMEN"
+		name="ARCHIVALIEN_NAMEN"
 		, joinColumns={
 			@JoinColumn(name="NAMEN_ID")
 			}
 		, inverseJoinColumns={
 			@JoinColumn(name="ARCHIVALIEN_ID")
-			}
+			}, schema = "ARCHIVATOR"
 		)
 	private List<Archivale> archivalien;
 
