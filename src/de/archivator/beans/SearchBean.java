@@ -39,8 +39,11 @@ import org.compass.gps.impl.SingleCompassGps;
 import de.archivator.entities.*;
 
 /**
+ * Diese Klasse ist veraltet und sollte nicht mehr benutzt werden.
+ * Anstatt dessen kann die Klasse RechercheBean benutzt werden.
  * @author e0_schulz
- * 
+ * @see RechercheBean
+ * @deprecated Bitte anstatt dessen die {@link RechercheBean} benutzen. 
  */
 @Deprecated
 @ManagedBean
