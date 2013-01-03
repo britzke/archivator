@@ -3,27 +3,33 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<pe:ajaxErrorHandler />
 	<p:commandButton id="neuButton" icon="ui-icon-plus"
 		rendered="#{loginBean.angemeldet}">
 		<pe:tooltip for="neuButton" value="neues Archivale erfassen" />
 	</p:commandButton>
-	<p:separator/>
+	<p:separator />
 
-	<h:outputLabel>Ergebnisse</h:outputLabel>
-	<p:dataList value="#{rechercheBean.archivalien}" var="archivale"
-		paginator="true" rows="5" paginatorPosition="bottom"
+	<p:dataList value="#{rechercheBean.archivalien}" var="archivale" 
+		paginator="true" paginatorAlwaysVisible="false" rows="5"
+		paginatorPosition="bottom"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-		<p:commandLink action="detail.xhtml">
-			<f:setPropertyActionListener
-				target="#{detailBean.aktuellesArchivale}" value="#{archivale}" />		
-		#{archivale.betreff}
-		</p:commandLink>
-
+		<f:facet name="header">Ergebnisse</f:facet>
 		<p>
+			<p:commandLink id="detailLink" action="detail">
+				<f:setPropertyActionListener
+					target="#{detailBean.aktuellesArchivale}" value="#{archivale}" />
+				#{archivale.betreff}
+				<pe:tooltip for="detailLink" value="Detailansicht dieses Archivales"></pe:tooltip>
+			</p:commandLink>
+			<p:commandButton id="editButton" icon="ui-icon-pencil" action="edit" rendered="#{loginBean.angemeldet}">
+				<f:setPropertyActionListener
+					target="#{detailBean.aktuellesArchivale}" value="#{archivale}" />
+				<pe:tooltip for="editButton" value="Bearbeiten des Archivales"></pe:tooltip>
+			</p:commandButton>
+			<br />
 			<h:outputText value="#{archivale.inhalt}"></h:outputText>
 		</p>
-
 	</p:dataList>
-	<p:separator></p:separator>
-
 </h:form>
