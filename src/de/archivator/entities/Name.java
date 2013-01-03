@@ -44,7 +44,7 @@ public class Name implements Serializable {
 	//bi-directional many-to-many association to Archivalien
 	@ManyToMany
 	@JoinTable(
-		name="ARCHIVALIEN_NAMEN"
+		name="NAMEN_ARCHIVALIEN"
 		, joinColumns={
 			@JoinColumn(name="NAMEN_ID")
 			}
