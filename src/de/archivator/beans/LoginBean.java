@@ -29,7 +29,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 /**
- * @author e0_wiezorek 
+ * Stellt die Funktionen für die An- und Abmeldung zur Verfügung.
+ * @author e0_wiezorek
+ * @autor burghard.britzke 
  */
 @ManagedBean
 @SessionScoped
@@ -92,7 +94,7 @@ public class LoginBean implements Serializable {
 	/**
 	 * @return the angemeldet
 	 */
-	public boolean getAngemeldet() {
+	public boolean isAngemeldet() {
 		return angemeldet;
 	}
 

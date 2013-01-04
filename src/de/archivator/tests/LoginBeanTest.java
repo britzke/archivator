@@ -20,32 +20,76 @@
 package de.archivator.tests;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import static org.powermock.api.mockito.PowerMockito.*;
+
+
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UICommand;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import de.archivator.beans.LoginBean;
 
 /**
- * Task #18
+ * Testet die Funktionen der LoginBean.
+ * 
  * @author e0_hansen
- *
+ * @author burghard.britzke
+ * 
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest( { FacesContext.class })
 public class LoginBeanTest {
+
+	private LoginBean proband;
+	private FacesContext facesContext;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		proband = new LoginBean();
+		facesContext = org.mockito.Mockito.mock(FacesContext.class);
+		mockStatic(FacesContext.class);
+		org.mockito.Mockito.when(FacesContext.getCurrentInstance()).thenReturn(facesContext);
 	}
 
+	/**
+	 * Test method for {@link de.archivator.beans.LoginBean#login()}.
+	 * 
+	 * @throws Exception
+	 *             Z.B. NoSuchFieldException, wenn die Eigenschaft password
+	 *             nicht vorhanden ist.
+	 */
+	@Test
+	public void testLoginCorrect() throws Exception {
+		proband.setPassword("secret");
+				
+		proband.login(new ActionEvent(new UICommand()));
 
+		assertTrue(proband.isAngemeldet());
+		verify(facesContext).addMessage(Mockito.anyString(), (FacesMessage)Mockito.anyObject());
+	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.LoginBean#login()}.
 	 */
 	@Test
-	public void testLogin() {
-		fail("Not yet implemented"); // TODO
+	public void testLoginFail() {
+		proband.setPassword("public"); // falsches Kennwort
+		
+		proband.login(new ActionEvent(new UICommand()));
+		
+		assertFalse(proband.isAngemeldet());	
 	}
 
 	/**
@@ -53,6 +97,10 @@ public class LoginBeanTest {
 	 */
 	@Test
 	public void testLogout() {
-		fail("Not yet implemented"); // TODO
+		proband.setAngemeldet(true);
+		
+		proband.logout(new ActionEvent(new UICommand()));
+		
+		assertFalse(proband.isAngemeldet());
 	}
 }
