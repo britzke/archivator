@@ -2,7 +2,7 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  <name of author>
+ * Copyright (C) 2012  e0_wiezorek, burghard.britzke
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -52,7 +52,6 @@ public class LoginBean implements Serializable {
 	 *            Wird nicht beachtet.
 	 */
 	public void login(ActionEvent actionEvent) {
-
 		if (password.contentEquals(PASSWORD)) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(
@@ -93,7 +92,7 @@ public class LoginBean implements Serializable {
 	/**
 	 * @return the angemeldet
 	 */
-	public Boolean getAngemeldet() {
+	public boolean getAngemeldet() {
 		return angemeldet;
 	}
 
@@ -101,7 +100,7 @@ public class LoginBean implements Serializable {
 	 * @param angemeldet
 	 *            the angemeldet to set
 	 */
-	public void setAngemeldet(Boolean angemeldet) {
+	public void setAngemeldet(boolean angemeldet) {
 		this.angemeldet = angemeldet;
 	}
 }
