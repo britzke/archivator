@@ -2,7 +2,8 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  Burghard Britzke, bubi@charmides.in-berlin.de
+ * Copyright (C) 2012  burghard.britzke, bubi@charmides.in-berlin.de
+ *                     e0_schulz
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@ package de.archivator.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -44,7 +46,8 @@ import de.archivator.entities.Archivale;
  * Stellt Eigenschaften und Funktionen für den View search.xthml sowie
  * results.xhtml zur Verfügung.
  * 
- * @author bubi
+ * @author burghard.britzke
+ * @author e0_schulz
  */
 @Named
 public class RechercheBean {
@@ -69,6 +72,10 @@ public class RechercheBean {
 	 */
 	public RechercheBean() {
 		archivalien = new ArrayList<Archivale>();
+	}
+	
+	@PostConstruct
+	public void init() {		
 	}
 
 	/**
