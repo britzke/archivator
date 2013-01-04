@@ -37,3 +37,12 @@ Aufsetzen einer Entwicklungsumgebung - Eclipse
    hinzufügen.
    (Bitte daran denken Compass14-*.jar NICHT in die Libary mit 
    auf zu nehmen)
+
+9. JUnit in der aktuellen Version zum Build-Path hinzufügen (aktuell 4.11)
+   [JUnit-Projektseite](https://github.com/KentBeck/junit/wiki)
+  
+10.Mockito Bibliothek zum Build-Path in der aktuellen Version (aktuell 1.9.5)
+   hinzufügen - [Mockito-Projektseite](http://code.google.com/p/mockito/).
+
+11.PowerMock-Mockito zum Build-Path in der aktuellen Version (aktuell 1.5)
+   hinzufügen - [PowerMock-Projektseite](http://code.google.com/p/powermock/).
