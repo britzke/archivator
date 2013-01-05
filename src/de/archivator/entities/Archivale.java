@@ -28,6 +28,7 @@ import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
 import java.util.List;
+import static javax.persistence.GenerationType.IDENTITY;
 
 
 /**
@@ -41,6 +42,7 @@ public class Archivale implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	private int id;
 
 	@Column(name="ABTEILUNGEN_ID")

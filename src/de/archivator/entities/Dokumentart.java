@@ -22,6 +22,7 @@ package de.archivator.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
+import static javax.persistence.GenerationType.IDENTITY;
 
 
 /**
@@ -35,6 +36,7 @@ public class Dokumentart implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	private int id;
 
 	private String name;
