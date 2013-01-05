@@ -70,21 +70,6 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * @return the entityManager
-	 */
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	/**
-	 * @param entityManager
-	 *            the entityManager to set
-	 */
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
-
-	/**
 	 * @return the aktuellesArchivale
 	 */
 	public Archivale getAktuellesArchivale() {
