@@ -5,17 +5,21 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w" >
-		<pe:tooltip for="zurückButton" value="zurück zum Rechercheergebnis"/>
+	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
+		action="index">
+		<pe:tooltip for="zurückButton" value="zurück zum Rechercheergebnis" />
 	</p:commandButton>
 	<p:commandButton id="editButton" icon="ui-icon-pencil"
 		rendered="#{loginBean.angemeldet}" action="edit" >
 		<pe:tooltip for="editButton" value="Bearbeiten des Archivales"/>
-		</p:commandButton>
+		<f:setPropertyActionListener target="#{editBean.aktuellesArchivale}"
+			value="#{detailBean.aktuellesArchivale}" />
+
+	</p:commandButton>
 	<p:commandButton id="löscheButton" icon="ui-icon-minus"
 		rendered="#{loginBean.angemeldet}" action="lösche" >
 		<pe:tooltip for="löscheButton" value="Löschen des Archivales"/>
-		</p:commandButton>
+	</p:commandButton>
 	<p:panel id="detailPanel"
 		header="Details zu '#{detailBean.aktuellesArchivale.betreff}'">
 		<p:panelGrid id="detailGrid" columns="2">
@@ -24,9 +28,9 @@
 					<h:outputText value="Datum:" styleClass="label" />
 					<h:outputText value="#{detailBean.aktuellesArchivale.vonJahr}"/>
 					<h:outputText value=" - "
-						rendered="#{not empty detailBean.aktuellesArchivale.bisJahr}" />
+						rendered="#{detailBean.aktuellesArchivale.bisJahr != 0}" />
 					<h:outputText value="#{detailBean.aktuellesArchivale.bisJahr}"
-						rendered="#{not empty detailBean.aktuellesArchivale.bisJahr}" />
+						rendered="#{detailBean.aktuellesArchivale.bisJahr != 0}" />
 				</p:panelGrid>
 				<h:outputText value="Betreff" styleClass="label" />
 				<h:outputText value="#{detailBean.aktuellesArchivale.betreff}" />
