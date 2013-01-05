@@ -17,7 +17,7 @@
 	</p:confirmDialog>
 
 	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
-		action="index">
+		action="#{editBean.back}">
 		<pe:tooltip for="zurückButton"
 			value="zurück zur Detailansicht (ohne Speichern)" />
 	</p:commandButton>
@@ -33,7 +33,7 @@
 			action="#{editBean.lösche}" />
 	</p:confirmDialog>
 	<p:commandButton id="speicherButton" icon="ui-icon-check"
-		rendered="#{loginBean.angemeldet}" action="editBean.speichere"
+		rendered="#{loginBean.angemeldet}" action="#{editBean.speichere}"
 		update="@form">
 		<pe:tooltip for="speicherButton"
 			value="Speichern des aktuellen Archivales" />

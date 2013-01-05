@@ -35,6 +35,7 @@ import de.archivator.entities.Archivale;
 
 /**
  * Testet die EditBean.
+ * 
  * @author burghard.britzke
  */
 public class EditBeanTest {
@@ -50,20 +51,45 @@ public class EditBeanTest {
 	@Before
 	public void setUp() throws Exception {
 		proband = new EditBean();
-		entityManager =  mock(EntityManager.class);
+		entityManager = mock(EntityManager.class);
 		entityTransaction = mock(EntityTransaction.class);
 		when(entityManager.getTransaction()).thenReturn(entityTransaction);
 		aktuellesArchivale = mock(Archivale.class);
 
-		
 		// entityManager muss manuell injiziert werden
-		Field f= proband.getClass().getDeclaredField("entityManager");
+		Field f = proband.getClass().getDeclaredField("entityManager");
 		f.setAccessible(true);
 		f.set(proband, entityManager);
 		// aktuellesArchivale muss manuell injiziert werden
-		f=proband.getClass().getDeclaredField("aktuellesArchivale");
+		f = proband.getClass().getDeclaredField("aktuellesArchivale");
 		f.setAccessible(true);
 		f.set(proband, aktuellesArchivale);
+	}
+
+	/**
+	 * Test method for {@link de.archivator.beans.EditBean#back()} wenn ein
+	 * neues Archivale bearbeitet wurde.
+	 */
+	@Test
+	public void testBackNewArchivale() {
+		when(aktuellesArchivale.getId()).thenReturn(0); // mock new Archivale
+
+		String navigation = proband.back();
+
+		assertEquals("index", navigation);
+	}
+
+	/**
+	 * Test method for {@link de.archivator.beans.EditBean#back()} - wenn ein
+	 * bestehendes Archivale bearbeitet wurde.
+	 */
+	@Test
+	public void testBackOldArchivale() {
+		when(aktuellesArchivale.getId()).thenReturn(1); // mock db existing Archivale
+
+		String navigation = proband.back();
+
+		assertEquals("detail", navigation);
 	}
 
 	/**
@@ -72,7 +98,8 @@ public class EditBeanTest {
 	@Test
 	public void testLösche() {
 		String navigation = proband.lösche();
-		assertEquals("lösche() muss auf die Index-Seite navigieren", "index", navigation);
+		assertEquals("lösche() muss auf die Index-Seite navigieren", "index",
+				navigation);
 		verify(entityManager).getTransaction();
 		verify(entityTransaction).begin();
 		verify(entityManager).remove(aktuellesArchivale);
@@ -86,25 +113,29 @@ public class EditBeanTest {
 	public void testSpeichereNeuesArchivale() {
 		when(aktuellesArchivale.getId()).thenReturn(0); // mock new Archivale
 		String navigation = proband.speichere();
-		assertEquals("lösche() muss auf die Detailseite navigieren", "detail", navigation);
+		assertEquals("lösche() muss auf die Detailseite navigieren", "detail",
+				navigation);
 		verify(entityManager).getTransaction();
 		verify(entityTransaction).begin();
 		verify(aktuellesArchivale).getId();
 		verify(entityManager).persist(aktuellesArchivale);
 		verify(entityTransaction).commit();
 	}
+
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#speichere()}.
 	 */
 	@Test
 	public void testSpeichereAltesArchivale() {
-		when(aktuellesArchivale.getId()).thenReturn(1); // mock db-existend Archivale
+		when(aktuellesArchivale.getId()).thenReturn(1); // mock db-existend
+														// Archivale
 		String navigation = proband.speichere();
-		assertEquals("lösche() muss auf die Detailseite navigieren", "detail", navigation);
+		assertEquals("lösche() muss auf die Detailseite navigieren", "detail",
+				navigation);
 		verify(entityManager).getTransaction();
 		verify(entityTransaction).begin();
 		verify(aktuellesArchivale).getId();
-		verify(entityManager,never()).persist(aktuellesArchivale);
+		verify(entityManager, never()).persist(aktuellesArchivale);
 		verify(entityTransaction).commit();
 	}
 
@@ -113,7 +144,10 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testErstelle() {
-		fail("Not yet implemented");
+		String navigation = proband.erstelle();
+		assertEquals("erstelle() muss auf die edit-Seite navigieren", "edit",
+				navigation);
+		assertNotSame(aktuellesArchivale, proband.getAktuellesArchivale());
 	}
 
 	/**
@@ -133,7 +167,8 @@ public class EditBeanTest {
 	}
 
 	/**
-	 * Test method for {@link de.archivator.beans.EditBean#loadOrganisationseinheiten()}.
+	 * Test method for
+	 * {@link de.archivator.beans.EditBean#loadOrganisationseinheiten()}.
 	 */
 	@Test
 	public void testLoadOrganisationseinheiten() {
@@ -141,7 +176,8 @@ public class EditBeanTest {
 	}
 
 	/**
-	 * Test method for {@link de.archivator.beans.EditBean#saveOrganisationseinheiten()}.
+	 * Test method for
+	 * {@link de.archivator.beans.EditBean#saveOrganisationseinheiten()}.
 	 */
 	@Test
 	public void testSaveOrganisationseinheiten() {

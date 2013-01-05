@@ -20,12 +20,11 @@
 package de.archivator.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -40,8 +39,8 @@ import de.archivator.entities.Schlagwort;
  * 
  * @author MIAHansen, burghard.britzke
  */
-@ManagedBean
-@ViewScoped
+@Named
+@SessionScoped
 public class EditBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
@@ -67,36 +66,7 @@ public class EditBean implements Serializable {
 	 * Erzeugt eine neue EditBean.
 	 */
 	public EditBean() {
-		//System.out.println("EditBean::<init>()");		
-		aktuellesArchivale = new Archivale();
-		aktuellesArchivale.setVonJahr(1980);
-		aktuellesArchivale.setBisJahr(1983);
-		aktuellesArchivale.setBetreff("Weihnachtsfeier MIA 80er");
-		aktuellesArchivale
-				.setInhalt("Lorem ipsum dolor sit amet, " +
-						"consectetur adipisicing elit, " +
-						"sed do eiusmod tempor incididunt ut labore " +
-						"et dolore magna aliqua. Ut enim ad minim veniam, " +
-						"quis nostrud exercitation ullamco laboris " +
-						"nisi ut aliquip ex ea commodo consequat. " +
-						"Duis aute irure dolor in reprehenderit " +
-						"in voluptate velit esse cillum dolore eu " +
-						"fugiat nulla pariatur. Excepteur sint occaecat " +
-						"cupidatat non proident, sunt in culpa qui " +
-						"officia deserunt mollit anim id est laborum.");
-		aktuellesArchivale.setMappe(15);
-		aktuellesArchivale.setSchubfach(35);
-		Name name = new Name();
-		name.setNachname("Beloracz");
-		name.setVorname("Robert");
-		ArrayList<Name> namen = new ArrayList<Name>();
-		namen.add(name);
-		name = new Name();
-		name.setNachname("Sophia");
-		name.setVorname("Weigel");
-		namen.add(name);
-		
-		aktuellesArchivale.setNamen(namen);
+		System.out.println("EditBean::<init>()");		
 	}
 
 	/**
@@ -221,11 +191,26 @@ public class EditBean implements Serializable {
 	}
 
 	// Action-Routinen
+	
+	/**
+	 * Action-Routine für die Schaltfläche "zurück"
+	 * @return "index" wenn ein neues Archivale erfasst werden sollte.
+	 * "detail" wenn ein altes Archivale bearbeitet werden sollte.
+	 */
+	public String back() {
+		if (aktuellesArchivale.getId() == 0) {
+			return "index";
+		}
+		else
+		{
+			return "detail";
+		}
+	}
 	/**
 	 * Löscht das aktuelle Archivale aus der Datenbank.
 	 */
 	public String lösche() {
-		//System.out.println("EditBean::lösche()...");
+		System.out.println("EditBean::lösche()...");
 		EntityTransaction entityTransaction =entityManager.getTransaction();
 		entityTransaction.begin();
 		entityManager.remove(aktuellesArchivale);
@@ -237,7 +222,7 @@ public class EditBean implements Serializable {
 	 * Speichert das aktuelle Archivale in die Datenbank.
 	 */
 	public String speichere() {
-		//System.out.println("EditBean::speichere()...");
+		System.out.println("EditBean::speichere()...");
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		if (aktuellesArchivale.getId() == 0) {
@@ -251,6 +236,8 @@ public class EditBean implements Serializable {
 	 * Erstellt ein neues Archivale und initialisiert es mit den Standardwerten.
 	 */
 	public String erstelle() {
+		System.out.println("EditBean::erstelle()...");
+		aktuellesArchivale = new Archivale();
 		return "edit";
 	}
 
