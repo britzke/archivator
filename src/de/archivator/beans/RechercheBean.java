@@ -20,6 +20,7 @@
  */
 package de.archivator.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,12 +51,13 @@ import de.archivator.entities.Archivale;
  * @author e0_schulz
  */
 @Named
-public class RechercheBean {
+public class RechercheBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Ermöglicht den Zugriff auf die Datenbank
 	 */
 	@Inject
-	EntityManager entityManager;
+	private EntityManager entityManager;
 	/**
 	 * Das Suchkriterium, dass der Benutzer in das Formular search.xhtml
 	 * eingetragen hat.
