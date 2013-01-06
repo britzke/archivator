@@ -57,7 +57,7 @@ public class RechercheBean implements Serializable {
 	 * Ermöglicht den Zugriff auf die Datenbank
 	 */
 	@Inject
-	private EntityManager entityManager;
+	private EntityManagerFactory entityManagerFactory;
 	/**
 	 * Das Suchkriterium, dass der Benutzer in das Formular search.xhtml
 	 * eingetragen hat.
@@ -78,7 +78,7 @@ public class RechercheBean implements Serializable {
 	}
 	
 	@PostConstruct
-	public void init() {		
+	public void init() {
 	}
 
 	/**
