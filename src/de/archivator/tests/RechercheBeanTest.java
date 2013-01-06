@@ -34,7 +34,7 @@ import de.archivator.beans.RechercheBean;
  * @author e0_naumann
  */
 public class RechercheBeanTest {
-	
+
 	RechercheBean proband;
 
 	/**
@@ -56,6 +56,8 @@ public class RechercheBeanTest {
 	/**
 	 * Test method for
 	 * {@link de.archivator.beans.RechercheBean#betreffClicked()}.
+	 * Überprüft ob eine Änderung des Suchkriteriums vorgenommen wurde
+	 * und ob das gewünschte "[betreff] = " hinzugefügt wurde
 	 */
 	@Test
 	public void testBetreffClicked() {
@@ -65,6 +67,16 @@ public class RechercheBeanTest {
 		if (oldSuchKriterium.compareTo(newSuchKriterium) == 0) {
 			fail("Das Suchkriterium wurde nicht verändert");
 		}
+		try {
+
+			if (!newSuchKriterium.split(oldSuchKriterium)[1]
+					.contains("[betreff] = ")) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			fail("Dem suchKriterium wurde nicht \"[betreff] = \" hinzugefügt");
+		}
+
 	}
 
 	/**
