@@ -75,6 +75,7 @@ public class RechercheBeanTest {
 			}
 		} catch (Exception e) {
 			fail("Dem suchKriterium wurde nicht \"[betreff] = \" hinzugefügt");
+			System.out.println("blubb");
 		}
 
 	}
