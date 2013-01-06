@@ -19,7 +19,7 @@
 	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
 		action="#{editBean.back}">
 		<pe:tooltip for="zurückButton"
-			value="zurück zur Detailansicht (ohne Speichern)" />
+			value="zurück zur vorherigen Ansicht (ohne Speichern)" />
 	</p:commandButton>
 	<p:commandButton id="löschButton" icon="ui-icon-minus"
 		rendered="#{loginBean.angemeldet}" oncomplete="löschDialog.show()">
@@ -33,10 +33,12 @@
 			action="#{editBean.lösche}" />
 	</p:confirmDialog>
 	<p:commandButton id="speicherButton" icon="ui-icon-check"
-		rendered="#{loginBean.angemeldet}" action="#{editBean.speichere}"
-		update="@form">
+		rendered="#{loginBean.angemeldet}" action="#{editBean.speichere}">
 		<pe:tooltip for="speicherButton"
 			value="Speichern des aktuellen Archivales" />
+		<f:setPropertyActionListener target="#{detailBean.aktuellesArchivale}"
+			value="#{editBean.aktuellesArchivale}" />
+
 	</p:commandButton>
 	<p:panel id="detailPanel" rendered="#{loginBean.angemeldet}"
 		header="Datenerfassung: '#{editBean.aktuellesArchivale.betreff}'">
@@ -89,7 +91,8 @@
 				</p:dataTable>
 			</p:tab>
 			<p:tab title="Organisationseinheiten">
-				<p:commandButton id="editOrganisationseinheitenButton" icon="ui-icon-pencil"
+				<p:commandButton id="editOrganisationseinheitenButton"
+					icon="ui-icon-pencil"
 					action="#{editBean.loadOrganisationseinheiten}"
 					oncomplete="editOrganisationseinheitenDialog.show()">
 					<pe:tooltip for="editOrganisationseinheitenButton"
@@ -114,9 +117,10 @@
 			<p:tab title="Schlagworte">
 				<p:commandButton id="editSchlagwörterButton" icon="ui-icon-pencil"
 					action="#{editBean.loadSchlagworte}"
-					oncomplete="editSchlagworteDialog.show()" >
-					<pe:tooltip for="editSchlagwörterButton" value="Bearbeiten der zugeordneten Schlagwörter"/>
-					</p:commandButton>
+					oncomplete="editSchlagworteDialog.show()">
+					<pe:tooltip for="editSchlagwörterButton"
+						value="Bearbeiten der zugeordneten Schlagwörter" />
+				</p:commandButton>
 				<p:dataTable value="#{editBean.aktuellesArchivale.schlagwörter}"
 					var="schlagworte">
 					<p:column headerText="Schlagworte">
