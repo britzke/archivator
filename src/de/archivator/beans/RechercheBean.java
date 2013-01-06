@@ -74,6 +74,7 @@ public class RechercheBean implements Serializable {
 	 */
 	public RechercheBean() {
 		archivalien = new ArrayList<Archivale>();
+		suchKriterium = "";
 	}
 	
 	@PostConstruct

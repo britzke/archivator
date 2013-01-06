@@ -24,18 +24,25 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.archivator.beans.RechercheBean;
+
 /**
  * Testet die Funktionen der RechercheBean
  * 
  * @author burghard.britzke
+ * @author e0_schulz
+ * @author e0_naumann
  */
 public class RechercheBeanTest {
+	
+	RechercheBean proband;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		proband = new RechercheBean();
 	}
 
 	/**
@@ -47,11 +54,17 @@ public class RechercheBeanTest {
 	}
 
 	/**
-	 * Test method for {@link de.archivator.beans.RechercheBean#betreffClicked()}.
+	 * Test method for
+	 * {@link de.archivator.beans.RechercheBean#betreffClicked()}.
 	 */
 	@Test
 	public void testBetreffClicked() {
-		fail("Not yet implemented");
+		String oldSuchKriterium = proband.getSuchKriterium();
+		proband.betreffClicked();
+		String newSuchKriterium = proband.getSuchKriterium();
+		if (oldSuchKriterium.compareTo(newSuchKriterium) == 0) {
+			fail("Das Suchkriterium wurde nicht verändert");
+		}
 	}
 
 	/**
@@ -63,7 +76,8 @@ public class RechercheBeanTest {
 	}
 
 	/**
-	 * Test method for {@link de.archivator.beans.RechercheBean#schlagwortClicked()}.
+	 * Test method for
+	 * {@link de.archivator.beans.RechercheBean#schlagwortClicked()}.
 	 */
 	@Test
 	public void testSchlagwortClicked() {
