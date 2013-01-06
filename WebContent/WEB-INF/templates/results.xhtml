@@ -25,7 +25,7 @@
 			</p:commandLink>
 			<p:commandButton id="editButton" icon="ui-icon-pencil" action="edit" rendered="#{loginBean.angemeldet}">
 				<f:setPropertyActionListener
-					target="#{detailBean.aktuellesArchivale}" value="#{archivale}" />
+					target="#{editBean.aktuellesArchivale}" value="#{archivale}" />
 				<pe:tooltip for="editButton" value="Bearbeiten des Archivales"></pe:tooltip>
 			</p:commandButton>
 			<br />
