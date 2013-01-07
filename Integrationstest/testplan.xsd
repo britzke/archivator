@@ -46,6 +46,7 @@
 							</xs:element>
 						</xs:sequence>
 						<xs:attribute name="titel" type="xs:string" use="required" />
+						<xs:anyAttribute/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
