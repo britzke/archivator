@@ -22,9 +22,7 @@ package de.archivator.beans;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 
 import de.archivator.entities.Archivale;
 
@@ -36,15 +34,15 @@ import de.archivator.entities.Archivale;
  * Bearbeitungsansicht. Mit dem Zurück-Button kommt man auf die "Suche"-Seite
  * zurück.
  * 
- * @author mueller,dreher
+ * @author mueller
+ * @author dreher
+ * @author burghard.britzke
  * 
  */
 @Named(value = "detailBean")
 @SessionScoped
 public class DetailBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@Inject
-	EntityManager entityManager;
 	private Archivale aktuellesArchivale;
 
 	public DetailBean() {
