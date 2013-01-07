@@ -56,6 +56,7 @@ public class Archivale implements Serializable {
 	@Lob
 	private byte[] datei;
 
+	@Lob
 	private String inhalt;
 
 	private int mappe;
