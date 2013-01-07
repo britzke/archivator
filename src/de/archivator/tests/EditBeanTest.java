@@ -25,6 +25,7 @@ import static org.mockito.Mockito.*;
 import java.lang.reflect.Field;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 import org.junit.Before;
@@ -41,6 +42,7 @@ import de.archivator.entities.Archivale;
 public class EditBeanTest {
 
 	private EditBean proband;
+	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 	private EntityTransaction entityTransaction;
 	private Archivale aktuellesArchivale;
@@ -51,19 +53,18 @@ public class EditBeanTest {
 	@Before
 	public void setUp() throws Exception {
 		proband = new EditBean();
+		aktuellesArchivale = mock(Archivale.class);
+		entityManagerFactory = mock(EntityManagerFactory.class);
 		entityManager = mock(EntityManager.class);
+		when(entityManagerFactory.createEntityManager()).thenReturn(
+				entityManager);
 		entityTransaction = mock(EntityTransaction.class);
 		when(entityManager.getTransaction()).thenReturn(entityTransaction);
-		aktuellesArchivale = mock(Archivale.class);
-
+		when(entityManager.merge(aktuellesArchivale)).thenReturn(aktuellesArchivale);
 		// entityManager muss manuell injiziert werden
-		Field f = proband.getClass().getDeclaredField("entityManager");
+		Field f = proband.getClass().getDeclaredField("entityManagerFactory");
 		f.setAccessible(true);
-		f.set(proband, entityManager);
-		// aktuellesArchivale muss manuell injiziert werden
-		f = proband.getClass().getDeclaredField("aktuellesArchivale");
-		f.setAccessible(true);
-		f.set(proband, aktuellesArchivale);
+		f.set(proband, entityManagerFactory);
 	}
 
 	/**
@@ -73,6 +74,7 @@ public class EditBeanTest {
 	@Test
 	public void testBackNewArchivale() {
 		when(aktuellesArchivale.getId()).thenReturn(0); // mock new Archivale
+		proband.setAktuellesArchivale(aktuellesArchivale);
 
 		String navigation = proband.back();
 
@@ -85,7 +87,9 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testBackOldArchivale() {
-		when(aktuellesArchivale.getId()).thenReturn(1); // mock db existing Archivale
+		when(aktuellesArchivale.getId()).thenReturn(1); // mock db existing
+														// Archivale
+		proband.setAktuellesArchivale(aktuellesArchivale);
 
 		String navigation = proband.back();
 
@@ -97,11 +101,12 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testLösche() {
+		proband.setAktuellesArchivale(aktuellesArchivale);
+
 		String navigation = proband.lösche();
 		assertEquals("lösche() muss auf die Index-Seite navigieren", "index",
 				navigation);
-		verify(entityManager).getTransaction();
-		verify(entityTransaction).begin();
+		verify(entityManager,times(2)).getTransaction();
 		verify(entityManager).remove(aktuellesArchivale);
 		verify(entityTransaction).commit();
 	}
@@ -112,13 +117,12 @@ public class EditBeanTest {
 	@Test
 	public void testSpeichereNeuesArchivale() {
 		when(aktuellesArchivale.getId()).thenReturn(0); // mock new Archivale
+		proband.setAktuellesArchivale(aktuellesArchivale);
+
 		String navigation = proband.speichere();
 		assertEquals("lösche() muss auf die Detailseite navigieren", "detail",
 				navigation);
-		verify(entityManager).getTransaction();
-		verify(entityTransaction).begin();
-		verify(aktuellesArchivale).getId();
-		verify(entityManager).persist(aktuellesArchivale);
+		verify(entityManager,times(2)).getTransaction();
 		verify(entityTransaction).commit();
 	}
 
@@ -129,13 +133,12 @@ public class EditBeanTest {
 	public void testSpeichereAltesArchivale() {
 		when(aktuellesArchivale.getId()).thenReturn(1); // mock db-existend
 														// Archivale
+		proband.setAktuellesArchivale(aktuellesArchivale);
+
 		String navigation = proband.speichere();
 		assertEquals("lösche() muss auf die Detailseite navigieren", "detail",
 				navigation);
-		verify(entityManager).getTransaction();
-		verify(entityTransaction).begin();
-		verify(aktuellesArchivale).getId();
-		verify(entityManager, never()).persist(aktuellesArchivale);
+		verify(entityManager,times(2)).getTransaction();
 		verify(entityTransaction).commit();
 	}
 

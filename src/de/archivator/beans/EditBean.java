@@ -26,7 +26,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.persistence.EntityManagerFactory;
 
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Name;
@@ -47,7 +47,9 @@ public class EditBean implements Serializable {
 	 * Ermöglicht den Zugriff auf die Datenbank
 	 */
 	@Inject
-	EntityManager entityManager;
+	private transient EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
+
 	/**
 	 * Das aktuelle Archivale, welches durch speichere() oder lösche() verändert
 	 * wird.
@@ -66,7 +68,7 @@ public class EditBean implements Serializable {
 	 * Erzeugt eine neue EditBean.
 	 */
 	public EditBean() {
-		System.out.println("EditBean::<init>()");		
+		System.out.println("EditBean<init>()");
 	}
 
 	/**
@@ -81,7 +83,9 @@ public class EditBean implements Serializable {
 	 *            the aktuellesArchivale to set
 	 */
 	public void setAktuellesArchivale(Archivale aktuellesArchivale) {
-		this.aktuellesArchivale = aktuellesArchivale;
+		entityManager = entityManagerFactory.createEntityManager();
+		this.aktuellesArchivale = entityManager.merge(aktuellesArchivale);
+		entityManager.getTransaction().begin();
 	}
 
 	/**
@@ -183,6 +187,8 @@ public class EditBean implements Serializable {
 	 * "detail" wenn ein altes Archivale bearbeitet werden sollte.
 	 */
 	public String back() {
+		entityManager.getTransaction().rollback();
+		entityManager.close();
 		if (aktuellesArchivale.getId() == 0) {
 			return "index";
 		}
@@ -195,11 +201,9 @@ public class EditBean implements Serializable {
 	 * Löscht das aktuelle Archivale aus der Datenbank.
 	 */
 	public String lösche() {
-		System.out.println("EditBean::lösche()...");
-		EntityTransaction entityTransaction =entityManager.getTransaction();
-		entityTransaction.begin();
 		entityManager.remove(aktuellesArchivale);
-		entityTransaction.commit();
+		entityManager.getTransaction().commit();
+		entityManager.close();
 		return "index";
 	}
 
@@ -207,13 +211,8 @@ public class EditBean implements Serializable {
 	 * Speichert das aktuelle Archivale in die Datenbank.
 	 */
 	public String speichere() {
-		System.out.println("EditBean::speichere()...");
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		if (aktuellesArchivale.getId() == 0) {
-			entityManager.persist(aktuellesArchivale);
-		}
-		entityTransaction.commit();
+		entityManager.getTransaction().commit();
+		entityManager.close();
 		return "detail";
 	}
 
@@ -221,8 +220,9 @@ public class EditBean implements Serializable {
 	 * Erstellt ein neues Archivale und initialisiert es mit den Standardwerten.
 	 */
 	public String erstelle() {
-		System.out.println("EditBean::erstelle()...");
-		aktuellesArchivale = new Archivale();
+		entityManager = entityManagerFactory.createEntityManager();
+		aktuellesArchivale = entityManager.merge(new Archivale());
+		entityManager.getTransaction().begin();
 		return "edit";
 	}
 
