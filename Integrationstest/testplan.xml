@@ -3,12 +3,13 @@
 	xsi:schemaLocation="http://www.archivator.de/testplan testplan.xsd">
 	<testfall titel="test">
 		<vorraussetzungen>
-			<vorraussetzung></vorraussetzung>
+			<vorraussetzung>asdfasd</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
+			    asdfa sdf asdfasdf
 				<ergebnisse>
-					<ergebnis />
+					<ergebnis >lkjasödfklj</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
