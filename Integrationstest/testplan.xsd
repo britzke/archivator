@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema id="testplan" targetNamespace="http://www.archivator.de/testplan"
+	xmlns:tns="http://www.archivator.de/testplan" xmlns="http://www.archivator.de/testplan"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+	elementFormDefault="qualified" >
+	<xs:element name="testplan">
+		<xs:complexType>
+			<xs:sequence minOccurs="1" maxOccurs="unbounded">
+				<xs:element name="testfall">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="vorraussetzungen" minOccurs="1"
+								maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="vorraussetzung" minOccurs="1"
+											maxOccurs="unbounded" type="xs:string">
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="durchführung" minOccurs="1"
+								maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="schritt">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="ergebnisse" minOccurs="1"
+														maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="ergebnis" minOccurs="1"
+																	maxOccurs="unbounded">
+																	<xs:complexType>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="titel" type="xs:string" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
