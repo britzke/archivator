@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testplan xmlns="http://www.archivator.de/testplan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.archivator.de/testplan testplan.xsd">
-	<testfall titel="test">
+	<testfall titel="Dem Rechercheur die Bearbeitung verwehren">
 		<vorraussetzungen>
-			<vorraussetzung>asdfasd</vorraussetzung>
+			<vorraussetzung>Benutzer ist nicht angemeldet.</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-			    asdfa sdf asdfasdf
+				Führe eine Recherche durch, die mindesten ein Ergebnis liefert.
 				<ergebnisse>
-					<ergebnis >lkjasödfklj</ergebnis>
+					<ergebnis>
+						Liste mit Rechercheergebnissen wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Es wird keine Schaltfläche zur Bearbeitung neben den Einträgen angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ein Archivale in der Detailansicht öffnen.
+				<ergebnisse>
+					<ergebnis>Es wird keine Schaltfläche zur Bearbeitungangezeigt.</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
