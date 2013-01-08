@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="header" />
+	<composite:attribute name="icon" />
+	<composite:attribute name="message" />
+	<composite:attribute name="tooltip" />
+	<composite:attribute name="action" />
+	<composite:attribute name="rendered" />
+</composite:interface>
+
+<composite:implementation>
+	<p:commandButton id="confirmButton" icon="#{cc.attrs.icon}"
+		rendered="#{cc.attrs.rendered}" oncomplete="confirmDialog.show()">
+		<pe:tooltip for="confirmButton" value="#{cc.attrs.tooltip}" />
+	</p:commandButton>
+	<p:confirmDialog widgetVar="confirmDialog" header="#{cc.attrs.header}"
+		message="#{cc.attrs.message}">
+		<p:commandButton value="nein" oncomplete="confirmDialog.hide()" />
+		<p:commandButton value="ja" oncomplete="confirmDialog.hide()"
+			action="#{cc.attrs.action}" />
+	</p:confirmDialog>
+</composite:implementation>
+</html>

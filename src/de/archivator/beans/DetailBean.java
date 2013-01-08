@@ -22,7 +22,10 @@ package de.archivator.beans;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 import de.archivator.entities.Archivale;
 
@@ -43,6 +46,9 @@ import de.archivator.entities.Archivale;
 @SessionScoped
 public class DetailBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private transient EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
 	private Archivale aktuellesArchivale;
 
 	public DetailBean() {
@@ -97,5 +103,18 @@ public class DetailBean implements Serializable {
 	public String showDocument() {
 		return "";
 
+	}
+	/**
+	 * Löscht das aktuelle Archivale.
+	 * @return "index" Navigiert auf die Index-Seite
+	 */
+	public String lösche() {
+		entityManager = entityManagerFactory.createEntityManager();
+		this.aktuellesArchivale = entityManager.merge(aktuellesArchivale);
+		entityManager.getTransaction().begin();
+		entityManager.remove(aktuellesArchivale);
+		entityManager.getTransaction().commit();
+
+		return "index";
 	}
 }
