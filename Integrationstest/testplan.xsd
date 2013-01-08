@@ -23,10 +23,10 @@
 								maxOccurs="unbounded">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="schritt">
+										<xs:element name="schritt" maxOccurs="unbounded">
 											<xs:complexType mixed="true">
 												<xs:sequence>
-													<xs:element name="ergebnisse" minOccurs="1"
+													<xs:element name="ergebnisse" minOccurs="0"
 														maxOccurs="unbounded">
 														<xs:complexType>
 															<xs:sequence>
@@ -44,7 +44,6 @@
 							</xs:element>
 						</xs:sequence>
 						<xs:attribute name="titel" type="xs:string" use="required" />
-						<xs:anyAttribute/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
