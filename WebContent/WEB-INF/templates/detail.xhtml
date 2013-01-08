@@ -56,51 +56,7 @@
 				<p:graphicImage value="#{detailBean.aktuellesArchivale.datei}" />
 			</p:panelGrid>
 		</p:panelGrid>
-		<p:tabView>
-			<p:tab title="Personen">
-				<p:commandButton icon="ui-icon-pencil"
-					rendered="#{loginBean.angemeldet}" />
-				<p:dataTable value="#{detailBean.aktuellesArchivale.namen}"
-					var="namen">
-					<p:column headerText="Vor- und Nachname">
-						<h:outputText value="#{namen.vorname} #{namen.nachname}"></h:outputText>
-					</p:column>
-					<p:column rendered="#{loginBean.angemeldet}">
-						<p:button icon="ui-icon-minus" />
-					</p:column>
-				</p:dataTable>
-			</p:tab>
-			<p:tab title="Organisationseinheiten">
-				<p:commandButton icon="ui-icon-pencil"
-					rendered="#{loginBean.angemeldet}" />
-				<p:dataTable
-					value="#{detailBean.aktuellesArchivale.organisationseinheiten}"
-					var="oe">
-					<p:column headerText="Schulen bzw. Abteilungen">
-						<h:outputText value="#{oe.name}"></h:outputText>
-					</p:column>
-				</p:dataTable>
-			</p:tab>
-			<p:tab title="Dokumentarten">
-				<p:commandButton icon="ui-icon-pencil"
-					rendered="#{loginBean.angemeldet}" />
-				<p:dataTable value="#{detailBean.aktuellesArchivale.dokumentarten}"
-					var="da">
-					<p:column headerText="Dokumentarten">
-						<h:outputText value="#{da.name}"></h:outputText>
-					</p:column>
-				</p:dataTable>
-			</p:tab>
-			<p:tab title="Schlagworte">
-				<p:commandButton icon="ui-icon-pencil"
-					rendered="#{loginBean.angemeldet}" />
-				<p:dataTable value="#{detailBean.aktuellesArchivale.schlagwörter}"
-					var="schlagworte">
-					<p:column headerText="Schlagworte">
-						<h:outputText value="#{schlagworte.name}"></h:outputText>
-					</p:column>
-				</p:dataTable>
-			</p:tab>
-		</p:tabView>
+		<cc:archivaleChilds angemeldet="#{loginBean.angemeldet}"
+			aktuellesArchivale="#{detailBean.aktuellesArchivale}" />
 	</p:panel>
 </h:form>

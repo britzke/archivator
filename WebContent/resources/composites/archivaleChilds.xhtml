@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="angemeldet" />
+	<composite:attribute name="aktuellesArchivale" />
+</composite:interface>
+
+<composite:implementation>
+	<p:tabView>
+		<p:tab title="Personen">
+			<p:commandButton id="editNamenButton" icon="ui-icon-pencil"
+				rendered="#{cc.attrs.angemeldet}"
+				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
+				action="#{editBean.loadNamen}" oncomplete="editNamenDialog.show()">
+				<pe:tooltip for="editNamenButton"
+					value="Bearbeiten der zugeordneten Namen" />
+			</p:commandButton>
+			<p:dataTable value="#{cc.attrs.aktuellesArchivale.namen}" var="namen">
+				<p:column headerText="Vor- und Nachname">
+					<h:outputText value="#{namen.vorname} #{namen.nachname}" />
+				</p:column>
+				<p:column rendered="#{cc.attrs.angemeldet}">
+					<p:button icon="ui-icon-minus" />
+				</p:column>
+			</p:dataTable>
+		</p:tab>
+		<p:tab title="Organisationseinheiten">
+			<p:commandButton id="editOrganisationseinheitenButton"
+				rendered="#{cc.attrs.angemeldet}"
+				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
+				icon="ui-icon-pencil"
+				action="#{editBean.loadOrganisationseinheiten}"
+				oncomplete="editOrganisationseinheitenDialog.show()">
+				<pe:tooltip for="editOrganisationseinheitenButton"
+					value="Bearbeiten der zugeordneten Organisationseinheiten" />
+			</p:commandButton>
+			<p:dataTable
+				value="#{cc.attrs.aktuellesArchivale.organisationseinheiten}"
+				var="oe">
+				<p:column headerText="Schulen bzw. Abteilungen">
+					<h:outputText value="#{oe.name}"></h:outputText>
+				</p:column>
+			</p:dataTable>
+		</p:tab>
+		<p:tab title="Dokumentarten">
+			<p:dataTable value="#{cc.attrs.aktuellesArchivale.dokumentarten}"
+				var="da">
+				<p:column headerText="Dokumentarten">
+					<h:outputText value="#{da.name}"></h:outputText>
+				</p:column>
+			</p:dataTable>
+		</p:tab>
+		<p:tab title="Schlagworte">
+			<p:commandButton id="editSchlagwörterButton" icon="ui-icon-pencil"
+				rendered="#{cc.attrs.angemeldet}"
+				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
+				action="#{editBean.loadSchlagworte}"
+				oncomplete="editSchlagworteDialog.show()">
+				<pe:tooltip for="editSchlagwörterButton"
+					value="Bearbeiten der zugeordneten Schlagwörter" />
+			</p:commandButton>
+			<p:dataTable value="#{cc.attrs.aktuellesArchivale.schlagwörter}"
+				var="schlagworte">
+				<p:column headerText="Schlagworte">
+					<h:outputText value="#{schlagworte.name}"></h:outputText>
+				</p:column>
+			</p:dataTable>
+		</p:tab>
+	</p:tabView>
+	<p:dialog widgetVar="editNamenDialog" header="Namen bearbeiten"
+		width="500" modal="true">
+		<p:panelGrid columns="1">
+			<pe:tooltip for="namenTextArea" adjustX="-20" adjustY="-20"
+				value="Ordnen Sie dem Archivale Namen zu. Erfassen Sie die Namen mit
+				Vor- und Nachname. Trennen Sie mehrere Namen durch ein Komma.
+				Doppelnamen markieren Sie mit einem Bindestrich oder setzen beide
+				Namen in Anführungsstriche" />
+			<p:inputTextarea id="namenTextArea" cols="50" rows="5"
+				value="#{editBean.archivaleNames}" />
+			<p:commandButton value="ok" action="#{editBean.saveNamen}"
+				oncomplete="editNamenDialog.hide()" update="@form" />
+		</p:panelGrid>
+	</p:dialog>
+	<p:dialog widgetVar="editOrganisationseinheitenDialog"
+		header="Organisationseinheiten zuordnen" modal="true">
+		<p:panelGrid columns="1">
+			<p:dataTable value="#{editBean.organisationseinheiten}" var="oe"
+				rowKey="#{oe.id}"
+				selection="#{cc.attrs.aktuellesArchivale.organisationseinheiten}"
+				selectionMode="multiple">
+				<p:column>
+					<h:outputText value="#{oe.name}" />
+				</p:column>
+			</p:dataTable>
+			<p:commandButton value="ok"
+				action="#{editBean.saveOrganisationseinheiten}"
+				oncomplete="editOrganisationseinheitenDialog.hide()" update="@form" />
+		</p:panelGrid>
+	</p:dialog>
+	<p:dialog id="editSchlagworteDialog" widgetVar="editSchlagworteDialog"
+		header="Schlagworte bearbeiten" modal="true">
+		<p:panelGrid columns="1">
+			<pe:tooltip for="schlagwörterTextArea" adjustX="-20" adjustY="-20"
+				value="Ordnen Sie dem Archivale Schlagworte zu. Trennen Sie mehrere Schlagworte durch ein Komma" />
+			<p:inputTextarea id="schlagwörterTextArea" cols="50" rows="5"
+				value="#{editBean.archivaleSchlagwörter}" />
+			<p:commandButton value="ok" action="#{editBean.saveSchlagworte}"
+				oncomplete="editSchlagworteDialog.hide()" update="@form" />
+		</p:panelGrid>
+	</p:dialog>
+</composite:implementation>
+</html>
