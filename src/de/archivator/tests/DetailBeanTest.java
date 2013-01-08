@@ -20,9 +20,19 @@
 package de.archivator.tests;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+import java.lang.reflect.Field;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import de.archivator.beans.DetailBean;
+import de.archivator.entities.Archivale;
 
 /**
  * @author e0_mmueller
@@ -30,11 +40,32 @@ import org.junit.Test;
  */
 public class DetailBeanTest {
 
+	private DetailBean proband;
+	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
+	private EntityTransaction entityTransaction;
+	private Archivale aktuellesArchivale;
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		proband = new DetailBean();
+		aktuellesArchivale = mock(Archivale.class);
+		proband.setAktuellesArchivale(aktuellesArchivale);
+		
+		entityManagerFactory = mock(EntityManagerFactory.class);
+		Field f = DetailBean.class.getDeclaredField("entityManagerFactory");
+		f.setAccessible(true);
+		f.set(proband, entityManagerFactory);
+		
+		entityManager = mock(EntityManager.class);
+		when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
+
+		entityTransaction = mock(EntityTransaction.class);
+		when(entityManager.getTransaction()).thenReturn(entityTransaction);
+		when(entityManager.merge(aktuellesArchivale)).thenReturn(aktuellesArchivale);
 	}
 
 
@@ -46,6 +77,20 @@ public class DetailBeanTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Test method for {@link de.archivator.beans.DetailBean#lösche()}.
+	 */
+	@Test
+	public void testLösche() {
+		String navigation = proband.lösche();
+		assertEquals("lösche() muss zur Index-Seite navigieren", "index", navigation);
+		verify(entityManagerFactory).createEntityManager();
+		verify(entityManager).merge(aktuellesArchivale);
+		verify(entityTransaction).begin();
+		verify(entityManager).remove(aktuellesArchivale);
+		verify(entityTransaction).commit();
+	}
+	
 	/**
 	 * Test method for {@link de.archivator.beans.DetailBean#sortBy()}.
 	 */
