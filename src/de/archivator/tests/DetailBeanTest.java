@@ -54,6 +54,7 @@ public class DetailBeanTest {
 	 * diese und bereitet die Umgebungsobjekte auf die Tests vor.
 	 * 
 	 * @throws java.lang.Exception
+	 * @author burghard.britzke
 	 */
 	@Before
 	public void setUp() throws Exception {
