@@ -270,6 +270,7 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String saveSchlagworte() {
+		
 		return "edit";
 	}
 }

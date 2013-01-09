@@ -61,7 +61,7 @@ public class RechercheBeanTest {
 		String oldSuchKriterium = proband.getSuchKriterium();
 		proband.betreffClicked();
 		String newSuchKriterium = proband.getSuchKriterium();
-		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+		assertNotSame("Altes und neues Kriterium dürfen nicht gleich sein.",
 				oldSuchKriterium, newSuchKriterium);
 		try {
 			if ((oldSuchKriterium.isEmpty())
@@ -96,7 +96,7 @@ public class RechercheBeanTest {
 		String oldSuchKriterium = proband.getSuchKriterium();
 		proband.betreffClicked();
 		String newSuchKriterium = proband.getSuchKriterium();
-		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+		assertNotSame("Altes und neues Kriterium dürfen nicht gleich sein.",
 				oldSuchKriterium, newSuchKriterium);
 		try {
 			if ((oldSuchKriterium.isEmpty())
@@ -131,7 +131,7 @@ public class RechercheBeanTest {
 		String oldSuchKriterium = proband.getSuchKriterium();
 		proband.betreffClicked();
 		String newSuchKriterium = proband.getSuchKriterium();
-		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+		assertNotSame("Altes und neues Kriterium dürfen nicht gleich sein.",
 				oldSuchKriterium, newSuchKriterium);
 		try {
 			if ((oldSuchKriterium.isEmpty())
@@ -165,7 +165,7 @@ public class RechercheBeanTest {
 		String oldSuchKriterium = proband.getSuchKriterium();
 		proband.betreffClicked();
 		String newSuchKriterium = proband.getSuchKriterium();
-		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+		assertNotSame("Altes und neues Kriterium dürfen nicht gleich sein.",
 				oldSuchKriterium, newSuchKriterium);
 		try {
 			if ((oldSuchKriterium.isEmpty())
@@ -199,7 +199,7 @@ public class RechercheBeanTest {
 		String oldSuchKriterium = proband.getSuchKriterium();
 		proband.andClicked();
 		String newSuchKriterium = proband.getSuchKriterium();
-		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+		assertNotSame("Altes und neues Kriterium dürfen nicht gleich sein.",
 				oldSuchKriterium, newSuchKriterium);
 		try {
 
@@ -221,7 +221,7 @@ public class RechercheBeanTest {
 		String oldSuchKriterium = proband.getSuchKriterium();
 		proband.orClicked();
 		String newSuchKriterium = proband.getSuchKriterium();
-		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+		assertNotSame("Altes und neues Kriterium dürfen nicht gleich sein.",
 				oldSuchKriterium, newSuchKriterium);
 		try {
 

@@ -23,6 +23,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -33,6 +34,7 @@ import org.junit.Test;
 
 import de.archivator.beans.EditBean;
 import de.archivator.entities.Archivale;
+import de.archivator.entities.Schlagwort;
 
 /**
  * Testet die EditBean.
@@ -158,7 +160,8 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testLoadNamen() {
-		fail("Not yet implemented");
+		String navigation = proband.loadNamen();
+		assertEquals("loadNamen() muss zum Edit-View navigieren", "edit", navigation);
 	}
 
 	/**
@@ -166,7 +169,8 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testSaveNamen() {
-		fail("Not yet implemented");
+		String navigation = proband.saveNamen();
+		assertEquals("saveNamen() muss zum Edit-View navigieren", "edit", navigation);
 	}
 
 	/**
@@ -175,7 +179,8 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testLoadOrganisationseinheiten() {
-		fail("Not yet implemented");
+		String navigation = proband.loadOrganisationseinheiten();
+		assertEquals("loadOrganisationseinheiten() muss zum Edit-View navigieren", "edit", navigation);
 	}
 
 	/**
@@ -184,7 +189,8 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testSaveOrganisationseinheiten() {
-		fail("Not yet implemented");
+		String navigation = proband.saveOrganisationseinheiten();
+		assertEquals("saveOrganisationseinheiten() muss zum Edit-View navigieren", "edit", navigation);
 	}
 
 	/**
@@ -192,7 +198,8 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testLoadSchlagworte() {
-		fail("Not yet implemented");
+		String navigation = proband.loadSchlagworte();
+		assertEquals("loadSchlagworte() muss zum Edit-View navigieren", "edit", navigation);
 	}
 
 	/**
@@ -200,7 +207,16 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testSaveSchlagworte() {
-		fail("Not yet implemented");
+		List<Schlagwort> schlagwörter = mock(List.class);
+		when(aktuellesArchivale.getSchlagwörter()).thenReturn(schlagwörter);
+		String testSchlagworte = new String("Lette, Projekt, Datenbank");
+		proband.setArchivaleSchlagwörter(testSchlagworte);
+		
+		String navigation = proband.saveSchlagworte();
+		
+		assertEquals("saveSchlagworte() muss zum Edit-View navigieren", "edit", navigation);
+		List<Schlagwort> neueSchlagwörter = aktuellesArchivale.getSchlagwörter();
+		assertTrue(neueSchlagwörter.contains("Lette"));
 	}
 
 }
