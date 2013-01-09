@@ -45,9 +45,6 @@ public class RechercheBeanTest {
 		proband = new RechercheBean();
 	}
 
-	/**
-	 * Test method for {@link de.archivator.beans.RechercheBean#search()}.
-	 */
 	@Test
 	public void testSearch() {
 		fail("Not yet implemented");
@@ -55,69 +52,185 @@ public class RechercheBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.RechercheBean#betreffClicked()}.
-	 * Überprüft ob eine Änderung des Suchkriteriums vorgenommen wurde
-	 * und ob das gewünschte "[betreff] = " hinzugefügt wurde
+	 * {@link de.archivator.beans.RechercheBean#betreffClicked()}. Überprüft ob
+	 * eine Änderung des Suchkriteriums vorgenommen wurde und ob das gewünschte
+	 * "betreff = " hinzugefügt wurde
 	 */
 	@Test
 	public void testBetreffClicked() {
 		String oldSuchKriterium = proband.getSuchKriterium();
 		proband.betreffClicked();
 		String newSuchKriterium = proband.getSuchKriterium();
-		if (oldSuchKriterium.compareTo(newSuchKriterium) == 0) {
-			fail("Das Suchkriterium wurde nicht verändert");
-		}
+		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+				oldSuchKriterium, newSuchKriterium);
 		try {
-
-			if (!newSuchKriterium.split(oldSuchKriterium)[1]
-					.contains("[betreff] = ")) {
-				throw new Exception();
+			if ((oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains("betreff = "))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \"betreff = \" hinzugefügt");
+			} else if ((!oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains(" AND "))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \" AND\" hinzugefügt");
+			} else if ((!oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains(" AND betreff ="))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \" AND betreff =\" hinzugefügt");
 			}
 		} catch (Exception e) {
-			fail("Dem suchKriterium wurde nicht \"[betreff] = \" hinzugefügt");
+			fail(e.getMessage());
 		}
 
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.RechercheBean#nameClicked()}.
+	 * Überprüft ob eine Änderung des Suchkriteriums vorgenommen wurde und ob
+	 * das gewünschte "name = " hinzugefügt wurde
 	 */
 	@Test
 	public void testNameClicked() {
-		fail("Not yet implemented");
+		String oldSuchKriterium = proband.getSuchKriterium();
+		proband.betreffClicked();
+		String newSuchKriterium = proband.getSuchKriterium();
+		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+				oldSuchKriterium, newSuchKriterium);
+		try {
+			if ((oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains("name = "))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \"name = \" hinzugefügt");
+			} else if ((!oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains(" AND "))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \" AND\" hinzugefügt");
+			} else if ((!oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains(" AND name ="))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \" AND name =\" hinzugefügt");
+			}
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.RechercheBean#schlagwortClicked()}.
+	 * {@link de.archivator.beans.RechercheBean#schlagwortClicked()}. Überprüft
+	 * ob eine Änderung des Suchkriteriums vorgenommen wurde und ob das
+	 * gewünschte "schlagwort = " hinzugefügt wurde
 	 */
 	@Test
 	public void testSchlagwortClicked() {
-		fail("Not yet implemented");
+		String oldSuchKriterium = proband.getSuchKriterium();
+		proband.betreffClicked();
+		String newSuchKriterium = proband.getSuchKriterium();
+		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+				oldSuchKriterium, newSuchKriterium);
+		try {
+			if ((oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains("schlagwort = "))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \"schlagwort = \" hinzugefügt");
+			} else if ((!oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains(" AND "))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \" AND\" hinzugefügt");
+			} else if ((!oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains(" AND schlagwort ="))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \" AND schlagwort =\" hinzugefügt");
+			}
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.RechercheBean#titelClicked()}.
+	 * Überprüft ob eine Änderung des Suchkriteriums vorgenommen wurde und ob
+	 * das gewünschte "titel = " hinzugefügt wurde
 	 */
 	@Test
 	public void testTitelClicked() {
-		fail("Not yet implemented");
+		String oldSuchKriterium = proband.getSuchKriterium();
+		proband.betreffClicked();
+		String newSuchKriterium = proband.getSuchKriterium();
+		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+				oldSuchKriterium, newSuchKriterium);
+		try {
+			if ((oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains("titel = "))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \"titel = \" hinzugefügt");
+			} else if ((!oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains(" AND "))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \" AND\" hinzugefügt");
+			} else if ((!oldSuchKriterium.isEmpty())
+					&& (!newSuchKriterium.split(oldSuchKriterium)[1]
+							.contains(" AND titel ="))) {
+				throw new Exception(
+						"Dem suchKriterium wurde nicht \" AND titel =\" hinzugefügt");
+			}
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.RechercheBean#andClicked()}.
+	 * Überprüft ob eine Änderung des Suchkriteriums vorgenommen wurde und ob
+	 * das gewünschte " AND " hinzugefügt wurde
 	 */
 	@Test
 	public void testAndClicked() {
-		fail("Not yet implemented");
+		String oldSuchKriterium = proband.getSuchKriterium();
+		proband.andClicked();
+		String newSuchKriterium = proband.getSuchKriterium();
+		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+				oldSuchKriterium, newSuchKriterium);
+		try {
+
+			if (!newSuchKriterium.split(oldSuchKriterium)[1].contains(" AND ")) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			fail("Dem suchKriterium wurde nicht \" AND \" hinzugefügt");
+		}
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.RechercheBean#orClicked()}.
+	 * Überprüft ob eine Änderung des Suchkriteriums vorgenommen wurde und ob
+	 * das gewünschte " OR " hinzugefügt wurde
 	 */
 	@Test
 	public void testOrClicked() {
-		fail("Not yet implemented");
+		String oldSuchKriterium = proband.getSuchKriterium();
+		proband.orClicked();
+		String newSuchKriterium = proband.getSuchKriterium();
+		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+				oldSuchKriterium, newSuchKriterium);
+		try {
+
+			if (!newSuchKriterium.split(oldSuchKriterium)[1].contains(" OR ")) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			fail("Dem suchKriterium wurde nicht \" OR \" hinzugefügt");
+		}
 	}
 
 }
