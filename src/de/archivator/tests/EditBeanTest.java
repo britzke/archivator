@@ -2,7 +2,8 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  burghard.britzke
+ * Copyright (C) 2012  burghard.britzke bubi@charmides.in-berlin.de
+ *                     lightniglord2
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -40,6 +41,7 @@ import de.archivator.entities.Schlagwort;
  * Testet die EditBean.
  * 
  * @author burghard.britzke
+ * @author LightningLord2
  */
 public class EditBeanTest {
 
@@ -50,7 +52,9 @@ public class EditBeanTest {
 	private Archivale aktuellesArchivale;
 
 	/**
+	 * Erzeugt eine Umgebung, die von allen Tests benötigt wird.
 	 * @throws java.lang.Exception
+	 * @author burghard.britzke
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -72,6 +76,7 @@ public class EditBeanTest {
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#back()} wenn ein
 	 * neues Archivale bearbeitet wurde.
+	 * @author burghard.britzke
 	 */
 	@Test
 	public void testBackNewArchivale() {
@@ -86,6 +91,7 @@ public class EditBeanTest {
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#back()} - wenn ein
 	 * bestehendes Archivale bearbeitet wurde.
+	 * @author burghard.britzke
 	 */
 	@Test
 	public void testBackOldArchivale() {
@@ -100,6 +106,7 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#lösche()}.
+	 * @author burghard.britzke
 	 */
 	@Test
 	public void testLösche() {
@@ -115,6 +122,7 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#speichere()}.
+	 * @author burghard.britzke
 	 */
 	@Test
 	public void testSpeichereNeuesArchivale() {
@@ -130,6 +138,7 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#speichere()}.
+	 * @author burghard.britzke
 	 */
 	@Test
 	public void testSpeichereAltesArchivale() {
@@ -146,6 +155,7 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#erstelle()}.
+	 * @author burghard.britzke
 	 */
 	@Test
 	public void testErstelle() {
@@ -157,6 +167,7 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#loadNamen()}.
+	 * @author LightningLord2
 	 */
 	@Test
 	public void testLoadNamen() {
@@ -166,6 +177,7 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#saveNamen()}.
+	 * @author LightningLord2
 	 */
 	@Test
 	public void testSaveNamen() {
@@ -176,6 +188,7 @@ public class EditBeanTest {
 	/**
 	 * Test method for
 	 * {@link de.archivator.beans.EditBean#loadOrganisationseinheiten()}.
+	 * @author LightningLord2
 	 */
 	@Test
 	public void testLoadOrganisationseinheiten() {
@@ -186,6 +199,7 @@ public class EditBeanTest {
 	/**
 	 * Test method for
 	 * {@link de.archivator.beans.EditBean#saveOrganisationseinheiten()}.
+	 * @author LightningLord2
 	 */
 	@Test
 	public void testSaveOrganisationseinheiten() {
@@ -195,6 +209,7 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#loadSchlagworte()}.
+	 * @author LightningLord2
 	 */
 	@Test
 	public void testLoadSchlagworte() {
@@ -204,6 +219,7 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#saveSchlagworte()}.
+	 * @author LightningLord2
 	 */
 	@Test
 	public void testSaveSchlagworte() {
@@ -218,5 +234,4 @@ public class EditBeanTest {
 		List<Schlagwort> neueSchlagwörter = aktuellesArchivale.getSchlagwörter();
 		assertTrue(neueSchlagwörter.contains("Lette"));
 	}
-
 }
