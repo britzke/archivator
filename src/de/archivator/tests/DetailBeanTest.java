@@ -2,7 +2,8 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  <name of author>
+ * Copyright (C) 2012  e0_mueller
+ *                     burghard.britzke bubi@charmides.in-berlin.de
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -35,8 +36,10 @@ import de.archivator.beans.DetailBean;
 import de.archivator.entities.Archivale;
 
 /**
+ * Testet die Funktionen der DetailBean.
+ * 
  * @author e0_mmueller
- *
+ * @author burghard.britzke
  */
 public class DetailBeanTest {
 
@@ -47,6 +50,9 @@ public class DetailBeanTest {
 	private Archivale aktuellesArchivale;
 
 	/**
+	 * Mocked die EntityManagerFactory und das aktuelleArchivale, injiziert
+	 * diese und bereitet die Umgebungsobjekte auf die Tests vor.
+	 * 
 	 * @throws java.lang.Exception
 	 */
 	@Before
@@ -54,20 +60,21 @@ public class DetailBeanTest {
 		proband = new DetailBean();
 		aktuellesArchivale = mock(Archivale.class);
 		proband.setAktuellesArchivale(aktuellesArchivale);
-		
+
 		entityManagerFactory = mock(EntityManagerFactory.class);
 		Field f = DetailBean.class.getDeclaredField("entityManagerFactory");
 		f.setAccessible(true);
 		f.set(proband, entityManagerFactory);
-		
+
 		entityManager = mock(EntityManager.class);
-		when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
+		when(entityManagerFactory.createEntityManager()).thenReturn(
+				entityManager);
 
 		entityTransaction = mock(EntityTransaction.class);
 		when(entityManager.getTransaction()).thenReturn(entityTransaction);
-		when(entityManager.merge(aktuellesArchivale)).thenReturn(aktuellesArchivale);
+		when(entityManager.merge(aktuellesArchivale)).thenReturn(
+				aktuellesArchivale);
 	}
-
 
 	/**
 	 * Test method for {@link de.archivator.beans.DetailBean#back()}.
@@ -79,18 +86,21 @@ public class DetailBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.DetailBean#lösche()}.
+	 * Überprüft die korrekte Navigation, und das Löschen eines Archivales.
+	 * @author burghard.britzke
 	 */
 	@Test
 	public void testLösche() {
 		String navigation = proband.lösche();
-		assertEquals("lösche() muss zur Index-Seite navigieren", "index", navigation);
+		assertEquals("lösche() muss zur Index-Seite navigieren", "index",
+				navigation);
 		verify(entityManagerFactory).createEntityManager();
 		verify(entityManager).merge(aktuellesArchivale);
 		verify(entityTransaction).begin();
 		verify(entityManager).remove(aktuellesArchivale);
 		verify(entityTransaction).commit();
 	}
-	
+
 	/**
 	 * Test method for {@link de.archivator.beans.DetailBean#sortBy()}.
 	 */
