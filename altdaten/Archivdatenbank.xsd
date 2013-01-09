@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema id="altdaten" 
+	xmlns="http://www.archivator.de/altdaten"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.archivator.de/altdaten"
+	targetNamespace="http://www.archivator.de/altdaten"
+	attributeFormDefault="unqualified"
+	elementFormDefault="qualified">
+
+	<xsd:element name="dataroot">
+		<xsd:complexType>
+			<xsd:choice maxOccurs="unbounded">
+				<xsd:element ref="Tabelle_x0020_Archiv" />
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Tabelle_x0020_Archiv">
+		<!-- 
+		<xsd:annotation>
+			<xsd:appinfo>
+				<od:index index-name="PrimaryKey" index-key="ID " primary="yes"
+					unique="yes" clustered="no" />
+				<od:index index-name="Objekt Nummer" index-key="Objekt_x0020_Nummer "
+					primary="no" unique="no" clustered="no" />
+				<od:index index-name="Schubfach Nummer" index-key="Schubfach_x0020_Nummer "
+					primary="no" unique="no" clustered="no" />
+				<od:index index-name="Tabelle ArchivSchule" index-key="Schule "
+					primary="no" unique="no" clustered="no" />
+			</xsd:appinfo>
+		</xsd:annotation>
+-->
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ID">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:integer" />
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Schubfach_x0020_Nummer" minOccurs="0"
+					type="xsd:short" />
+				<xsd:element name="Objekt_x0020_Nummer" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="50" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Schule" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:integer" />
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Abteilung" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="20" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Betreff" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="50" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Dokumentenart_x0020_1" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="30" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Dokumentenart_x0020_2" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="30" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Dokumentenart_x0020_3" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="30" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Inhalt" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="536870910" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Name_x0020_1" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="30" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Name_x0020_2" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="30" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Name_x0020_3" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="30" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Name_x0020_4" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="30" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Name_x0020_5" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="30" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Name_x0020_6" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="30" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Datum_x0020_1" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="10" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Datum_x0020_2" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="10" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Datum_x0020_3" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="10" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Schlagwort_x0020_1" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="50" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Schlagwort_x0020_2" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="50" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Schlagwort_x0020_3" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="50" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Schlagwort_x0020_4" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="50" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Schlagwort_x0020_5" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="50" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Schlagwort_x0020_6" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="50" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
