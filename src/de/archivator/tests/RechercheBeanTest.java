@@ -199,9 +199,8 @@ public class RechercheBeanTest {
 		String oldSuchKriterium = proband.getSuchKriterium();
 		proband.andClicked();
 		String newSuchKriterium = proband.getSuchKriterium();
-		if (oldSuchKriterium.compareTo(newSuchKriterium) == 0) {
-			fail("Das Suchkriterium wurde nicht verändert");
-		}
+		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+				oldSuchKriterium, newSuchKriterium);
 		try {
 
 			if (!newSuchKriterium.split(oldSuchKriterium)[1].contains(" AND ")) {
@@ -222,9 +221,8 @@ public class RechercheBeanTest {
 		String oldSuchKriterium = proband.getSuchKriterium();
 		proband.orClicked();
 		String newSuchKriterium = proband.getSuchKriterium();
-		if (oldSuchKriterium.compareTo(newSuchKriterium) == 0) {
-			fail("Das Suchkriterium wurde nicht verändert");
-		}
+		assertNotSame("altes und neues Kriterium dürfen nicht gleich sein.",
+				oldSuchKriterium, newSuchKriterium);
 		try {
 
 			if (!newSuchKriterium.split(oldSuchKriterium)[1].contains(" OR ")) {
