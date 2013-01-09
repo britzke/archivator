@@ -177,7 +177,7 @@ public class RechercheBean implements Serializable {
 
 	/**
 	 * ActionListener-Methode für die Schaltfläche "Betreff". Der Text
-	 * "[betreff] = " wird in die Eigenschaft suchKriterium gespeichert. Ist
+	 * "betreff = " wird in die Eigenschaft suchKriterium gespeichert. Ist
 	 * bereits ein Text im suchKriterium, so wird der text " and "
 	 * vorangestellt.
 	 */
@@ -186,7 +186,7 @@ public class RechercheBean implements Serializable {
 	}
 
 	/**
-	 * ActionListener-Methode für die Schaltfläche "Name". Der Text "[name] = "
+	 * ActionListener-Methode für die Schaltfläche "Name". Der Text "name = "
 	 * wird in die Eigenschaft suchKriterium gespeichert. Ist bereits ein Text
 	 * im suchKriterium, so wird der text " and " vorangestellt.
 	 */
@@ -196,7 +196,7 @@ public class RechercheBean implements Serializable {
 
 	/**
 	 * ActionListener-Methode für die Schaltfläche "Schlagwort". Der Text
-	 * "[schlagwort] = " wird in die Eigenschaft suchKriterium gespeichert. Ist
+	 * "schlagwort = " wird in die Eigenschaft suchKriterium gespeichert. Ist
 	 * bereits ein Text im suchKriterium, so wird der text " and "
 	 * vorangestellt.
 	 */
@@ -206,7 +206,7 @@ public class RechercheBean implements Serializable {
 
 	/**
 	 * ActionListener-Methode für die Schaltfläche "Titel". Der Text
-	 * "[titel] = " wird in die Eigenschaft suchKriterium gespeichert. Ist
+	 * "titel = " wird in die Eigenschaft suchKriterium gespeichert. Ist
 	 * bereits ein Text im suchKriterium, so wird der text " and "
 	 * vorangestellt.
 	 */
@@ -216,7 +216,7 @@ public class RechercheBean implements Serializable {
 
 	/**
 	 * ActionListener-Methode für die Schaltfläche "and". Der Text
-	 * "[schlagwort] = " wird in die Eigenschaft suchKriterium gespeichert.
+	 * " and " wird in die Eigenschaft suchKriterium gespeichert.
 	 */
 	public void andClicked() {
 		
