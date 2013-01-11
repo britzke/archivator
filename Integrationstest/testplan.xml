@@ -25,4 +25,34 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+	<testfall titel="Testfall für die Detailanzeige">
+		<vorraussetzungen>
+			<vorraussetzung>Es werden Ergebnisse in der Ergebnisliste angezeigt.</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Ein Ergebnis auswählen.
+				<ergebnisse>
+					<ergebnis>
+						Die Detailansicht mit dem Inhalt des angeklickten Ergebnisses wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall titel="Testfall für die korrekte Anzeige von Archivalien">
+		<vorraussetzungen>
+			<vorraussetzung> Datensatz ist vorhanden. </vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				<ergebnisse>
+					<ergebnis>
+					Das Ergebnis wird korrekt angezeigt.
+				</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
 </testplan>
