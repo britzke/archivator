@@ -54,7 +54,7 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-</testfall>
+
 	<testfall titel="Testfall für die maximale Ergebnis Anzeige">
 		<vorraussetzungen>
 			<vorraussetzung>Die Anzahl der Suchergebnisse übersteigt die maximale anzuzeigende Menge an Ergebnissen per Seite.</vorraussetzung>
@@ -85,4 +85,368 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+	<!-- <vorraussetzungen> Der Benutzer ist als Redakteur angemeldet. Bin mir 
+		da Unsicher , da man angemeldet sein muss um zu Bearbeiten -->
+	<testfall titel="Bearbeitungsanzeige anzeigen">
+
+		<vorraussetzungen>
+			<vorraussetzung>Die Suche war erfolgreich und es werden Ergebnisse
+					angezeigt.</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Auf die “Bearbeiten“-Schaltfläche eines Ergebniss drücken.
+				<ergebnisse>
+					<ergebnis>
+							Die Bearbeitungsanzeige wird angezeigt mit den
+							verschieden Feldern richtig ausgefüllt mit den Informationen der
+							Ausgewählten Bean.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+
+	</testfall>
+
+	<testfall titel="Von der Bearbeitungsanzeige Zurück gehen">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Auf den Zurück Button des Browser drücken.
+				<ergebnisse>
+
+					<ergebnis>
+								Man ist auf der Rechercheanzeige zurückgekommen mit der
+								Recherche
+								ungeändert.
+							</ergebnis>
+
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall titel="Wieder auf der Bearbeitungsanzeige weitergehen.">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige war schon angezeigt, der user
+					ist zurück gegangen.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Auf den vorwärts Button des Browser drücken.
+				<ergebnisse>
+
+					<ergebnis>
+								Man ist auf der Bearbeitungsanzeige der gleichen
+								Archivalie zurückgekommen.
+							</ergebnis>
+
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall
+		titel="Kein Speichern beim Zurück gehen von der Bearbeitungsanzeige">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Den Wert eines Feld umändern.
+				Auf den Zurück Button des Browser
+				drücken.
+				Auf den Vorwärts-Button des Browser drücken.
+				<ergebnisse>
+
+					<ergebnis>
+								Der geänderte Wert ist wieder ungeändert zurückgesetzt.
+							</ergebnis>
+
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall
+		titel="Kein Speichern beim Zurück gehen von der Bearbeitungsanzeige">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Den Wert eines Feld umändern.
+				Auf den Zurück Button des Browser
+				drücken.
+				Auf den Vorwärts-Button des Browser drücken.
+				<ergebnisse>
+
+					<ergebnis>
+								Der geänderte Wert ist wieder ungeändert zurückgesetzt.
+							</ergebnis>
+
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall titel="Eigenschaften gültig ändern ">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Typ:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+
+					<ergebnis>
+								Die Archivale ist angezeigt mit dem Attribut korrekt
+								geändert.
+							</ergebnis>
+				</ergebnisse>
+
+			</schritt>
+			<schritt>
+				Schubfach:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Titel:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Betreff:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Personen:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Organisationseinheit:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Inhalt des Dokuments/Details:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Erscheinungsjahr von:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Erscheinungsjahr bis:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Menge:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Schlagwörter:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+						</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall titel="Eigenschaften ungültig ändern">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				-Typ
+				-Schubfach
+				-Mappe
+				-Titel
+				-Betreff
+				-Personen
+				-Organisationseinheit
+				-Inhalt des Dokuments/Details
+				-Erscheinungsjahr von
+				-Erscheinungsjahr bis
+				-Menge
+				-Schlagwörter
+
+
+				Den Attribut ändern mit
+				ungültigem Wert.
+				Speichern.
+				<ergebnisse>
+
+					<ergebnis>
+								Das speichern ist nicht erfolgreich und eine nachricht
+								ist angezeigt das das Attribut ein falsches wert hat.
+							</ergebnis>
+
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall titel="Abbrechen">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				-Typ
+				-Schubfach
+				-Mappe
+				-Titel
+				-Betreff
+				-Personen
+				-Organisationseinheit
+				-Inhalt des Dokuments/Details
+				-Erscheinungsjahr von
+				-Erscheinungsjahr bis
+				-Menge
+				-Schlagwörter
+
+
+				Das Attribut ändern mit
+				gültigem Wert.
+				Abbrechen.
+				Die Detailansicht von dem Archivale öffnen.
+				<ergebnisse>
+
+					<ergebnis>
+								Die Archivale ist angezeigt mit dem Wert mit dem alten Wert des
+								Attributs.
+							</ergebnis>
+
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall titel="Löschen">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Auf löschen drücken.
+				<ergebnisse>
+
+					<ergebnis>
+								Man ist auf der Rechercheanzeige zurückgekommen mit der Recherche
+								ungeändert mit dem einzelfall das die gelöschte Archivale nicht
+								mehr vorhanden ist.
+							</ergebnis>
+
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+
+
+
+	<!-- </vorraussetzungen> -->
 </testplan>
