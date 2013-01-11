@@ -54,8 +54,8 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-		</testfall>
-		<testfall titel="Testfall für die maximale Ergebnis Anzeige">
+</testfall>
+	<testfall titel="Testfall für die maximale Ergebnis Anzeige">
 		<vorraussetzungen>
 			<vorraussetzung>Die Anzahl der Suchergebnisse übersteigt die maximale anzuzeigende Menge an Ergebnissen per Seite.</vorraussetzung>
 		</vorraussetzungen>
@@ -67,9 +67,10 @@
 						Die Anzahl der Ergebnisse stimmt mit der maximalen Anzahl der Pagination (Ergebnisse pro Seite) überein.
 					</ergebnis>
 				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
-		<testfall titel="Testfall für den Weiterleitungslink">
+	<testfall titel="Testfall für den Weiterleitungslink">
 		<vorraussetzungen>
 			<vorraussetzung>Einträge in der Ergebnisliste sind vorhanden.</vorraussetzung>
 		</vorraussetzungen>
@@ -81,6 +82,7 @@
 						Der Datensatz wird nun in der Detail-Ansicht gezeigt.
 					</ergebnis>
 				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
 </testplan>
