@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testplan xmlns="http://www.archivator.de/testplan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.archivator.de/testplan testplan.xsd">
+
 	<testfall titel="Dem Rechercheur die Bearbeitung verwehren">
 		<vorraussetzungen>
 			<vorraussetzung>Benutzer ist nicht angemeldet.</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Führe eine Recherche durch, die mindesten ein Ergebnis liefert.
+				Führe eine Recherche durch, die mindestens ein Ergebnis liefert.
 				<ergebnisse>
 					<ergebnis>
-						Liste mit Rechercheergebnissen wird angezeigt.
+						Liste mit Archivalien wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Jedes Archivale wird mit einem Link angezeigt.
 					</ergebnis>
 					<ergebnis>
 						Es wird keine Schaltfläche zur Bearbeitung neben den Einträgen angezeigt.
@@ -20,11 +24,12 @@
 			<schritt>
 				Ein Archivale in der Detailansicht öffnen.
 				<ergebnisse>
-					<ergebnis>Es wird keine Schaltfläche zur Bearbeitungangezeigt.</ergebnis>
+					<ergebnis>Es wird keine Schaltfläche zur Bearbeitung angezeigt.</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
+
 	<testfall titel="Testfall für die Detailanzeige">
 		<vorraussetzungen>
 			<vorraussetzung>Es werden Ergebnisse in der Ergebnisliste angezeigt.</vorraussetzung>
@@ -40,9 +45,10 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+
 	<testfall titel="Testfall für die korrekte Anzeige von Archivalien">
 		<vorraussetzungen>
-			<vorraussetzung> Datensatz ist vorhanden. </vorraussetzung>
+			<vorraussetzung>Datensatz ist vorhanden.</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
@@ -70,6 +76,7 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+
 	<testfall titel="Testfall für den Weiterleitungslink">
 		<vorraussetzungen>
 			<vorraussetzung>Einträge in der Ergebnisliste sind vorhanden.</vorraussetzung>
@@ -85,67 +92,83 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+
 	<!-- <vorraussetzungen> Der Benutzer ist als Redakteur angemeldet. Bin mir 
 		da Unsicher , da man angemeldet sein muss um zu Bearbeiten -->
 	<testfall titel="Bearbeitungsanzeige anzeigen">
-
 		<vorraussetzungen>
-			<vorraussetzung>Die Suche war erfolgreich und es werden Ergebnisse
-					angezeigt.</vorraussetzung>
+			<vorraussetzung>
+				Die Suche war erfolgreich und es werden Ergebnisse angezeigt.
+			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
 				Auf die “Bearbeiten“-Schaltfläche eines Ergebniss drücken.
 				<ergebnisse>
 					<ergebnis>
-							Die Bearbeitungsanzeige wird angezeigt mit den
-							verschieden Feldern richtig ausgefüllt mit den Informationen der
-							Ausgewählten Bean.
-						</ergebnis>
+						Die Bearbeitungsanzeige wird angezeigt mit den
+						verschieden Feldern richtig ausgefüllt mit den Informationen der
+						Ausgewählten Bean.
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
-
 	</testfall>
 
 	<testfall titel="Von der Bearbeitungsanzeige Zurück gehen">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Bearbeitungsanzeige ist schon angezeigt.
-				</vorraussetzung>
+				Bearbeitungsanzeige ist schon angezeigt.
+			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
 				Auf den Zurück Button des Browser drücken.
 				<ergebnisse>
-
 					<ergebnis>
-								Man ist auf der Rechercheanzeige zurückgekommen mit der
-								Recherche
-								ungeändert.
-							</ergebnis>
-
+						Man ist auf der Rechercheanzeige zurückgekommen mit der
+						Recherche ungeändert.
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
+
 	<testfall titel="Wieder auf der Bearbeitungsanzeige weitergehen.">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Bearbeitungsanzeige war schon angezeigt, der user
 					ist zurück gegangen.
-				</vorraussetzung>
+			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
 				Auf den vorwärts Button des Browser drücken.
 				<ergebnisse>
-
 					<ergebnis>
-								Man ist auf der Bearbeitungsanzeige der gleichen
-								Archivalie zurückgekommen.
-							</ergebnis>
-
+						Man ist auf der Bearbeitungsanzeige der gleichen Archivalie zurückgekommen.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall
+		titel="Kein Speichern beim Zurück gehen von der Bearbeitungsanzeige">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Den Wert eines Feld umändern.
+				Auf den Zurück Button des Browser
+				drücken.
+				Auf den Vorwärts-Button des Browser drücken.
+				<ergebnisse>
+					<ergebnis>
+						Der geänderte Wert ist wieder ungeändert zurückgesetzt.
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
@@ -164,59 +187,30 @@
 				drücken.
 				Auf den Vorwärts-Button des Browser drücken.
 				<ergebnisse>
-
 					<ergebnis>
-								Der geänderte Wert ist wieder ungeändert zurückgesetzt.
-							</ergebnis>
-
+						Der geänderte Wert ist wieder ungeändert zurückgesetzt.
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
-	<testfall
-		titel="Kein Speichern beim Zurück gehen von der Bearbeitungsanzeige">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Bearbeitungsanzeige ist schon angezeigt.
-				</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Den Wert eines Feld umändern.
-				Auf den Zurück Button des Browser
-				drücken.
-				Auf den Vorwärts-Button des Browser drücken.
-				<ergebnisse>
 
-					<ergebnis>
-								Der geänderte Wert ist wieder ungeändert zurückgesetzt.
-							</ergebnis>
-
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
 	<testfall titel="Eigenschaften gültig ändern ">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Bearbeitungsanzeige ist schon angezeigt.
-				</vorraussetzung>
+			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Typ:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
+				Typ: Das Attribut ändern mit gültigem Wert. Speichern.
 				Die
 				Detailansicht von der Archivale öffnen.
 				<ergebnisse>
-
 					<ergebnis>
-								Die Archivale ist angezeigt mit dem Attribut korrekt
-								geändert.
-							</ergebnis>
+						Die Archivale ist angezeigt mit dem Attribut korrekt geändert.
+					</ergebnis>
 				</ergebnisse>
-
 			</schritt>
 			<schritt>
 				Schubfach:
@@ -228,7 +222,7 @@
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
 							geändert.
-						</ergebnis>
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
@@ -241,7 +235,7 @@
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
 							geändert.
-						</ergebnis>
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
@@ -254,7 +248,7 @@
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
 							geändert.
-						</ergebnis>
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
@@ -267,7 +261,7 @@
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
 							geändert.
-						</ergebnis>
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
@@ -280,7 +274,7 @@
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
 							geändert.
-						</ergebnis>
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
@@ -293,7 +287,7 @@
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
 							geändert.
-						</ergebnis>
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
@@ -306,7 +300,7 @@
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
 							geändert.
-						</ergebnis>
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
@@ -319,7 +313,7 @@
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
 							geändert.
-						</ergebnis>
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
@@ -332,7 +326,7 @@
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
 							geändert.
-						</ergebnis>
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
@@ -345,11 +339,12 @@
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
 							geändert.
-						</ergebnis>
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
+
 	<testfall titel="Eigenschaften ungültig ändern">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -367,30 +362,28 @@
 				-Organisationseinheit
 				-Inhalt des Dokuments/Details
 				-Erscheinungsjahr von
-				-Erscheinungsjahr bis
+				-Erscheinungsjahr
+				bis
 				-Menge
 				-Schlagwörter
-
-
 				Den Attribut ändern mit
 				ungültigem Wert.
 				Speichern.
 				<ergebnisse>
-
 					<ergebnis>
-								Das speichern ist nicht erfolgreich und eine nachricht
-								ist angezeigt das das Attribut ein falsches wert hat.
-							</ergebnis>
-
+						Das speichern ist nicht erfolgreich und eine nachricht
+						ist angezeigt das das Attribut ein falsches wert hat.
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
+
 	<testfall titel="Abbrechen">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Bearbeitungsanzeige ist schon angezeigt.
-				</vorraussetzung>
+			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
@@ -403,7 +396,8 @@
 				-Organisationseinheit
 				-Inhalt des Dokuments/Details
 				-Erscheinungsjahr von
-				-Erscheinungsjahr bis
+				-Erscheinungsjahr
+				bis
 				-Menge
 				-Schlagwörter
 
@@ -413,16 +407,15 @@
 				Abbrechen.
 				Die Detailansicht von dem Archivale öffnen.
 				<ergebnisse>
-
 					<ergebnis>
-								Die Archivale ist angezeigt mit dem Wert mit dem alten Wert des
-								Attributs.
-							</ergebnis>
-
+						Die Archivale ist angezeigt mit dem Wert mit dem alten Wert des
+						Attributs.
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
+
 	<testfall titel="Löschen">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -433,20 +426,13 @@
 			<schritt>
 				Auf löschen drücken.
 				<ergebnisse>
-
 					<ergebnis>
-								Man ist auf der Rechercheanzeige zurückgekommen mit der Recherche
-								ungeändert mit dem einzelfall das die gelöschte Archivale nicht
-								mehr vorhanden ist.
-							</ergebnis>
-
+						Man ist auf der Rechercheanzeige zurückgekommen mit der Recherche
+						ungeändert mit dem einzelfall das die gelöschte Archivale nicht
+						mehr vorhanden ist.
+					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
-
-
-
-
-	<!-- </vorraussetzungen> -->
 </testplan>
