@@ -455,4 +455,97 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+	
+		<testfall titel="Testfall für erfolgreichen Login">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer ist nicht angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Im LoginFenster muss das Kennwort korrekt eingegeben werden.
+				Der Login Button wird gedrückt 
+				<ergebnisse>
+					<ergebnis>
+						Nach der Authentisierung wird die Meldung "Angemeldet"" angezeigt und eine Schaltfläche zum Abmelden wird angeboten.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall titel="Testfall für fehlgeschlagenen Login">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer ist nicht angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Im LoginFenster muss das Kennwort falsch eingegeben werden.
+				Der Login Button wird gedrückt 
+				<ergebnisse>
+					<ergebnis>
+						Die Meldung "Falsches Kennwort" wird angezeigt
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall titel="Testfall für Logout">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Redakteur ist angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Logout-Button wird gedrückt 
+				<ergebnisse>
+					<ergebnis>
+						Anstatt des Logout-Buttons, wird wieder das LoginFenster angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
+	<testfall titel="Testfall für SeiteZurückButton nach Anmeldung">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat sich gerade angemeldet, es wurde noch keine Suche durchgeführt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der SeiteZurück-Button im Browserfenster wird gedrückt
+				<ergebnisse>
+					<ergebnis>
+						Der Benutzer ist abgemeldet, das Login-Fenster erscheint und ist leer.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
+<!-- schwierige geschichte, eigentlich müsste die Anmeldung bestehen  bleiben oder  Die Meldung "Falsches Kennwort" wird angezeigt stehen 
+		was ist besser?
+		bei der 2.ten Möglichkeit wurde  aber der Login-Button wurde gar nicht gedrückt, deswegen frage ist es möglich für dieses zenario die selbe seite nochmal aufzu bauen-->
+	<testfall titel="Testfall für SeiteVorwärtsButton">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer war angemeldet und hat den SeiteZurückButton im Browser gedrückt
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+					Der SeiteVorwärtButton wird gedrückt
+				<ergebnisse>
+					<ergebnis>
+						Die Meldung "Falsches Kennwort" wird angezeigt
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
 </testplan>
