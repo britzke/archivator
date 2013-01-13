@@ -548,4 +548,50 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+	<testfall titel="Testfall für die erweiterte Suche">
+		<vorraussetzungen>
+			<vorraussetzung>Suchfeld wird angezeigt, mit einem 'Suche' Button.
+			Darunter befindet sich eine 'erweiterte Suche' leiste mit einem Plus Symbol.</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Durch klicken auf die Schaltfläche ‘erweiterte Suche’ wird ein
+				Fenster ausgeklappt.
+				<ergebnisse>
+					<ergebnis>
+						1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+						2. Das Suchfeld wird angezeigt.
+						3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   						4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    					5. Folgende Buttons werden darunter angezeigt:
+        					‘Betreff’
+        					‘Name’  
+       					    ‘Und’
+       						‘Schlagwörter’
+       					    ‘Titel’
+        					‘Oder’
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Durch Auswahl der jeweiligen Buttons kann bestimmt werden, auf
+				welche Attribute sich die Suche bezieht.
+				Drücken des 'Name' Buttons
+				<ergebnisse>
+					<ergebnis>
+					Der gewünschte Begriff wird in der Suchleiste ergänzt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der ‘Suche’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					    Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
 </testplan>
