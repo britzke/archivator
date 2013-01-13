@@ -437,4 +437,22 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+	
+	<testfall titel="Testfall für die Hinzufügen-Schaltfläche">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer muss als Redakteur angemeldet sein.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Die “Hinzufügen”-Schaltfläche wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+						Die Bearbeitungsansicht wird mit leerem Inhalt angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
 </testplan>
