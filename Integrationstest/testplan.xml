@@ -600,7 +600,7 @@
 	</testfall>
 
 
-	<testfall titel="Testfall für die erweiterte Suche 'Betreff' Button">
+	<testfall titel="Testfall für die erweiterte Suche Function 'Betreff' Button">
 		<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
@@ -629,7 +629,7 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für die erweiterte Suche 'Name' Button">
+	<testfall titel="Testfall für die erweiterte Suche Function 'Name' Button">
 		<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
@@ -658,7 +658,7 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für die erweiterte Suche Funktion des 'Und' Button">
+	<testfall titel="Testfall für die erweiterte Suche Funktion 'Und' Button">
 		<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
@@ -763,7 +763,7 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Der ‘Or’ Button wird geklickt.
+				Der ‘Oder’ Button wird geklickt.
 				<ergebnisse>
 					<ergebnis>
 					  Es wird der Text “ or “ in die Suchleiste Eingetragen.
@@ -772,5 +772,6 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+	
 	
 </testplan>
