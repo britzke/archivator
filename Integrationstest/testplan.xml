@@ -437,7 +437,7 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
+
 	<testfall titel="Testfall für die Hinzufügen-Schaltfläche">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -455,8 +455,8 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-		<testfall titel="Testfall für erfolgreichen Login">
+
+	<testfall titel="Testfall für erfolgreichen Login">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Der Benutzer ist nicht angemeldet
@@ -465,7 +465,8 @@
 		<durchführung>
 			<schritt>
 				Im LoginFenster muss das Kennwort korrekt eingegeben werden.
-				Der Login Button wird gedrückt 
+				Der
+				Login Button wird gedrückt
 				<ergebnisse>
 					<ergebnis>
 						Nach der Authentisierung wird die Meldung "Angemeldet"" angezeigt und eine Schaltfläche zum Abmelden wird angeboten.
@@ -483,7 +484,8 @@
 		<durchführung>
 			<schritt>
 				Im LoginFenster muss das Kennwort falsch eingegeben werden.
-				Der Login Button wird gedrückt 
+				Der Login
+				Button wird gedrückt
 				<ergebnisse>
 					<ergebnis>
 						Die Meldung "Falsches Kennwort" wird angezeigt
@@ -500,7 +502,7 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Der Logout-Button wird gedrückt 
+				Der Logout-Button wird gedrückt
 				<ergebnisse>
 					<ergebnis>
 						Anstatt des Logout-Buttons, wird wieder das LoginFenster angezeigt.
@@ -509,7 +511,7 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
+
 	<testfall titel="Testfall für SeiteZurückButton nach Anmeldung">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -527,10 +529,12 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-<!-- schwierige geschichte, eigentlich müsste die Anmeldung bestehen  bleiben oder  Die Meldung "Falsches Kennwort" wird angezeigt stehen 
-		was ist besser?
-		bei der 2.ten Möglichkeit wurde  aber der Login-Button wurde gar nicht gedrückt, deswegen frage ist es möglich für dieses zenario die selbe seite nochmal aufzu bauen-->
+
+	<!-- schwierige geschichte, eigentlich müsste die Anmeldung bestehen bleiben 
+		oder Die Meldung "Falsches Kennwort" wird angezeigt stehen was ist besser? 
+		bei der 2.ten Möglichkeit wurde aber der Login-Button wurde gar nicht gedrückt, 
+		deswegen frage ist es möglich für dieses zenario die selbe seite nochmal 
+		aufzu bauen -->
 	<testfall titel="Testfall für SeiteVorwärtsButton">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -539,7 +543,7 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-					Der SeiteVorwärtButton wird gedrückt
+				Der SeiteVorwärtButton wird gedrückt
 				<ergebnisse>
 					<ergebnis>
 						Die Meldung "Falsches Kennwort" wird angezeigt
@@ -548,6 +552,7 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+
 	<testfall titel="Testfall für die erweiterte Suche">
 		<vorraussetzungen>
 			<vorraussetzung>Suchfeld wird angezeigt, mit einem 'Suche' Button.
@@ -588,6 +593,180 @@
 				<ergebnisse>
 					<ergebnis>
 					    Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+
+	<testfall titel="Testfall für die erweiterte Suche 'Betreff' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Betreff’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					  Es wird der Text “betreff= “ Suchleiste eingetragen. 
+					  Wenn bereits Text in der Suchleise vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die erweiterte Suche 'Name' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Name’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					 Es wird der Text “name = “ in die Suchleiste eingetragen. 
+					 Wenn bereits Text in Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die erweiterte Suche Funktion des 'Und' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Und’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					  Es wird der Text “ and “ in die Suchleiste eingetragen.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall
+		titel="Testfall für die erweiterte Suche Funktion 'Schlagwort' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Es wird der Text “Schlagwort= “ in die Suchleiste eingetragen. 
+				Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
+				<ergebnisse>
+					<ergebnis>
+					  
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die erweiterte Suche Funktion 'Titel' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Titel’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					  Es wird der Text “titel = “ in die Suchleiste eingetragen. 
+					  Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die erweiterte Suche Funktion 'Oder' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Or’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					  Es wird der Text “ or “ in die Suchleiste Eingetragen.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
