@@ -22,6 +22,8 @@ package de.archivator.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.compass.annotations.Searchable;
+
 import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
 import de.archivator.entities.Organisationseinheit;
@@ -38,6 +40,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "ARCHIVALIEN", schema = "ARCHIVATOR")
+@Searchable
 public class Archivale implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -21,6 +21,9 @@ package de.archivator.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.compass.annotations.Searchable;
+
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -32,6 +35,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "NAMEN", schema = "ARCHIVATOR")
+@Searchable
 public class Name implements Serializable {
 	private static final long serialVersionUID = 1L;
 
