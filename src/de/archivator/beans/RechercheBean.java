@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -51,13 +52,14 @@ import de.archivator.entities.Archivale;
  * @author e0_schulz
  */
 @Named
+@SessionScoped
 public class RechercheBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Ermöglicht den Zugriff auf die Datenbank
 	 */
 	@Inject
-	private EntityManagerFactory entityManagerFactory;
+	private transient EntityManagerFactory entityManagerFactory;
 	/**
 	 * Das Suchkriterium, dass der Benutzer in das Formular search.xhtml
 	 * eingetragen hat.
@@ -75,6 +77,7 @@ public class RechercheBean implements Serializable {
 	public RechercheBean() {
 		archivalien = new ArrayList<Archivale>();
 		suchKriterium = "";
+		System.out.println("RechercheBean<init>()");
 	}
 	
 	@PostConstruct
@@ -94,6 +97,7 @@ public class RechercheBean implements Serializable {
 	 */
 	public void setSuchKriterium(String suchKriterium) {
 		this.suchKriterium = suchKriterium;
+		System.out.println("RechercheBean::setSuchKriterium() "+suchKriterium);
 	}
 
 	/**
@@ -165,6 +169,7 @@ public class RechercheBean implements Serializable {
 			for (int i = 0; i < l.size(); i++) {
 				session.save(l.get(i));
 			}
+			System.err.print("suchKriterium"+suchKriterium);
 			CompassHits hits = session.find(suchKriterium);
 			for (int i = 0; i < hits.getLength(); i++) {
 				archivalien.add((Archivale) hits.data(i));
