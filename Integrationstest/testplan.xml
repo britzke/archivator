@@ -25,4 +25,894 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+<<<<<<< HEAD
+=======
+
+	<testfall titel="Testfall für die Detailanzeige">
+		<vorraussetzungen>
+			<vorraussetzung>Es werden Ergebnisse in der Ergebnisliste angezeigt.</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Ein Ergebnis auswählen.
+				<ergebnisse>
+					<ergebnis>
+						Die Detailansicht mit dem Inhalt des angeklickten Ergebnisses wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die korrekte Anzeige von Archivalien">
+		<vorraussetzungen>
+			<vorraussetzung>Datensatz ist vorhanden.</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				<ergebnisse>
+					<ergebnis>
+					Das Ergebnis wird korrekt angezeigt.
+				</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die maximale Ergebnis Anzeige">
+		<vorraussetzungen>
+			<vorraussetzung>Die Anzahl der Suchergebnisse übersteigt die maximale anzuzeigende Menge an Ergebnissen per Seite.</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Eine leere Suche durchführen. Die Anzahl der Ergebnisse zählen.
+				<ergebnisse>
+					<ergebnis>
+						Die Anzahl der Ergebnisse stimmt mit der maximalen Anzahl der Pagination (Ergebnisse pro Seite) überein.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für den Weiterleitungslink">
+		<vorraussetzungen>
+			<vorraussetzung>Einträge in der Ergebnisliste sind vorhanden.</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Rechercheur drückt auf den Weiterleitungslink.
+				<ergebnisse>
+					<ergebnis>
+						Der Datensatz wird nun in der Detail-Ansicht gezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<!-- <vorraussetzungen> Der Benutzer ist als Redakteur angemeldet. Bin mir 
+		da Unsicher , da man angemeldet sein muss um zu Bearbeiten -->
+	<testfall titel="Bearbeitungsanzeige anzeigen">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Die Suche war erfolgreich und es werden Ergebnisse angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Auf die “Bearbeiten“-Schaltfläche eines Ergebniss drücken.
+				<ergebnisse>
+					<ergebnis>
+						Die Bearbeitungsanzeige wird angezeigt mit den
+						verschieden Feldern richtig ausgefüllt mit den Informationen der
+						Ausgewählten Bean.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Von der Bearbeitungsanzeige Zurück gehen">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Bearbeitungsanzeige ist schon angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Auf den Zurück Button des Browser drücken.
+				<ergebnisse>
+					<ergebnis>
+						Man ist auf der Rechercheanzeige zurückgekommen mit der
+						Recherche ungeändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Wieder auf der Bearbeitungsanzeige weitergehen.">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige war schon angezeigt, der user
+					ist zurück gegangen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Auf den vorwärts Button des Browser drücken.
+				<ergebnisse>
+					<ergebnis>
+						Man ist auf der Bearbeitungsanzeige der gleichen Archivalie zurückgekommen.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall
+		titel="Kein Speichern beim Zurück gehen von der Bearbeitungsanzeige">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Den Wert eines Feld umändern.
+				Auf den Zurück Button des Browser
+				drücken.
+				Auf den Vorwärts-Button des Browser drücken.
+				<ergebnisse>
+					<ergebnis>
+						Der geänderte Wert ist wieder ungeändert zurückgesetzt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall
+		titel="Kein Speichern beim Zurück gehen von der Bearbeitungsanzeige">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Den Wert eines Feld umändern.
+				Auf den Zurück Button des Browser
+				drücken.
+				Auf den Vorwärts-Button des Browser drücken.
+				<ergebnisse>
+					<ergebnis>
+						Der geänderte Wert ist wieder ungeändert zurückgesetzt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Eigenschaften gültig ändern ">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Typ: Das Attribut ändern mit gültigem Wert. Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+						Die Archivale ist angezeigt mit dem Attribut korrekt geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Schubfach:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Titel:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Betreff:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Personen:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Organisationseinheit:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Inhalt des Dokuments/Details:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Erscheinungsjahr von:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Erscheinungsjahr bis:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Menge:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Schlagwörter:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Eigenschaften ungültig ändern">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				-Typ
+				-Schubfach
+				-Mappe
+				-Titel
+				-Betreff
+				-Personen
+				-Organisationseinheit
+				-Inhalt des Dokuments/Details
+				-Erscheinungsjahr von
+				-Erscheinungsjahr
+				bis
+				-Menge
+				-Schlagwörter
+				Den Attribut ändern mit
+				ungültigem Wert.
+				Speichern.
+				<ergebnisse>
+					<ergebnis>
+						Das speichern ist nicht erfolgreich und eine nachricht
+						ist angezeigt das das Attribut ein falsches wert hat.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Abbrechen">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				-Typ
+				-Schubfach
+				-Mappe
+				-Titel
+				-Betreff
+				-Personen
+				-Organisationseinheit
+				-Inhalt des Dokuments/Details
+				-Erscheinungsjahr von
+				-Erscheinungsjahr
+				bis
+				-Menge
+				-Schlagwörter
+
+
+				Das Attribut ändern mit
+				gültigem Wert.
+				Abbrechen.
+				Die Detailansicht von dem Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+						Die Archivale ist angezeigt mit dem Wert mit dem alten Wert des
+						Attributs.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Löschen">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Bearbeitungsanzeige ist schon angezeigt.
+				</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Auf löschen drücken.
+				<ergebnisse>
+					<ergebnis>
+						Man ist auf der Rechercheanzeige zurückgekommen mit der Recherche
+						ungeändert mit dem einzelfall das die gelöschte Archivale nicht
+						mehr vorhanden ist.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die Hinzufügen-Schaltfläche">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer muss als Redakteur angemeldet sein.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Die “Hinzufügen”-Schaltfläche wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+						Die Bearbeitungsansicht wird mit leerem Inhalt angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für erfolgreichen Login">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer ist nicht angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Im LoginFenster muss das Kennwort korrekt eingegeben werden.
+				Der
+				Login Button wird gedrückt
+				<ergebnisse>
+					<ergebnis>
+						Nach der Authentisierung wird die Meldung "Angemeldet"" angezeigt und eine Schaltfläche zum Abmelden wird angeboten.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall titel="Testfall für fehlgeschlagenen Login">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer ist nicht angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Im LoginFenster muss das Kennwort falsch eingegeben werden.
+				Der Login
+				Button wird gedrückt
+				<ergebnisse>
+					<ergebnis>
+						Die Meldung "Falsches Kennwort" wird angezeigt
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	<testfall titel="Testfall für Logout">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Redakteur ist angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Logout-Button wird gedrückt
+				<ergebnisse>
+					<ergebnis>
+						Anstatt des Logout-Buttons, wird wieder das LoginFenster angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für SeiteZurückButton nach Anmeldung">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat sich gerade angemeldet, es wurde noch keine Suche durchgeführt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der SeiteZurück-Button im Browserfenster wird gedrückt
+				<ergebnisse>
+					<ergebnis>
+						Der Benutzer immer noch angemeldet, das Login-Fenster erscheint und ist leer.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+
+	<testfall titel="Testfall für SeiteVorwärtsButton">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer ist angemeldet und hat den SeiteZurückButton im Browser gedrückt
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der SeiteVorwärtButton wird gedrückt
+				<ergebnisse>
+					<ergebnis>
+						Der Benutzer ist angemeldet, der Logout-Button erscheint
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für falsches Passwort">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer ist nicht angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
+				Drückt auf den Login-Button
+				<ergebnisse>
+					<ergebnis>
+						Die Meldung "Falsches Kennwort" wird angezeigt
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der Benutzer trägt das richtige Kennwort in das Anmeldefenster ein
+				Drückt auf den Login-Button
+				<ergebnisse>
+					<ergebnis>
+						Der Benutzer ist angemeldet, der Logout-Button erscheint
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die erweiterte Suche">
+		<vorraussetzungen>
+			<vorraussetzung>Suchfeld wird angezeigt, mit einem 'Suche' Button.
+			Darunter befindet sich eine 'erweiterte Suche' leiste mit einem Plus Symbol.</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Durch klicken auf die Schaltfläche ‘erweiterte Suche’ wird ein
+				Fenster ausgeklappt.
+				<ergebnisse>
+					<ergebnis>
+						1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+						2. Das Suchfeld wird angezeigt.
+						3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   						4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    					5. Folgende Buttons werden darunter angezeigt:
+        					‘Betreff’
+        					‘Name’  
+       					    ‘Und’
+       						‘Schlagwörter’
+       					    ‘Titel’
+        					‘Oder’
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Durch Auswahl der jeweiligen Buttons kann bestimmt werden, auf
+				welche Attribute sich die Suche bezieht.
+				Drücken des 'Name' Buttons
+				<ergebnisse>
+					<ergebnis>
+					Der gewünschte Begriff wird in der Suchleiste ergänzt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der ‘Suche’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					    Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+
+	<testfall titel="Testfall für die erweiterte Suche Function 'Betreff' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Betreff’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					  Es wird der Text “betreff= “ Suchleiste eingetragen. 
+					  Wenn bereits Text in der Suchleise vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die erweiterte Suche Function 'Name' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Name’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					 Es wird der Text “name = “ in die Suchleiste eingetragen. 
+					 Wenn bereits Text in Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die erweiterte Suche Funktion 'Und' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Und’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					  Es wird der Text “ and “ in die Suchleiste eingetragen.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall
+		titel="Testfall für die erweiterte Suche Funktion 'Schlagwort' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der 'Schlagwortbutton' wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Es wird der Text “Schlagwort= “ in die Suchleiste eingetragen. 
+				Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die erweiterte Suche Funktion 'Titel' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Titel’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					  Es wird der Text “titel = “ in die Suchleiste eingetragen. 
+					  Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für die erweiterte Suche Funktion 'Oder' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			2. Das Suchfeld wird angezeigt.
+			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+   			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		5. Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Oder’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					  Es wird der Text “ or “ in die Suchleiste Eingetragen.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Zurück' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist nicht mehr im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Forwärts' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Zurück' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist nicht mehr im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Forwärts' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+
+>>>>>>> branch 'master' of https://github.com/britzke/archivator.git
 </testplan>
