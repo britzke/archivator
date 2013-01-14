@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/css" href="testplan.css" ?>
-
 <testplan xmlns="http://www.archivator.de/testplan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.archivator.de/testplan testplan.xsd">
-
 	<testfall titel="Dem Rechercheur die Bearbeitung verwehren">
 		<vorraussetzungen>
 			<vorraussetzung>Benutzer ist nicht angemeldet.</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Führe eine Recherche durch, die mindestens ein Ergebnis liefert.
+				Führe eine Recherche durch, die mindesten ein Ergebnis liefert.
 				<ergebnisse>
 					<ergebnis>
-						Liste mit Archivalien wird angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Jedes Archivale wird mit einem Link angezeigt.
+						Liste mit Rechercheergebnissen wird angezeigt.
 					</ergebnis>
 					<ergebnis>
 						Es wird keine Schaltfläche zur Bearbeitung neben den Einträgen angezeigt.
@@ -26,7 +20,7 @@
 			<schritt>
 				Ein Archivale in der Detailansicht öffnen.
 				<ergebnisse>
-					<ergebnis>Es wird keine Schaltfläche zur Bearbeitung angezeigt.</ergebnis>
+					<ergebnis>Es wird keine Schaltfläche zur Bearbeitungangezeigt.</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
@@ -926,5 +920,40 @@
 		</durchführung>
 	</testfall>
 
+	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Zurück' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist nicht mehr im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Forwärts' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
 
 </testplan>
