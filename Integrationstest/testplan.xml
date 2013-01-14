@@ -589,9 +589,17 @@
 				<ergebnisse>
 					<ergebnis>
 						1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+						</ergebnis>
+						<ergebnis>
 						2. Das Suchfeld wird angezeigt.
+						</ergebnis>
+						<ergebnis>
 						3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+						</ergebnis>
+						<ergebnis>
    						4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    					</ergebnis>
+    					<ergebnis>
     					5. Folgende Buttons werden darunter angezeigt:
         					‘Betreff’
         					‘Name’  
@@ -625,13 +633,19 @@
 
 
 	<testfall titel="Testfall für die erweiterte Suche Function 'Betreff' Button">
-		<vorraussetzungen>
+	<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -662,13 +676,19 @@
 	</testfall>
 
 	<testfall titel="Testfall für die erweiterte Suche Function 'Name' Button">
-		<vorraussetzungen>
+	<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -699,13 +719,19 @@
 	</testfall>
 
 	<testfall titel="Testfall für die erweiterte Suche Funktion 'Und' Button">
-		<vorraussetzungen>
+	<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -736,13 +762,19 @@
 
 	<testfall
 		titel="Testfall für die erweiterte Suche Funktion 'Schlagwort' Button">
-		<vorraussetzungen>
+	<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -769,6 +801,7 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+
 		</durchführung>
 	</testfall>
 
@@ -776,10 +809,16 @@
 		<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -813,10 +852,16 @@
 		<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
