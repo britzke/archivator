@@ -69,7 +69,7 @@ public class EditBean implements Serializable {
 	 * Erzeugt eine neue EditBean.
 	 */
 	public EditBean() {
-		System.out.println("EditBean<init>()");
+		archivaleSchlagwörter = new String();
 	}
 
 	/**
@@ -258,11 +258,19 @@ public class EditBean implements Serializable {
 	/**
 	 * Lädt die Schlagworte, die dem Archivale zugeordnet ist, aus der Liste
 	 * schlagworte als Komma separierten Text zur Bearbeitung in die Eigenschaft
-	 * archivaleSchlagworte.
+	 * archivaleSchlagwörter.
 	 * 
 	 * @return "edit" immer.
 	 */
 	public String loadSchlagworte() {
+		List<Schlagwort> schlagwörter = aktuellesArchivale.getSchlagwörter();
+		System.out.println(schlagwörter);
+		String output = "";
+		for (Schlagwort schlagwort : schlagwörter) {
+			output += schlagwort.getName();
+			output += ", ";
+		}
+		archivaleSchlagwörter = output.substring(0, output.length()-2);
 		return "edit";
 	}
 

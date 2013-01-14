@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema id="testplan" targetNamespace="http://www.archivator.de/testplan"
-	xmlns:tns="http://www.archivator.de/testplan" 
-	xmlns="http://www.archivator.de/testplan"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-	attributeFormDefault="unqualified"
+	xmlns:tns="http://www.archivator.de/testplan" xmlns="http://www.archivator.de/testplan"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
 	elementFormDefault="qualified" >
 	<xs:element name="testplan">
 		<xs:complexType>
