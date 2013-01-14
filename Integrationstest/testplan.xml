@@ -542,13 +542,41 @@
 				Der SeiteVorwärtButton wird gedrückt
 				<ergebnisse>
 					<ergebnis>
-						Der Benutzer ist angemeldet, der Logaot-Button erscheint
+						Der Benutzer ist angemeldet, der Logout-Button erscheint
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
 
+	<testfall titel="Testfall für falsches Passwort">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer ist nicht angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
+				Drückt auf den Login-Button
+				<ergebnisse>
+					<ergebnis>
+						Die Meldung "Falsches Kennwort" wird angezeigt
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der Benutzer trägt das richtige Kennwort in das Anmeldefenster ein
+				Drückt auf den Login-Button
+				<ergebnisse>
+					<ergebnis>
+						Der Benutzer ist angemeldet, der Logout-Button erscheint
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
 	<testfall titel="Testfall für die erweiterte Suche">
 		<vorraussetzungen>
 			<vorraussetzung>Suchfeld wird angezeigt, mit einem 'Suche' Button.
