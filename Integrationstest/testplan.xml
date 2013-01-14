@@ -530,7 +530,7 @@
 		</durchführung>
 	</testfall>
 
-	
+
 	<testfall titel="Testfall für SeiteVorwärtsButton">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -576,7 +576,7 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
+
 	<testfall titel="Testfall für die erweiterte Suche">
 		<vorraussetzungen>
 			<vorraussetzung>Suchfeld wird angezeigt, mit einem 'Suche' Button.
@@ -734,7 +734,8 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für die erweiterte Suche Funktion 'Schlagwort' Button">
+	<testfall
+		titel="Testfall für die erweiterte Suche Funktion 'Schlagwort' Button">
 		<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
@@ -757,14 +758,6 @@
 					<ergebnis>
 					  Es wird der Text “Schlagwort= “ in die Suchleiste eingetragen. 
 				Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der 'Suche' Button wird gedrückt.
-				<ergebnisse>
-					<ergebnis>
-					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -841,7 +834,7 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
-				<schritt>
+			<schritt>
 				Der 'Suche' Button wird gedrückt.
 				<ergebnisse>
 					<ergebnis>
@@ -851,11 +844,11 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
+
+	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Der Benutzer hat ein Schlagwort in die Suchleiste eingetragen.
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
@@ -869,11 +862,11 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
+
+	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Der Benutzer hat ein Schlagwort in die Suchleiste eingetragen.
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
@@ -887,6 +880,6 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-	
+
+
 </testplan>
