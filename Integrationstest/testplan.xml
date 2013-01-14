@@ -650,6 +650,14 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
 
@@ -676,6 +684,14 @@
 					<ergebnis>
 					 Es wird der Text “name = “ in die Suchleiste eingetragen. 
 					 Wenn bereits Text in Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -707,11 +723,18 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
 
-	<testfall
-		titel="Testfall für die erweiterte Suche Funktion 'Schlagwort' Button">
+	<testfall titel="Testfall für die erweiterte Suche Funktion 'Schlagwort' Button">
 		<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
@@ -729,11 +752,27 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Es wird der Text “Schlagwort= “ in die Suchleiste eingetragen. 
-				Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
+				Der 'Schlagwortbutton' wird gedrückt.
 				<ergebnisse>
 					<ergebnis>
-					  
+					  Es wird der Text “Schlagwort= “ in die Suchleiste eingetragen. 
+				Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -766,6 +805,14 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
 
@@ -791,6 +838,50 @@
 				<ergebnisse>
 					<ergebnis>
 					  Es wird der Text “ or “ in die Suchleiste Eingetragen.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+				<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
+<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein Schlagwort in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Zurück' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist nicht mehr im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
+<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein Schlagwort in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Forwärts' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
