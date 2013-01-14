@@ -20,6 +20,7 @@
 package de.archivator.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -180,23 +181,23 @@ public class EditBean implements Serializable {
 	}
 
 	// Action-Routinen
-	
+
 	/**
 	 * Action-Routine für die Schaltfläche "zurück"
-	 * @return "index" wenn ein neues Archivale erfasst werden sollte.
-	 * "detail" wenn ein altes Archivale bearbeitet werden sollte.
+	 * 
+	 * @return "index" wenn ein neues Archivale erfasst werden sollte. "detail"
+	 *         wenn ein altes Archivale bearbeitet werden sollte.
 	 */
 	public String back() {
 		entityManager.getTransaction().rollback();
 		entityManager.close();
 		if (aktuellesArchivale.getId() == 0) {
 			return "index";
-		}
-		else
-		{
+		} else {
 			return "detail";
 		}
 	}
+
 	/**
 	 * Löscht das aktuelle Archivale aus der Datenbank.
 	 */
@@ -249,9 +250,11 @@ public class EditBean implements Serializable {
 	public String loadOrganisationseinheiten() {
 		return "edit";
 	}
+
 	public String saveOrganisationseinheiten() {
 		return "edit";
 	}
+
 	/**
 	 * Lädt die Schlagworte, die dem Archivale zugeordnet ist, aus der Liste
 	 * schlagworte als Komma separierten Text zur Bearbeitung in die Eigenschaft
@@ -278,7 +281,7 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String saveSchlagworte() {
-		
+
 		return "edit";
 	}
 }
