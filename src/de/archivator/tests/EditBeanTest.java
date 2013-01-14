@@ -23,6 +23,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -34,6 +35,7 @@ import org.junit.Test;
 
 import de.archivator.beans.EditBean;
 import de.archivator.entities.Archivale;
+import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
 /**
@@ -189,17 +191,45 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testSaveOrganisationseinheiten() {
+		List<Organisationseinheit> organisationseinheiten = mock(List.class);
+		when(aktuellesArchivale.getOrganisationseinheiten()).thenReturn(organisationseinheiten);
+		String testOrganistationseinheiten = new String("Umschlag, Folie, Skizze");
+		//proband.setArchivaleOrganisationseinheiten(testOrganistationseinheiten); Klasse fehlt
+		
 		String navigation = proband.saveOrganisationseinheiten();
+		
 		assertEquals("saveOrganisationseinheiten() muss zum Edit-View navigieren", "edit", navigation);
+		List<Organisationseinheit> neueOrganisationseinheiten = aktuellesArchivale.getOrganisationseinheiten();
+		assertTrue(neueOrganisationseinheiten.contains("Umschlag"));
+		assertTrue(neueOrganisationseinheiten.contains("Folie"));
+		assertTrue(neueOrganisationseinheiten.contains("Skizze"));
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#loadSchlagworte()}.
+	 * @throws SecurityException 
+	 * @throws NoSuchFieldException Wenn es in der EditBean keine Eigenschaft namens "aktuellesArchivale" gibt. 
+	 * @throws IllegalAccessException Wenn der Zugriff zur EditBean verweigert wurde. 
+	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testLoadSchlagworte() {
+	public void testLoadSchlagworte() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		List<Schlagwort> schlagwörter = new ArrayList<Schlagwort>();
+		Schlagwort s = new Schlagwort();
+		s.setName("Lette");
+		schlagwörter.add(s);
+		s = new Schlagwort();
+		s.setName("Datenbank");
+		schlagwörter.add(s);
+		when(aktuellesArchivale.getSchlagwörter()).thenReturn(schlagwörter);
+		Field f = EditBean.class.getDeclaredField("aktuellesArchivale");
+		f.setAccessible(true);
+		
+		f.set(proband, aktuellesArchivale);
+		
 		String navigation = proband.loadSchlagworte();
 		assertEquals("loadSchlagworte() muss zum Edit-View navigieren", "edit", navigation);
+		assertEquals("Lette, Datenbank", proband.getArchivaleSchlagwörter());
 	}
 
 	/**
@@ -217,6 +247,8 @@ public class EditBeanTest {
 		assertEquals("saveSchlagworte() muss zum Edit-View navigieren", "edit", navigation);
 		List<Schlagwort> neueSchlagwörter = aktuellesArchivale.getSchlagwörter();
 		assertTrue(neueSchlagwörter.contains("Lette"));
+		assertTrue(neueSchlagwörter.contains("Projekt"));
+		assertTrue(neueSchlagwörter.contains("Datenbank"));
 	}
 
 }
