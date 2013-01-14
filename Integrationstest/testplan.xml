@@ -523,22 +523,18 @@
 				Der SeiteZurück-Button im Browserfenster wird gedrückt
 				<ergebnisse>
 					<ergebnis>
-						Der Benutzer ist abgemeldet, das Login-Fenster erscheint und ist leer.
+						Der Benutzer immer noch angemeldet, das Login-Fenster erscheint und ist leer.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
 
-	<!-- schwierige geschichte, eigentlich müsste die Anmeldung bestehen bleiben 
-		oder Die Meldung "Falsches Kennwort" wird angezeigt stehen was ist besser? 
-		bei der 2.ten Möglichkeit wurde aber der Login-Button wurde gar nicht gedrückt, 
-		deswegen frage ist es möglich für dieses zenario die selbe seite nochmal 
-		aufzu bauen -->
+	
 	<testfall titel="Testfall für SeiteVorwärtsButton">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Der Benutzer war angemeldet und hat den SeiteZurückButton im Browser gedrückt
+					Der Benutzer ist angemeldet und hat den SeiteZurückButton im Browser gedrückt
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
@@ -546,7 +542,7 @@
 				Der SeiteVorwärtButton wird gedrückt
 				<ergebnisse>
 					<ergebnis>
-						Die Meldung "Falsches Kennwort" wird angezeigt
+						Der Benutzer ist angemeldet, der Logaot-Button erscheint
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
