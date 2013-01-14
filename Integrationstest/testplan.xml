@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/css" href="testplan.css" ?>
-
 <testplan xmlns="http://www.archivator.de/testplan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.archivator.de/testplan testplan.xsd">
-
 	<testfall titel="Dem Rechercheur die Bearbeitung verwehren">
 		<vorraussetzungen>
 			<vorraussetzung>Benutzer ist nicht angemeldet.</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Führe eine Recherche durch, die mindestens ein Ergebnis liefert.
+				Führe eine Recherche durch, die mindesten ein Ergebnis liefert.
 				<ergebnisse>
 					<ergebnis>
-						Liste mit Archivalien wird angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Jedes Archivale wird mit einem Link angezeigt.
+						Liste mit Rechercheergebnissen wird angezeigt.
 					</ergebnis>
 					<ergebnis>
 						Es wird keine Schaltfläche zur Bearbeitung neben den Einträgen angezeigt.
@@ -26,7 +20,7 @@
 			<schritt>
 				Ein Archivale in der Detailansicht öffnen.
 				<ergebnisse>
-					<ergebnis>Es wird keine Schaltfläche zur Bearbeitung angezeigt.</ergebnis>
+					<ergebnis>Es wird keine Schaltfläche zur Bearbeitungangezeigt.</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
@@ -523,22 +517,18 @@
 				Der SeiteZurück-Button im Browserfenster wird gedrückt
 				<ergebnisse>
 					<ergebnis>
-						Der Benutzer ist abgemeldet, das Login-Fenster erscheint und ist leer.
+						Der Benutzer immer noch angemeldet, das Login-Fenster erscheint und ist leer.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
 
-	<!-- schwierige geschichte, eigentlich müsste die Anmeldung bestehen bleiben 
-		oder Die Meldung "Falsches Kennwort" wird angezeigt stehen was ist besser? 
-		bei der 2.ten Möglichkeit wurde aber der Login-Button wurde gar nicht gedrückt, 
-		deswegen frage ist es möglich für dieses zenario die selbe seite nochmal 
-		aufzu bauen -->
+
 	<testfall titel="Testfall für SeiteVorwärtsButton">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Der Benutzer war angemeldet und hat den SeiteZurückButton im Browser gedrückt
+					Der Benutzer ist angemeldet und hat den SeiteZurückButton im Browser gedrückt
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
@@ -546,7 +536,35 @@
 				Der SeiteVorwärtButton wird gedrückt
 				<ergebnisse>
 					<ergebnis>
+						Der Benutzer ist angemeldet, der Logout-Button erscheint
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für falsches Passwort">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer ist nicht angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
+				Drückt auf den Login-Button
+				<ergebnisse>
+					<ergebnis>
 						Die Meldung "Falsches Kennwort" wird angezeigt
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der Benutzer trägt das richtige Kennwort in das Anmeldefenster ein
+				Drückt auf den Login-Button
+				<ergebnisse>
+					<ergebnis>
+						Der Benutzer ist angemeldet, der Logout-Button erscheint
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -565,9 +583,17 @@
 				<ergebnisse>
 					<ergebnis>
 						1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+						</ergebnis>
+						<ergebnis>
 						2. Das Suchfeld wird angezeigt.
+						</ergebnis>
+						<ergebnis>
 						3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+						</ergebnis>
+						<ergebnis>
    						4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    					</ergebnis>
+    					<ergebnis>
     					5. Folgende Buttons werden darunter angezeigt:
         					‘Betreff’
         					‘Name’  
@@ -601,13 +627,19 @@
 
 
 	<testfall titel="Testfall für die erweiterte Suche Function 'Betreff' Button">
-		<vorraussetzungen>
+	<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -626,17 +658,31 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
 
 	<testfall titel="Testfall für die erweiterte Suche Function 'Name' Button">
-		<vorraussetzungen>
+	<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -655,17 +701,31 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
 
 	<testfall titel="Testfall für die erweiterte Suche Funktion 'Und' Button">
-		<vorraussetzungen>
+	<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -683,18 +743,32 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
 
 	<testfall
 		titel="Testfall für die erweiterte Suche Funktion 'Schlagwort' Button">
-		<vorraussetzungen>
+	<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -705,14 +779,23 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Es wird der Text “Schlagwort= “ in die Suchleiste eingetragen. 
-				Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
+				Der 'Schlagwortbutton' wird gedrückt.
 				<ergebnisse>
 					<ergebnis>
-					  
+					  Es wird der Text “Schlagwort= “ in die Suchleiste eingetragen. 
+				Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+
 		</durchführung>
 	</testfall>
 
@@ -720,10 +803,16 @@
 		<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -742,6 +831,14 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
 
@@ -749,10 +846,16 @@
 		<vorraussetzungen>
 			<vorraussetzung>
 			1. Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
 			2. Das Suchfeld wird angezeigt.
+				</vorraussetzung>
+				<vorraussetzung>
 			3. Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
    			4. Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		5. Folgende Buttons werden darunter angezeigt:
+    		 Folgende Buttons werden darunter angezeigt:
         		‘Betreff’
         		‘Name’  
 				‘Und’
@@ -770,8 +873,87 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
-	
-	
+
+	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Zurück' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist nicht mehr im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Forwärts' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Zurück' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist nicht mehr im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Forwärts' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
 </testplan>

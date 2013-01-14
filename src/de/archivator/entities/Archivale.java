@@ -23,6 +23,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.compass.annotations.Searchable;
+import org.compass.annotations.SearchableId;
+import org.compass.annotations.SearchableProperty;
 
 import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
@@ -46,20 +48,25 @@ public class Archivale implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@SearchableId
 	private int id;
 
 	@Column(name="ABTEILUNGEN_ID")
 	private int abteilungenId;
 
+	@SearchableProperty
 	private String betreff;
 
+	@SearchableProperty
 	private int bisJahr;
+	@SearchableProperty
 	private int vonJahr;
 
 	@Lob
 	private byte[] datei;
 
 	@Lob
+	@SearchableProperty
 	private String inhalt;
 
 	private int mappe;
