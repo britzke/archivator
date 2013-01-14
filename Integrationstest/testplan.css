@@ -1,1 +1,16 @@
-@CHARSET "US-ASCII";
+@CHARSET "UTF-8";
+testplan {
+	display:table;
+}
+testfall {
+	display:table-row;
+}
+vorraussetzungen,
+durchführung {
+	display:block;
+}
+vorraussetzung {
+	display:list-item;
+}
+table {border: solid thin;}
+td {border: dotted thin; }
