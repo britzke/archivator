@@ -33,10 +33,10 @@ Aufsetzen einer Entwicklungsumgebung - Eclipse
 7. Derby DB Bibliothek in der aktuellen Version (aktuell 10.9.1.0)
    zum Build-Path und zum Deployment-Assembly hinzufügen.
 
-8. Compass Bibliothek zum Build-Path und zum Deployment-Assembly
-   hinzufügen.
+8. Compass Bibliothek (compass-2.2.0.jar und lucene-core.jar) 
+   zum Build-Path und zum Deployment-Assembly hinzufügen.
    (Bitte daran denken Compass14-*.jar NICHT in die Libary mit 
-   auf zu nehmen)[Compass-Downloadlink 2.2.0](http://sourceforge.net/projects/compass/files/compass/2.2.0/compass-2.2.0.zip/download)
+   auf zu nehmen) [Compass-Downloadlink 2.2.0](http://sourceforge.net/projects/compass/files/compass/2.2.0/compass-2.2.0.zip/download)
 
 9. JUnit in der aktuellen Version zum Build-Path hinzufügen (aktuell 4.11)
    [JUnit-Projektseite](https://github.com/KentBeck/junit/wiki)
