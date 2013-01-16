@@ -30,11 +30,13 @@
 								<table>
 									<caption>Vorraussetzungen</caption>
 									<xsl:for-each select="tp:vorraussetzungen">
-										<tr>
-											<td>
-												<xsl:value-of select="tp:vorraussetzung" />
-											</td>
-										</tr>
+										<xsl:for-each select="tp:vorraussetzung">
+											<tr>
+												<td>
+													<xsl:value-of select="." />
+												</td>
+											</tr>
+										</xsl:for-each>
 									</xsl:for-each>
 								</table>
 								<table>
