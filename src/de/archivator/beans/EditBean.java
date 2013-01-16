@@ -20,7 +20,6 @@
 package de.archivator.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -38,7 +37,8 @@ import de.archivator.entities.Schlagwort;
  * Stellt der Seite "edit.xhtml" Funktionen zur Verfügung. Für jede Funktion
  * wird eine action-Methode implementiert.
  * 
- * @author MIAHansen, burghard.britzke
+ * @author MIAHansen
+ * @author burghard.britzke
  */
 @Named
 @SessionScoped
@@ -70,9 +70,11 @@ public class EditBean implements Serializable {
 	 */
 	public EditBean() {
 		archivaleSchlagwörter = new String();
+		archivaleNames = new String();
 	}
 
 	/**
+	 * Antwortet mit dem aktuellen Archivale
 	 * @return the aktuellesArchivale
 	 */
 	public Archivale getAktuellesArchivale() {
@@ -80,6 +82,7 @@ public class EditBean implements Serializable {
 	}
 
 	/**
+	 * Setzt das aktuelle Archivale.
 	 * @param aktuellesArchivale
 	 *            the aktuellesArchivale to set
 	 */
@@ -90,6 +93,7 @@ public class EditBean implements Serializable {
 	}
 
 	/**
+	 * Antwortet mit einer Liste von Betreffs.
 	 * @return the betreffs
 	 */
 	public List<String> getBetreffs() {
@@ -97,6 +101,7 @@ public class EditBean implements Serializable {
 	}
 
 	/**
+	 * Setzt die Liste von Betreffs.
 	 * @param betreffs
 	 *            the betreffs to set
 	 */
@@ -105,6 +110,7 @@ public class EditBean implements Serializable {
 	}
 
 	/**
+	 * Antwortet mit der Liste von Namen.
 	 * @return the namen
 	 */
 	public List<Name> getNamen() {
@@ -183,7 +189,7 @@ public class EditBean implements Serializable {
 	// Action-Routinen
 
 	/**
-	 * Action-Routine für die Schaltfläche "zurück"
+	 * Action-Routine für die Schaltfläche "zurück".
 	 * 
 	 * @return "index" wenn ein neues Archivale erfasst werden sollte. "detail"
 	 *         wenn ein altes Archivale bearbeitet werden sollte.
@@ -210,6 +216,7 @@ public class EditBean implements Serializable {
 
 	/**
 	 * Speichert das aktuelle Archivale in die Datenbank.
+	 * @return "detail" immer
 	 */
 	public String speichere() {
 		entityManager.getTransaction().commit();
@@ -219,6 +226,7 @@ public class EditBean implements Serializable {
 
 	/**
 	 * Erstellt ein neues Archivale und initialisiert es mit den Standardwerten.
+	 * @return "edit" immer.
 	 */
 	public String erstelle() {
 		entityManager = entityManagerFactory.createEntityManager();

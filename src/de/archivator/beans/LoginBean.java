@@ -31,7 +31,7 @@ import javax.faces.bean.SessionScoped;
 /**
  * Stellt die Funktionen für die An- und Abmeldung zur Verfügung.
  * @author e0_wiezorek
- * @autor burghard.britzke 
+ * @author burghard.britzke 
  */
 @ManagedBean
 @SessionScoped

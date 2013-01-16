@@ -2,7 +2,7 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  Burghard Britzke, bubi@charmides.in-berlin.de
+ * Copyright (C) 2012  burghard.britzke, bubi@charmides.in-berlin.de
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,9 +28,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * Eine EntityManagerBean stellt der Applikation
- * einen EntityManager zur Verfügung.
- * @author bubi
+ * Eine EntityManagerFactoryBean stellt der Applikation eine
+ * EntityManagerFactory zur Verfügung. Da die EntityManagerFactory nicht
+ * Serializable ist, kann sie nur in <b>transient</b> Eigenschaften injiziert
+ * werden, falls die Bean, in die injiziert wird {@code @SessionScoped} ist.
+ * 
+ * @see Serializable
+ * @author burghard.britzke
  */
 @ApplicationScoped
 public class EntityManagerFactoryBean implements Serializable {
@@ -50,6 +54,7 @@ public class EntityManagerFactoryBean implements Serializable {
 
 	/**
 	 * Liefert die Eigenschaft entityManagerFactory.
+	 * 
 	 * @return the entityManager
 	 */
 	public EntityManagerFactory getEntityManagerFactory() {
