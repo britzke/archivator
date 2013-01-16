@@ -31,11 +31,13 @@
 								<table>
 									<caption>Vorraussetzungen</caption>
 									<xsl:for-each select="tp:vorraussetzungen">
-										<tr>
-											<td>
-												<xsl:value-of select="tp:vorraussetzung" />
-											</td>
-										</tr>
+										<xsl:for-each select="tp:vorraussetzung">
+											<tr>
+												<td>
+													<xsl:value-of select="." />
+												</td>
+											</tr>
+										</xsl:for-each>
 									</xsl:for-each>
 								</table>
 								<table>
@@ -43,27 +45,27 @@
 									<tr>
 										<th>Schritte</th>
 										<th/>
-									</tr>
+									</tr>				
 									<xsl:for-each select="tp:durchführung/tp:schritt">
 										<tr>
 											<td>
+
 												<xsl:value-of select="./text()"></xsl:value-of>
 											</td>
 											<td colspan="2">
 												<table>
 													<tr><th>erwartetes Ergebnis</th><th>OK</th></tr>
 													<xsl:for-each select="tp:ergebnisse/tp:ergebnis">
-
 														<tr>
 															<td>
 																<xsl:value-of select="./text()"></xsl:value-of>
 															</td>
-															<td></td>
+															<td/>
 														</tr>
 													</xsl:for-each>
 												</table>
+												<xsl:value-of select="."></xsl:value-of>
 											</td>
-
 										</tr>
 									</xsl:for-each>
 								</table>
