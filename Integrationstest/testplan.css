@@ -12,5 +12,8 @@ durchführung {
 vorraussetzung {
 	display:list-item;
 }
-table {border: solid thin;}
+table {border: solid thin; }
 td {border: dotted thin; }
+table.durchführungen,
+table.ergebnisse {width:100%; }
+td.schritte {width:40%; }

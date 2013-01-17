@@ -16,7 +16,7 @@
 				<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 			</head>
 			<body>
-				<table>
+				<table class="testfälle">
 					<tr>
 					</tr>
 					<xsl:for-each select="tp:testfall">
@@ -28,7 +28,7 @@
 						</tr>
 						<tr>
 							<td>
-								<table>
+								<table class="vorraussetzungen">
 									<caption>Vorraussetzungen</caption>
 									<xsl:for-each select="tp:vorraussetzungen">
 										<xsl:for-each select="tp:vorraussetzung">
@@ -40,7 +40,7 @@
 										</xsl:for-each>
 									</xsl:for-each>
 								</table>
-								<table>
+								<table class="durchführungen">
 									<caption>Durchführung</caption>
 									<tr>
 										<th>Schritte</th>
@@ -48,12 +48,11 @@
 									</tr>				
 									<xsl:for-each select="tp:durchführung/tp:schritt">
 										<tr>
-											<td>
-
+											<td class="schritte">
 												<xsl:value-of select="./text()"></xsl:value-of>
 											</td>
 											<td colspan="2">
-												<table>
+												<table class="ergebnisse">
 													<tr><th>erwartetes Ergebnis</th><th>OK</th></tr>
 													<xsl:for-each select="tp:ergebnisse/tp:ergebnis">
 														<tr>
@@ -64,7 +63,6 @@
 														</tr>
 													</xsl:for-each>
 												</table>
-												<xsl:value-of select="."></xsl:value-of>
 											</td>
 										</tr>
 									</xsl:for-each>
