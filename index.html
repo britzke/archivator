@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Archivator by britzke</title>
+    <title>{archivator} by britzke</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -15,7 +15,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Archivator</h1>
+        <h1>{archivator}</h1>
         <p>Archival System for managing and retrieving archived items</p>
 
         <p class="view"><a href="https://github.com/britzke/archivator">View the Project on GitHub <small>britzke/archivator</small></a></p>
@@ -28,28 +28,42 @@
         </ul>
       </header>
       <section>
-        <h1>archivator</h1>
-
-<p>Archiv-Software zur Verwaltung und Recherche von Archivalen.
+        <p>{archivator} ist eine Archiv-Software zur Verwaltung und Recherche von Archivalen.
 (Archival System for administering and retrieving archival items)</p>
 
-<p>Die Software wird im Rahmen der Ausbildung zum Medien-Informatiker 
-am Lette-Verein (http:/<a href="http://www.lette-verein.de">www.lette-verein.de</a>) im Fach Softwareentwicklung
-erstellt.</p>
+<p>Dieses Softwareentwicklungsprojekt wird für die Ausbildung zum Medien-Informatiker 
+am <a href="http://www.lette-verein.de/">Lette-Verein</a> im Fach Softwareentwicklung
+herangezogen.</p>
 
-<h2>Aufsetzen einer Entwicklungsumgebung - Eclipse</h2>
+<p>Aufsetzen einer Entwicklungsumgebung - Eclipse</p>
 
 <ol>
-<li><p>Clonen des Repositories unter Zuhilfenahme des New Project Wizards.
-Es muss hier ein Dynamic Web Project angelegt werden. Gleichzeitig</p></li>
+<li><p>Clonen des Repositories unter Zuhilfenahme des <em>New Project Wizards</em> 
+(Es muss hier ein <em>Dynamic Web Project</em> angelegt werden).</p></li>
 <li><p>JSF- und JPA-Facette hinzufügen mit den jeweils aktuellen Bibliotheken
 von MyFaces (2.1.10) und EclipseLink (2.4.1)</p></li>
 <li><p>Einrichten eines Servlet-Containers (Servers). Als Runtime wird
-Tomcat in der aktuellen Version empfohlen.</p></li>
+Tomcat in der aktuellen Version (zur Zeit 7.0.35) empfohlen.</p></li>
 <li><p>Primefaces-Bibliothek in der aktuellen Version (aktuell 3.4.2)
 zum Build-Path und zum Deployment-Assembly hinzufügen.</p></li>
+<li><p>Primefaces-Extensions in der aktuellen Version (z. Zt. 0.6.2)
+zum Build-Path und zum Deployment-Assembly hinzufügen.
+Notwendig sind mindestens primefaces-extensions-0.6.2.jar
+sowie commons-lang3-3.1.jar. </p></li>
 <li><p>Weld-Bibliothek in der aktuellen Version (aktuell 1.1.10)
 zum Build-Path und zum Deployment-Assembly hinzufügen.</p></li>
+<li><p>Derby DB Bibliothek in der aktuellen Version (aktuell 10.9.1.0)
+zum Build-Path und zum Deployment-Assembly hinzufügen.</p></li>
+<li><p>Compass Bibliothek (compass-2.2.0.jar und lucene-core.jar) 
+zum Build-Path und zum Deployment-Assembly hinzufügen.
+(Bitte daran denken Compass14-*.jar NICHT in die Libary mit 
+auf zu nehmen) <a href="http://sourceforge.net/projects/compass/files/compass/2.2.0/compass-2.2.0.zip/download">Compass-Downloadlink 2.2.0</a></p></li>
+<li><p>JUnit in der aktuellen Version zum Build-Path hinzufügen (aktuell 4.11)
+<a href="https://github.com/KentBeck/junit/wiki">JUnit-Projektseite</a></p></li>
+<li><p>Mockito Bibliothek zum Build-Path in der aktuellen Version (aktuell 1.9.5)
+hinzufügen - <a href="http://code.google.com/p/mockito/">Mockito-Projektseite</a>.</p></li>
+<li><p>PowerMock-Mockito zum Build-Path in der aktuellen Version (aktuell 1.5)
+hinzufügen - <a href="http://code.google.com/p/powermock/">PowerMock-Projektseite</a>.</p></li>
 </ol>
       </section>
       <footer>
