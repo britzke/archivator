@@ -1,7 +1,4 @@
-archivator
-==========
-
-Archiv-Software zur Verwaltung und Recherche von Archivalen.
+{archivator} ist eine Archiv-Software zur Verwaltung und Recherche von Archivalen.
 (Archival System for administering and retrieving archival items)
 
 Die Software wird für die Ausbildung zum Medien-Informatiker 
