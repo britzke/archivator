@@ -16,61 +16,60 @@
 				<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 			</head>
 			<body>
-				<table class="testfälle">
+				<h1>Testprotokoll für die Software {archivator}</h1>
+				<table class="testat">
 					<tr>
+						<td>Datum</td><td/>
 					</tr>
-					<xsl:for-each select="tp:testfall">
-						<tr>
-							<th>
-								Testfall:
-								<xsl:value-of select="@titel" />
-							</th>
-						</tr>
-						<tr>
-							<td>
-								<table class="vorraussetzungen">
-									<caption>Vorraussetzungen</caption>
-									<xsl:for-each select="tp:vorraussetzungen">
-										<xsl:for-each select="tp:vorraussetzung">
-											<tr>
-												<td>
-													<xsl:value-of select="." />
-												</td>
-											</tr>
-										</xsl:for-each>
-									</xsl:for-each>
-								</table>
-								<table class="durchführungen">
-									<caption>Durchführung</caption>
-									<tr>
-										<th>Schritte</th>
-										<th/>
-									</tr>				
-									<xsl:for-each select="tp:durchführung/tp:schritt">
+					<tr>
+						<td>Prüfergebnis</td><td/>
+					</tr>
+					<tr>
+						<td>Prüfer</td><td/>
+					</tr>
+					<tr>
+						<td>Unterschrift</td><td/>
+					</tr>
+				</table>
+				<ol class="testfälle">
+				<xsl:for-each select="tp:testfall">
+					<li>
+						<h2>
+							Testfall: <xsl:value-of select="@titel" />
+						</h2>
+						<h3>Vorraussetzungen</h3>
+						<ol class="vorraussetzungen">
+							<xsl:for-each select="tp:vorraussetzungen">
+								<xsl:for-each select="tp:vorraussetzung">
+									<li>
+											<xsl:value-of select="." />
+									</li>
+								</xsl:for-each>
+							</xsl:for-each>
+						</ol>
+						<h3>Durchführung</h3>
+						<ol class="durchführungen">
+							<xsl:for-each select="tp:durchführung/tp:schritt">
+								<li class="schritte">
+									<xsl:value-of select="./text()"></xsl:value-of>
+								
+									<table class="ergebnisse">
+										<tr><th>erwartetes Ergebnis</th><th>OK</th></tr>
+										<xsl:for-each select="tp:ergebnisse/tp:ergebnis">
 										<tr>
-											<td class="schritte">
+											<td>
 												<xsl:value-of select="./text()"></xsl:value-of>
 											</td>
-											<td colspan="2">
-												<table class="ergebnisse">
-													<tr><th>erwartetes Ergebnis</th><th>OK</th></tr>
-													<xsl:for-each select="tp:ergebnisse/tp:ergebnis">
-														<tr>
-															<td>
-																<xsl:value-of select="./text()"></xsl:value-of>
-															</td>
-															<td/>
-														</tr>
-													</xsl:for-each>
-												</table>
-											</td>
+											<td/>
 										</tr>
-									</xsl:for-each>
-								</table>
-							</td>
-						</tr>
-					</xsl:for-each>
-				</table>
+										</xsl:for-each>
+									</table>
+								</li>
+							</xsl:for-each>
+						</ol>
+					</li>
+				</xsl:for-each>
+				</ol>
 			</body>
 		</html>
 	</xsl:template>

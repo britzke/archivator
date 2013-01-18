@@ -1,19 +1,24 @@
 @CHARSET "UTF-8";
-testplan {
-	display:table;
+table {
+	border-collapse: collapse;
 }
-testfall {
-	display:table-row;
+table,td,th {
+	border:solid thin;
 }
-vorraussetzungen,
-durchführung {
-	display:block;
+table.testat td:nth-child(2) {
+	width:10cm;
+	padding:0.5cm;
 }
-vorraussetzung {
-	display:list-item;
+
+ol.testfälle li,
+ol.durchführungen li {
+	margin-right:1cm;
+	margin-bottom: 10px;
 }
-table {border: solid thin; }
-td {border: dotted thin; }
-table.durchführungen,
-table.ergebnisse {width:100%; }
-td.schritte {width:40%; }
+
+td {border: solid thin; vertical-align: top; }
+table.ergebnisse {width:100%;
+}
+table.ergebnisse td:nth-child(2){width:1.5cm;}
+
+th {text-align:left;}
