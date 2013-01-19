@@ -7,26 +7,26 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Führe eine Recherche durch, die mindesten ein Ergebnis liefert.
+				Führe eine Recherche durch, die mindestens ein Ergebnis liefert.
 				<ergebnisse>
 					<ergebnis>
 						Liste mit Rechercheergebnissen wird angezeigt.
 					</ergebnis>
 					<ergebnis>
-						Es wird keine Schaltfläche zur Bearbeitung neben den Einträgen angezeigt.
+						Es wird keine Schaltfläche zur Bearbeitung neben jedem Rechercheergebnis angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
 				Ein Archivale in der Detailansicht öffnen.
 				<ergebnisse>
-					<ergebnis>Es wird keine Schaltfläche zur Bearbeitungangezeigt.</ergebnis>
+					<ergebnis>Es wird keine Schaltfläche zur Bearbeitung angezeigt.</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für die Detailanzeige">
+	<testfall titel="Detailanzeige">
 		<vorraussetzungen>
 			<vorraussetzung>Es werden Ergebnisse in der Ergebnisliste angezeigt.</vorraussetzung>
 		</vorraussetzungen>
@@ -35,54 +35,29 @@
 				Ein Ergebnis auswählen.
 				<ergebnisse>
 					<ergebnis>
-						Die Detailansicht mit dem Inhalt des angeklickten Ergebnisses wird angezeigt.
+						Die Detailansicht mit dem Inhalt des ausgewählten Ergebnisses wird angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für die korrekte Anzeige von Archivalien">
+	<testfall titel="Korrekte Seitenunterteilung (Paging) der Ergebnisanzeige">
 		<vorraussetzungen>
-			<vorraussetzung>Datensatz ist vorhanden.</vorraussetzung>
+			<vorraussetzung>keine</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				<ergebnisse>
-					<ergebnis>
-					Das Ergebnis wird korrekt angezeigt.
-				</ergebnis>
-				</ergebnisse>
+				Führe eine Recherche durch, die mehr als zehn Ergebnisse erzielt.
 			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Testfall für die maximale Ergebnis Anzeige">
-		<vorraussetzungen>
-			<vorraussetzung>Die Anzahl der Suchergebnisse übersteigt die maximale anzuzeigende Menge an Ergebnissen per Seite.</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
 			<schritt>
-				Eine leere Suche durchführen. Die Anzahl der Ergebnisse zählen.
+				Zähle die Anzahl der Ergebnisse, die auf der ersten Seite angezeigt werden.
 				<ergebnisse>
 					<ergebnis>
-						Die Anzahl der Ergebnisse stimmt mit der maximalen Anzahl der Pagination (Ergebnisse pro Seite) überein.
+						Es wird ein Paginator am unteren Ende der Liste der Rechercheergebnisse angezeigt.
 					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Testfall für den Weiterleitungslink">
-		<vorraussetzungen>
-			<vorraussetzung>Einträge in der Ergebnisliste sind vorhanden.</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der Rechercheur drückt auf den Weiterleitungslink.
-				<ergebnisse>
 					<ergebnis>
-						Der Datensatz wird nun in der Detail-Ansicht gezeigt.
+						Die Anzahl der Ergebnisse auf der ersten Seite der Rechercheergebnisse ist 10.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -94,13 +69,17 @@
 	<testfall titel="Bearbeitungsanzeige anzeigen">
 		<vorraussetzungen>
 			<vorraussetzung>
-				Die Suche war erfolgreich und es werden Ergebnisse angezeigt.
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Es werden Ergebnisse in der Ergebnisliste angezeigt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Auf die “Bearbeiten“-Schaltfläche eines Ergebniss drücken.
+				Die Schaltfläche “Bearbeiten“ eines Ergebnisses anwählen.
 				<ergebnisse>
+					<!-- woher weiß der Tester, ob alle Informationen richtig angezeigt werden? -->
 					<ergebnis>
 						Die Bearbeitungsanzeige wird angezeigt mit den
 						verschieden Feldern richtig ausgefüllt mit den Informationen der
@@ -111,77 +90,62 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Von der Bearbeitungsanzeige Zurück gehen">
+	<testfall titel="Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren">
 		<vorraussetzungen>
 			<vorraussetzung>
-				Bearbeitungsanzeige ist schon angezeigt.
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Detailanzeige wird angezeigt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Auf den Zurück Button des Browser drücken.
+				Wähle die Schaltfläche "Bearbeiten" neben einem Rechercheergebnis an.
 				<ergebnisse>
 					<ergebnis>
-						Man ist auf der Rechercheanzeige zurückgekommen mit der
-						Recherche ungeändert.
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "vorherige Seite anzeigen" des Webbrowsers an.
+				<ergebnisse>
+					<ergebnis>
+						Die Detailanzeige wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "nächste Seite anzeigen" des Webbrowsers an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
-
-	<testfall titel="Wieder auf der Bearbeitungsanzeige weitergehen.">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Bearbeitungsanzeige war schon angezeigt, der user
-					ist zurück gegangen.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Auf den vorwärts Button des Browser drücken.
-				<ergebnisse>
-					<ergebnis>
-						Man ist auf der Bearbeitungsanzeige der gleichen Archivalie zurückgekommen.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
+	
 	<testfall
-		titel="Kein Speichern beim Zurück gehen von der Bearbeitungsanzeige">
+		titel="Kein Speichern beim Navigieren aus dem Bearbeitungsformular mit den Schaltflächen des Webbrowsers">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Bearbeitungsanzeige ist schon angezeigt.
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+					Bearbeitungsformular wird angezeigt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Den Wert eines Feld umändern.
-				Auf den Zurück Button des Browser
-				drücken.
-				Auf den Vorwärts-Button des Browser drücken.
-				<ergebnisse>
-					<ergebnis>
-						Der geänderte Wert ist wieder ungeändert zurückgesetzt.
-					</ergebnis>
-				</ergebnisse>
+				Den Wert eines Feldes ändern.
 			</schritt>
-		</durchführung>
-	</testfall>
-	<testfall
-		titel="Kein Speichern beim Zurück gehen von der Bearbeitungsanzeige">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Bearbeitungsanzeige ist schon angezeigt.
-				</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
 			<schritt>
-				Den Wert eines Feld umändern.
-				Auf den Zurück Button des Browser
-				drücken.
-				Auf den Vorwärts-Button des Browser drücken.
+				Die Schaltfläche "vorherige Seite anzeigen" des Webbrowsers anwählen.
+			</schritt>
+			<schritt>
+				Die Schaltfläche "nächste Seite anzeigen" des Webbrowsers anwählen.
 				<ergebnisse>
 					<ergebnis>
 						Der geänderte Wert ist wieder ungeändert zurückgesetzt.
@@ -191,62 +155,150 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Eigenschaften gültig ändern ">
+	<testfall titel="Eigenschaften gültig ändern">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Bearbeitungsanzeige ist schon angezeigt.
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Die Detailansicht wird angezeigt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Typ: Das Attribut ändern mit gültigem Wert. Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
+				Wähle die Schaltfläche "Bearbeiten" an.
 				<ergebnisse>
 					<ergebnis>
-						Die Archivale ist angezeigt mit dem Attribut korrekt geändert.
+						Das Bearbeitungsformular wird angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Schubfach:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
+				Ändere das Attribut Schubfach mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
 				<ergebnisse>
 					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Attribut Schubfach wird mit dem geänderten Wert angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Titel:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
+				Wähle die Schaltfläche "Bearbeiten" an.
 				<ergebnisse>
 					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
+						Das Bearbeitungsformular wird angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Betreff:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
+				Ändere das Attribut Mappe mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
 				<ergebnisse>
 					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Attribut Mappe wird mit dem geänderten Wert angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut Betreff mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Attribut Betreff wird mit dem geänderten Wert angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut Inhalt mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Attribut Inhalt wird mit dem geänderten Wert angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut Datum mit gültigen Werten (von-bis), wobei der bis-Wert nicht 0 ist.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Attribut Datum wird mit dem geänderten Werten (von-bis) angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut Datum mit gültigen Werten, wobei der bis-Wert den Wert 0 hat.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Für das Attribut Datum wird nur ein Wert - der geänderte Wert angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+
+<!-- von hier an müssen die Schritte noch abgeändert werden -->
 			<schritt>
 				Personen:
 				Das Attribut ändern mit gültigem Wert.
@@ -274,58 +326,6 @@
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Inhalt des Dokuments/Details:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
-				<ergebnisse>
-					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Erscheinungsjahr von:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
-				<ergebnisse>
-					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Erscheinungsjahr bis:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
-				<ergebnisse>
-					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Menge:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
-				<ergebnisse>
-					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
 				Schlagwörter:
 				Das Attribut ändern mit gültigem Wert.
 				Speichern.
@@ -338,81 +338,81 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+<!-- bis hier müssen die Schritte noch abgeändert werden -->
 		</durchführung>
 	</testfall>
 
 	<testfall titel="Eigenschaften ungültig ändern">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Bearbeitungsanzeige ist schon angezeigt.
-				</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				-Typ
-				-Schubfach
-				-Mappe
-				-Titel
-				-Betreff
-				-Personen
-				-Organisationseinheit
-				-Inhalt des Dokuments/Details
-				-Erscheinungsjahr von
-				-Erscheinungsjahr
-				bis
-				-Menge
-				-Schlagwörter
-				Den Attribut ändern mit
-				ungültigem Wert.
-				Speichern.
-				<ergebnisse>
-					<ergebnis>
-						Das speichern ist nicht erfolgreich und eine nachricht
-						ist angezeigt das das Attribut ein falsches wert hat.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Abbrechen">
-		<vorraussetzungen>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
 			<vorraussetzung>
-					Bearbeitungsanzeige ist schon angezeigt.
+				Die Detailansicht wird angezeigt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				-Typ
-				-Schubfach
-				-Mappe
-				-Titel
-				-Betreff
-				-Personen
-				-Organisationseinheit
-				-Inhalt des Dokuments/Details
-				-Erscheinungsjahr von
-				-Erscheinungsjahr
-				bis
-				-Menge
-				-Schlagwörter
-
-
-				Das Attribut ändern mit
-				gültigem Wert.
-				Abbrechen.
-				Die Detailansicht von dem Archivale öffnen.
+				Wähle die Schaltfläche "Bearbeiten" an.
 				<ergebnisse>
 					<ergebnis>
-						Die Archivale ist angezeigt mit dem Wert mit dem alten Wert des
-						Attributs.
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere alle Attribute mit ungültigen Werten
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern".
+				<ergebnisse>
+					<ergebnis>
+						Die Detailansicht wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Für jedes Attribut wird eine Fehlermeldung angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Archivale wird mit unveränderten Attributen angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Löschen">
+	<testfall titel="Bearbeitung abbrechen">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Die Detailansicht wird angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere alle Attribute mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "abbrechen"
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird mit ungeänderten Werten angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Archviale löschen">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Bearbeitungsanzeige ist schon angezeigt.
