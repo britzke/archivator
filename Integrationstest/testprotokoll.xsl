@@ -52,7 +52,7 @@
 							<xsl:for-each select="tp:durchführung/tp:schritt">
 								<li class="schritte">
 									<xsl:value-of select="./text()"></xsl:value-of>
-								
+									<xsl:if test="tp:ergebnisse/tp:ergebnis">
 									<table class="ergebnisse">
 										<tr><th>erwartetes Ergebnis</th><th>OK</th></tr>
 										<xsl:for-each select="tp:ergebnisse/tp:ergebnis">
@@ -64,6 +64,7 @@
 										</tr>
 										</xsl:for-each>
 									</table>
+									</xsl:if>
 								</li>
 							</xsl:for-each>
 						</ol>

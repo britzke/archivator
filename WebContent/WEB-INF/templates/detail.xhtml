@@ -40,9 +40,13 @@
 				<h:outputText value="Betreff" styleClass="label" />
 				<h:outputText value="#{detailBean.aktuellesArchivale.betreff}" />
 				<h:outputText value="Inhalt" styleClass="label" />
-				<p:scrollPanel style="width:450px;height:100px">
+				<!--
+				<p:scrollPanel style="width:450px;height:100px"> 
+				 -->
 					<h:outputText value="#{detailBean.aktuellesArchivale.inhalt}" />
+				<!-- 
 				</p:scrollPanel>
+				 -->
 			</p:panelGrid>
 			<p:panelGrid id="rightDetailGrid" columns="1">
 				<p:panel style="float:right" header="Ort">
