@@ -55,20 +55,21 @@ public class EditBeanTest {
 
 	/**
 	 * Erzeugt eine Umgebung, die von allen Tests benötigt wird.
+	 * 
 	 * @throws java.lang.Exception
-	 * @author burghard.britzke
 	 */
 	@Before
 	public void setUp() throws Exception {
 		proband = new EditBean();
-		aktuellesArchivale = mock(Archivale.class);
+		aktuellesArchivale = new Archivale();
 		entityManagerFactory = mock(EntityManagerFactory.class);
 		entityManager = mock(EntityManager.class);
 		when(entityManagerFactory.createEntityManager()).thenReturn(
 				entityManager);
 		entityTransaction = mock(EntityTransaction.class);
 		when(entityManager.getTransaction()).thenReturn(entityTransaction);
-		when(entityManager.merge(aktuellesArchivale)).thenReturn(aktuellesArchivale);
+		when(entityManager.merge(aktuellesArchivale)).thenReturn(
+				aktuellesArchivale);
 		// entityManager muss manuell injiziert werden
 		Field f = proband.getClass().getDeclaredField("entityManagerFactory");
 		f.setAccessible(true);
@@ -78,11 +79,10 @@ public class EditBeanTest {
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#back()} wenn ein
 	 * neues Archivale bearbeitet wurde.
-	 * @author burghard.britzke
 	 */
 	@Test
 	public void testBackNewArchivale() {
-		when(aktuellesArchivale.getId()).thenReturn(0); // mock new Archivale
+
 		proband.setAktuellesArchivale(aktuellesArchivale);
 
 		String navigation = proband.back();
@@ -93,12 +93,11 @@ public class EditBeanTest {
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#back()} - wenn ein
 	 * bestehendes Archivale bearbeitet wurde.
-	 * @author burghard.britzke
 	 */
 	@Test
 	public void testBackOldArchivale() {
-		when(aktuellesArchivale.getId()).thenReturn(1); // mock db existing
-														// Archivale
+		aktuellesArchivale.setId(1);
+
 		proband.setAktuellesArchivale(aktuellesArchivale);
 
 		String navigation = proband.back();
@@ -108,7 +107,6 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#lösche()}.
-	 * @author burghard.britzke
 	 */
 	@Test
 	public void testLösche() {
@@ -117,47 +115,44 @@ public class EditBeanTest {
 		String navigation = proband.lösche();
 		assertEquals("lösche() muss auf die Index-Seite navigieren", "index",
 				navigation);
-		verify(entityManager,times(2)).getTransaction();
+		verify(entityManager, times(2)).getTransaction();
 		verify(entityManager).remove(aktuellesArchivale);
 		verify(entityTransaction).commit();
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#speichere()}.
-	 * @author burghard.britzke
 	 */
 	@Test
 	public void testSpeichereNeuesArchivale() {
-		when(aktuellesArchivale.getId()).thenReturn(0); // mock new Archivale
+
 		proband.setAktuellesArchivale(aktuellesArchivale);
 
 		String navigation = proband.speichere();
 		assertEquals("lösche() muss auf die Detailseite navigieren", "detail",
 				navigation);
-		verify(entityManager,times(2)).getTransaction();
+		verify(entityManager, times(2)).getTransaction();
 		verify(entityTransaction).commit();
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#speichere()}.
-	 * @author burghard.britzke
 	 */
 	@Test
 	public void testSpeichereAltesArchivale() {
-		when(aktuellesArchivale.getId()).thenReturn(1); // mock db-existend
-														// Archivale
+		aktuellesArchivale.setId(1);
 		proband.setAktuellesArchivale(aktuellesArchivale);
 
-		String navigation = proband.speichere();
+		String navigation = proband.speichere(); // test
+
 		assertEquals("lösche() muss auf die Detailseite navigieren", "detail",
 				navigation);
-		verify(entityManager,times(2)).getTransaction();
+		verify(entityManager, times(2)).getTransaction();
 		verify(entityTransaction).commit();
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#erstelle()}.
-	 * @author burghard.britzke
 	 */
 	@Test
 	public void testErstelle() {
@@ -169,66 +164,65 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#loadNamen()}.
-	 * @author LightningLord2
 	 */
 	@Test
 	public void testLoadNamen() {
 		String navigation = proband.loadNamen();
-		assertEquals("loadNamen() muss zum Edit-View navigieren", "edit", navigation);
+		assertEquals("loadNamen() muss zum Edit-View navigieren", "edit",
+				navigation);
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#saveNamen()}.
-	 * @author LightningLord2
 	 */
 	@Test
 	public void testSaveNamen() {
 		String navigation = proband.saveNamen();
-		assertEquals("saveNamen() muss zum Edit-View navigieren", "edit", navigation);
+		assertEquals("saveNamen() muss zum Edit-View navigieren", "edit",
+				navigation);
 	}
 
 	/**
 	 * Test method for
 	 * {@link de.archivator.beans.EditBean#loadOrganisationseinheiten()}.
-	 * @author LightningLord2
 	 */
 	@Test
 	public void testLoadOrganisationseinheiten() {
 		String navigation = proband.loadOrganisationseinheiten();
-		assertEquals("loadOrganisationseinheiten() muss zum Edit-View navigieren", "edit", navigation);
+		assertEquals(
+				"loadOrganisationseinheiten() muss zum Edit-View navigieren",
+				"edit", navigation);
 	}
 
 	/**
 	 * Test method for
 	 * {@link de.archivator.beans.EditBean#saveOrganisationseinheiten()}.
-	 * @author LightningLord2
 	 */
 	@Test
 	public void testSaveOrganisationseinheiten() {
-		List<Organisationseinheit> organisationseinheiten = mock(List.class);
-		when(aktuellesArchivale.getOrganisationseinheiten()).thenReturn(organisationseinheiten);
-		String testOrganistationseinheiten = new String("Umschlag, Folie, Skizze");
-		//proband.setArchivaleOrganisationseinheiten(testOrganistationseinheiten); Klasse fehlt
-		
+
 		String navigation = proband.saveOrganisationseinheiten();
-		
-		assertEquals("saveOrganisationseinheiten() muss zum Edit-View navigieren", "edit", navigation);
-		List<Organisationseinheit> neueOrganisationseinheiten = aktuellesArchivale.getOrganisationseinheiten();
-		assertTrue(neueOrganisationseinheiten.contains("Umschlag"));
-		assertTrue(neueOrganisationseinheiten.contains("Folie"));
-		assertTrue(neueOrganisationseinheiten.contains("Skizze"));
+
+		assertEquals(
+				"saveOrganisationseinheiten() muss zum Edit-View navigieren",
+				"edit", navigation);
+		fail("noch nicht fertig implementiert");
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#loadSchlagworte()}.
-	 * @throws SecurityException 
-	 * @throws NoSuchFieldException Wenn es in der EditBean keine Eigenschaft namens "aktuellesArchivale" gibt. 
-	 * @throws IllegalAccessException Wenn der Zugriff zur EditBean verweigert wurde. 
+	 * 
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 *             Wenn es in der EditBean keine Eigenschaft namens
+	 *             "aktuellesArchivale" gibt.
+	 * @throws IllegalAccessException
+	 *             Wenn der Zugriff zur EditBean verweigert wurde.
 	 * @throws IllegalArgumentException
-	 * @author LightningLord2
 	 */
 	@Test
-	public void testLoadSchlagworte() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public void testLoadSchlagworte() throws NoSuchFieldException,
+			SecurityException, IllegalArgumentException, IllegalAccessException {
 		List<Schlagwort> schlagwörter = new ArrayList<Schlagwort>();
 		Schlagwort s = new Schlagwort();
 		s.setName("Lette");
@@ -236,34 +230,55 @@ public class EditBeanTest {
 		s = new Schlagwort();
 		s.setName("Datenbank");
 		schlagwörter.add(s);
-		when(aktuellesArchivale.getSchlagwörter()).thenReturn(schlagwörter);
+		aktuellesArchivale.setSchlagwörter(schlagwörter);
 		Field f = EditBean.class.getDeclaredField("aktuellesArchivale");
 		f.setAccessible(true);
-		
+
 		f.set(proband, aktuellesArchivale);
-		
+
 		String navigation = proband.loadSchlagworte();
-		assertEquals("loadSchlagworte() muss zum Edit-View navigieren", "edit", navigation);
+		assertEquals("loadSchlagworte() muss zum Edit-View navigieren", "edit",
+				navigation);
 		assertEquals("Lette, Datenbank", proband.getArchivaleSchlagwörter());
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#saveSchlagworte()}.
-	 * @author LightningLord2
+	 * 
+	 * @throws SecurityException
+	 *             Wenn Reflection nicht erlaubt ist.
+	 * @throws NoSuchFieldException
+	 *             Wenn keine Eigenschaft aktuellesArchivale an der EditBean
+	 *             existiert.
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 *             Wenn die Eigenschaft aktuellesArchivale aus der EditBean
+	 *             nicht vom Typ Archivale ist.
 	 */
 	@Test
-	public void testSaveSchlagworte() {
-		List<Schlagwort> schlagwörter = mock(List.class);
-		when(aktuellesArchivale.getSchlagwörter()).thenReturn(schlagwörter);
-		String testSchlagworte = new String("Lette, Projekt, Datenbank");
-		proband.setArchivaleSchlagwörter(testSchlagworte);
-		
+	public void testSaveSchlagworte() throws NoSuchFieldException,
+			SecurityException, IllegalArgumentException, IllegalAccessException {
+		proband.setArchivaleSchlagwörter("Lette, Projekt");
+		Field f = proband.getClass().getDeclaredField("aktuellesArchivale");
+		f.setAccessible(true);
+		f.set(proband, aktuellesArchivale);
+
 		String navigation = proband.saveSchlagworte();
-		
-		assertEquals("saveSchlagworte() muss zum Edit-View navigieren", "edit", navigation);
-		List<Schlagwort> neueSchlagwörter = aktuellesArchivale.getSchlagwörter();
-		assertTrue(neueSchlagwörter.contains("Lette"));
-		assertTrue(neueSchlagwörter.contains("Projekt"));
-		assertTrue(neueSchlagwörter.contains("Datenbank"));
+
+		assertEquals("saveSchlagworte() muss zum Edit-View navigieren", "edit",
+				navigation);
+		List<Schlagwort> schlagwörter = aktuellesArchivale.getSchlagwörter();
+		boolean containsLette=false;
+		boolean containsProjekt=false;
+		for (Schlagwort schlagwort:schlagwörter) {
+			if (schlagwort.getName().equals("Lette")) containsLette=true;
+			if (schlagwort.getName().equals("Projekt")) containsProjekt=true;
+		}
+		assertTrue(
+				"Im aktuellen Archivale muss das Schlagwort 'Lette' gesetzt sein",
+				containsLette);
+		assertTrue(
+				"Im aktuellen Archivale muss das Schlagwort 'Projekt' gesetzt sein",
+				containsProjekt);
 	}
 }

@@ -3,6 +3,7 @@
  * and retrieving archived items.
  *
  * Copyright (C) 2012  junghans
+ *                     burghard.britzke bubi@charmides.in-berlin.de
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -31,13 +32,15 @@ import de.archivator.entities.Name;
 import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
+import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
 
 /**
- * Classe für die Archivalien.
+ * Ein Archivale ist ein Archivgut, das in einem Archiv verwaltet wird.
  * @author junghans
+ * @author burghard.britzke
  * @version 1.0
  */
 @Entity
@@ -90,7 +93,16 @@ public class Archivale implements Serializable {
 	@ManyToMany(mappedBy="archivalien")
 	private List<Schlagwort> schlagwörter;
 
+	/**
+	 * Erzeugt ein neues Archivale. Initialisiert die Liste der Namen,
+	 * Dokumentarten, Organisationseinheiten und Schlagwörter
+	 * für dieses Archivale.
+	 */
 	public Archivale() {
+		namen=new ArrayList<Name>();
+		organisationseinheiten=new ArrayList<Organisationseinheit>();
+		dokumentarten=new ArrayList<Dokumentart>();
+		schlagwörter=new ArrayList<Schlagwort>();
 	}
 
 	public int getId() {

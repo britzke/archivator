@@ -61,6 +61,14 @@ public class Schlagwort implements Serializable {
 	public Schlagwort() {
 	}
 
+	/**
+	 * Erzeugt ein Neues Schlagwort mit dem angegebenen Namen.
+	 * @param name Das Schlagwort
+	 */
+	public Schlagwort(String name) {
+		this.name= name;
+	}
+
 	public int getId() {
 		return this.id;
 	}

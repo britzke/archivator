@@ -20,6 +20,7 @@
 package de.archivator.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -58,8 +59,17 @@ public class EditBean implements Serializable {
 	private Archivale aktuellesArchivale;
 
 	private List<String> betreffs;
+	/**
+	 * Liste aller Namen, die im System gespeichert sind.
+	 */
 	private List<Name> namen;
+	/**
+	 * Liste aller Organisationseinheiten, die im System gespeichert sind.
+	 */
 	private List<Organisationseinheit> organisationseinheiten;
+	/**
+	 * Liste aller Schlagworte, die im System gespeichert sind.
+	 */
 	private List<Schlagwort> schlagworte;
 
 	private String archivaleNames;
@@ -69,6 +79,10 @@ public class EditBean implements Serializable {
 	 * Erzeugt eine neue EditBean.
 	 */
 	public EditBean() {
+		namen=new ArrayList<Name>();
+		organisationseinheiten=new ArrayList<Organisationseinheit>();
+		schlagworte=new ArrayList<Schlagwort>();
+
 		archivaleSchlagwörter = new String();
 		archivaleNames = new String();
 	}
@@ -289,7 +303,13 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String saveSchlagworte() {
-
+		String[] wörter = archivaleSchlagwörter.split(",");
+		List<Schlagwort> schlagwörter = aktuellesArchivale.getSchlagwörter();
+		for (String wort : wörter) {
+			wort=wort.trim();
+			Schlagwort schlagwort=new Schlagwort(wort);
+			schlagwörter.add(schlagwort);
+		}
 		return "edit";
 	}
 }
