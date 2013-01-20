@@ -145,6 +145,7 @@ public class RechercheBean implements Serializable {
 	 * @return "index" konstant.
 	 */
 	public String search() {
+		archivalien = new ArrayList<Archivale>();
 		CompassConfiguration conf = new CompassConfiguration().configure()
 				.addClass(Archivale.class);
 		Compass compass = conf.buildCompass();
