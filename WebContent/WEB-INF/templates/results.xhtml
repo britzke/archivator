@@ -2,7 +2,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<pe:ajaxErrorHandler />
 	<p:commandButton id="neuButton" icon="ui-icon-plus"
@@ -29,7 +30,7 @@
 				<pe:tooltip for="editButton" value="Bearbeiten des Archivales"></pe:tooltip>
 			</p:commandButton>
 			<br />
-			<h:outputText value="#{archivale.inhalt}"></h:outputText>
+			<h:outputText value="#{archivale.shortInhalt}"></h:outputText>
 		</p>
 	</p:dataList>
 </h:form>

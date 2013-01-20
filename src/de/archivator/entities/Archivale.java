@@ -36,9 +36,9 @@ import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
-
 /**
  * Ein Archivale ist ein Archivgut, das in einem Archiv verwaltet wird.
+ * 
  * @author junghans
  * @author burghard.britzke
  * @version 1.0
@@ -54,7 +54,7 @@ public class Archivale implements Serializable {
 	@SearchableId
 	private int id;
 
-	@Column(name="ABTEILUNGEN_ID")
+	@Column(name = "ABTEILUNGEN_ID")
 	private int abteilungenId;
 
 	@SearchableProperty
@@ -76,33 +76,32 @@ public class Archivale implements Serializable {
 
 	private int schubfach;
 
-
-	//bi-directional many-to-many association to Namen
-	@ManyToMany(mappedBy="archivalien")
+	// bi-directional many-to-many association to Namen
+	@ManyToMany(mappedBy = "archivalien")
 	private List<Name> namen;
 
-	//bi-directional many-to-many association to Dokumentarten
-	@ManyToMany(mappedBy="archivalien")
+	// bi-directional many-to-many association to Dokumentarten
+	@ManyToMany(mappedBy = "archivalien")
 	private List<Dokumentart> dokumentarten;
 
-	//bi-directional many-to-many association to Organisationseinheiten
-	@ManyToMany(mappedBy="archivalien")
+	// bi-directional many-to-many association to Organisationseinheiten
+	@ManyToMany(mappedBy = "archivalien")
 	private List<Organisationseinheit> organisationseinheiten;
 
-	//bi-directional many-to-many association to Schlagwörter
-	@ManyToMany(mappedBy="archivalien")
+	// bi-directional many-to-many association to Schlagwörter
+	@ManyToMany(mappedBy = "archivalien", cascade = CascadeType.ALL)
 	private List<Schlagwort> schlagwörter;
 
 	/**
 	 * Erzeugt ein neues Archivale. Initialisiert die Liste der Namen,
-	 * Dokumentarten, Organisationseinheiten und Schlagwörter
-	 * für dieses Archivale.
+	 * Dokumentarten, Organisationseinheiten und Schlagwörter für dieses
+	 * Archivale.
 	 */
 	public Archivale() {
-		namen=new ArrayList<Name>();
-		organisationseinheiten=new ArrayList<Organisationseinheit>();
-		dokumentarten=new ArrayList<Dokumentart>();
-		schlagwörter=new ArrayList<Schlagwort>();
+		namen = new ArrayList<Name>();
+		organisationseinheiten = new ArrayList<Organisationseinheit>();
+		dokumentarten = new ArrayList<Dokumentart>();
+		schlagwörter = new ArrayList<Schlagwort>();
 	}
 
 	public int getId() {
@@ -197,7 +196,8 @@ public class Archivale implements Serializable {
 		return this.organisationseinheiten;
 	}
 
-	public void setOrganisationseinheiten(List<Organisationseinheit> organisationseinheiten) {
+	public void setOrganisationseinheiten(
+			List<Organisationseinheit> organisationseinheiten) {
 		this.organisationseinheiten = organisationseinheiten;
 	}
 
@@ -207,6 +207,20 @@ public class Archivale implements Serializable {
 
 	public void setSchlagwörter(List<Schlagwort> schlagwörter) {
 		this.schlagwörter = schlagwörter;
+	}
+
+	/**
+	 * Liefert den Inhalt der Archivale derart gekürzt, dass er in der Liste der
+	 * Rechercheresultate angezeigt werden kann.
+	 * 
+	 * @return An einer Wortgrenze abgeschnittene Zeichenkette des Attributs
+	 *         Inhalt, die nicht länger als 120 Zeichen ist.
+	 */
+	public String getShortInhalt() {
+		String shortInhalt = inhalt.substring(0, 120);
+		shortInhalt = shortInhalt.substring(0, shortInhalt.lastIndexOf(" "));
+		if (inhalt.length()>shortInhalt.length()) shortInhalt=shortInhalt+"...";
+		return shortInhalt.toString();
 	}
 
 }
