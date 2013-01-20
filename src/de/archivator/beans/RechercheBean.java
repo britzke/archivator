@@ -30,7 +30,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import org.compass.core.Compass;
@@ -146,8 +145,6 @@ public class RechercheBean implements Serializable {
 	 * @return "index" konstant.
 	 */
 	public String search() {
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("archivator");
 		CompassConfiguration conf = new CompassConfiguration().configure()
 				.addClass(Archivale.class);
 		Compass compass = conf.buildCompass();
@@ -155,14 +152,14 @@ public class RechercheBean implements Serializable {
 		// A request scope operation
 		CompassSession session = compass.openSession();
 		CompassGps gps = new SingleCompassGps(compass);
-		CompassGpsDevice jpaDevice = new JpaGpsDevice("jpa", emf);
+		CompassGpsDevice jpaDevice = new JpaGpsDevice("jpa", entityManagerFactory);
 		gps.addGpsDevice(jpaDevice);
 		gps.start();
 		gps.index();
 
 		try {
 			List<Archivale> l = this.getDatalist(Archivale.class,
-					emf.createEntityManager());
+					entityManagerFactory.createEntityManager());
 
 			for (int i = 0; i < l.size(); i++) {
 				session.save(l.get(i));
