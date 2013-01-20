@@ -217,9 +217,17 @@ public class Archivale implements Serializable {
 	 *         Inhalt, die nicht länger als 120 Zeichen ist.
 	 */
 	public String getShortInhalt() {
-		String shortInhalt = inhalt.substring(0, 120);
-		shortInhalt = shortInhalt.substring(0, shortInhalt.lastIndexOf(" "));
-		if (inhalt.length()>shortInhalt.length()) shortInhalt=shortInhalt+"...";
+		String shortInhalt;
+		if (inhalt.length() > 120) {
+			shortInhalt = inhalt.substring(0, 120);
+			if (shortInhalt.lastIndexOf(" ") > 0) {
+				shortInhalt = shortInhalt.substring(0,
+						shortInhalt.lastIndexOf(" "))
+						+ "...";
+			}
+		} else {
+			shortInhalt = inhalt;
+		}
 		return shortInhalt.toString();
 	}
 
