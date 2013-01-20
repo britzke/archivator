@@ -30,7 +30,7 @@
 				<pe:tooltip for="editButton" value="Bearbeiten des Archivales"></pe:tooltip>
 			</p:commandButton>
 			<br />
-			<h:outputText value="#{archivale.shortInhalt}"></h:outputText>
+			<h:outputText value="#{archivale.shortInhalt} (#{archivale.vonJahr}#{archivale.bisJahr gt 0? '-bisJahr':''}) "></h:outputText>
 		</p>
 	</p:dataList>
 </h:form>
