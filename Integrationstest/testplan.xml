@@ -663,7 +663,7 @@
 	</testfall>
 
 
-	<testfall titel="Testfall für die erweiterte Suche Function 'Betreff' Button">
+	<testfall titel="Testfall für die erweiterte Suche Funktion 'Betreff' Button">
 	<vorraussetzungen>
 			<vorraussetzung>
 				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
@@ -706,7 +706,7 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für die erweiterte Suche Function 'Name' Button">
+	<testfall titel="Testfall für die erweiterte Suche Funktion 'Name' Button">
 	<vorraussetzungen>
 			<vorraussetzung>
 				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
@@ -987,6 +987,14 @@
 				<ergebnisse>
 					<ergebnis>
 						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
