@@ -16,7 +16,7 @@ http://www.compass-project.org/schema/compass-core-config-2.2.xsd" >
                     <driverManager
                         driverClass="org.apache.derby.jdbc.ClientDriver"
                         password="123"
-                        url="jdbc:derby://localhost:1527/archivator.jdb"
+                        url="jdbc:derby://localhost:1527/archivator.jdb;create=true"
                         username="archivator" />
                 </dataSourceProvider>
             </jdbc>
