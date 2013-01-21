@@ -1,33 +1,33 @@
--Anzeigen der Hauptseite (n)
--Testfall für fehlgeschlagenen Login
--Testfall für erfolgreichen Login
--Testfall für Logout
--Testfall für SeiteZurückButton nach Anmeldung
--Testfall für SeiteVorwärtsButton nach Anmeldung
+ï»¿-Anzeigen der Hauptseite (n)
+-Testfall fÃ¼r fehlgeschlagenen Login
+-Testfall fÃ¼r erfolgreichen Login
+-Testfall fÃ¼r Logout
+-Testfall fÃ¼r SeiteZurÃ¼ckButton nach Anmeldung
+-Testfall fÃ¼r SeiteVorwÃ¤rtsButton nach Anmeldung
 -Dem Rechercheur die Bearbeitung verwehren
 -Bearbeitungsanzeige anzeigen
--Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren
+-Zwischen Bearbeitungsformular und Detailansicht mit den SchaltflÃ¤chen des Webbrowsers navigieren
 -Detailanzeige
 -Erfassen eines neuen Archivales
--Eigenschaften gültig ändern
--Eigenschaften ungültig ändern
--Kein Speichern beim Navigieren aus dem Bearbeitungsformular mit den Schaltflächen des Webbrowsers
+-Eigenschaften gÃ¼ltig Ã¤ndern
+-Eigenschaften ungÃ¼ltig Ã¤ndern
+-Kein Speichern beim Navigieren aus dem Bearbeitungsformular mit den SchaltflÃ¤chen des Webbrowsers
 -Bearbeitung abbrechen
--Archivale löschen
--Testfall für die schnelle Suche (n)
--Testfall für die erweiterte Suche
--Testfall für die erweiterte Suche Function 'x' Button (*)
+-Archivale lÃ¶schen
+-Testfall fÃ¼r die schnelle Suche (n)
+-Testfall fÃ¼r die erweiterte Suche
+-Testfall fÃ¼r die erweiterte Suche Function 'x' Button (*)
 -Korrekte Seitenunterteilung (Paging) der Ergebnisanzeige
--Testfall für SeiteZurückButton nach Sucheintrag
--Testfall für SeiteVorwärtsButton nach Sucheintrag
--Testfall für falsches Passwort (l)
--Testfall für SeiteZurückButton nach Sucheintrag (l)
--Testfall für SeiteVorwärtsButton nach Sucheintrag (l)
+-Testfall fÃ¼r SeiteZurÃ¼ckButton nach Sucheintrag
+-Testfall fÃ¼r SeiteVorwÃ¤rtsButton nach Sucheintrag
+-Testfall fÃ¼r falsches Passwort (l)
+-Testfall fÃ¼r SeiteZurÃ¼ckButton nach Sucheintrag (l)
+-Testfall fÃ¼r SeiteVorwÃ¤rtsButton nach Sucheintrag (l)
 
 Legende:
 
-(*) beinhaltet einen Test für jeden der sechs Buttons (Betreff, Name, Schlagwörter, Titel, Und, Oder)
+(*) beinhaltet einen Test fÃ¼r jeden der sechs Buttons (Betreff, Name, SchlagwÃ¶rter, Titel, Und, Oder)
 
-(l) zu löschender Eintrag
+(l) zu lÃ¶schender Eintrag
 
 (n) neuer Eintrag
