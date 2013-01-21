@@ -1,479 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testplan xmlns="http://www.archivator.de/testplan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.archivator.de/testplan testplan.xsd">
-	<testfall titel="Dem Rechercheur die Bearbeitung verwehren">
-		<vorraussetzungen>
-			<vorraussetzung>Benutzer ist nicht angemeldet.</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Führe eine Recherche durch, die mindestens ein Ergebnis liefert.
-				<ergebnisse>
-					<ergebnis>
-						Liste mit Rechercheergebnissen wird angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Es wird keine Schaltfläche zur Bearbeitung neben jedem Rechercheergebnis angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Ein Archivale in der Detailansicht öffnen.
-				<ergebnisse>
-					<ergebnis>Es wird keine Schaltfläche zur Bearbeitung angezeigt.</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Detailanzeige">
-		<vorraussetzungen>
-			<vorraussetzung>Es werden Ergebnisse in der Ergebnisliste angezeigt.</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Ein Ergebnis auswählen.
-				<ergebnisse>
-					<ergebnis>
-						Die Detailansicht mit dem Inhalt des ausgewählten Ergebnisses wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Korrekte Seitenunterteilung (Paging) der Ergebnisanzeige">
-		<vorraussetzungen>
-			<vorraussetzung>keine</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Führe eine Recherche durch, die mehr als zehn Ergebnisse erzielt.
-			</schritt>
-			<schritt>
-				Zähle die Anzahl der Ergebnisse, die auf der ersten Seite angezeigt werden.
-				<ergebnisse>
-					<ergebnis>
-						Es wird ein Paginator am unteren Ende der Liste der Rechercheergebnisse angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Die Anzahl der Ergebnisse auf der ersten Seite der Rechercheergebnisse ist 10.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<!-- <vorraussetzungen> Der Benutzer ist als Redakteur angemeldet. Bin mir 
-		da Unsicher , da man angemeldet sein muss um zu Bearbeiten -->
-	<testfall titel="Bearbeitungsanzeige anzeigen">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-				Es werden Ergebnisse in der Ergebnisliste angezeigt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Die Schaltfläche “Bearbeiten“ eines Ergebnisses anwählen.
-				<ergebnisse>
-					<!-- woher weiß der Tester, ob alle Informationen richtig angezeigt werden? -->
-					<ergebnis>
-						Die Bearbeitungsanzeige wird angezeigt mit den
-						verschieden Feldern richtig ausgefüllt mit den Informationen der
-						Ausgewählten Bean.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-				Detailanzeige wird angezeigt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Wähle die Schaltfläche "Bearbeiten" neben einem Rechercheergebnis an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "vorherige Seite anzeigen" des Webbrowsers an.
-				<ergebnisse>
-					<ergebnis>
-						Die Detailanzeige wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "nächste Seite anzeigen" des Webbrowsers an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-	
-	<testfall
-		titel="Kein Speichern beim Navigieren aus dem Bearbeitungsformular mit den Schaltflächen des Webbrowsers">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-					Bearbeitungsformular wird angezeigt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Den Wert eines Feldes ändern.
-			</schritt>
-			<schritt>
-				Die Schaltfläche "vorherige Seite anzeigen" des Webbrowsers anwählen.
-			</schritt>
-			<schritt>
-				Die Schaltfläche "nächste Seite anzeigen" des Webbrowsers anwählen.
-				<ergebnisse>
-					<ergebnis>
-						Der geänderte Wert ist wieder ungeändert zurückgesetzt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Eigenschaften gültig ändern">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-				Die Detailansicht wird angezeigt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Wähle die Schaltfläche "Bearbeiten" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Ändere das Attribut Schubfach mit gültigem Wert.
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Speichern" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Archivale wird in der Detailansicht angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Das Attribut Schubfach wird mit dem geänderten Wert angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Bearbeiten" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Ändere das Attribut Mappe mit gültigem Wert.
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Speichern" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Archivale wird in der Detailansicht angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Das Attribut Mappe wird mit dem geänderten Wert angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Bearbeiten" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Ändere das Attribut Betreff mit gültigem Wert.
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Speichern" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Archivale wird in der Detailansicht angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Das Attribut Betreff wird mit dem geänderten Wert angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Bearbeiten" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Ändere das Attribut Inhalt mit gültigem Wert.
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Speichern" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Archivale wird in der Detailansicht angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Das Attribut Inhalt wird mit dem geänderten Wert angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Bearbeiten" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Ändere das Attribut Datum mit gültigen Werten (von-bis), wobei der bis-Wert nicht 0 ist.
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Speichern" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Archivale wird in der Detailansicht angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Das Attribut Datum wird mit dem geänderten Werten (von-bis) angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Bearbeiten" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Ändere das Attribut Datum mit gültigen Werten, wobei der bis-Wert den Wert 0 hat.
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Speichern" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Archivale wird in der Detailansicht angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Für das Attribut Datum wird nur ein Wert - der geänderte Wert angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-
-<!-- von hier an müssen die Schritte noch abgeändert werden -->
-			<schritt>
-				Personen:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
-				<ergebnisse>
-					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Organisationseinheit:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
-				<ergebnisse>
-					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Schlagwörter:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
-				<ergebnisse>
-					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-<!-- bis hier müssen die Schritte noch abgeändert werden -->
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Eigenschaften ungültig ändern">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-				Die Detailansicht wird angezeigt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Wähle die Schaltfläche "Bearbeiten" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Ändere alle Attribute mit ungültigen Werten
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Speichern".
-				<ergebnisse>
-					<ergebnis>
-						Die Detailansicht wird angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Für jedes Attribut wird eine Fehlermeldung angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Das Archivale wird mit unveränderten Attributen angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Bearbeitung abbrechen">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-				Die Detailansicht wird angezeigt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Wähle die Schaltfläche "Bearbeiten" an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Ändere alle Attribute mit gültigem Wert.
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "abbrechen"
-				<ergebnisse>
-					<ergebnis>
-						Das Archivale wird mit ungeänderten Werten angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Archviale löschen">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-				Das Rechercheergebnis mit mindestens einem Archivale wird angezeigt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>Wähle die Schaltfläche "Bearbeiten" neben dem Archivale an
-				<ergebnisse>
-					<ergebnis>
-						Das Archviale wird in der Detailansicht angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "Löschen an".
-				<ergebnisse>
-					<ergebnis>
-						Das Rechercheergebnis wird angezeigt ohne das gelöschte Archivale.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Erfassen eines neuen Archivales">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-				Das Rechercheergebnis wird angezeigt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Wähle die Schaltfläche “Hinzufügen” an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird mit initialien Werten angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Ändere alle Attribute mit gültigem Wert.
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "speichern"
-				<ergebnisse>
-					<ergebnis>
-						Die Detailansicht wird angezeigt.
-					</ergebnis>
-					<ergebnis>
-						Das Archivale wird mit erfassten Werten angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
 
 	<testfall titel="Testfall für erfolgreichen Login">
 		<vorraussetzungen>
@@ -483,7 +10,8 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Erfasse das korrekte Kennwort in das Textfeld für das Kennwort.
+				Erfasse das korrekte Kennwort in das Textfeld für das
+				Kennwort.
 			</schritt>
 			<schritt>
 				Wähle die Schaltfläche "Login"
@@ -504,7 +32,7 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
+
 	<testfall titel="Testfall für fehlgeschlagenen Login">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -621,16 +149,16 @@
 					<ergebnis>
 							Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
 						</ergebnis>
-						<ergebnis>
+					<ergebnis>
 							Das Suchfeld wird angezeigt.
 						</ergebnis>
-						<ergebnis>
+					<ergebnis>
 							Neben dem Suchfeld befindet sich der ‘Suche’ Button
 						</ergebnis>
-						<ergebnis>
+					<ergebnis>
    							Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
     					</ergebnis>
-    					<ergebnis>
+					<ergebnis>
     						Folgende Buttons werden darunter angezeigt:
         					‘Betreff’
         					‘Name’  
@@ -664,7 +192,7 @@
 
 
 	<testfall titel="Testfall für die erweiterte Suche Funktion 'Betreff' Button">
-	<vorraussetzungen>
+		<vorraussetzungen>
 			<vorraussetzung>
 				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
 			</vorraussetzung>
@@ -707,14 +235,14 @@
 	</testfall>
 
 	<testfall titel="Testfall für die erweiterte Suche Funktion 'Name' Button">
-	<vorraussetzungen>
+		<vorraussetzungen>
 			<vorraussetzung>
 				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
 			</vorraussetzung>
 			<vorraussetzung>
 				Das Suchfeld wird angezeigt.
 				</vorraussetzung>
-				<vorraussetzung>
+			<vorraussetzung>
 				Neben dem Suchfeld befindet sich der ‘Suche’ Button
 			</vorraussetzung>
 			<vorraussetzung>
@@ -750,7 +278,7 @@
 	</testfall>
 
 	<testfall titel="Testfall für die erweiterte Suche Funktion 'Und' Button">
-	<vorraussetzungen>
+		<vorraussetzungen>
 			<vorraussetzung>
 				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
 			</vorraussetzung>
@@ -793,7 +321,7 @@
 
 	<testfall
 		titel="Testfall für die erweiterte Suche Funktion 'Schlagwort' Button">
-	<vorraussetzungen>
+		<vorraussetzungen>
 			<vorraussetzung>
 				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
 			</vorraussetzung>
@@ -1001,4 +529,489 @@
 		</durchführung>
 	</testfall>
 
+	<testfall titel="Korrekte Seitenunterteilung (Paging) der Ergebnisanzeige">
+		<vorraussetzungen>
+			<vorraussetzung>keine</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Führe eine Recherche durch, die mehr als zehn Ergebnisse
+				erzielt.
+			</schritt>
+			<schritt>
+				Zähle die Anzahl der Ergebnisse, die auf der ersten Seite angezeigt
+				werden.
+				<ergebnisse>
+					<ergebnis>
+						Es wird ein Paginator am unteren Ende der Liste der Rechercheergebnisse angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Die Anzahl der Ergebnisse auf der ersten Seite der Rechercheergebnisse ist 10.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<!-- <vorraussetzungen> Der Benutzer ist als Redakteur angemeldet. Bin mir 
+		da Unsicher , da man angemeldet sein muss um zu Bearbeiten -->
+	<testfall titel="Bearbeitungsanzeige anzeigen">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Es werden Ergebnisse in der Ergebnisliste angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Die Schaltfläche “Bearbeiten“ eines Ergebnisses anwählen.
+				<ergebnisse>
+					<!-- woher weiß der Tester, ob alle Informationen richtig angezeigt 
+						werden? -->
+					<ergebnis>
+						Die Bearbeitungsanzeige wird angezeigt mit den
+						verschieden Feldern richtig ausgefüllt mit den Informationen der
+						Ausgewählten Bean.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Bearbeitung abbrechen">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Die Detailansicht wird angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere alle Attribute mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "abbrechen"
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird mit ungeänderten Werten angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
+	<testfall titel="Dem Rechercheur die Bearbeitung verwehren">
+		<vorraussetzungen>
+			<vorraussetzung>Benutzer ist nicht angemeldet.</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Führe eine Recherche durch, die mindestens ein Ergebnis liefert.
+				<ergebnisse>
+					<ergebnis>
+						Liste mit Rechercheergebnissen wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Es wird keine Schaltfläche zur Bearbeitung neben jedem Rechercheergebnis angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ein Archivale in der Detailansicht öffnen.
+				<ergebnisse>
+					<ergebnis>Es wird keine Schaltfläche zur Bearbeitung angezeigt.</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Detailanzeige">
+		<vorraussetzungen>
+			<vorraussetzung>Es werden Ergebnisse in der Ergebnisliste angezeigt.</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Ein Ergebnis auswählen.
+				<ergebnisse>
+					<ergebnis>
+						Die Detailansicht mit dem Inhalt des ausgewählten Ergebnisses wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall
+		titel="Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Detailanzeige wird angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" neben einem Rechercheergebnis
+				an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "vorherige Seite anzeigen" des Webbrowsers
+				an.
+				<ergebnisse>
+					<ergebnis>
+						Die Detailanzeige wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "nächste Seite anzeigen" des Webbrowsers an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall
+		titel="Kein Speichern beim Navigieren aus dem Bearbeitungsformular mit den Schaltflächen des Webbrowsers">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+					Bearbeitungsformular wird angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Den Wert eines Feldes ändern.
+			</schritt>
+			<schritt>
+				Die Schaltfläche "vorherige Seite anzeigen" des Webbrowsers
+				anwählen.
+			</schritt>
+			<schritt>
+				Die Schaltfläche "nächste Seite anzeigen" des Webbrowsers anwählen.
+				<ergebnisse>
+					<ergebnis>
+						Der geänderte Wert ist wieder ungeändert zurückgesetzt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Eigenschaften gültig ändern">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Die Detailansicht wird angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut Schubfach mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Attribut Schubfach wird mit dem geänderten Wert angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut Mappe mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Attribut Mappe wird mit dem geänderten Wert angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut Betreff mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Attribut Betreff wird mit dem geänderten Wert angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut Inhalt mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Attribut Inhalt wird mit dem geänderten Wert angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut Datum mit gültigen Werten (von-bis),
+				wobei der bis-Wert nicht 0 ist.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Attribut Datum wird mit dem geänderten Werten (von-bis) angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut Datum mit gültigen Werten, wobei der
+				bis-Wert den Wert 0 hat.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Für das Attribut Datum wird nur ein Wert - der geänderte Wert angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+
+			<!-- von hier an müssen die Schritte noch abgeändert werden -->
+			<schritt>
+				Personen:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Organisationseinheit:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Schlagwörter:
+				Das Attribut ändern mit gültigem Wert.
+				Speichern.
+				Die
+				Detailansicht von der Archivale öffnen.
+				<ergebnisse>
+					<ergebnis>
+							Die Archivale ist angezeigt mit dem Attribut korrekt
+							geändert.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<!-- bis hier müssen die Schritte noch abgeändert werden -->
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Eigenschaften ungültig ändern">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Die Detailansicht wird angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere alle Attribute mit ungültigen Werten
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern".
+				<ergebnisse>
+					<ergebnis>
+						Die Detailansicht wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Für jedes Attribut wird eine Fehlermeldung angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Archivale wird mit unveränderten Attributen angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	
+
+	<testfall titel="Archviale löschen">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Das Rechercheergebnis mit mindestens einem Archivale wird angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" neben dem Archivale an
+				<ergebnisse>
+					<ergebnis>
+						Das Archviale wird in der Detailansicht angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Löschen an".
+				<ergebnisse>
+					<ergebnis>
+						Das Rechercheergebnis wird angezeigt ohne das gelöschte Archivale.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Erfassen eines neuen Archivales">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Das Rechercheergebnis wird angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche “Hinzufügen” an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird mit initialien Werten angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere alle Attribute mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "speichern"
+				<ergebnisse>
+					<ergebnis>
+						Die Detailansicht wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Archivale wird mit erfassten Werten angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
 </testplan>
