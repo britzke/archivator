@@ -263,7 +263,7 @@ public class EditBeanTest {
 		f.setAccessible(true);
 		f.set(proband, aktuellesArchivale);
 
-		String navigation = proband.saveSchlagworte();
+		String navigation = proband.saveSchlagworte();	// test
 
 		assertEquals("saveSchlagworte() muss zum Edit-View navigieren", "edit",
 				navigation);

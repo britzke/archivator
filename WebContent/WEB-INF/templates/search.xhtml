@@ -5,24 +5,24 @@
 
 	<p:panelGrid columns="2">
 		<p:inputText id="inputSearch" value="#{rechercheBean.suchKriterium}"></p:inputText>
-		<p:commandButton value="Suche" action="#{rechercheBean.search}"
+		<p:commandButton value="Suche" action="#{searchBean.search}"
 			update="@all" />
 	</p:panelGrid>
 
 	<p:panel header="erweiterte Suche" toggleable="true" collapsed="true" >
 	<p:panelGrid id="extendedSearch" columns="3">
 		<p:commandButton value="Betreff" update="@form"
-			actionListener="#{rechercheBean.betreffClicked}" />
+			actionListener="#{searchBean.betreffClicked}" />
 		<p:commandButton value="Name" update="@form"
 			actionListener="#{rechercheBean.nameClicked}" />
 		<p:commandButton value="und" update="@form"
-			actionListener="#{rechercheBean.andClicked}" />
+			actionListener="#{searchBean.andClicked}" />
 		<p:commandButton value="Schlagwort" update="@form"
-			actionListener="#{rechercheBean.schlagwortClicked}" />
+			actionListener="#{searchBean.schlagwortClicked}" />
 		<p:commandButton value="Titel" update="@form"
-			actionListener="#{rechercheBean.titelClicked}" />
+			actionListener="#{searchBean.titelClicked}" />
 		<p:commandButton value="oder" update="@form"
-			actionListener="#{rechercheBean.orClicked}" />
+			actionListener="#{searchBean.orClicked}" />
 	</p:panelGrid>
 	</p:panel>
 </h:form>

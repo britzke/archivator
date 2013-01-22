@@ -30,8 +30,9 @@ import javax.faces.bean.SessionScoped;
 
 /**
  * Stellt die Funktionen für die An- und Abmeldung zur Verfügung.
+ * 
  * @author e0_wiezorek
- * @author burghard.britzke 
+ * @author burghard.britzke
  */
 @ManagedBean
 @SessionScoped
@@ -54,12 +55,16 @@ public class LoginBean implements Serializable {
 	 *            Wird nicht beachtet.
 	 */
 	public void login(ActionEvent actionEvent) {
+		FacesContext context = FacesContext.getCurrentInstance();
 		if (password.contentEquals(PASSWORD)) {
-			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(
 					"Sie haben sich erfolgreich angemeldet!"));
 			angemeldet = true;
+		} else {
+			context.addMessage(null, new FacesMessage("Falsches Kennwort!"));
+			angemeldet = false;
 		}
+
 	}
 
 	/**
@@ -71,10 +76,10 @@ public class LoginBean implements Serializable {
 	 *            Wird nicht beachtet.
 	 */
 	public void logout(ActionEvent actionEvent) {
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(
-					"Sie haben sich erfolgreich abgemeldet!"));
-			angemeldet = false;
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(
+				"Sie haben sich erfolgreich abgemeldet!"));
+		angemeldet = false;
 	}
 
 	/**
@@ -85,7 +90,8 @@ public class LoginBean implements Serializable {
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *            the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
