@@ -44,9 +44,4 @@ public class RechercheBeanTest {
 	public void setUp() throws Exception {
 		proband = new RechercheBean();
 	}
-
-	@Test
-	public void testSearch() {
-		fail("Not yet implemented");
-	}
 }
