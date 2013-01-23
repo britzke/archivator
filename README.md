@@ -16,7 +16,7 @@ Aufsetzen einer Entwicklungsumgebung - Eclipse
 3. Einrichten eines Servlet-Containers (Servers). Als Runtime wird
    Tomcat in der aktuellen Version (zur Zeit 7.0.35) empfohlen.
    
-4. Primefaces-Bibliothek in der aktuellen Version (aktuell 3.4.2)
+4. Primefaces-Bibliothek in der aktuellen Version (aktuell 3.5.RC1)
    zum Build-Path und zum Deployment-Assembly hinzufügen.
 
 5. Primefaces-Extensions in der aktuellen Version (z. Zt. 0.6.2)
