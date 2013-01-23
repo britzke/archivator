@@ -213,12 +213,15 @@ public class EditBeanTest {
 	 * Test method for {@link de.archivator.beans.EditBean#loadSchlagworte()}.
 	 * 
 	 * @throws SecurityException
+	 * 			Wenn Reflection nicht erlaubt wird.
 	 * @throws NoSuchFieldException
-	 *             Wenn es in der EditBean keine Eigenschaft namens
-	 *             "aktuellesArchivale" gibt.
+	 *          Wenn es in der EditBean keine Eigenschaft namens
+	 *          "aktuellesArchivale" gibt.
 	 * @throws IllegalAccessException
-	 *             Wenn der Zugriff zur EditBean verweigert wurde.
+	 *          Wenn der Zugriff zur EditBean verweigert wurde.
 	 * @throws IllegalArgumentException
+	 * 			Wenn die Eigenschaft aktuellesArchivale aus der EditBean
+	 *          nicht vom Typ Archivale ist.
 	 */
 	@Test
 	public void testLoadSchlagworte() throws NoSuchFieldException,
@@ -239,7 +242,7 @@ public class EditBeanTest {
 		String navigation = proband.loadSchlagworte();
 		assertEquals("loadSchlagworte() muss zum Edit-View navigieren", "edit",
 				navigation);
-		assertEquals("Lette, Datenbank", proband.getArchivaleSchlagwörter());
+		assertEquals("Der zu ladende Test soll 'Lette, Datenbank' sein", "Lette, Datenbank", proband.getArchivaleSchlagwörter());
 	}
 
 	/**
