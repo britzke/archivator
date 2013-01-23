@@ -61,7 +61,7 @@ public class SearchBeanTest {
 
 		proband.betreffClicked(); // test
 
-		verify(mockRechercheBean).setSuchKriterium("betreff = ");
+		verify(mockRechercheBean).setSuchKriterium("betreff:");
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class SearchBeanTest {
 
 		proband.betreffClicked(); // test
 		verify(mockRechercheBean).getSuchKriterium();
-		verify(mockRechercheBean).setSuchKriterium("test AND betreff = ");
+		verify(mockRechercheBean).setSuchKriterium("test AND betreff:");
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class SearchBeanTest {
 		proband.nameClicked();
 
 		verify(mockRechercheBean).getSuchKriterium();
-		verify(mockRechercheBean).setSuchKriterium("name = ");
+		verify(mockRechercheBean).setSuchKriterium("name:");
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class SearchBeanTest {
 		proband.nameClicked();
 
 		verify(mockRechercheBean).getSuchKriterium();
-		verify(mockRechercheBean).setSuchKriterium("test AND name = ");
+		verify(mockRechercheBean).setSuchKriterium("test AND name:");
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class SearchBeanTest {
 		when(mockRechercheBean.getSuchKriterium()).thenReturn(""); // mock empty
 																	// query
 		proband.schlagwortClicked();
-		verify(mockRechercheBean).setSuchKriterium(eq("schlagwort = "));
+		verify(mockRechercheBean).setSuchKriterium(eq("schlagwort:"));
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class SearchBeanTest {
 																		// query
 		proband.schlagwortClicked();
 		verify(mockRechercheBean)
-				.setSuchKriterium(eq("test AND schlagwort = "));
+				.setSuchKriterium(eq("test AND schlagwort:"));
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class SearchBeanTest {
 																	// empty
 		// query
 		proband.titelClicked();
-		verify(mockRechercheBean).setSuchKriterium(eq("titel = "));
+		verify(mockRechercheBean).setSuchKriterium(eq("titel:"));
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class SearchBeanTest {
 																		// empty
 		// query
 		proband.titelClicked();
-		verify(mockRechercheBean).setSuchKriterium(eq("test AND titel = "));
+		verify(mockRechercheBean).setSuchKriterium(eq("test AND titel:"));
 	}
 
 	/**
