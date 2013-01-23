@@ -155,7 +155,6 @@
         					‘Name’  
        					    ‘Und’
        						‘Schlagwörter’
-       					    ‘Titel’
         					‘Oder’
 					</ergebnis>
 				</ergebnisse>
@@ -200,7 +199,6 @@
         		‘Name’  
 				‘Und’
        			‘Schlagwörter’
-       			‘Titel’
         		‘Oder’
 			</vorraussetzung>
 		</vorraussetzungen>
@@ -243,7 +241,6 @@
         		‘Name’  
 				‘Und’
        			‘Schlagwörter’
-       			‘Titel’
         		‘Oder’
 			</vorraussetzung>
 		</vorraussetzungen>
@@ -286,7 +283,6 @@
         		‘Name’  
 				‘Und’
        			‘Schlagwörter’
-       			‘Titel’
         		‘Oder’
 			</vorraussetzung>
 		</vorraussetzungen>
@@ -329,7 +325,6 @@
         		‘Name’  
 				‘Und’
        			‘Schlagwörter’
-       			‘Titel’
         		‘Oder’
 			</vorraussetzung>
 		</vorraussetzungen>
@@ -355,49 +350,7 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für die erweiterte Suche Funktion 'Titel' Button">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Das Suchfeld wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Neben dem Suchfeld befindet sich der ‘Suche’ Button
-			</vorraussetzung>
-			<vorraussetzung>
-   				Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		 	Folgende Buttons werden darunter angezeigt:
-        		‘Betreff’
-        		‘Name’  
-				‘Und’
-       			‘Schlagwörter’
-       			‘Titel’
-        		‘Oder’
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der ‘Titel’ Button wird geklickt.
-				<ergebnisse>
-					<ergebnis>
-					  Es wird der Text “titel = “ in die Suchleiste eingetragen. 
-					  Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der 'Suche' Button wird gedrückt.
-				<ergebnisse>
-					<ergebnis>
-					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
+	
 	<testfall titel="Testfall für die erweiterte Suche Funktion 'Oder' Button">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -416,7 +369,6 @@
         		‘Name’  
 				‘Und’
        			‘Schlagwörter’
-       			‘Titel’
         		‘Oder’
 			</vorraussetzung>
 		</vorraussetzungen>
