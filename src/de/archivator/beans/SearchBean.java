@@ -147,62 +147,62 @@ public class SearchBean implements Serializable {
 
 	/**
 	 * ActionListener-Methode für die Schaltfläche "Betreff". Der Text
-	 * "betreff = " wird in die Eigenschaft suchKriterium der RechercheBean gespeichert. Ist
+	 * "betreff:" wird in die Eigenschaft suchKriterium der RechercheBean gespeichert. Ist
 	 * bereits ein Text im suchKriterium, so wird der text " AND "
 	 * vorangestellt.
 	 */
 	public void betreffClicked() {
 		String query = rechercheBean.getSuchKriterium();
 		if (query.length() == 0) {
-			query = "betreff = ";
+			query = "betreff:";
 		} else {
-			query += " AND betreff = ";
+			query += " AND betreff:";
 		}
 		rechercheBean.setSuchKriterium(query);
 	}
 
 	/**
-	 * ActionListener-Methode für die Schaltfläche "Name". Der Text "name = "
+	 * ActionListener-Methode für die Schaltfläche "Name". Der Text "name:"
 	 * wird in die Eigenschaft suchKriterium gespeichert. Ist bereits ein Text
 	 * im suchKriterium, so wird der text " and " vorangestellt.
 	 */
 	public void nameClicked() {
 		String query = rechercheBean.getSuchKriterium();
 		if (query.length() == 0){
-			query = "name = ";
+			query = "name:";
 		} else {
-			query += " AND name = ";
+			query += " AND name:";
 		}
 		rechercheBean.setSuchKriterium(query);
 	}
 
 	/**
 	 * ActionListener-Methode für die Schaltfläche "Schlagwort". Der Text
-	 * "schlagwort = " wird in die Eigenschaft suchKriterium gespeichert. Ist
+	 * "schlagwort:" wird in die Eigenschaft suchKriterium gespeichert. Ist
 	 * bereits ein Text im suchKriterium, so wird der text " and "
 	 * vorangestellt.
 	 */
 	public void schlagwortClicked() {
 		String query = rechercheBean.getSuchKriterium();
 		if (query.length() == 0) {
-			query = "schlagwort = ";
+			query = "schlagwort:";
 		} else {
-			query += " AND schlagwort = ";
+			query += " AND schlagwort:";
 		}
 		rechercheBean.setSuchKriterium(query);
 	}
 
 	/**
-	 * ActionListener-Methode für die Schaltfläche "Titel". Der Text "titel = "
+	 * ActionListener-Methode für die Schaltfläche "Titel". Der Text "titel:"
 	 * wird in die Eigenschaft suchKriterium gespeichert. Ist bereits ein Text
 	 * im suchKriterium, so wird der text " and " vorangestellt.
 	 */
 	public void titelClicked() {
 		String query = rechercheBean.getSuchKriterium();
 		if (query.length() == 0) {
-			query = "titel = ";
+			query = "titel:";
 		} else {
-			query += " AND titel = ";
+			query += " AND titel:";
 		}
 		rechercheBean.setSuchKriterium(query);
 	}
