@@ -26,20 +26,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-
-import org.compass.core.Compass;
-import org.compass.core.CompassHits;
-import org.compass.core.CompassSession;
-import org.compass.core.config.CompassConfiguration;
-import org.compass.gps.CompassGps;
-import org.compass.gps.CompassGpsDevice;
-import org.compass.gps.device.jpa.JpaGpsDevice;
-import org.compass.gps.impl.SingleCompassGps;
 
 import de.archivator.entities.Archivale;
 
@@ -54,11 +41,6 @@ import de.archivator.entities.Archivale;
 @SessionScoped
 public class RechercheBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-	/**
-	 * Ermöglicht den Zugriff auf die Datenbank
-	 */
-	@Inject
-	private transient EntityManagerFactory entityManagerFactory;
 	/**
 	 * Das Suchkriterium, dass der Benutzer in das Formular search.xhtml
 	 * eingetragen hat.
@@ -110,123 +92,5 @@ public class RechercheBean implements Serializable {
 	 */
 	public void setArchivalien(List<Archivale> archivalien) {
 		this.archivalien = archivalien;
-	}
-
-	@SuppressWarnings("unchecked")
-	private <T> List<T> getDatalist(Class<T> c, EntityManager em) {
-		List<T> list = new ArrayList<T>();
-		try {
-			String[] klasse_arr = c.getName().split("\\.");
-			String klasse;
-			if (klasse_arr.length != 0) {
-				klasse = klasse_arr[klasse_arr.length - 1];
-			} else {
-				klasse = c.getName();
-			}
-
-			Query q = em.createQuery("select n from " + klasse + " n");
-			list = q.getResultList();
-			for (T t : list) {
-				em.refresh(t);
-			}
-		} catch (Exception e) {
-			em.close();
-			e.printStackTrace();
-			return list;
-		}
-		em.close();
-		return list;
-	}
-
-	/**
-	 * Sucht nach den Archivalien, die durch die Eigenschaft "suchKriterium"
-	 * beschrieben werden und speichert sie in die Liste "archivalien".
-	 * 
-	 * @return "index" konstant.
-	 */
-	public String search() {
-		archivalien = new ArrayList<Archivale>();
-		CompassConfiguration conf = new CompassConfiguration().configure()
-				.addClass(Archivale.class);
-		Compass compass = conf.buildCompass();
-
-		// A request scope operation
-		CompassSession session = compass.openSession();
-		CompassGps gps = new SingleCompassGps(compass);
-		CompassGpsDevice jpaDevice = new JpaGpsDevice("jpa", entityManagerFactory);
-		gps.addGpsDevice(jpaDevice);
-		gps.start();
-		gps.index();
-
-		try {
-			List<Archivale> l = this.getDatalist(Archivale.class,
-					entityManagerFactory.createEntityManager());
-
-			for (int i = 0; i < l.size(); i++) {
-				session.save(l.get(i));
-			}
-			CompassHits hits = session.find(suchKriterium);
-			for (int i = 0; i < hits.getLength(); i++) {
-				archivalien.add((Archivale) hits.data(i));
-			}
-		} finally {
-			session.close();
-		}
-		return "index";
-	}
-
-	/**
-	 * ActionListener-Methode für die Schaltfläche "Betreff". Der Text
-	 * "betreff = " wird in die Eigenschaft suchKriterium gespeichert. Ist
-	 * bereits ein Text im suchKriterium, so wird der text " and "
-	 * vorangestellt.
-	 */
-	public void betreffClicked() {
-		
-	}
-
-	/**
-	 * ActionListener-Methode für die Schaltfläche "Name". Der Text "name = "
-	 * wird in die Eigenschaft suchKriterium gespeichert. Ist bereits ein Text
-	 * im suchKriterium, so wird der text " and " vorangestellt.
-	 */
-	public void nameClicked() {
-		
-	}
-
-	/**
-	 * ActionListener-Methode für die Schaltfläche "Schlagwort". Der Text
-	 * "schlagwort = " wird in die Eigenschaft suchKriterium gespeichert. Ist
-	 * bereits ein Text im suchKriterium, so wird der text " and "
-	 * vorangestellt.
-	 */
-	public void schlagwortClicked() {
-		
-	}
-
-	/**
-	 * ActionListener-Methode für die Schaltfläche "Titel". Der Text
-	 * "titel = " wird in die Eigenschaft suchKriterium gespeichert. Ist
-	 * bereits ein Text im suchKriterium, so wird der text " and "
-	 * vorangestellt.
-	 */
-	public void titelClicked() {
-		
-	}
-
-	/**
-	 * ActionListener-Methode für die Schaltfläche "and". Der Text
-	 * " and " wird in die Eigenschaft suchKriterium gespeichert.
-	 */
-	public void andClicked() {
-		
-	}
-
-	/**
-	 * ActionListener-Methode für die Schaltfläche "or". Der Text " or " wird in
-	 * die Eigenschaft suchKriterium gespeichert.
-	 */
-	public void orClicked() {
-		
 	}
 }
