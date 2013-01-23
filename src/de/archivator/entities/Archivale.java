@@ -218,17 +218,23 @@ public class Archivale implements Serializable {
 	 */
 	public String getShortInhalt() {
 		String shortInhalt;
-		if (inhalt.length() > 120) {
-			shortInhalt = inhalt.substring(0, 120);
-			if (shortInhalt.lastIndexOf(" ") > 0) {
-				shortInhalt = shortInhalt.substring(0,
-						shortInhalt.lastIndexOf(" "))
-						+ "...";
+		if (inhalt != null) {
+			if (inhalt.length() > 120) {
+				shortInhalt = inhalt.substring(0, 120);
+				if (shortInhalt.lastIndexOf(" ") > 0) {
+					shortInhalt = shortInhalt.substring(0,
+							shortInhalt.lastIndexOf(" "))
+							+ "...";
+				} else {
+					shortInhalt += "...";
+				}
+			} else {
+				shortInhalt = inhalt;
 			}
+			return shortInhalt.toString();
 		} else {
-			shortInhalt = inhalt;
+			return null;
 		}
-		return shortInhalt.toString();
 	}
 
 }
