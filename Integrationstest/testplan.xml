@@ -124,15 +124,6 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
-			<schritt>
-				Der Benutzer trägt das richtige Kennwort in das Anmeldefenster ein
-				Drückt auf den Login-Button
-				<ergebnisse>
-					<ergebnis>
-						Der Benutzer ist angemeldet, der Logout-Button erscheint
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
 		</durchführung>
 	</testfall>
 
