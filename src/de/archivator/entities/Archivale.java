@@ -225,6 +225,8 @@ public class Archivale implements Serializable {
 					shortInhalt = shortInhalt.substring(0,
 							shortInhalt.lastIndexOf(" "))
 							+ "...";
+				} else {
+					shortInhalt += "...";
 				}
 			} else {
 				shortInhalt = inhalt;
