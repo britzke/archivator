@@ -43,6 +43,7 @@ public class Organisationseinheit implements Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 	private int id;
 
+	@Column (unique=true)
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
