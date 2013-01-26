@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
 import de.archivator.entities.Archivale;
@@ -50,6 +51,7 @@ public class RechercheBean implements Serializable {
 	 * Die Liste der Archivalien, die durch die zuletzt ausgeführte Recherche
 	 * gefunden wurden.
 	 */
+	@Produces @Named
 	private List<Archivale> archivalien;
 
 	/**

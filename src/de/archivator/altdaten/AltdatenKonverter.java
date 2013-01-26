@@ -135,7 +135,7 @@ public class AltdatenKonverter {
 	 * in die neue Datenbank zu speichern.
 	 */
 	public void archivLaden() {
-		Archivale archiv = new Archivale();
+//		Archivale archiv = new Archivale();
 
 //		archiv.setSchubfach(tabelle.getSchubfachX0020Nummer());
 //		archiv.setBetreff(tabelle.getBetreff());
