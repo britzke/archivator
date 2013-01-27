@@ -27,14 +27,15 @@ import org.compass.annotations.Searchable;
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
-
 /**
  * Classe für die Namen der Archivalien.
+ * 
  * @author junghans
  * @version 1.0
  */
 @Entity
-@Table(name = "NAMEN", schema = "ARCHIVATOR")
+@Table(name = "NAMEN", schema = "ARCHIVATOR", uniqueConstraints = { @UniqueConstraint(columnNames = {
+		"NACHNAME", "VORNAME" }) })
 @Searchable
 public class Name implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -47,17 +48,9 @@ public class Name implements Serializable {
 
 	private String vorname;
 
-	//bi-directional many-to-many association to Archivalien
+	// bi-directional many-to-many association to Archivalien
 	@ManyToMany
-	@JoinTable(
-		name="NAMEN_ARCHIVALIEN"
-		, joinColumns={
-			@JoinColumn(name="NAMEN_ID")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="ARCHIVALIEN_ID")
-			}, schema = "ARCHIVATOR"
-		)
+	@JoinTable(name = "NAMEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "NAMEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 
 	public Name() {
