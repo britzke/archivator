@@ -6,10 +6,6 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
 
-	<pe:ajaxErrorHandler />
-
-	<p:messages />
-
 	<p:confirmDialog widgetVar="anmeldungNotwendigDialog"
 		visible="#{not loginBean.angemeldet}" header="Anmeldung erforderlich"
 		message="Bitte melden Sie sich an, um das Archiv bearbeiten zu können">
@@ -30,9 +26,6 @@
 		rendered="#{loginBean.angemeldet}" action="#{editBean.speichere}">
 		<pe:tooltip for="speicherButton"
 			value="Speichern des aktuellen Archivales" />
-		<f:setPropertyActionListener target="#{detailBean.aktuellesArchivale}"
-			value="#{editBean.aktuellesArchivale}" />
-
 	</p:commandButton>
 	<p:panel id="detailPanel" rendered="#{loginBean.angemeldet}"
 		header="Datenerfassung: '#{editBean.aktuellesArchivale.betreff}'">
@@ -67,7 +60,7 @@
 				<p:graphicImage value="#{editBean.aktuellesArchivale.datei}" />
 			</p:panelGrid>
 		</p:panelGrid>
-		<cc:archivaleChilds angemeldet="#{loginBean.angemeldet}"
-			aktuellesArchivale="#{editBean.aktuellesArchivale}" />
 	</p:panel>
+
+
 </h:form>

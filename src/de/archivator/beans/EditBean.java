@@ -23,12 +23,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import de.archivator.annotations.AktuellesArchivale;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Name;
 import de.archivator.entities.Organisationseinheit;
@@ -42,22 +43,29 @@ import de.archivator.entities.Schlagwort;
  * @author burghard.britzke
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class EditBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Ermöglicht den Zugriff auf die Datenbank
 	 */
 	@Inject
-	private transient EntityManagerFactory entityManagerFactory;
+	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 
 	/**
 	 * Das aktuelle Archivale, welches durch speichere() oder lösche() verändert
 	 * wird.
 	 */
+	@Inject @AktuellesArchivale
 	private Archivale aktuellesArchivale;
-
+	
+	@Inject
+	private DetailBean details;
+	
+	@Inject
+	private List<Archivale> archivalien;
+	
 	private List<String> betreffs;
 	/**
 	 * Liste aller Namen, die im System gespeichert sind.
@@ -96,14 +104,17 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * Setzt das aktuelle Archivale.
-	 * @param aktuellesArchivale
-	 *            the aktuellesArchivale to set
+	 * @return the details
 	 */
-	public void setAktuellesArchivale(Archivale aktuellesArchivale) {
-		entityManager = entityManagerFactory.createEntityManager();
-		this.aktuellesArchivale = entityManager.merge(aktuellesArchivale);
-		entityManager.getTransaction().begin();
+	public DetailBean getDetails() {
+		return details;
+	}
+
+	/**
+	 * @param details the details to set
+	 */
+	public void setDetails(DetailBean details) {
+		this.details = details;
 	}
 
 	/**
@@ -209,8 +220,6 @@ public class EditBean implements Serializable {
 	 *         wenn ein altes Archivale bearbeitet werden sollte.
 	 */
 	public String back() {
-		entityManager.getTransaction().rollback();
-		entityManager.close();
 		if (aktuellesArchivale.getId() == 0) {
 			return "index";
 		} else {
@@ -222,17 +231,27 @@ public class EditBean implements Serializable {
 	 * Löscht das aktuelle Archivale aus der Datenbank.
 	 */
 	public String lösche() {
+		entityManager = entityManagerFactory.createEntityManager();
+		Archivale aktuellesArchivale = entityManager.merge(this.aktuellesArchivale);
+		entityManager.getTransaction().begin();
 		entityManager.remove(aktuellesArchivale);
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		
+		archivalien.remove(this.aktuellesArchivale);
+		details.setAktuellesArchivale(null);
 		return "index";
 	}
-
+	
 	/**
 	 * Speichert das aktuelle Archivale in die Datenbank.
 	 * @return "detail" immer
 	 */
 	public String speichere() {
+		entityManager = entityManagerFactory.createEntityManager();
+		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
+		entityManager.getTransaction().begin();
+
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		return "detail";
@@ -243,9 +262,8 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String erstelle() {
-		entityManager = entityManagerFactory.createEntityManager();
-		aktuellesArchivale = entityManager.merge(new Archivale());
-		entityManager.getTransaction().begin();
+		aktuellesArchivale = new Archivale();
+		details.setAktuellesArchivale(aktuellesArchivale);
 		return "edit";
 	}
 
@@ -285,7 +303,7 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String loadSchlagworte() {
-		List<Schlagwort> schlagwörter = aktuellesArchivale.getSchlagwörter();
+		List<Schlagwort> schlagwörter = details.getAktuellesArchivale().getSchlagwörter();
 		System.out.println(schlagwörter);
 		String output = "";
 		for (Schlagwort schlagwort : schlagwörter) {
@@ -304,7 +322,7 @@ public class EditBean implements Serializable {
 	 */
 	public String saveSchlagworte() {
 		String[] wörter = archivaleSchlagwörter.split(",");
-		List<Schlagwort> schlagwörter = aktuellesArchivale.getSchlagwörter();
+		List<Schlagwort> schlagwörter = details.getAktuellesArchivale().getSchlagwörter();
 		for (String wort : wörter) {
 			wort=wort.trim();
 			Schlagwort schlagwort=new Schlagwort(wort);
