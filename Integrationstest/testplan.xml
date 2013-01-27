@@ -2,7 +2,7 @@
 <testplan xmlns="http://www.archivator.de/testplan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.archivator.de/testplan testplan.xsd">
 
-	<testfall titel="Testfall für erfolgreichen Login">
+	<testfall titel="Testfall für Login erfolgreichen ">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Der Benutzer ist nicht als Rechercheur authensisiert.
@@ -23,9 +23,6 @@
 						 Das Textfeld zur Erfassung des Kennwortes wird nicht angezeigt.
 					</ergebnis>
 					<ergebnis>
-						 Die Schaltfläche "login" wird nicht angezeigt.
-					</ergebnis>
-					<ergebnis>
 						 Die Schaltfläche "logout" wird angezeigt.
 					</ergebnis>
 				</ergebnisse>
@@ -33,7 +30,7 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für fehlgeschlagenen Login">
+	<testfall titel="Testfall für Login fehlgeschlagenen durch Eingabe eines falschen Passwortes ">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Der Benutzer ist nicht als Rechercheur authensisiert.
@@ -41,9 +38,27 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Im LoginFenster muss das Kennwort falsch eingegeben werden.
-				Der Login
-				Button wird gedrückt
+				Im LoginFenster wird das Kennwort falsch eingegeben.
+				Der Login Button wird gedrückt
+				<ergebnisse>
+					<ergebnis>
+						Die Meldung "Falsches Kennwort" wird angezeigt
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
+	<testfall titel="Testfall für falsches Passwort">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer ist nicht angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
+				Drückt auf den Login-Button
 				<ergebnisse>
 					<ergebnis>
 						Die Meldung "Falsches Kennwort" wird angezeigt
@@ -64,7 +79,7 @@
 				Der Logout-Button wird gedrückt
 				<ergebnisse>
 					<ergebnis>
-						Anstatt des Logout-Buttons, wird wieder das LoginFenster angezeigt.
+						Anstatt des Logout-Buttons, wird wieder das Login Fenster angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -74,7 +89,7 @@
 	<testfall titel="Testfall für SeiteZurückButton nach Anmeldung">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Der Benutzer hat sich gerade angemeldet, es wurde noch keine Suche durchgeführt.
+					Der Benutzer ist angemeldet, es wurde noch keine Suche durchgeführt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
@@ -108,24 +123,7 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für falsches Passwort">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer ist nicht angemeldet
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
-				Drückt auf den Login-Button
-				<ergebnisse>
-					<ergebnis>
-						Die Meldung "Falsches Kennwort" wird angezeigt
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
+	
 
 	<testfall titel="Testfall für die erweiterte Suche">
 		<vorraussetzungen>
@@ -410,41 +408,6 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der Benutzer drückt den 'Forwärts' Button
-				<ergebnisse>
-					<ergebnis>
-						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der Benutzer drückt den 'Zurück' Button
-				<ergebnisse>
-					<ergebnis>
-						Das Schlagwort ist nicht mehr im Suchfeld eingetragen. 
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
 
 	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
 		<vorraussetzungen>
