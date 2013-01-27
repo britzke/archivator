@@ -13,16 +13,13 @@
 	<p:commandButton id="editButton" icon="ui-icon-pencil"
 		rendered="#{loginBean.angemeldet}" action="edit" >
 		<pe:tooltip for="editButton" value="Bearbeiten des Archivales"/>
-		<f:setPropertyActionListener target="#{editBean.aktuellesArchivale}"
-			value="#{detailBean.aktuellesArchivale}" />
-
 	</p:commandButton>
 	<cc:confirmButton 
 		icon="ui-icon-minus"
 		header="Bestätigung zum Löschen"
 		message="Soll das aktuelle Archivale gelöscht werden?"
 		tooltip="Löschen des aktuellen Archivales"
-		action="#{detailBean.lösche}"
+		action="#{editBean.lösche}"
 		rendered="#{loginBean.angemeldet}"
 	/>
 	<p:panel id="detailPanel"
