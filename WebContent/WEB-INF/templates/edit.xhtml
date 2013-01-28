@@ -40,11 +40,15 @@
 						maxlength="4" size="1" />
 				</p:panelGrid>
 				<h:outputText value="Betreff" styleClass="label" />
-				<p:inputText value="#{editBean.aktuellesArchivale.betreff}"
-					size="50" />
+				<p:inplace id="inplaceBetreff">
+					<p:inputText value="#{editBean.aktuellesArchivale.betreff}"
+						size="50" />
+				</p:inplace>
 				<h:outputText value="Inhalt" styleClass="label" />
-				<p:inputTextarea value="#{editBean.aktuellesArchivale.inhalt}"
-					autoResize="false" style="width:440px;height:100px" />
+				<p:inplace id="inplaceInhalt" editor="true">
+					<p:inputTextarea value="#{editBean.aktuellesArchivale.inhalt}"
+						autoResize="false" style="width:440px;height:100px" />
+				</p:inplace>
 			</p:panelGrid>
 			<p:panelGrid id="rightDetailGrid" columns="1">
 				<p:panel style="float:right" header="Ort">
