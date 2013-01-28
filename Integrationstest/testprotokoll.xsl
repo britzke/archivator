@@ -22,6 +22,9 @@
 						<td>Datum</td><td/>
 					</tr>
 					<tr>
+						<td>Prüfling (GIT-Version)</td><td/>
+					</tr>
+					<tr>
 						<td>Prüfergebnis</td><td/>
 					</tr>
 					<tr>
