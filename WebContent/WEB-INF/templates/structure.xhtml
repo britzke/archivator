@@ -11,6 +11,7 @@
 	<title><ui:insert name="title">archivator</ui:insert></title>
 </h:head>
 <h:body>
+
 	<pe:ajaxErrorHandler />
 	<div id="header">
 		<ui:insert name="header">archivator</ui:insert>
@@ -27,7 +28,7 @@
 			<ui:include src="/WEB-INF/templates/login.xhtml" />
 		</ui:insert>
 	</div>
-	<p:messages />
+	<p:messages id="messages" />
 	<div id="main">
 		<ui:insert name="main">
 			<ui:include src="/WEB-INF/templates/blank.xhtml" />
