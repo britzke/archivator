@@ -30,6 +30,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -203,10 +204,13 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testLoadOrganisationseinheiten() {
+		Query q = mock(Query.class);
+		when(entityManager.createQuery(anyString())).thenReturn(q);
 		String navigation = proband.loadOrganisationseinheiten();
 		assertEquals(
 				"loadOrganisationseinheiten() muss zum Edit-View navigieren",
 				"edit", navigation);
+		verify(entityManager).createQuery(anyString());
 	}
 
 	/**
