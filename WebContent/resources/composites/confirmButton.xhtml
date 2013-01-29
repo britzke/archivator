@@ -13,6 +13,7 @@
 	<composite:attribute name="tooltip" />
 	<composite:attribute name="action" />
 	<composite:attribute name="rendered" />
+	<composite:attribute name="immediate" />
 </composite:interface>
 
 <composite:implementation>
@@ -24,7 +25,7 @@
 		message="#{cc.attrs.message}">
 		<p:commandButton value="nein" oncomplete="confirmDialog.hide()" />
 		<p:commandButton value="ja" oncomplete="confirmDialog.hide()"
-			action="#{cc.attrs.action}" />
+			action="#{cc.attrs.action}" immediate="#{cc.attrs.immediate}"/>
 	</p:confirmDialog>
 </composite:implementation>
 </html>

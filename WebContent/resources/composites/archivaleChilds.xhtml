@@ -22,9 +22,9 @@
 				<pe:tooltip for="editNamenButton"
 					value="Bearbeiten der zugeordneten Namen" />
 			</p:commandButton>
-			<p:dataTable value="#{cc.attrs.aktuellesArchivale.namen}" var="namen">
+			<p:dataTable value="#{cc.attrs.aktuellesArchivale.namen}" var="name">
 				<p:column headerText="Vor- und Nachname">
-					<h:outputText value="#{namen.vorname} #{namen.nachname}" />
+					<h:outputText value="#{name.nachname}, #{name.vorname}" />
 				</p:column>
 				<p:column rendered="#{cc.attrs.angemeldet}">
 					<p:button icon="ui-icon-minus" />
@@ -36,6 +36,7 @@
 				rendered="#{cc.attrs.angemeldet}"
 				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
 				icon="ui-icon-pencil"
+				update="@form"
 				action="#{editBean.loadOrganisationseinheiten}"
 				oncomplete="editOrganisationseinheitenDialog.show()">
 				<pe:tooltip for="editOrganisationseinheitenButton"
@@ -88,9 +89,10 @@
 				oncomplete="editNamenDialog.hide()" update="@form" />
 		</p:panelGrid>
 	</p:dialog>
-	<p:dialog widgetVar="editOrganisationseinheitenDialog"
+	<p:dialog id="editOrganisationseinheitenDialog" widgetVar="editOrganisationseinheitenDialog"
 		header="Organisationseinheiten zuordnen" modal="true"  style="position:fixed">
 		<p:panelGrid columns="1">
+			<p:scrollPanel  mode="native" style="width:110px;height:250px">
 			<p:dataTable value="#{editBean.organisationseinheiten}" var="oe"
 				rowKey="#{oe.id}"
 				selection="#{cc.attrs.aktuellesArchivale.organisationseinheiten}"
@@ -99,6 +101,7 @@
 					<h:outputText value="#{oe.name}" />
 				</p:column>
 			</p:dataTable>
+			</p:scrollPanel>
 			<p:commandButton value="ok"
 				action="#{editBean.saveOrganisationseinheiten}"
 				oncomplete="editOrganisationseinheitenDialog.hide()" update="@form" />

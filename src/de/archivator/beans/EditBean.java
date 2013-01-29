@@ -28,6 +28,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 import de.archivator.annotations.AktuellesArchivale;
 import de.archivator.entities.Archivale;
@@ -288,6 +289,9 @@ public class EditBean implements Serializable {
 	}
 
 	public String loadOrganisationseinheiten() {
+		entityManager = entityManagerFactory.createEntityManager();
+		Query q=entityManager.createQuery("select o from Organisationseinheit o");
+		organisationseinheiten = q.getResultList();
 		return "edit";
 	}
 
