@@ -49,13 +49,14 @@
 		</durchführung>
 	</testfall>
 	
-	<testfall titel="Testfall für falsches Passwort">
+	<testfall titel="Testfall erfolgreich nach Eingabe eines falschen Passwortes">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Der Benutzer ist nicht angemeldet
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
+			
 			<schritt>
 				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
 				Drückt auf den Login-Button
@@ -65,6 +66,16 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			
+			<schritt>
+			    Der User gibt das Korrekte Kennwort in das Eingabefeld.
+				<ergebnisse>
+				    <ergebnis>
+				         Der Benutzer ist nun als Redakteur angemeldet.
+				    </ergebnis>
+				</ergebnisse>
+			</schritt>
+			
 		</durchführung>
 	</testfall>
 
