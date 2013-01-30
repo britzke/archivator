@@ -213,15 +213,15 @@ public class EditBeanTest {
 	 * Test method for {@link de.archivator.beans.EditBean#loadSchlagworte()}.
 	 * 
 	 * @throws SecurityException
-	 * 			Wenn Reflection nicht erlaubt wird.
+	 *             Wenn Reflection nicht erlaubt wird.
 	 * @throws NoSuchFieldException
-	 *          Wenn es in der EditBean keine Eigenschaft namens
-	 *          "aktuellesArchivale" gibt.
+	 *             Wenn es in der EditBean keine Eigenschaft namens
+	 *             "aktuellesArchivale" gibt.
 	 * @throws IllegalAccessException
-	 *          Wenn der Zugriff zur EditBean verweigert wurde.
+	 *             Wenn der Zugriff zur EditBean verweigert wurde.
 	 * @throws IllegalArgumentException
-	 * 			Wenn die Eigenschaft aktuellesArchivale aus der EditBean
-	 *          nicht vom Typ Archivale ist.
+	 *             Wenn die Eigenschaft aktuellesArchivale aus der EditBean
+	 *             nicht vom Typ Archivale ist.
 	 */
 	@Test
 	public void testLoadSchlagworte() throws NoSuchFieldException,
@@ -242,11 +242,15 @@ public class EditBeanTest {
 		String navigation = proband.loadSchlagworte();
 		assertEquals("loadSchlagworte() muss zum Edit-View navigieren", "edit",
 				navigation);
-		assertEquals("Der zu ladende Test soll 'Lette, Datenbank' sein", "Lette, Datenbank", proband.getArchivaleSchlagwörter());
+		assertEquals("Der zu ladende Test soll 'Lette, Datenbank' sein",
+				"Lette, Datenbank", proband.getFormularSchlagwörter());
 	}
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#saveSchlagworte()}.
+	 * Testet das Speichern, wenn die Datenbank leer ist, wenn das Schlagwort
+	 * bereits vorhanden ist, wenn es nicht vorhanden ist und testet außerdem,
+	 * ob entfernte Schlagworte gelöscht werden.
 	 * 
 	 * @throws SecurityException
 	 *             Wenn Reflection nicht erlaubt ist.
@@ -254,6 +258,7 @@ public class EditBeanTest {
 	 *             Wenn keine Eigenschaft aktuellesArchivale an der EditBean
 	 *             existiert.
 	 * @throws IllegalAccessException
+	 *             Wenn der Zugriff zur EditBean verweigert wurde.
 	 * @throws IllegalArgumentException
 	 *             Wenn die Eigenschaft aktuellesArchivale aus der EditBean
 	 *             nicht vom Typ Archivale ist.
@@ -261,27 +266,42 @@ public class EditBeanTest {
 	@Test
 	public void testSaveSchlagworte() throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException, IllegalAccessException {
-		proband.setArchivaleSchlagwörter("Lette, Projekt");
+		proband.setFormularSchlagwörter("Lette, Projekt");
 		Field f = proband.getClass().getDeclaredField("aktuellesArchivale");
 		f.setAccessible(true);
 		f.set(proband, aktuellesArchivale);
 
-		String navigation = proband.saveSchlagworte();	// test
+		String navigation = proband.saveSchlagworte(); // test
+		
+		proband.setFormularSchlagwörter("Lette, Datenbank");
+		
+		navigation = proband.saveSchlagworte();
 
 		assertEquals("saveSchlagworte() muss zum Edit-View navigieren", "edit",
 				navigation);
 		List<Schlagwort> schlagwörter = aktuellesArchivale.getSchlagwörter();
-		boolean containsLette=false;
-		boolean containsProjekt=false;
-		for (Schlagwort schlagwort:schlagwörter) {
-			if (schlagwort.getName().equals("Lette")) containsLette=true;
-			if (schlagwort.getName().equals("Projekt")) containsProjekt=true;
+		boolean containsLette = false;
+		boolean containsProjekt = false;
+		boolean containsDatenbank = false;
+		for (Schlagwort schlagwort : schlagwörter) {
+			if (schlagwort.getName().equals("Lette")) {
+				containsLette = true;
+			}
+			if (schlagwort.getName().equals("Projekt")) {
+				containsProjekt = true;
+			}
+			if (schlagwort.getName().equals("Datenbank")) {
+				containsDatenbank = true;
+			}
 		}
 		assertTrue(
 				"Im aktuellen Archivale muss das Schlagwort 'Lette' gesetzt sein",
 				containsLette);
-		assertTrue(
-				"Im aktuellen Archivale muss das Schlagwort 'Projekt' gesetzt sein",
+		assertFalse(
+				"Im aktuellen Archivale darf das Schlagwort 'Projekt' nicht gesetzt sein",
 				containsProjekt);
+		assertTrue(
+				"Im akutellen Archivale muss das Schlagwort 'Datenbank' gesetzt sein",
+				containsDatenbank);
 	}
 }
