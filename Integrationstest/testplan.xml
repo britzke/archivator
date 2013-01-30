@@ -102,7 +102,7 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für SeiteZurückButton nach Anmeldung">
+	<testfall titel="Testfall für Seite zurück nach Anmeldung">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Der Benutzer ist angemeldet, es wurde noch keine Suche durchgeführt.
@@ -110,7 +110,7 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Der SeiteZurück-Button im Browserfenster wird gedrückt
+				Der Seite Zurück Button im Browserfenster wird gedrückt
 				<ergebnisse>
 					<ergebnis>
 						Der Benutzer immer noch angemeldet, das Login-Fenster erscheint und ist leer.
@@ -121,18 +121,18 @@
 	</testfall>
 
 
-	<testfall titel="Testfall für SeiteVorwärtsButton">
+	<testfall titel="Testfall für Seite-Vorwärts">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Der Benutzer ist angemeldet und hat den SeiteZurückButton im Browser gedrückt
+					Der Benutzer ist angemeldet und ist eine Seite Zurück gegangen im Browser gedrückt
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Der SeiteVorwärtButton wird gedrückt
+				Der Benutzer geht wieder eine Seite vorwärts. 
 				<ergebnisse>
 					<ergebnis>
-						Der Benutzer ist angemeldet, der Logout-Button erscheint
+						Der Benutzer ist angemeldet, der Logout-Button erscheint.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -143,7 +143,7 @@
 
 	<testfall titel="Testfall für die erweiterte Suche">
 		<vorraussetzungen>
-			<vorraussetzung>Suchfeld wird angezeigt, mit einem 'Suche' Button.
+			<vorraussetzung>Das Suchfeld wird angezeigt, mit einem 'Suche' Button.
 			Darunter befindet sich eine 'erweiterte Suche' leiste mit einem Plus Symbol.</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
