@@ -19,13 +19,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package de.archivator.tests;
-
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-
 import org.junit.Before;
-import org.junit.Test;
-
 import de.archivator.beans.DetailBean;
 import de.archivator.entities.Archivale;
 
@@ -53,29 +48,4 @@ public class DetailBeanTest {
 		aktuellesArchivale = mock(Archivale.class);
 		proband.setAktuellesArchivale(aktuellesArchivale);
 	}
-
-	/**
-	 * Test method for {@link de.archivator.beans.DetailBean#back()}.
-	 */
-	@Test
-	public void testBack() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link de.archivator.beans.DetailBean#sortBy()}.
-	 */
-	@Test
-	public void testSortBy() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link de.archivator.beans.DetailBean#showDocument()}.
-	 */
-	@Test
-	public void testShowDocument() {
-		fail("Not yet implemented");
-	}
-
 }
