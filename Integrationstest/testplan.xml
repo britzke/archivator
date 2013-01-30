@@ -5,22 +5,21 @@
 	<testfall titel="Testfall für Login erfolgreichen ">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Der Benutzer ist nicht als Rechercheur authensisiert.
+			    Der Benutzer ist nicht als Rechercheur authensisiert.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Erfasse das korrekte Kennwort in das Textfeld für das
-				Kennwort.
+			    Der Benutzer trägt das richtige Password im in das Login Fenster.
 			</schritt>
 			<schritt>
 				Wähle die Schaltfläche "Login"
 				<ergebnisse>
 					<ergebnis>
-						Es wird die Meldung "angemeldet als Redakteur" dauerhaft angezeigt.
+						Es wird die Meldung "angemeldet als Redakteur" angezeigt.
 					</ergebnis>
 					<ergebnis>
-						 Das Textfeld zur Erfassung des Kennwortes wird nicht angezeigt.
+						 Das Textfeld Password wird nicht mehr angezeigt.
 					</ergebnis>
 					<ergebnis>
 						 Die Schaltfläche "logout" wird angezeigt.
@@ -40,8 +39,9 @@
 		<durchführung>
 			<schritt>
 				Im LoginFenster wird das Kennwort falsch eingegeben.
-				Der Login Button
-				wird gedrückt
+				</schritt>
+				<schritt>
+				    Der Login Button wird gedrückt
 				<ergebnisse>
 					<ergebnis>
 						Die Meldung "Falsches Kennwort" wird angezeigt
