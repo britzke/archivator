@@ -891,9 +891,6 @@
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
 			</vorraussetzung>
-			<vorraussetzung>
-				Das Rechercheergebnis wird angezeigt.
-			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
