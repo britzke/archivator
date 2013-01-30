@@ -900,9 +900,6 @@
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
 			</vorraussetzung>
-			<vorraussetzung>
-				Das Rechercheergebnis wird angezeigt.
-			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
@@ -929,6 +926,7 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+	
 	<testfall titel="Erfassen eines neuen Archivales mit leeren Betreff">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -947,14 +945,10 @@
 		</durchführung>
 	</testfall>
 	
-</testplan>
 		<testfall titel="Erfassen eines neuen Archivales fehlgeschlagen">
 		<vorraussetzungen>
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-				Das Rechercheergebnis wird angezeigt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
@@ -983,4 +977,4 @@
 		</durchführung>
 	</testfall>
 </testplan>
->>>>>>> branch 'master' of https://github.com/britzke/archivator.git
+
