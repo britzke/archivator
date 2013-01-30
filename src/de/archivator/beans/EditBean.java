@@ -32,6 +32,7 @@ import javax.persistence.Query;
 
 import de.archivator.annotations.AktuellesArchivale;
 import de.archivator.entities.Archivale;
+import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
 import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
@@ -77,6 +78,10 @@ public class EditBean implements Serializable {
 	 */
 	private List<Organisationseinheit> organisationseinheiten;
 	/**
+	 * Liste aller Dokumentarten, die im System gespeichert sind.
+	 */
+	private List<Dokumentart> dokumentarten;
+	/**
 	 * Liste aller Schlagworte, die im System gespeichert sind.
 	 */
 	private List<Schlagwort> schlagworte;
@@ -90,6 +95,7 @@ public class EditBean implements Serializable {
 	public EditBean() {
 		namen=new ArrayList<Name>();
 		organisationseinheiten=new ArrayList<Organisationseinheit>();
+		dokumentarten= new ArrayList<Dokumentart>();
 		schlagworte=new ArrayList<Schlagwort>();
 
 		archivaleSchlagwörter = new String();
@@ -165,6 +171,21 @@ public class EditBean implements Serializable {
 	public void setOrganisationseinheiten(
 			List<Organisationseinheit> organisationseinheiten) {
 		this.organisationseinheiten = organisationseinheiten;
+	}
+	/**
+	 * @return the dokumentarten
+	 */
+	public List<Dokumentart> getDokumentartenheiten() {
+		return dokumentarten;
+	}
+
+	/**
+	 * @param organisationseinheiten
+	 *            the dokumentarten to set
+	 */
+	public void setDokumentarten(
+			List<Dokumentart> dokumentarten) {
+		this.dokumentarten = dokumentarten;
 	}
 
 	/**
@@ -296,6 +317,18 @@ public class EditBean implements Serializable {
 	}
 
 	public String saveOrganisationseinheiten() {
+		return "edit";
+	}
+	
+	public String loadDokumentarten() {
+		entityManager = entityManagerFactory.createEntityManager();
+		Query q=entityManager.createQuery("select d from Dokumentart d");
+		dokumentarten = q.getResultList();
+		return "edit";
+	}
+
+	public String saveDokumentarten() {
+		//TODO
 		return "edit";
 	}
 
