@@ -976,5 +976,133 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+	
+		<testfall titel="Erfassen eines neuen Archivales mit Organisationseinheiten">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche “Hinzufügen” an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird mit leeren Werten angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut "Organisationseinheiten" mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "speichern"
+				<ergebnisse>
+					<ergebnis>
+						Die Detailansicht wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Archivale wird mit erfasstem Wert "Organisationseinheiten" angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
+		<testfall titel="Erfassen eines neuen Archivales mit Personen">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche “Hinzufügen” an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird mit leeren Werten angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut "Personen" mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "speichern"
+				<ergebnisse>
+					<ergebnis>
+						Die Detailansicht wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Archivale wird mit erfasstem Wert "Personen" angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
+		<testfall titel="Erfassen eines neuen Archivales mit Dokumentarten">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche “Hinzufügen” an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird mit leeren Werten angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut "Dokumentarten" mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "speichern"
+				<ergebnisse>
+					<ergebnis>
+						Die Detailansicht wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Archivale wird mit erfasstem Wert "Dokumentarten" angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
+		<testfall titel="Erfassen eines neuen Archivales mit Schlagworte">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche “Hinzufügen” an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird mit leeren Werten angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere das Attribut "Schlagworte" mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "speichern"
+				<ergebnisse>
+					<ergebnis>
+						Die Detailansicht wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Archivale wird mit erfasstem Wert "Schlagworte" angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
 </testplan>
 
