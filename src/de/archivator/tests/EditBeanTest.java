@@ -30,13 +30,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import de.archivator.beans.DetailBean;
 import de.archivator.beans.EditBean;
 import de.archivator.entities.Archivale;
-import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
 /**
@@ -52,16 +53,36 @@ public class EditBeanTest {
 	private EntityManager entityManager;
 	private EntityTransaction entityTransaction;
 	private Archivale aktuellesArchivale;
+	private DetailBean detailBean;
+	private List<Archivale> archivalien;
 
 	/**
 	 * Erzeugt eine Umgebung, die von allen Tests benötigt wird.
 	 * 
 	 * @throws java.lang.Exception
 	 */
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		proband = new EditBean();
 		aktuellesArchivale = new Archivale();
+		// aktuellesArchivale injizieren
+		Field f = proband.getClass().getDeclaredField("aktuellesArchivale");
+		f.setAccessible(true);
+		f.set(proband, aktuellesArchivale);
+
+		archivalien = mock(List.class);
+		f = proband.getClass().getDeclaredField("archivalien");
+		f.setAccessible(true);
+		f.set(proband, archivalien);
+
+		detailBean = mock(DetailBean.class);
+		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
+		// detailBean injizieren
+		f = proband.getClass().getDeclaredField("details");
+		f.setAccessible(true);
+		f.set(proband, detailBean);
+		
 		entityManagerFactory = mock(EntityManagerFactory.class);
 		entityManager = mock(EntityManager.class);
 		when(entityManagerFactory.createEntityManager()).thenReturn(
@@ -70,8 +91,8 @@ public class EditBeanTest {
 		when(entityManager.getTransaction()).thenReturn(entityTransaction);
 		when(entityManager.merge(aktuellesArchivale)).thenReturn(
 				aktuellesArchivale);
-		// entityManager muss manuell injiziert werden
-		Field f = proband.getClass().getDeclaredField("entityManagerFactory");
+		// entityManager injizieren
+		f = proband.getClass().getDeclaredField("entityManagerFactory");
 		f.setAccessible(true);
 		f.set(proband, entityManagerFactory);
 	}
@@ -82,8 +103,6 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testBackNewArchivale() {
-
-		proband.setAktuellesArchivale(aktuellesArchivale);
 
 		String navigation = proband.back();
 
@@ -97,8 +116,7 @@ public class EditBeanTest {
 	@Test
 	public void testBackOldArchivale() {
 		aktuellesArchivale.setId(1);
-
-		proband.setAktuellesArchivale(aktuellesArchivale);
+		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
 
 		String navigation = proband.back();
 
@@ -110,7 +128,6 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testLösche() {
-		proband.setAktuellesArchivale(aktuellesArchivale);
 
 		String navigation = proband.lösche();
 		assertEquals("lösche() muss auf die Index-Seite navigieren", "index",
@@ -118,6 +135,7 @@ public class EditBeanTest {
 		verify(entityManager, times(2)).getTransaction();
 		verify(entityManager).remove(aktuellesArchivale);
 		verify(entityTransaction).commit();
+		verify(archivalien).remove(anyObject());
 	}
 
 	/**
@@ -125,8 +143,6 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testSpeichereNeuesArchivale() {
-
-		proband.setAktuellesArchivale(aktuellesArchivale);
 
 		String navigation = proband.speichere();
 		assertEquals("lösche() muss auf die Detailseite navigieren", "detail",
@@ -141,7 +157,7 @@ public class EditBeanTest {
 	@Test
 	public void testSpeichereAltesArchivale() {
 		aktuellesArchivale.setId(1);
-		proband.setAktuellesArchivale(aktuellesArchivale);
+		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
 
 		String navigation = proband.speichere(); // test
 
@@ -159,7 +175,7 @@ public class EditBeanTest {
 		String navigation = proband.erstelle();
 		assertEquals("erstelle() muss auf die edit-Seite navigieren", "edit",
 				navigation);
-		assertNotSame(aktuellesArchivale, proband.getAktuellesArchivale());
+		verify(detailBean).setAktuellesArchivale((Archivale)anyObject());
 	}
 
 	/**
@@ -188,10 +204,13 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testLoadOrganisationseinheiten() {
+		Query q = mock(Query.class);
+		when(entityManager.createQuery(anyString())).thenReturn(q);
 		String navigation = proband.loadOrganisationseinheiten();
 		assertEquals(
 				"loadOrganisationseinheiten() muss zum Edit-View navigieren",
 				"edit", navigation);
+		verify(entityManager).createQuery(anyString());
 	}
 
 	/**
@@ -234,10 +253,7 @@ public class EditBeanTest {
 		s.setName("Datenbank");
 		schlagwörter.add(s);
 		aktuellesArchivale.setSchlagwörter(schlagwörter);
-		Field f = EditBean.class.getDeclaredField("aktuellesArchivale");
-		f.setAccessible(true);
-
-		f.set(proband, aktuellesArchivale);
+		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
 
 		String navigation = proband.loadSchlagworte();
 		assertEquals("loadSchlagworte() muss zum Edit-View navigieren", "edit",
@@ -267,9 +283,7 @@ public class EditBeanTest {
 	public void testSaveSchlagworte() throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException, IllegalAccessException {
 		proband.setFormularSchlagwörter("Lette, Projekt");
-		Field f = proband.getClass().getDeclaredField("aktuellesArchivale");
-		f.setAccessible(true);
-		f.set(proband, aktuellesArchivale);
+		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
 
 		String navigation = proband.saveSchlagworte(); // test
 		

@@ -54,9 +54,6 @@ public class Archivale implements Serializable {
 	@SearchableId
 	private int id;
 
-	@Column(name = "ABTEILUNGEN_ID")
-	private int abteilungenId;
-
 	@SearchableProperty
 	private String betreff;
 
@@ -72,8 +69,10 @@ public class Archivale implements Serializable {
 	@SearchableProperty
 	private String inhalt;
 
+	@SearchableProperty
 	private int mappe;
 
+	@SearchableProperty
 	private int schubfach;
 
 	// bi-directional many-to-many association to Namen
@@ -110,14 +109,6 @@ public class Archivale implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getAbteilungenId() {
-		return this.abteilungenId;
-	}
-
-	public void setAbteilungenId(int abteilungenId) {
-		this.abteilungenId = abteilungenId;
 	}
 
 	public String getBetreff() {

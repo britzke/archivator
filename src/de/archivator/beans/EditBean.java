@@ -25,13 +25,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
+import de.archivator.annotations.AktuellesArchivale;
 import de.archivator.entities.Archivale;
+import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
 import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
@@ -44,22 +47,29 @@ import de.archivator.entities.Schlagwort;
  * @author burghard.britzke
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class EditBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Ermöglicht den Zugriff auf die Datenbank
 	 */
 	@Inject
-	private transient EntityManagerFactory entityManagerFactory;
+	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 
 	/**
 	 * Das aktuelle Archivale, welches durch speichere() oder lösche() verändert
 	 * wird.
 	 */
+	@Inject @AktuellesArchivale
 	private Archivale aktuellesArchivale;
-
+	
+	@Inject
+	private DetailBean details;
+	
+	@Inject
+	private List<Archivale> archivalien;
+	
 	private List<String> betreffs;
 	/**
 	 * Liste aller Namen, die im System gespeichert sind.
@@ -69,6 +79,10 @@ public class EditBean implements Serializable {
 	 * Liste aller Organisationseinheiten, die im System gespeichert sind.
 	 */
 	private List<Organisationseinheit> organisationseinheiten;
+	/**
+	 * Liste aller Dokumentarten, die im System gespeichert sind.
+	 */
+	private List<Dokumentart> dokumentarten;
 	/**
 	 * Liste aller Schlagworte, die im System gespeichert sind.
 	 */
@@ -83,6 +97,7 @@ public class EditBean implements Serializable {
 	public EditBean() {
 		namen = new ArrayList<Name>();
 		organisationseinheiten = new ArrayList<Organisationseinheit>();
+		dokumentarten= new ArrayList<Dokumentart>();
 		schlagworte = new ArrayList<Schlagwort>();
 
 		formularSchlagwörter = new String();
@@ -99,15 +114,17 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * Setzt das aktuelle Archivale.
-	 * 
-	 * @param aktuellesArchivale
-	 *            the aktuellesArchivale to set
+	 * @return the details
 	 */
-	public void setAktuellesArchivale(Archivale aktuellesArchivale) {
-		entityManager = entityManagerFactory.createEntityManager();
-		this.aktuellesArchivale = entityManager.merge(aktuellesArchivale);
-		entityManager.getTransaction().begin();
+	public DetailBean getDetails() {
+		return details;
+	}
+
+	/**
+	 * @param details the details to set
+	 */
+	public void setDetails(DetailBean details) {
+		this.details = details;
 	}
 
 	/**
@@ -160,6 +177,21 @@ public class EditBean implements Serializable {
 	public void setOrganisationseinheiten(
 			List<Organisationseinheit> organisationseinheiten) {
 		this.organisationseinheiten = organisationseinheiten;
+	}
+	/**
+	 * @return the dokumentarten
+	 */
+	public List<Dokumentart> getDokumentartenheiten() {
+		return dokumentarten;
+	}
+
+	/**
+	 * @param organisationseinheiten
+	 *            the dokumentarten to set
+	 */
+	public void setDokumentarten(
+			List<Dokumentart> dokumentarten) {
+		this.dokumentarten = dokumentarten;
 	}
 
 	/**
@@ -216,8 +248,6 @@ public class EditBean implements Serializable {
 	 *         wenn ein altes Archivale bearbeitet werden sollte.
 	 */
 	public String back() {
-		entityManager.getTransaction().rollback();
-		entityManager.close();
 		if (aktuellesArchivale.getId() == 0) {
 			return "index";
 		} else {
@@ -229,18 +259,28 @@ public class EditBean implements Serializable {
 	 * Löscht das aktuelle Archivale aus der Datenbank.
 	 */
 	public String lösche() {
+		entityManager = entityManagerFactory.createEntityManager();
+		Archivale aktuellesArchivale = entityManager.merge(this.aktuellesArchivale);
+		entityManager.getTransaction().begin();
 		entityManager.remove(aktuellesArchivale);
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		
+		archivalien.remove(this.aktuellesArchivale);
+		details.setAktuellesArchivale(null);
 		return "index";
 	}
-
+	
 	/**
 	 * Speichert das aktuelle Archivale in die Datenbank.
 	 * 
 	 * @return "detail" immer
 	 */
 	public String speichere() {
+		entityManager = entityManagerFactory.createEntityManager();
+		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
+		entityManager.getTransaction().begin();
+
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		return "detail";
@@ -252,9 +292,8 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String erstelle() {
-		entityManager = entityManagerFactory.createEntityManager();
-		aktuellesArchivale = entityManager.merge(new Archivale());
-		entityManager.getTransaction().begin();
+		aktuellesArchivale = new Archivale();
+		details.setAktuellesArchivale(aktuellesArchivale);
 		return "edit";
 	}
 
@@ -279,10 +318,25 @@ public class EditBean implements Serializable {
 	}
 
 	public String loadOrganisationseinheiten() {
+		entityManager = entityManagerFactory.createEntityManager();
+		Query q=entityManager.createQuery("select o from Organisationseinheit o");
+		organisationseinheiten = q.getResultList();
 		return "edit";
 	}
 
 	public String saveOrganisationseinheiten() {
+		return "edit";
+	}
+	
+	public String loadDokumentarten() {
+		entityManager = entityManagerFactory.createEntityManager();
+		Query q=entityManager.createQuery("select d from Dokumentart d");
+		dokumentarten = q.getResultList();
+		return "edit";
+	}
+
+	public String saveDokumentarten() {
+		//TODO
 		return "edit";
 	}
 
@@ -294,7 +348,7 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String loadSchlagworte() {
-		List<Schlagwort> schlagwörter = aktuellesArchivale.getSchlagwörter();
+		List<Schlagwort> schlagwörter = details.getAktuellesArchivale().getSchlagwörter();
 		System.out.println(schlagwörter);
 		String output = "";
 		for (Schlagwort schlagwort : schlagwörter) {

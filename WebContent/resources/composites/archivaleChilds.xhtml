@@ -22,9 +22,9 @@
 				<pe:tooltip for="editNamenButton"
 					value="Bearbeiten der zugeordneten Namen" />
 			</p:commandButton>
-			<p:dataTable value="#{cc.attrs.aktuellesArchivale.namen}" var="namen">
+			<p:dataTable value="#{cc.attrs.aktuellesArchivale.namen}" var="name">
 				<p:column headerText="Vor- und Nachname">
-					<h:outputText value="#{namen.vorname} #{namen.nachname}" />
+					<h:outputText value="#{name.nachname}, #{name.vorname}" />
 				</p:column>
 				<p:column rendered="#{cc.attrs.angemeldet}">
 					<p:button icon="ui-icon-minus" />
@@ -36,6 +36,7 @@
 				rendered="#{cc.attrs.angemeldet}"
 				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
 				icon="ui-icon-pencil"
+				update="@form"
 				action="#{editBean.loadOrganisationseinheiten}"
 				oncomplete="editOrganisationseinheitenDialog.show()">
 				<pe:tooltip for="editOrganisationseinheitenButton"
@@ -50,6 +51,16 @@
 			</p:dataTable>
 		</p:tab>
 		<p:tab title="Dokumentarten">
+		<p:commandButton id="editDokumentartenButton"
+				rendered="#{cc.attrs.angemeldet}"
+				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
+				icon="ui-icon-pencil"
+				update="@form"
+				action="#{editBean.loadDokumentarten}"
+				oncomplete="editDokumentartenDialog.show()">
+				<pe:tooltip for="editOrganisationseinheitenButton"
+					value="Bearbeiten der zugeordneten Dokumentarten" />
+			</p:commandButton>
 			<p:dataTable value="#{cc.attrs.aktuellesArchivale.dokumentarten}"
 				var="da">
 				<p:column headerText="Dokumentarten">
@@ -75,7 +86,7 @@
 		</p:tab>
 	</p:tabView>
 	<p:dialog widgetVar="editNamenDialog" header="Namen bearbeiten"
-		width="500" modal="true">
+		modal="true" style="position:fixed">
 		<p:panelGrid columns="1">
 			<pe:tooltip for="namenTextArea" adjustX="-20" adjustY="-20"
 				value="Ordnen Sie dem Archivale Namen zu. Erfassen Sie die Namen mit
@@ -88,9 +99,10 @@
 				oncomplete="editNamenDialog.hide()" update="@form" />
 		</p:panelGrid>
 	</p:dialog>
-	<p:dialog widgetVar="editOrganisationseinheitenDialog"
-		header="Organisationseinheiten zuordnen" modal="true">
+	<p:dialog id="editOrganisationseinheitenDialog" widgetVar="editOrganisationseinheitenDialog"
+		header="Organisationseinheiten zuordnen" modal="true"  style="position:fixed">
 		<p:panelGrid columns="1">
+			<p:scrollPanel  mode="native" style="width:110px;height:250px">
 			<p:dataTable value="#{editBean.organisationseinheiten}" var="oe"
 				rowKey="#{oe.id}"
 				selection="#{cc.attrs.aktuellesArchivale.organisationseinheiten}"
@@ -99,13 +111,32 @@
 					<h:outputText value="#{oe.name}" />
 				</p:column>
 			</p:dataTable>
+			</p:scrollPanel>
 			<p:commandButton value="ok"
 				action="#{editBean.saveOrganisationseinheiten}"
 				oncomplete="editOrganisationseinheitenDialog.hide()" update="@form" />
 		</p:panelGrid>
 	</p:dialog>
+	<p:dialog id="editDokumentartenDialog" widgetVar="editDokumentartenDialog"
+		header="Dokumentarten zuordnen" modal="true"  style="position:fixed">
+		<p:panelGrid columns="1">
+			<p:scrollPanel  mode="native" style="width:110px;height:250px">
+			<p:dataTable value="#{editBean.dokumentarten}" var="d"
+				rowKey="#{d.id}"
+				selection="#{cc.attrs.aktuellesArchivale.dokumentarten}"
+				selectionMode="multiple">
+				<p:column>
+					<h:outputText value="#{d.name}" />
+				</p:column>
+			</p:dataTable>
+			</p:scrollPanel>
+			<p:commandButton value="ok"
+				action="#{editBean.saveDokumentarten}"
+				oncomplete="editDokumentartenDialog.hide()" update="@form" />
+		</p:panelGrid>
+	</p:dialog>
 	<p:dialog id="editSchlagworteDialog" widgetVar="editSchlagworteDialog"
-		header="Schlagworte bearbeiten" modal="true">
+		header="Schlagworte bearbeiten" modal="true" style="position:fixed">
 		<p:panelGrid columns="1">
 			<pe:tooltip for="schlagwörterTextArea" adjustX="-20" adjustY="-20"
 				value="Ordnen Sie dem Archivale Schlagworte zu. Trennen Sie mehrere Schlagworte durch ein Komma" />

@@ -6,33 +6,26 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
 
-	<pe:ajaxErrorHandler />
-
-	<p:messages />
-
 	<p:confirmDialog widgetVar="anmeldungNotwendigDialog"
 		visible="#{not loginBean.angemeldet}" header="Anmeldung erforderlich"
 		message="Bitte melden Sie sich an, um das Archiv bearbeiten zu können">
 		<p:commandButton value="OK" action="index"
-			oncomplete="anmeldungNotwendigDialog.hide()" />
+			onclick="anmeldungNotwendigDialog.hide()" />
 	</p:confirmDialog>
 
 	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
-		action="#{editBean.back}">
+		action="#{editBean.back}" immediate="true">
 		<pe:tooltip for="zurückButton"
 			value="zurück zur vorherigen Ansicht (ohne Speichern)" />
 	</p:commandButton>
 	<cc:confirmButton icon="ui-icon-minus" header="Bestätigung zum Löschen"
 		message="Soll das aktuelle Archivale gelöscht werden?"
 		tooltip="Löschen des aktuellen Archivales" action="#{editBean.lösche}"
-		rendered="#{loginBean.angemeldet}" />
-	<p:commandButton id="speicherButton" icon="ui-icon-check"
+		rendered="#{loginBean.angemeldet}" immediate="true"/>
+	<p:commandButton id="speicherButton" icon="ui-icon-check" update=":messages"
 		rendered="#{loginBean.angemeldet}" action="#{editBean.speichere}">
 		<pe:tooltip for="speicherButton"
 			value="Speichern des aktuellen Archivales" />
-		<f:setPropertyActionListener target="#{detailBean.aktuellesArchivale}"
-			value="#{editBean.aktuellesArchivale}" />
-
 	</p:commandButton>
 	<p:panel id="detailPanel" rendered="#{loginBean.angemeldet}"
 		header="Datenerfassung: '#{editBean.aktuellesArchivale.betreff}'">
@@ -47,11 +40,15 @@
 						maxlength="4" size="1" />
 				</p:panelGrid>
 				<h:outputText value="Betreff" styleClass="label" />
-				<p:inputText value="#{editBean.aktuellesArchivale.betreff}"
-					size="50" />
+				<p:inplace id="inplaceBetreff" editor="true" emptyLabel="Hier den Betreff erfassen...">
+					<p:inputText value="#{editBean.aktuellesArchivale.betreff}"
+						size="104" />
+				</p:inplace>
 				<h:outputText value="Inhalt" styleClass="label" />
-				<p:inputTextarea value="#{editBean.aktuellesArchivale.inhalt}"
-					autoResize="false" style="width:440px;height:100px" />
+				<p:inplace id="inplaceInhalt" editor="true" emptyLabel="Hier den Inhalt erfassen...">
+					<p:inputTextarea value="#{editBean.aktuellesArchivale.inhalt}"
+						autoResize="false" style="width:440px;height:100px" />
+				</p:inplace>
 			</p:panelGrid>
 			<p:panelGrid id="rightDetailGrid" columns="1">
 				<p:panel style="float:right" header="Ort">
