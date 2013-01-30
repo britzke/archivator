@@ -22,9 +22,6 @@
 						<td>Datum</td><td/>
 					</tr>
 					<tr>
-						<td>Prüfling (GIT-Version)</td><td/>
-					</tr>
-					<tr>
 						<td>Prüfergebnis</td><td/>
 					</tr>
 					<tr>
@@ -57,13 +54,12 @@
 									<xsl:value-of select="./text()"></xsl:value-of>
 									<xsl:if test="tp:ergebnisse/tp:ergebnis">
 									<table class="ergebnisse">
-										<tr><th>erwartetes Ergebnis</th><th>OK</th><th>Issues</th></tr>
+										<tr><th>erwartetes Ergebnis</th><th>OK</th></tr>
 										<xsl:for-each select="tp:ergebnisse/tp:ergebnis">
 										<tr>
 											<td>
 												<xsl:value-of select="./text()"></xsl:value-of>
 											</td>
-											<td/>
 											<td/>
 										</tr>
 										</xsl:for-each>

@@ -21,7 +21,9 @@ package de.archivator.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -32,6 +34,7 @@ import javax.persistence.Query;
 
 import de.archivator.annotations.AktuellesArchivale;
 import de.archivator.entities.Archivale;
+import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
 import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
@@ -77,27 +80,33 @@ public class EditBean implements Serializable {
 	 */
 	private List<Organisationseinheit> organisationseinheiten;
 	/**
+	 * Liste aller Dokumentarten, die im System gespeichert sind.
+	 */
+	private List<Dokumentart> dokumentarten;
+	/**
 	 * Liste aller Schlagworte, die im System gespeichert sind.
 	 */
 	private List<Schlagwort> schlagworte;
 
 	private String archivaleNames;
-	private String archivaleSchlagwörter;
+	private String formularSchlagwörter;
 
 	/**
 	 * Erzeugt eine neue EditBean.
 	 */
 	public EditBean() {
-		namen=new ArrayList<Name>();
-		organisationseinheiten=new ArrayList<Organisationseinheit>();
-		schlagworte=new ArrayList<Schlagwort>();
+		namen = new ArrayList<Name>();
+		organisationseinheiten = new ArrayList<Organisationseinheit>();
+		dokumentarten= new ArrayList<Dokumentart>();
+		schlagworte = new ArrayList<Schlagwort>();
 
-		archivaleSchlagwörter = new String();
+		formularSchlagwörter = new String();
 		archivaleNames = new String();
 	}
 
 	/**
 	 * Antwortet mit dem aktuellen Archivale
+	 * 
 	 * @return the aktuellesArchivale
 	 */
 	public Archivale getAktuellesArchivale() {
@@ -120,6 +129,7 @@ public class EditBean implements Serializable {
 
 	/**
 	 * Antwortet mit einer Liste von Betreffs.
+	 * 
 	 * @return the betreffs
 	 */
 	public List<String> getBetreffs() {
@@ -128,6 +138,7 @@ public class EditBean implements Serializable {
 
 	/**
 	 * Setzt die Liste von Betreffs.
+	 * 
 	 * @param betreffs
 	 *            the betreffs to set
 	 */
@@ -137,6 +148,7 @@ public class EditBean implements Serializable {
 
 	/**
 	 * Antwortet mit der Liste von Namen.
+	 * 
 	 * @return the namen
 	 */
 	public List<Name> getNamen() {
@@ -165,6 +177,21 @@ public class EditBean implements Serializable {
 	public void setOrganisationseinheiten(
 			List<Organisationseinheit> organisationseinheiten) {
 		this.organisationseinheiten = organisationseinheiten;
+	}
+	/**
+	 * @return the dokumentarten
+	 */
+	public List<Dokumentart> getDokumentartenheiten() {
+		return dokumentarten;
+	}
+
+	/**
+	 * @param organisationseinheiten
+	 *            the dokumentarten to set
+	 */
+	public void setDokumentarten(
+			List<Dokumentart> dokumentarten) {
+		this.dokumentarten = dokumentarten;
 	}
 
 	/**
@@ -198,18 +225,18 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * @return the archivaleSchlagwörter
+	 * @return the formularSchlagwörter
 	 */
-	public String getArchivaleSchlagwörter() {
-		return archivaleSchlagwörter;
+	public String getFormularSchlagwörter() {
+		return formularSchlagwörter;
 	}
 
 	/**
-	 * @param archivaleSchlagwörter
-	 *            the archivaleSchlagwörter to set
+	 * @param formularSchlagwörter
+	 *            the formularSchlagwörter to set
 	 */
-	public void setArchivaleSchlagwörter(String archivaleSchlagwörter) {
-		this.archivaleSchlagwörter = archivaleSchlagwörter;
+	public void setFormularSchlagwörter(String formularSchlagwörter) {
+		this.formularSchlagwörter = formularSchlagwörter;
 	}
 
 	// Action-Routinen
@@ -246,6 +273,7 @@ public class EditBean implements Serializable {
 	
 	/**
 	 * Speichert das aktuelle Archivale in die Datenbank.
+	 * 
 	 * @return "detail" immer
 	 */
 	public String speichere() {
@@ -260,6 +288,7 @@ public class EditBean implements Serializable {
 
 	/**
 	 * Erstellt ein neues Archivale und initialisiert es mit den Standardwerten.
+	 * 
 	 * @return "edit" immer.
 	 */
 	public String erstelle() {
@@ -298,6 +327,18 @@ public class EditBean implements Serializable {
 	public String saveOrganisationseinheiten() {
 		return "edit";
 	}
+	
+	public String loadDokumentarten() {
+		entityManager = entityManagerFactory.createEntityManager();
+		Query q=entityManager.createQuery("select d from Dokumentart d");
+		dokumentarten = q.getResultList();
+		return "edit";
+	}
+
+	public String saveDokumentarten() {
+		//TODO
+		return "edit";
+	}
 
 	/**
 	 * Lädt die Schlagworte, die dem Archivale zugeordnet ist, aus der Liste
@@ -314,7 +355,7 @@ public class EditBean implements Serializable {
 			output += schlagwort.getName();
 			output += ", ";
 		}
-		archivaleSchlagwörter = output.substring(0, output.length()-2);
+		formularSchlagwörter = output.substring(0, output.length() - 2);
 		return "edit";
 	}
 
@@ -325,13 +366,56 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String saveSchlagworte() {
-		String[] wörter = archivaleSchlagwörter.split(",");
-		List<Schlagwort> schlagwörter = details.getAktuellesArchivale().getSchlagwörter();
+		List<Schlagwort> archivaleSchlagwörter = aktuellesArchivale
+				.getSchlagwörter();
+		String[] wörter = formularSchlagwörter.split(",");
+		Map<Schlagwort, Boolean> wörterMap = new HashMap<Schlagwort, Boolean>();
 		for (String wort : wörter) {
-			wort=wort.trim();
-			Schlagwort schlagwort=new Schlagwort(wort);
-			schlagwörter.add(schlagwort);
+			wort = wort.trim();
+			for (Schlagwort s : schlagworte) {
+				wörterMap.put(s, false);
+				if (s.getName().equals(wort)) {
+					// Wort existiert bereits im System
+					wörterMap.put(s, true);
+					// ist es dem Archivale schon zugeordnet?
+					if (!archivaleSchlagwörter.contains(s)) {
+						archivaleSchlagwörter.add(s);
+					}
+				}
+			}
+
+			Schlagwort newEntry = new Schlagwort(wort);
+			boolean neu = false;
+			if (schlagworte.isEmpty()) {
+				archivaleSchlagwörter.add(newEntry);
+				neu = true;
+			} else {
+				for (Schlagwort s : schlagworte) {
+					if (!wörterMap.get(s)) {
+						archivaleSchlagwörter.add(newEntry);
+						neu = true;
+					}
+				}
+			}
+			if (neu) {
+				schlagworte.add(newEntry);
+			}
 		}
+		List<Schlagwort> zuEntfernen = new ArrayList<Schlagwort>();;
+		for (Schlagwort s : schlagworte) {
+			boolean imFormularVorhanden = false;
+			for (String wort : wörter) {
+				if (s.getName().equals(wort.trim())) {
+					imFormularVorhanden = true;
+				}
+			}
+			if (!imFormularVorhanden) {
+				zuEntfernen.add(s);
+			}
+		}
+			for (Schlagwort del : zuEntfernen) {
+				schlagworte.remove(del);
+			}
 		return "edit";
 	}
 }

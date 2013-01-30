@@ -2,7 +2,7 @@
 <testplan xmlns="http://www.archivator.de/testplan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.archivator.de/testplan testplan.xsd">
 
-	<testfall titel="Testfall für Login erfolgreichen ">
+	<testfall titel="Testfall für erfolgreichen Login">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Der Benutzer ist nicht als Rechercheur authensisiert.
@@ -23,6 +23,9 @@
 						 Das Textfeld zur Erfassung des Kennwortes wird nicht angezeigt.
 					</ergebnis>
 					<ergebnis>
+						 Die Schaltfläche "login" wird nicht angezeigt.
+					</ergebnis>
+					<ergebnis>
 						 Die Schaltfläche "logout" wird angezeigt.
 					</ergebnis>
 				</ergebnisse>
@@ -30,8 +33,7 @@
 		</durchführung>
 	</testfall>
 
-	<testfall
-		titel="Testfall für Login fehlgeschlagenen durch Eingabe eines falschen Passwortes ">
+	<testfall titel="Testfall für fehlgeschlagenen Login">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Der Benutzer ist nicht als Rechercheur authensisiert.
@@ -39,44 +41,15 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Im LoginFenster wird das Kennwort falsch eingegeben.
-				Der Login Button
-				wird gedrückt
+				Im LoginFenster muss das Kennwort falsch eingegeben werden.
+				Der Login
+				Button wird gedrückt
 				<ergebnisse>
 					<ergebnis>
 						Die Meldung "Falsches Kennwort" wird angezeigt
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Testfall erfolgreich nach Eingabe eines falschen Passwortes">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer ist nicht angemeldet
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-
-			<schritt>
-				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
-				Drückt auf den Login-Button
-				<ergebnisse>
-					<ergebnis>
-						Die Meldung "Falsches Kennwort" wird angezeigt
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der User gibt das Korrekte Kennwort in das Eingabefeld.
-				<ergebnisse>
-					<ergebnis>
-				         Der Benutzer ist nun als Redakteur angemeldet.
-				    </ergebnis>
-				</ergebnisse>
-			</schritt>
-
 		</durchführung>
 	</testfall>
 
@@ -91,10 +64,7 @@
 				Der Logout-Button wird gedrückt
 				<ergebnisse>
 					<ergebnis>
-				        Der Benutzer ist nicht mehr angemeldet. 
-				    </ergebnis>
-					<ergebnis>
-						Anstatt des Logout-Buttons, wird wieder das Login Fenster angezeigt.
+						Anstatt des Logout-Buttons, wird wieder das LoginFenster angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -104,7 +74,7 @@
 	<testfall titel="Testfall für SeiteZurückButton nach Anmeldung">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Der Benutzer ist angemeldet, es wurde noch keine Suche durchgeführt.
+					Der Benutzer hat sich gerade angemeldet, es wurde noch keine Suche durchgeführt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
@@ -138,7 +108,33 @@
 		</durchführung>
 	</testfall>
 
-
+	<testfall titel="Testfall für falsches Passwort">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer ist nicht angemeldet
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
+				Drückt auf den Login-Button
+				<ergebnisse>
+					<ergebnis>
+						Die Meldung "Falsches Kennwort" wird angezeigt
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der Benutzer trägt das richtige Kennwort in das Anmeldefenster ein
+				Drückt auf den Login-Button
+				<ergebnisse>
+					<ergebnis>
+						Der Benutzer ist angemeldet, der Logout-Button erscheint
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
 
 	<testfall titel="Testfall für die erweiterte Suche">
 		<vorraussetzungen>
@@ -168,6 +164,7 @@
         					‘Name’  
        					    ‘Und’
        						‘Schlagwörter’
+       					    ‘Titel’
         					‘Oder’
 					</ergebnis>
 				</ergebnisse>
@@ -212,6 +209,7 @@
         		‘Name’  
 				‘Und’
        			‘Schlagwörter’
+       			‘Titel’
         		‘Oder’
 			</vorraussetzung>
 		</vorraussetzungen>
@@ -254,6 +252,7 @@
         		‘Name’  
 				‘Und’
        			‘Schlagwörter’
+       			‘Titel’
         		‘Oder’
 			</vorraussetzung>
 		</vorraussetzungen>
@@ -296,6 +295,7 @@
         		‘Name’  
 				‘Und’
        			‘Schlagwörter’
+       			‘Titel’
         		‘Oder’
 			</vorraussetzung>
 		</vorraussetzungen>
@@ -338,6 +338,7 @@
         		‘Name’  
 				‘Und’
        			‘Schlagwörter’
+       			‘Titel’
         		‘Oder’
 			</vorraussetzung>
 		</vorraussetzungen>
@@ -363,6 +364,48 @@
 		</durchführung>
 	</testfall>
 
+	<testfall titel="Testfall für die erweiterte Suche Funktion 'Titel' Button">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
+				Das Suchfeld wird angezeigt.
+			</vorraussetzung>
+			<vorraussetzung>
+				Neben dem Suchfeld befindet sich der ‘Suche’ Button
+			</vorraussetzung>
+			<vorraussetzung>
+   				Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    		 	Folgende Buttons werden darunter angezeigt:
+        		‘Betreff’
+        		‘Name’  
+				‘Und’
+       			‘Schlagwörter’
+       			‘Titel’
+        		‘Oder’
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der ‘Titel’ Button wird geklickt.
+				<ergebnisse>
+					<ergebnis>
+					  Es wird der Text “titel = “ in die Suchleiste eingetragen. 
+					  Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Der 'Suche' Button wird gedrückt.
+				<ergebnisse>
+					<ergebnis>
+					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
 
 	<testfall titel="Testfall für die erweiterte Suche Funktion 'Oder' Button">
 		<vorraussetzungen>
@@ -382,6 +425,7 @@
         		‘Name’  
 				‘Und’
        			‘Schlagwörter’
+       			‘Titel’
         		‘Oder’
 			</vorraussetzung>
 		</vorraussetzungen>
@@ -423,6 +467,41 @@
 		</durchführung>
 	</testfall>
 
+	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Forwärts' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
+		<vorraussetzungen>
+			<vorraussetzung>
+					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Der Benutzer drückt den 'Zurück' Button
+				<ergebnisse>
+					<ergebnis>
+						Das Schlagwort ist nicht mehr im Suchfeld eingetragen. 
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
 
 	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
 		<vorraussetzungen>
@@ -474,23 +553,27 @@
 		</durchführung>
 	</testfall>
 
-
+	<!-- <vorraussetzungen> Der Benutzer ist als Redakteur angemeldet. Bin mir 
+		da Unsicher , da man angemeldet sein muss um zu Bearbeiten -->
 	<testfall titel="Bearbeitungsanzeige anzeigen">
 		<vorraussetzungen>
 			<vorraussetzung>
-				Der Benutzer ist als Redakteur angemeldet.
+				Der Benutzer ist als Rechercheur authentisiert.
 			</vorraussetzung>
 			<vorraussetzung>
-				Es werden die gesuchten Ergebnisse in der Ergebnisliste angezeigt.
+				Es werden Ergebnisse in der Ergebnisliste angezeigt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Die Schaltfläche 'Bearbeiten' eines Ergebnisses anwählen und
-				anklicken.
+				Die Schaltfläche “Bearbeiten“ eines Ergebnisses anwählen.
 				<ergebnisse>
+					<!-- woher weiß der Tester, ob alle Informationen richtig angezeigt 
+						werden? -->
 					<ergebnis>
-						Die Bearbeitungsanzeige wird angezeigt.
+						Die Bearbeitungsanzeige wird angezeigt mit den
+						verschieden Feldern richtig ausgefüllt mit den Informationen der
+						Ausgewählten Bean.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -528,26 +611,25 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-
+	
 	<testfall titel="Dem Rechercheur die Bearbeitung verwehren">
 		<vorraussetzungen>
-			<vorraussetzung>Der Benutzer ist nicht angemeldet.</vorraussetzung>
+			<vorraussetzung>Benutzer ist nicht angemeldet.</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Der Benutzer führt eine Recherche durch, die mindestens ein Ergebnis
-				liefert.
+				Führe eine Recherche durch, die mindestens ein Ergebnis liefert.
 				<ergebnisse>
 					<ergebnis>
-						Liste mit gesuchten Rechercheergebnissen wird angezeigt.
+						Liste mit Rechercheergebnissen wird angezeigt.
 					</ergebnis>
 					<ergebnis>
-						Es wird keine Schaltfläche zur Bearbeitung der Suchergebnisse neben jedem Rechercheergebnis angezeigt.
+						Es wird keine Schaltfläche zur Bearbeitung neben jedem Rechercheergebnis angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Der Benutzer öffnet eine Archivale in der Detailansicht.
+				Ein Archivale in der Detailansicht öffnen.
 				<ergebnisse>
 					<ergebnis>Es wird keine Schaltfläche zur Bearbeitung angezeigt.</ergebnis>
 				</ergebnisse>
@@ -561,7 +643,7 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Der Benutzer wählt ein Ergebnis aus.
+				Ein Ergebnis auswählen.
 				<ergebnisse>
 					<ergebnis>
 						Die Detailansicht mit dem Inhalt des ausgewählten Ergebnisses wird angezeigt.
@@ -571,7 +653,8 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren">
+	<testfall
+		titel="Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren">
 		<vorraussetzungen>
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
@@ -747,7 +830,7 @@
 			</schritt>
 			<schritt>
 				Ändere das Attribut Datum mit gültigen Werten (von-bis),
-				wobei der bis-Wert nicht 0 sein darf.
+				wobei der bis-Wert nicht 0 ist.
 			</schritt>
 			<schritt>
 				Wähle die Schaltfläche "Speichern" an.
@@ -789,7 +872,8 @@
 				Personen:
 				Das Attribut ändern mit gültigem Wert.
 				Speichern.
-				Die Detailansicht von der Archivale öffnen.
+				Die
+				Detailansicht von der Archivale öffnen.
 				<ergebnisse>
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
@@ -801,7 +885,8 @@
 				Organisationseinheit:
 				Das Attribut ändern mit gültigem Wert.
 				Speichern.
-				Die Detailansicht von der Archivale öffnen.
+				Die
+				Detailansicht von der Archivale öffnen.
 				<ergebnisse>
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
@@ -813,7 +898,8 @@
 				Schlagwörter:
 				Das Attribut ändern mit gültigem Wert.
 				Speichern.
-				Die Detailansicht von der Archivale öffnen.
+				Die
+				Detailansicht von der Archivale öffnen.
 				<ergebnisse>
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
@@ -863,7 +949,7 @@
 		</durchführung>
 	</testfall>
 
-
+	
 
 	<testfall titel="Archviale löschen">
 		<vorraussetzungen>

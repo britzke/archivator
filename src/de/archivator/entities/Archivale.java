@@ -69,8 +69,10 @@ public class Archivale implements Serializable {
 	@SearchableProperty
 	private String inhalt;
 
+	@SearchableProperty
 	private int mappe;
 
+	@SearchableProperty
 	private int schubfach;
 
 	// bi-directional many-to-many association to Namen

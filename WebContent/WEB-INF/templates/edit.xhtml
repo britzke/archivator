@@ -10,7 +10,7 @@
 		visible="#{not loginBean.angemeldet}" header="Anmeldung erforderlich"
 		message="Bitte melden Sie sich an, um das Archiv bearbeiten zu können">
 		<p:commandButton value="OK" action="index"
-			oncomplete="anmeldungNotwendigDialog.hide()" />
+			onclick="anmeldungNotwendigDialog.hide()" />
 	</p:confirmDialog>
 
 	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"

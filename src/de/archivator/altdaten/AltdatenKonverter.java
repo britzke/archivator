@@ -104,15 +104,18 @@ public class AltdatenKonverter {
 			String abteilung = altArchivale.getAbteilung();
 			if (abteilung != null) {
 				abteilung = abteilung.replaceAll("\n", "");
-				String[] abteilungen = {abteilung};
+				// an nicht vorkommenden Zeichen splitten,
+				// damit der Standardfall (eine Organisationseinheit) 
+				// abgedeckt ist.
+				String[] abteilungen = abteilung.split("∂");
 				if (abteilung.indexOf(",") != -1) {
 					abteilungen = abteilung.split(",");
 				} else if (abteilung.indexOf("/") != -1) {
 					abteilungen = abteilung.split("/");
 				}
+				abteilung = abteilung.trim();
 				boolean abteilungVorhanden = false;
 				for (String einzelAbteilung : abteilungen) {
-					einzelAbteilung=einzelAbteilung.trim();
 					for (String organisatonseinheit : organisationseinheiten) {
 						if (einzelAbteilung.equals(organisatonseinheit)) {
 							abteilungVorhanden = true;
