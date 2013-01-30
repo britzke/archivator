@@ -30,7 +30,8 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für Login fehlgeschlagenen durch Eingabe eines falschen Passwortes ">
+	<testfall
+		titel="Testfall für Login fehlgeschlagenen durch Eingabe eines falschen Passwortes ">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Der Benutzer ist nicht als Rechercheur authensisiert.
@@ -39,7 +40,8 @@
 		<durchführung>
 			<schritt>
 				Im LoginFenster wird das Kennwort falsch eingegeben.
-				Der Login Button wird gedrückt
+				Der Login Button
+				wird gedrückt
 				<ergebnisse>
 					<ergebnis>
 						Die Meldung "Falsches Kennwort" wird angezeigt
@@ -48,14 +50,15 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-	<testfall titel="Testfall für falsches Passwort">
+
+	<testfall titel="Testfall erfolgreich nach Eingabe eines falschen Passwortes">
 		<vorraussetzungen>
 			<vorraussetzung>
 					Der Benutzer ist nicht angemeldet
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
+
 			<schritt>
 				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
 				Drückt auf den Login-Button
@@ -65,6 +68,15 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			<schritt>
+				Der User gibt das Korrekte Kennwort in das Eingabefeld.
+				<ergebnisse>
+					<ergebnis>
+				         Der Benutzer ist nun als Redakteur angemeldet.
+				    </ergebnis>
+				</ergebnisse>
+			</schritt>
+
 		</durchführung>
 	</testfall>
 
@@ -78,6 +90,9 @@
 			<schritt>
 				Der Logout-Button wird gedrückt
 				<ergebnisse>
+					<ergebnis>
+				        Der Benutzer ist nicht mehr angemeldet. 
+				    </ergebnis>
 					<ergebnis>
 						Anstatt des Logout-Buttons, wird wieder das Login Fenster angezeigt.
 					</ergebnis>
@@ -123,7 +138,7 @@
 		</durchführung>
 	</testfall>
 
-	
+
 
 	<testfall titel="Testfall für die erweiterte Suche">
 		<vorraussetzungen>
@@ -348,7 +363,7 @@
 		</durchführung>
 	</testfall>
 
-	
+
 	<testfall titel="Testfall für die erweiterte Suche Funktion 'Oder' Button">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -459,27 +474,23 @@
 		</durchführung>
 	</testfall>
 
-	<!-- <vorraussetzungen> Der Benutzer ist als Redakteur angemeldet. Bin mir 
-		da Unsicher , da man angemeldet sein muss um zu Bearbeiten -->
+
 	<testfall titel="Bearbeitungsanzeige anzeigen">
 		<vorraussetzungen>
 			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
+				Der Benutzer ist als Redakteur angemeldet.
 			</vorraussetzung>
 			<vorraussetzung>
-				Es werden Ergebnisse in der Ergebnisliste angezeigt.
+				Es werden die gesuchten Ergebnisse in der Ergebnisliste angezeigt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Die Schaltfläche “Bearbeiten“ eines Ergebnisses anwählen.
+				Die Schaltfläche 'Bearbeiten' eines Ergebnisses anwählen und
+				anklicken.
 				<ergebnisse>
-					<!-- woher weiß der Tester, ob alle Informationen richtig angezeigt 
-						werden? -->
 					<ergebnis>
-						Die Bearbeitungsanzeige wird angezeigt mit den
-						verschieden Feldern richtig ausgefüllt mit den Informationen der
-						Ausgewählten Bean.
+						Die Bearbeitungsanzeige wird angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -517,25 +528,26 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
+
 	<testfall titel="Dem Rechercheur die Bearbeitung verwehren">
 		<vorraussetzungen>
-			<vorraussetzung>Benutzer ist nicht angemeldet.</vorraussetzung>
+			<vorraussetzung>Der Benutzer ist nicht angemeldet.</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Führe eine Recherche durch, die mindestens ein Ergebnis liefert.
+				Der Benutzer führt eine Recherche durch, die mindestens ein Ergebnis
+				liefert.
 				<ergebnisse>
 					<ergebnis>
-						Liste mit Rechercheergebnissen wird angezeigt.
+						Liste mit gesuchten Rechercheergebnissen wird angezeigt.
 					</ergebnis>
 					<ergebnis>
-						Es wird keine Schaltfläche zur Bearbeitung neben jedem Rechercheergebnis angezeigt.
+						Es wird keine Schaltfläche zur Bearbeitung der Suchergebnisse neben jedem Rechercheergebnis angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Ein Archivale in der Detailansicht öffnen.
+				Der Benutzer öffnet eine Archivale in der Detailansicht.
 				<ergebnisse>
 					<ergebnis>Es wird keine Schaltfläche zur Bearbeitung angezeigt.</ergebnis>
 				</ergebnisse>
@@ -549,7 +561,7 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Ein Ergebnis auswählen.
+				Der Benutzer wählt ein Ergebnis aus.
 				<ergebnisse>
 					<ergebnis>
 						Die Detailansicht mit dem Inhalt des ausgewählten Ergebnisses wird angezeigt.
@@ -559,8 +571,7 @@
 		</durchführung>
 	</testfall>
 
-	<testfall
-		titel="Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren">
+	<testfall titel="Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren">
 		<vorraussetzungen>
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
@@ -736,7 +747,7 @@
 			</schritt>
 			<schritt>
 				Ändere das Attribut Datum mit gültigen Werten (von-bis),
-				wobei der bis-Wert nicht 0 ist.
+				wobei der bis-Wert nicht 0 sein darf.
 			</schritt>
 			<schritt>
 				Wähle die Schaltfläche "Speichern" an.
@@ -778,8 +789,7 @@
 				Personen:
 				Das Attribut ändern mit gültigem Wert.
 				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
+				Die Detailansicht von der Archivale öffnen.
 				<ergebnisse>
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
@@ -791,8 +801,7 @@
 				Organisationseinheit:
 				Das Attribut ändern mit gültigem Wert.
 				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
+				Die Detailansicht von der Archivale öffnen.
 				<ergebnisse>
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
@@ -804,8 +813,7 @@
 				Schlagwörter:
 				Das Attribut ändern mit gültigem Wert.
 				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
+				Die Detailansicht von der Archivale öffnen.
 				<ergebnisse>
 					<ergebnis>
 							Die Archivale ist angezeigt mit dem Attribut korrekt
@@ -855,7 +863,7 @@
 		</durchführung>
 	</testfall>
 
-	
+
 
 	<testfall titel="Archviale löschen">
 		<vorraussetzungen>
