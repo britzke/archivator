@@ -10,7 +10,8 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-			    Der Benutzer trägt das richtige Password im in das Login Fenster.
+				Der Benutzer trägt das richtige Password im in das Login
+				Fenster.
 			</schritt>
 			<schritt>
 				Wähle die Schaltfläche "Login"
@@ -39,9 +40,9 @@
 		<durchführung>
 			<schritt>
 				Im LoginFenster wird das Kennwort falsch eingegeben.
-				</schritt>
-				<schritt>
-				    Der Login Button wird gedrückt
+			</schritt>
+			<schritt>
+				Der Login Button wird gedrückt
 				<ergebnisse>
 					<ergebnis>
 						Die Meldung "Falsches Kennwort" wird angezeigt
@@ -59,9 +60,10 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
-				</schritt>
-				<schritt> 
+				Der Benutzer trägt ein falsches Kennwort in das
+				Anmeldefenster ein
+			</schritt>
+			<schritt>
 				Drücke auf den Login-Button
 				<ergebnisse>
 					<ergebnis>
@@ -110,7 +112,7 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Der Seite Zurück Button im Browserfenster wird gedrückt
+				Der Seite zurück Button im Browserfenster wird gedrückt
 				<ergebnisse>
 					<ergebnis>
 						Der Benutzer immer noch angemeldet, das Login-Fenster erscheint und ist leer.
@@ -129,7 +131,7 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Der Benutzer geht wieder eine Seite vorwärts. 
+				Der Benutzer geht wieder eine Seite vorwärts.
 				<ergebnisse>
 					<ergebnis>
 						Der Benutzer ist angemeldet, der Logout-Button erscheint.
@@ -572,7 +574,8 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren">
+	<testfall
+		titel="Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren">
 		<vorraussetzungen>
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
@@ -784,12 +787,13 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
-
-			<!-- von hier an müssen die Schritte noch abgeändert werden -->
 			<schritt>
-				Personen:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
+				Das Attribut Personen ändern mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche Speichern.
+			</schritt>
+			<schritt>
 				Die Detailansicht von der Archivale öffnen.
 				<ergebnisse>
 					<ergebnis>
@@ -799,9 +803,12 @@
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Organisationseinheit:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
+				Das Attribut Organisationseinheit ändern mit gültigem Wert.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche Speichern.
+			</schritt>
+			<schritt>
 				Die Detailansicht von der Archivale öffnen.
 				<ergebnisse>
 					<ergebnis>
@@ -811,9 +818,12 @@
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Schlagwörter:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
+				Das Attribut Schlagwörter ändern mit gültigem Wert.
+				</schritt>
+				<schritt>
+				    Wähle die Schaltfläche Speichern.
+				</schritt>
+				<schritt>
 				Die Detailansicht von der Archivale öffnen.
 				<ergebnisse>
 					<ergebnis>
@@ -822,7 +832,6 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
-			<!-- bis hier müssen die Schritte noch abgeändert werden -->
 		</durchführung>
 	</testfall>
 
@@ -926,7 +935,6 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
 	<testfall titel="Erfassen eines neuen Archivales mit leeren Betreff">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -944,8 +952,8 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-		<testfall titel="Erfassen eines neuen Archivales fehlgeschlagen">
+
+	<testfall titel="Erfassen eines neuen Archivales fehlgeschlagen">
 		<vorraussetzungen>
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
@@ -976,8 +984,8 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-		<testfall titel="Erfassen eines neuen Archivales mit Organisationseinheiten">
+
+	<testfall titel="Erfassen eines neuen Archivales mit Organisationseinheiten">
 		<vorraussetzungen>
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
@@ -993,7 +1001,8 @@
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Ändere das Attribut "Organisationseinheiten" mit gültigem Wert.
+				Ändere das Attribut "Organisationseinheiten" mit gültigem
+				Wert.
 			</schritt>
 			<schritt>
 				Wähle die Schaltfläche "speichern"
@@ -1008,8 +1017,8 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-		<testfall titel="Erfassen eines neuen Archivales mit Personen">
+
+	<testfall titel="Erfassen eines neuen Archivales mit Personen">
 		<vorraussetzungen>
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
@@ -1040,8 +1049,8 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-		<testfall titel="Erfassen eines neuen Archivales mit Dokumentarten">
+
+	<testfall titel="Erfassen eines neuen Archivales mit Dokumentarten">
 		<vorraussetzungen>
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
@@ -1072,8 +1081,8 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-	
-		<testfall titel="Erfassen eines neuen Archivales mit Schlagworte">
+
+	<testfall titel="Erfassen eines neuen Archivales mit Schlagworte">
 		<vorraussetzungen>
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
