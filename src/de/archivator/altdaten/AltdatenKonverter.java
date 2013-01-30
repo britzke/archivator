@@ -91,7 +91,7 @@ public class AltdatenKonverter {
 		me.extractMappe();
 		me.extractInhalt();
 		me.extractBetreff();
-		//me.extractVonDatum();
+		me.extractVonDatum();
 		me.extractBisDatum();
 	}
 	/**
@@ -252,24 +252,24 @@ public class AltdatenKonverter {
 			String vonDatum = altarchivale.getDatumX00201();
 			if(vonDatum != null){
 				vonDatum=vonDatum.trim();
-				// bsp. 1945-1956
-				if (vonDatum.indexOf("-") != -1) {
-					String[] datenTeil = vonDatum.split("-");
-					String datenString=datenTeil[0];
-					vonDaten.add(Integer.parseInt(datenString));
-				}
 				// bsp. 1945/19546
-				else if(vonDatum.indexOf("/") != -1) {
+				if(vonDatum.indexOf("/") != -1) {
 					String[] datenTeil = vonDatum.split("/");
 					String datenString=datenTeil[0];
 					vonDaten.add(Integer.parseInt(datenString));
 				}
 				// bsp. ca. 1956
-				else if (vonDatum.indexOf("ca") != -1) {
-					vonDatum = vonDatum.replace("ca","");
-						vonDatum = vonDatum.trim();			
-					vonDaten.add(Integer.parseInt(vonDatum));
+				else if (vonDatum.indexOf("ca.") != -1) {
+						String[]vonDatumTeile = vonDatum.split("ca.");
+						String vonDatumString = vonDatumTeile[vonDatumTeile.length-1];
+						vonDatumString = vonDatumString.trim();
+						vonDaten.add(Integer.parseInt(vonDatumString));
 				}
+				// bsp ca 1967
+				else if (vonDatum.indexOf("ca") != -1) {
+				vonDatum = vonDatum.replace("ca","");
+				vonDatum = vonDatum.trim();			
+			vonDaten.add(Integer.parseInt(vonDatum));	}
 				// bsp. um 1956
 				else if (vonDatum.indexOf("um") != -1) {
 					vonDatum = vonDatum.replace("um","");
@@ -277,12 +277,13 @@ public class AltdatenKonverter {
 					vonDaten.add(Integer.parseInt(vonDatum));
 				}
 				// bsp. 30.03.1933
-				else if(vonDatum.indexOf(".") != -1) {									// AN dieser Stelle gibt es noch eine Fehlermeldung
+				else if(vonDatum.indexOf(".") != -1) {									
 					// bsp. 28.-29.08 ohne Jahr
-						if(vonDatum.indexOf("-") != -1){
+						if(vonDatum.indexOf(".-") != -1){
 							String datenOhneJahr="0";
 							vonDaten.add(Integer.parseInt(datenOhneJahr));			
 						}
+						// bsp. 28. 29.08 ohne Jahr
 						else if(vonDatum.indexOf(" ") != -1){
 						
 							String datenOhneJahr="0";
@@ -290,13 +291,15 @@ public class AltdatenKonverter {
 						}
 						else {						
 							String datenString=vonDatum.substring(6);
-//							String[] datenTeilmitDot = vonDatum.split(".");
-//							System.out.println(vonDatum+" 4 "+ datenTeilmitDot.length);
-//							
-//							String datenString=	datenTeilmitDot[datenTeilmitDot.length-1];
 							vonDaten.add(Integer.parseInt(datenString));
-							
 						}							
+				}
+				// bsp. 1945-1956
+				else if (vonDatum.indexOf("-") != -1) {
+					String[] datenTeil = vonDatum.split("-");
+					String datenString=datenTeil[0];
+					datenString = datenString.trim();
+					vonDaten.add(Integer.parseInt(datenString));
 				}
 				else{vonDaten.add(Integer.parseInt(vonDatum)); }
 			}
