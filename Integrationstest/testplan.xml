@@ -58,13 +58,14 @@
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
-
 			<schritt>
 				Der Benutzer trägt ein falsches Kennwort in das Anmeldefenster ein
-				Drückt auf den Login-Button
+				</schritt>
+				<schritt> 
+				Drücke auf den Login-Button
 				<ergebnisse>
 					<ergebnis>
-						Die Meldung "Falsches Kennwort" wird angezeigt
+						Die Meldung "Falsches Kennwort" wird angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -899,6 +900,9 @@
 			<vorraussetzung>
 				Der Benutzer ist als Rechercheur authentisiert.
 			</vorraussetzung>
+			<vorraussetzung>
+				Das Rechercheergebnis wird angezeigt.
+			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
@@ -920,6 +924,41 @@
 					</ergebnis>
 					<ergebnis>
 						Das Archivale wird mit erfassten Werten angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
+		<testfall titel="Erfassen eines neuen Archivales fehlgeschlagen">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Rechercheur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Das Rechercheergebnis wird angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche “Hinzufügen” an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird mit initialien Werten angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Ändere alle Attribute mit falschen Werten.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "speichern"
+				<ergebnisse>
+					<ergebnis>
+						Eine Fehlermeldung wird angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Das Archivale wird nicht Gespeichert.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
