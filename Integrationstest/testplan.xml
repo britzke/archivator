@@ -925,4 +925,23 @@
 			</schritt>
 		</durchführung>
 	</testfall>
+	
+	<testfall titel="Erfassen eines neuen Archivales mit leeren Betreff">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist im neu Erstellen modus.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle die Schaltfläche "speichern"
+				<ergebnisse>
+					<ergebnis>
+						Eine Nachricht Erscheint das Betreff fehlt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+	
 </testplan>
