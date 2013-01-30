@@ -81,12 +81,19 @@ public class AltdatenKonverter {
 	 */
 	public static void main(String[] args) {
 		AltdatenKonverter me = new AltdatenKonverter();
-		me.extractOrganisationseinheiten();
+		//me.extractOrganisationseinheiten();
+		me.extractArchivale(me);
 	}
 
+	public void extractArchivale(AltdatenKonverter me){
+		
+		me.extractSchubfach();
+		me.extractMappe();
+		me.extractInhalt();
+	}
 	/**
 	 * Extrahiert die Organisationseinheiten aus den Altdaten.
-	 * und wird sie  zukünftig hoffentlich in die Datenbank speichern.
+	 * und wird sie zukünftig hoffentlich in die Datenbank speichern.
 	 */
 	private void extractOrganisationseinheiten() {
 		List<String> organisationseinheiten = new ArrayList<String>();
@@ -131,16 +138,80 @@ public class AltdatenKonverter {
 	}
 
 	/**
-	 * Methode, um die umgewandelten Daten
-	 * in die neue Datenbank zu speichern.
+	 * Extrahiert die Schubfachnummernn aus den Altdaten.
+	 * um sie in die Datenbank zuspeichern.
 	 */
-	public void archivLaden() {
-//		Archivale archiv = new Archivale();
-
-//		archiv.setSchubfach(tabelle.getSchubfachX0020Nummer());
-//		archiv.setBetreff(tabelle.getBetreff());
-//		archiv.setInhalt(tabelle.getInhalt());
-
+	private void extractSchubfach(){
+		List<Integer> schubfaecher = new ArrayList<Integer>();
+		for (TabelleX0020Archiv altarchivale: tabelle){
+			int schubfach = altarchivale.getSchubfachX0020Nummer();
+			if(schubfach != 0){
+				
+				schubfaecher.add(schubfach);
+			}
+		}
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+		System.out.println(schubfaecher.size());
+		for (int schubfach : schubfaecher) {
+			Archivale a= new Archivale();
+			a.setSchubfach(schubfach);
+			a=em.merge(a);
+		}
+		et.commit();
+		em.close();
+		
 	}
-
+	/**
+	 * Extrahiert die Objectnummern aus den Altdaten.
+	 * um sie als Mappennummer in die Datenbank zuspeichern.
+	 */
+	private void extractMappe() {		
+		List<Integer> mappen = new ArrayList<Integer>();
+		for (TabelleX0020Archiv altarchivale: tabelle){
+			String mappe = altarchivale.getObjektX0020Nummer();
+			if(mappe != null){
+				String[]mappenTeile = mappe.split("/");
+				String mappenString=mappenTeile[1];
+				mappen.add(Integer.parseInt(mappenString));
+			}
+		}
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+		System.out.println(mappen.size());
+		for (int mappe : mappen) {
+			Archivale a= new Archivale();
+			a.setMappe(mappe);
+			a=em.merge(a);
+		}
+		et.commit();
+		em.close();
+	}
+	
+	/**
+	 * Extrahiert den Inhalt aus den Altdaten um ihn in die Datenbank zu speichern
+	  */
+	private void extractInhalt() {		
+		List<String> inhalte = new ArrayList<String>();
+		for (TabelleX0020Archiv altArchivale : tabelle) {
+			String inhalt = altArchivale.getInhalt();
+			if (inhalt != null) {
+					inhalt= inhalt.trim();
+					inhalte.add(inhalt);
+			}
+		}
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+		for (String inhalt : inhalte) {
+			Archivale a= new Archivale();
+			a.setInhalt(inhalt);
+			a=em.merge(a);
+		}
+		et.commit();
+		em.close();
+	}
+	
 }
