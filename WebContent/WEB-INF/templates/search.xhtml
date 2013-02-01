@@ -4,7 +4,7 @@
 	xmlns:p="http://primefaces.org/ui" id="searchForm">
 
 	<p:panelGrid columns="2">
-		<p:inputText id="inputSearch" value="#{rechercheBean.suchKriterium}"></p:inputText>
+		<p:inputText id="inputSearch" value="#{rechercheBean.suchKriterium}" required="true"></p:inputText>
 		<p:commandButton value="Suche" action="#{searchBean.search}"
 			update="@all" />
 	</p:panelGrid>
