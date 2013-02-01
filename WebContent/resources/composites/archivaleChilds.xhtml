@@ -121,14 +121,6 @@
 		header="Dokumentarten zuordnen" modal="true"  style="position:fixed">
 		<p:panelGrid columns="1">
 			<p:scrollPanel  mode="native" style="width:110px;height:250px">
-			<p:dataTable value="#{editBean.dokumentarten}" var="d"
-				rowKey="#{d.id}"
-				selection="#{cc.attrs.aktuellesArchivale.dokumentarten}"
-				selectionMode="multiple">
-				<p:column>
-					<h:outputText value="#{d.name}" />
-				</p:column>
-			</p:dataTable>
 			</p:scrollPanel>
 			<p:commandButton value="ok"
 				action="#{editBean.saveDokumentarten}"
@@ -141,7 +133,7 @@
 			<pe:tooltip for="schlagwörterTextArea" adjustX="-20" adjustY="-20"
 				value="Ordnen Sie dem Archivale Schlagworte zu. Trennen Sie mehrere Schlagworte durch ein Komma" />
 			<p:inputTextarea id="schlagwörterTextArea" cols="50" rows="5"
-				value="#{editBean.archivaleSchlagwörter}" />
+				value="#{editBean.formularSchlagwörter}" />
 			<p:commandButton value="ok" action="#{editBean.saveSchlagworte}"
 				oncomplete="editSchlagworteDialog.hide()" update="@form" />
 		</p:panelGrid>
