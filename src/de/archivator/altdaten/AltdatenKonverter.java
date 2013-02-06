@@ -48,6 +48,7 @@ public class AltdatenKonverter {
 
 	List<TabelleX0020Archiv> tabelle;
 	EntityManagerFactory emf;
+	Archivale archivale= new Archivale();
 
 	/**
 	 * Erzeugt einen AltdatenKonverter,
@@ -87,12 +88,13 @@ public class AltdatenKonverter {
 
 	public void extractArchivale(AltdatenKonverter me){
 		
-		me.extractSchubfach();
-		me.extractMappe();
-		me.extractInhalt();
-		me.extractBetreff();
-		//me.extractVonDatum();
-		me.extractBisDatum();
+//		me.extractSchubfach();
+//		me.extractMappe();
+//		me.extractInhalt();
+//		me.extractBetreff();
+//		me.extractVonDatum();
+//		me.extractBisDatum();
+		extractDatum();
 	}
 	/**
 	 * Extrahiert die Organisationseinheiten aus den Altdaten.
@@ -121,7 +123,7 @@ public class AltdatenKonverter {
 					if (!abteilungVorhanden) {
 						organisationseinheiten.add(einzelAbteilung);
 					}
-				}
+				}//TODO else leere Datensätze werden übersprungen
 			}
 		}
 		EntityManager em = emf.createEntityManager();
@@ -148,7 +150,7 @@ public class AltdatenKonverter {
 			if(schubfach != 0){
 				
 				schubfaecher.add(schubfach);
-			}
+			}//TODO else leere Datensätze werden übersprungen
 		}
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
@@ -176,7 +178,7 @@ public class AltdatenKonverter {
 				String mappenString=mappenTeile[1];
 				mappen.add(Integer.parseInt(mappenString));
 			}
-		}
+		}//TODO else leere Datensätze werden übersprungen
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 		et.begin();
@@ -200,7 +202,7 @@ public class AltdatenKonverter {
 			if (inhalt != null) {
 					inhalt= inhalt.trim();
 					inhalte.add(inhalt);
-			}
+			}//TODO else leere Datensätze werden übersprungen
 		}
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
@@ -224,7 +226,7 @@ public class AltdatenKonverter {
 			if (betreff != null) {
 					betreff= betreff.trim();
 					betreffe.add(betreff);
-			}
+			}//TODO else leere Datensätze werden übersprungen
 		}
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
@@ -240,151 +242,124 @@ public class AltdatenKonverter {
 	}
 	
 	/**
-	 * Extrahiert das Datum aus den Altdaten um ihn als vonJahr in die Datenbank zu speichern
-	  */
-	private void extractVonDatum(){
+	 * Extrahiert das Datum aus den Altdaten um sie in die Datenbank zu speichern
+	 */
 		
+	private void extractDatum(){
 		List<Integer> vonDaten = new ArrayList<Integer>();
+		List<Integer> bisDaten = new ArrayList<Integer>();
 		for (TabelleX0020Archiv altarchivale: tabelle){
-			String vonDatum = altarchivale.getDatumX00201();
-			if(vonDatum != null){
-				vonDatum=vonDatum.trim();
-				// bsp. 1945-1956
-				if (vonDatum.indexOf("-") != -1) {
-					String[] datenTeil = vonDatum.split("-");
-					String datenString=datenTeil[0];
-					vonDaten.add(Integer.parseInt(datenString));
-				}
-				// bsp. 1945/19546
-				else if(vonDatum.indexOf("/") != -1) {
-					String[] datenTeil = vonDatum.split("/");
-					String datenString=datenTeil[0];
-					vonDaten.add(Integer.parseInt(datenString));
-				}
-				// bsp. ca. 1956
-				else if (vonDatum.indexOf("ca") != -1) {
-					vonDatum = vonDatum.replace("ca","");
-						vonDatum = vonDatum.trim();			
-					vonDaten.add(Integer.parseInt(vonDatum));
-				}
-				// bsp. um 1956
-				else if (vonDatum.indexOf("um") != -1) {
-					vonDatum = vonDatum.replace("um","");
-						vonDatum = vonDatum.trim();			
-					vonDaten.add(Integer.parseInt(vonDatum));
-				}
-				// bsp. 30.03.1933
-				else if(vonDatum.indexOf(".") != -1) {									// AN dieser Stelle gibt es noch eine Fehlermeldung
-					// bsp. 28.-29.08 ohne Jahr
-						if(vonDatum.indexOf("-") != -1){
-							String datenOhneJahr="0";
-							vonDaten.add(Integer.parseInt(datenOhneJahr));			
-						}
-						else if(vonDatum.indexOf(" ") != -1){
-						
-							String datenOhneJahr="0";
-							vonDaten.add(Integer.parseInt(datenOhneJahr));	
-						}
-						else {						
-							String datenString=vonDatum.substring(6);
-//							String[] datenTeilmitDot = vonDatum.split(".");
-//							System.out.println(vonDatum+" 4 "+ datenTeilmitDot.length);
-//							
-//							String datenString=	datenTeilmitDot[datenTeilmitDot.length-1];
-							vonDaten.add(Integer.parseInt(datenString));
-							
-						}							
-				}
-				else{vonDaten.add(Integer.parseInt(vonDatum)); }
+			int datum1 = datumsUmwandlung(altarchivale.getDatumX00201());
+			int datum2 = datumsUmwandlung(altarchivale.getDatumX00202());
+			int datum3 = datumsUmwandlung(altarchivale.getDatumX00203());
+			
+			if (datum1 != 0) { 				// ist 1.datum vorhanden ist es immer vonJahr in der Archivalie
+					vonDaten.add(datum1);
+				if (datum2 != 0) {			//  ist 2.Datum vorhanden wird überprüft ob es ein drittes Datum gibt,
+					if (datum3 != 0) {		//  das grössere von beiden wird als bisJahr in die Datenbank eingetragen
+						if (datum2 > datum3)
+							bisDaten.add(datum2);
+						else
+							bisDaten.add(datum3);
+					} else
+						bisDaten.add(datum2);
+				} else						// gibt es weder 2tes oder 3tes datum ist vonJahr = bisJahr
+					bisDaten.add(datum1);
+
+			} 
+			else{						// ist kein 1.datum vorhanden wird überprüft ob es ein 2tes oder 3tes gibt ansonsten wird 0 eingetragen
+					if (datum2 > datum3)
+						bisDaten.add(datum2);
+					else
+						bisDaten.add(datum3);
 			}
 		}
+		
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 		for (int vonDatum : vonDaten) {
-			Archivale a= new Archivale();
-			a.setVonJahr(vonDatum);
-			a=em.merge(a);
+			archivale.setVonJahr(vonDatum);
+			archivale=em.merge(archivale);
+		}
+		for (int bisDatum : bisDaten) {
+			archivale.setVonJahr(bisDatum);
+			archivale=em.merge(archivale);
 		}
 		et.commit();
 		em.close();
-		
 	}
 	
 	/**
-	 * Extrahiert das Datum aus den Altdaten um ihn  als bis Jahr in die Datenbank zu speichern
-	  */
-	private void extractBisDatum(){
-		List<Integer> bisDaten = new ArrayList<Integer>();
-		for (TabelleX0020Archiv altarchivale: tabelle){
-			//wenn es einen zweiten datumseintrag gibt und keinen dritten
-			if((altarchivale.getDatumX00202() != null)&&(altarchivale.getDatumX00203() == null)){
-				String bisDatum = altarchivale.getDatumX00202();
-				if (bisDatum.indexOf("-") != -1) {
-					String[] datenTeil = bisDatum.split("-");
-					String datenString=datenTeil[datenTeil.length-1];
-					datenString = datenString.trim();
-					bisDaten.add(Integer.parseInt(datenString));
+	 * Wandelt das Datum von String in ganzzahlige Integerwerte um
+	 * @param datum
+	 * @return umgewandeltes Datum
+	 */
+	private int datumsUmwandlung(String datum){
+		int Daten =0;
+	
+		if(datum != null){
+			datum=datum.trim();
+			if(datum.indexOf("/") != -1){
+				String[] datenTeil = datum.split("/");
+				//bsp. 1978/1979
+				if(datenTeil[1].length()==4){
+				String datenString=datenTeil[(datenTeil.length)-1];
+				datenString = datenString.trim();
+				Daten=Integer.parseInt(datenString);
 				}
-				else if(bisDatum.indexOf("/") != -1){
-					String[] datenTeil = bisDatum.split("/");
-					//bsp. 1978/1979
-					if(datenTeil[1].length()==4){
-					String datenString=datenTeil[(datenTeil.length)-1];
-					datenString = datenString.trim();
-					bisDaten.add(Integer.parseInt(datenString));
-					}
-					// bsp. 1978/79
-					else if(datenTeil[1].length()==2){
-						String datumsJahrhundert=datenTeil[0].substring(0,2);
-						String datenString = datumsJahrhundert+datenTeil[1];
-						bisDaten.add(Integer.parseInt(datenString));
-					}
-				}
-			else{
-				bisDaten.add(Integer.parseInt(bisDatum));
+				// bsp. 1978/79
+				else if(datenTeil[1].length()==2){
+					String datumsJahrhundert=datenTeil[0].substring(0,2);
+					String datenString = datumsJahrhundert+datenTeil[1];
+					Daten=Integer.parseInt(datenString);
 				}
 			}
-			if(altarchivale.getDatumX00203() != null){
-				String bisDatum = altarchivale.getDatumX00203();
-				if (bisDatum.indexOf("-") != -1) {
-					String[] datenTeil = bisDatum.split("-");
-					String datenString=datenTeil[(datenTeil.length)-1];
-					datenString = datenString.trim();
-					bisDaten.add(Integer.parseInt(datenString));
+			// bsp. ca 1956
+			else if (datum.indexOf("ca") != -1) {
+				datum = datum.replace("ca","");
+				datum = datum.trim();	
+				// bsp. ca. 1956
+				if(datum.indexOf(".") != -1) {
+					datum = datum.replace(".","");
+					datum = datum.trim();	
 				}
-				else if(bisDatum.indexOf("/") != -1){
-					String[] datenTeil = bisDatum.split("/");
-					//bsp. 1978/1979
-					if(datenTeil[1].length()==4){
-					String datenString=datenTeil[(datenTeil.length)-1];
-					datenString = datenString.trim();
-					bisDaten.add(Integer.parseInt(datenString));
-					}
-					// bsp. 1978/79
-					else if(datenTeil[1].length()==2){
-						String datumsJahrhundert=datenTeil[0].substring(0,2);
-						String datenString = datumsJahrhundert+datenTeil[1];
-						bisDaten.add(Integer.parseInt(datenString));
-					}
-				}
-				else{
-					bisDaten.add(Integer.parseInt(bisDatum));
-				}
-						
+				Daten = Integer.parseInt(datum);
 			}
+			// bsp. um 1956
+			else if (datum.indexOf("um") != -1) {
+				datum = datum.replace("um","");
+					datum = datum.trim();			
+				Daten = Integer.parseInt(datum);
+			}
+			else if((datum.indexOf(".-") != -1)) {	// wird .- werwendet gibt es dazu keine jahresangabe
+				Daten = 0;
+			}
+			else if(datum.indexOf("-") != -1) {
+				String[] datenTeil = datum.split("-");
+				//bsp 1978-1979
+				if(datenTeil[1].length()==4){
+				String datenString=datenTeil[datenTeil.length-1];
+				datenString = datenString.trim();
+				Daten= Integer.parseInt(datenString);}
+				//bsp 1978-79
+				else if(datenTeil[1].length()==2){
+					String datumsJahrhundert=datenTeil[0].substring(0,2);
+					String datenString = datumsJahrhundert+datenTeil[1];
+					Daten = Integer.parseInt(datenString);
+				}
+			} 
+			// bsp. 30.03.1933
+			else if (datum.indexOf(".") != -1) {						
+					String datenString=datum.substring(6);
+					datenString = datenString.trim();
+					Daten = Integer.parseInt(datenString);									
+			}	
 		}
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction et = em.getTransaction();
-		et.begin();
-		for (int bisDatum : bisDaten) {
-			Archivale a= new Archivale();
-			a.setBisJahr(bisDatum);
-			a=em.merge(a);
-		}
-		et.commit();
-		em.close();
-				
+		else return 0; // wenn es keinen Eintrag gibt wird 0 zurück gegeben
+	
+		return Daten;
 	}
+	
 	
 }
