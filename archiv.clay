@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="2.0.1">
+<database-model author="" begin-script="" end-script="" id="17069d9:1394dd97333:-8000" name="dbModel" sql-dialect-id="jp.azzurri.clay.dialect.Derby_10_2_Dialect" version="1.0">
+<schema-list>
+<schema id="17069d9:1394dd97333:-7ffd" name="Archiv">
+<table-list>
+<table id="17069d9:1394dd97333:-7fff" name="Archivalien">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7ff5" mandatory="true" name="ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7ff4" mandatory="false" name="Schubfach">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7ff3" mandatory="false" name="Mappe">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7ff2" mandatory="false" name="Betreff">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7fee" mandatory="false" name="Inhalt">
+<data-type name="LONG VARCHAR" selected-variant-pattern="LONG VARCHAR"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7ec5" mandatory="false" name="Von">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7fec" mandatory="false" name="Bis">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7fe8" mandatory="false" name="Datei">
+<data-type name="BLOB" selected-variant-pattern="BLOB(%n)"/>
+</column>
+</column-list>
+<primary-key id="17069d9:1394dd97333:-7ffe" name="PK_ARCHIVALIEN">
+<primary-key-column name="ID"/>
+</primary-key>
+</table>
+<table id="17069d9:1394dd97333:-7fe4" name="Dokumentarten">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7fda" mandatory="true" name="ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7fd9" mandatory="true" name="Namen">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="17069d9:1394dd97333:-7fe3" name="PK_DOKUMENTARTEN">
+<primary-key-column name="ID"/>
+</primary-key>
+</table>
+<table id="17069d9:1394dd97333:-7f17" name="Namen">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7f13" mandatory="true" name="ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="50" decimal-digits="0" default-value="(Unbekannt)" id="17069d9:1394dd97333:-7f12" mandatory="true" name="Vorname">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="50" decimal-digits="0" default-value="(Unbekannt)" id="17069d9:1394dd97333:-7f11" mandatory="true" name="Nachname">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="17069d9:1394dd97333:-7f16" name="PK_NAMEN">
+<primary-key-column name="ID"/>
+</primary-key>
+</table>
+<table id="17069d9:1394dd97333:-7ec4" name="Archivaliennamen">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7ec0" mandatory="true" name="Namen_ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7ebf" mandatory="true" name="Archivalien_ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="17069d9:1394dd97333:-7ec3" name="PK_ARCHIVALIENNAMEN">
+<primary-key-column name="Namen_ID"/>
+<primary-key-column name="Archivalien_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="17069d9:1394dd97333:-7e04" name="FK_Archivaliennamen_Namen" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_NAMEN" referenced-table="Namen" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="Namen_ID" referenced-key-column-name="ID"/>
+</foreign-key>
+<foreign-key id="17069d9:1394dd97333:-7e36" name="FK_Archivaliennamen_Archivalien" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ARCHIVALIEN" referenced-table="Archivalien" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="Archivalien_ID" referenced-key-column-name="ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="17069d9:1394dd97333:-7dd0" name="Dokumentarten_Archivalien">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7dcb" mandatory="true" name="Archivalien_ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7dca" mandatory="true" name="Dokumentarten_ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="17069d9:1394dd97333:-7dcf" name="PK_DOKUMENTARTEN_ARCHIVALIEN">
+<primary-key-column name="Archivalien_ID"/>
+<primary-key-column name="Dokumentarten_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="17069d9:1394dd97333:-7d7e" name="FK_Dokumentarten_Archivalien_Dokumentarten" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_DOKUMENTARTEN" referenced-table="Dokumentarten" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="Dokumentarten_ID" referenced-key-column-name="ID"/>
+</foreign-key>
+<foreign-key id="17069d9:1394dd97333:-7dc0" name="FK_Dokumentarten_Archivalien_Archivalien" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ARCHIVALIEN" referenced-table="Archivalien" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="Archivalien_ID" referenced-key-column-name="ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="17069d9:1394dd97333:-7d23" name="Schlagwörter">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7d1f" mandatory="true" name="ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7d1e" mandatory="true" name="Name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="17069d9:1394dd97333:-7d22" name="PK_SCHLAGWÖRTER">
+<primary-key-column name="ID"/>
+</primary-key>
+</table>
+<table id="17069d9:1394dd97333:-7cfc" name="Schlagwörter_Archivalien">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7cf7" mandatory="true" name="Schlagwörter_ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17069d9:1394dd97333:-7cf6" mandatory="true" name="Archivalien_ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="17069d9:1394dd97333:-7cfb" name="PK_SCHLAGWÖRTER_ARCHIVALIEN">
+<primary-key-column name="Schlagwörter_ID"/>
+<primary-key-column name="Archivalien_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="17069d9:1394dd97333:-7ca4" name="FK_Schlagwörter_Archivalien_Archivalien" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ARCHIVALIEN" referenced-table="Archivalien" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="Archivalien_ID" referenced-key-column-name="ID"/>
+</foreign-key>
+<foreign-key id="17069d9:1394dd97333:-7cdc" name="FK_Schlagwörter_Archivalien_Schlagwörter" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_SCHLAGWÖRTER" referenced-table="Schlagwörter" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="Schlagwörter_ID" referenced-key-column-name="ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="d84a8c:13ad058e91e:-7fba" name="Organisationseinheiten_Archivalien">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="d84a8c:13ad058e91e:-7fb5" mandatory="true" name="Archivalien_ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="d84a8c:13ad058e91e:-7fb6" mandatory="true" name="Organisationseinheiten_ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="d84a8c:13ad058e91e:-7fb9" name="PK_ORGANISATIONSEINHEITEN_ARCHIVALIEN">
+<primary-key-column name="Archivalien_ID"/>
+<primary-key-column name="Organisationseinheiten_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="d84a8c:13ad058e91e:-7f81" name="FK_Organisationseinheiten_Archivalien_Archivalien" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ARCHIVALIEN" referenced-table="Archivalien" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="Archivalien_ID" referenced-key-column-name="ID"/>
+</foreign-key>
+<foreign-key id="d84a8c:13ad058e91e:-7edd" name="FK_Organisationseinheiten_Archivalien_Organisationseinheiten" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ORGANISATIONSEINHEITEN" referenced-table="Organisationseinheiten" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="Organisationseinheiten_ID" referenced-key-column-name="ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="d84a8c:13ad058e91e:-7f59" name="Organisationseinheiten">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="d84a8c:13ad058e91e:-7f55" mandatory="true" name="ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="d84a8c:13ad058e91e:-7f52" mandatory="false" name="Name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="d84a8c:13ad058e91e:-7f58" name="PK_ORGANISATIONSEINHEITEN">
+<primary-key-column name="ID"/>
+</primary-key>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+<diagram>
+<table-figure height="217" refid="17069d9:1394dd97333:-7fff" width="247" x="348" y="2"/>
+<table-figure height="103" refid="17069d9:1394dd97333:-7fe4" width="138" x="776" y="314"/>
+<table-figure height="104" refid="17069d9:1394dd97333:-7f17" width="170" x="528" y="551"/>
+<table-figure height="105" refid="17069d9:1394dd97333:-7ec4" width="162" x="535" y="313"/>
+<table-figure height="92" refid="17069d9:1394dd97333:-7dd0" width="166" x="760" y="53"/>
+<table-figure height="105" refid="17069d9:1394dd97333:-7d23" width="134" x="47" y="317"/>
+<table-figure height="98" refid="17069d9:1394dd97333:-7cfc" width="163" x="33" y="64"/>
+<table-figure height="105" refid="d84a8c:13ad058e91e:-7fba" width="202" x="244" y="317"/>
+<table-figure height="110" refid="d84a8c:13ad058e91e:-7f59" width="165" x="239" y="544"/>
+</diagram>
+</clay-model>
