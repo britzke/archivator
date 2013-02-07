@@ -21,7 +21,7 @@
 			<p:commandLink id="detailLink" action="detail">
 				<f:setPropertyActionListener
 					target="#{detailBean.aktuellesArchivale}" value="#{archivale}" />
-				#{archivale.betreff}
+				#{archivale.betreff == null?'&#60;kein Betreff&#62;':archivale.betreff}
 				<pe:tooltip for="detailLink" value="Detailansicht dieses Archivales"></pe:tooltip>
 			</p:commandLink>
 			<p:commandButton id="editButton" icon="ui-icon-pencil" action="edit" rendered="#{loginBean.angemeldet}">
