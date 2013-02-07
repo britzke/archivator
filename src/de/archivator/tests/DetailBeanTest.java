@@ -19,8 +19,16 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package de.archivator.tests;
+
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+
 import org.junit.Before;
+import org.junit.Test;
+import org.primefaces.component.tabview.Tab;
+import org.primefaces.component.tabview.TabView;
+import org.primefaces.event.TabChangeEvent;
+
 import de.archivator.beans.DetailBean;
 import de.archivator.entities.Archivale;
 
@@ -47,5 +55,26 @@ public class DetailBeanTest {
 		proband = new DetailBean();
 		aktuellesArchivale = mock(Archivale.class);
 		proband.setAktuellesArchivale(aktuellesArchivale);
+	}
+
+	/**
+	 * Test method for
+	 * {@link de.archivator.beans.DetailBean#onTabChange(org.primefaces.event.TabChangeEvent)}
+	 * Testet, ob der Index des aktiven Tabs in der Eigenschaft activeTab
+	 * gespeichert wird.
+	 */
+	@Test
+	public void testOnTabChange() {
+		final int ACTIVE_INDEX = 5;
+		TabChangeEvent event = mock(TabChangeEvent.class);
+		Tab tab = mock(Tab.class);
+		TabView parent = mock(TabView.class);
+		when(event.getTab()).thenReturn(tab);
+		when(tab.getParent()).thenReturn(parent);
+		when(parent.getActiveIndex()).thenReturn(ACTIVE_INDEX);
+
+		proband.onTabChange(event); // Test
+
+		assertEquals(ACTIVE_INDEX, proband.getActiveIndex());
 	}
 }

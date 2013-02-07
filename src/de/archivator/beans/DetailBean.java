@@ -2,7 +2,8 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  müller, dreher, burghard.britzke
+ * Copyright (C) 2012  müller, dreher,
+ *                     burghard.britzke bubi@charmides.in-berlin.de
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,6 +28,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
+import org.primefaces.component.tabview.Tab;
+import org.primefaces.component.tabview.TabView;
+import org.primefaces.event.TabChangeEvent;
 
 import de.archivator.annotations.AktuellesArchivale;
 import de.archivator.entities.Archivale;
@@ -54,6 +59,7 @@ public class DetailBean implements Serializable {
 
 	@Produces @AktuellesArchivale
 	private Archivale aktuellesArchivale;
+	private int activeIndex;
 
 	public DetailBean() {
 		System.out.println("DetailBean<init>()");
@@ -77,6 +83,20 @@ public class DetailBean implements Serializable {
 	 */
 	public void setAktuellesArchivale(Archivale aktuellesArchivale) {
 		this.aktuellesArchivale = aktuellesArchivale;
+	}
+
+	/**
+	 * @return the activeIndex
+	 */
+	public int getActiveIndex() {
+		return activeIndex;
+	}
+
+	/**
+	 * @param activeIndex the activeIndex to set
+	 */
+	public void setActiveIndex(int activeIndex) {
+		this.activeIndex = activeIndex;
 	}
 
 	/**
@@ -120,5 +140,14 @@ public class DetailBean implements Serializable {
 		entityManager.getTransaction().commit();
 
 		return "index";
+	}
+	/**
+	 * Speichert den <b>activeTab</b> in einer Eigenschaft.
+	 * @param event Hinweis auf den Parent und somit auf den activeIndex.
+	 */
+	public void onTabChange(TabChangeEvent event) {
+        Tab activeTab = event.getTab();
+        TabView parent=(TabView)activeTab.getParent();
+        activeIndex=parent.getActiveIndex();
 	}
 }

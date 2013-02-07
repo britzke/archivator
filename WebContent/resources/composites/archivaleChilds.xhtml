@@ -13,7 +13,8 @@
 </composite:interface>
 
 <composite:implementation>
-	<p:tabView>
+	<p:tabView effect="fade" activeIndex="#{detailBean.activeIndex}">
+		<p:ajax event="tabChange" listener="#{detailBean.onTabChange}" />
 		<p:tab title="Personen">
 			<p:commandButton id="editNamenButton" icon="ui-icon-pencil"
 				rendered="#{cc.attrs.angemeldet}"
