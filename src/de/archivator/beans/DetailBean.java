@@ -128,19 +128,7 @@ public class DetailBean implements Serializable {
 		return "";
 
 	}
-	/**
-	 * Löscht das aktuelle Archivale.
-	 * @return "index" Navigiert auf die Index-Seite
-	 */
-	public String lösche() {
-		entityManager = entityManagerFactory.createEntityManager();
-		this.aktuellesArchivale = entityManager.merge(aktuellesArchivale);
-		entityManager.getTransaction().begin();
-		entityManager.remove(aktuellesArchivale);
-		entityManager.getTransaction().commit();
 
-		return "index";
-	}
 	/**
 	 * Speichert den <b>activeTab</b> in einer Eigenschaft.
 	 * @param event Hinweis auf den Parent und somit auf den activeIndex.
