@@ -61,15 +61,16 @@ public class EditBean implements Serializable {
 	 * Das aktuelle Archivale, welches durch speichere() oder lösche() verändert
 	 * wird.
 	 */
-	@Inject @AktuellesArchivale
+	@Inject
+	@AktuellesArchivale
 	private Archivale aktuellesArchivale;
-	
+
 	@Inject
 	private DetailBean details;
-	
+
 	@Inject
 	private List<Archivale> archivalien;
-	
+
 	private List<String> betreffs;
 	/**
 	 * Liste aller Namen, die im System gespeichert sind.
@@ -97,7 +98,7 @@ public class EditBean implements Serializable {
 	public EditBean() {
 		namen = new ArrayList<Name>();
 		organisationseinheiten = new ArrayList<Organisationseinheit>();
-		dokumentarten= new ArrayList<Dokumentart>();
+		dokumentarten = new ArrayList<Dokumentart>();
 		schlagworte = new ArrayList<Schlagwort>();
 
 		formularSchlagwörter = new String();
@@ -121,7 +122,8 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * @param details the details to set
+	 * @param details
+	 *            the details to set
 	 */
 	public void setDetails(DetailBean details) {
 		this.details = details;
@@ -178,19 +180,19 @@ public class EditBean implements Serializable {
 			List<Organisationseinheit> organisationseinheiten) {
 		this.organisationseinheiten = organisationseinheiten;
 	}
+
 	/**
 	 * @return the dokumentarten
 	 */
-	public List<Dokumentart> getDokumentartenheiten() {
+	public List<Dokumentart> getDokumentarten() {
 		return dokumentarten;
 	}
 
 	/**
-	 * @param organisationseinheiten
+	 * @param dokumentarten
 	 *            the dokumentarten to set
 	 */
-	public void setDokumentarten(
-			List<Dokumentart> dokumentarten) {
+	public void setDokumentarten(List<Dokumentart> dokumentarten) {
 		this.dokumentarten = dokumentarten;
 	}
 
@@ -260,17 +262,18 @@ public class EditBean implements Serializable {
 	 */
 	public String lösche() {
 		entityManager = entityManagerFactory.createEntityManager();
-		Archivale aktuellesArchivale = entityManager.merge(this.aktuellesArchivale);
+		Archivale aktuellesArchivale = entityManager
+				.merge(this.aktuellesArchivale);
 		entityManager.getTransaction().begin();
 		entityManager.remove(aktuellesArchivale);
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		
+
 		archivalien.remove(this.aktuellesArchivale);
 		details.setAktuellesArchivale(null);
 		return "index";
 	}
-	
+
 	/**
 	 * Speichert das aktuelle Archivale in die Datenbank.
 	 * 
@@ -319,7 +322,8 @@ public class EditBean implements Serializable {
 
 	public String loadOrganisationseinheiten() {
 		entityManager = entityManagerFactory.createEntityManager();
-		Query q=entityManager.createQuery("select o from Organisationseinheit o");
+		Query q = entityManager
+				.createQuery("select o from Organisationseinheit o");
 		organisationseinheiten = q.getResultList();
 		return "edit";
 	}
@@ -327,16 +331,22 @@ public class EditBean implements Serializable {
 	public String saveOrganisationseinheiten() {
 		return "edit";
 	}
-	
+
 	public String loadDokumentarten() {
 		entityManager = entityManagerFactory.createEntityManager();
-		Query q=entityManager.createQuery("select d from Dokumentart d");
+		Query q = entityManager.createQuery("select d from Dokumentart d");
 		dokumentarten = q.getResultList();
 		return "edit";
 	}
 
 	public String saveDokumentarten() {
-		//TODO
+		List<Dokumentart> archivaleDokumentarten = aktuellesArchivale
+				.getDokumentarten();
+		System.out.println("archivaleDokumentarten: "+archivaleDokumentarten.toString());
+		dokumentarten.clear();
+		for (Dokumentart d : archivaleDokumentarten) {
+			dokumentarten.add(d);
+		}
 		return "edit";
 	}
 
@@ -348,7 +358,8 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String loadSchlagworte() {
-		List<Schlagwort> schlagwörter = details.getAktuellesArchivale().getSchlagwörter();
+		List<Schlagwort> schlagwörter = details.getAktuellesArchivale()
+				.getSchlagwörter();
 		System.out.println(schlagwörter);
 		String output = "";
 		for (Schlagwort schlagwort : schlagwörter) {
@@ -401,7 +412,8 @@ public class EditBean implements Serializable {
 				schlagworte.add(newEntry);
 			}
 		}
-		List<Schlagwort> zuEntfernen = new ArrayList<Schlagwort>();;
+		List<Schlagwort> zuEntfernen = new ArrayList<Schlagwort>();
+		;
 		for (Schlagwort s : schlagworte) {
 			boolean imFormularVorhanden = false;
 			for (String wort : wörter) {
@@ -413,9 +425,9 @@ public class EditBean implements Serializable {
 				zuEntfernen.add(s);
 			}
 		}
-			for (Schlagwort del : zuEntfernen) {
-				schlagworte.remove(del);
-			}
+		for (Schlagwort del : zuEntfernen) {
+			schlagworte.remove(del);
+		}
 		return "edit";
 	}
 }
