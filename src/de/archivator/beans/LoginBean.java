@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -55,6 +56,7 @@ public class LoginBean implements Serializable {
 	 *            Wird nicht beachtet.
 	 */
 	public void login(ActionEvent actionEvent) {
+		System.err.println("Login gedrückt");
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (password.contentEquals(PASSWORD)) {
 			context.addMessage(null, new FacesMessage(
