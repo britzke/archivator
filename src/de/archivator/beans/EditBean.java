@@ -283,6 +283,7 @@ public class EditBean implements Serializable {
 
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		details.setAktuellesArchivale(aktuellesArchivale);
 		return "detail";
 	}
 
