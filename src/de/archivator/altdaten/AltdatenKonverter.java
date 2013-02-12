@@ -85,6 +85,7 @@ public class AltdatenKonverter {
 	public static void main(String[] args) {
 		AltdatenKonverter me = new AltdatenKonverter();
 		me.extractOrganisationseinheiten();
+		me.extractDokumentarten();
 		me.extractArchivale();
 	}
 
@@ -258,5 +259,32 @@ public class AltdatenKonverter {
 		}	
 		return daten;
 	}
+	
+	/**
+	 * Diese Methode ist dafür zuständig, die Dokumentarten aus den Altdaten 
+	 * zu holen.
+	 */
+	public void extractDokumentarten(){
+		List<String> dokumentarten = new ArrayList<String>();
+		for (TabelleX0020Archiv altarchivale: tabelle){
+			String dokumentart1 = altarchivale.getDokumentenartX00201();
+			String dokumentart2 = altarchivale.getDokumentenartX00202();
+			String dokumentart3 = altarchivale.getDokumentenartX00203();
+			
+			if(dokumentart1 != null){
+			System.out.println(dokumentart1);
+			}
+			if(dokumentart2 != null){
+			System.out.println(dokumentart2);
+			}
+			if(dokumentart3 != null){
+			System.out.println(dokumentart3);
+			}
+		}
+		
+		
+	}
+	
+	
 	
 }
