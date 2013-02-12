@@ -36,8 +36,7 @@
 			<p:commandButton id="editOrganisationseinheitenButton"
 				rendered="#{cc.attrs.angemeldet}"
 				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
-				icon="ui-icon-pencil"
-				update="@form"
+				icon="ui-icon-pencil" update="@form"
 				action="#{editBean.loadOrganisationseinheiten}"
 				oncomplete="editOrganisationseinheitenDialog.show()">
 				<pe:tooltip for="editOrganisationseinheitenButton"
@@ -52,11 +51,10 @@
 			</p:dataTable>
 		</p:tab>
 		<p:tab title="Dokumentarten">
-		<p:commandButton id="editDokumentartenButton"
+			<p:commandButton id="editDokumentartenButton"
 				rendered="#{cc.attrs.angemeldet}"
 				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
-				icon="ui-icon-pencil"
-				update="@form"
+				icon="ui-icon-pencil" update="@form"
 				action="#{editBean.loadDokumentarten}"
 				oncomplete="editDokumentartenDialog.show()">
 				<pe:tooltip for="editOrganisationseinheitenButton"
@@ -100,31 +98,41 @@
 				oncomplete="editNamenDialog.hide()" update="@form" />
 		</p:panelGrid>
 	</p:dialog>
-	<p:dialog id="editOrganisationseinheitenDialog" widgetVar="editOrganisationseinheitenDialog"
-		header="Organisationseinheiten zuordnen" modal="true"  style="position:fixed">
+	<p:dialog id="editOrganisationseinheitenDialog"
+		widgetVar="editOrganisationseinheitenDialog"
+		header="Organisationseinheiten zuordnen" modal="true"
+		style="position:fixed">
 		<p:panelGrid columns="1">
-			<p:scrollPanel  mode="native" style="width:110px;height:250px">
-			<p:dataTable value="#{editBean.organisationseinheiten}" var="oe"
-				rowKey="#{oe.id}"
-				selection="#{cc.attrs.aktuellesArchivale.organisationseinheiten}"
-				selectionMode="multiple">
-				<p:column>
-					<h:outputText value="#{oe.name}" />
-				</p:column>
-			</p:dataTable>
+			<p:scrollPanel mode="native" style="width:110px;height:250px">
+				<p:dataTable value="#{editBean.organisationseinheiten}" var="oe"
+					rowKey="#{oe.id}"
+					selection="#{cc.attrs.aktuellesArchivale.organisationseinheiten}"
+					selectionMode="multiple">
+					<p:column>
+						<h:outputText value="#{oe.name}" />
+					</p:column>
+				</p:dataTable>
 			</p:scrollPanel>
 			<p:commandButton value="ok"
 				action="#{editBean.saveOrganisationseinheiten}"
 				oncomplete="editOrganisationseinheitenDialog.hide()" update="@form" />
 		</p:panelGrid>
 	</p:dialog>
-	<p:dialog id="editDokumentartenDialog" widgetVar="editDokumentartenDialog"
-		header="Dokumentarten zuordnen" modal="true"  style="position:fixed">
+	<p:dialog id="editDokumentartenDialog"
+		widgetVar="editDokumentartenDialog" header="Dokumentarten zuordnen"
+		modal="true" style="position:fixed">
 		<p:panelGrid columns="1">
-			<p:scrollPanel  mode="native" style="width:110px;height:250px">
+			<p:scrollPanel mode="native" style="width:110px;height:250px">
+				<p:dataTable value="#{editBean.dokumentarten}" var="d"
+					rowKey="#{d.id}"
+					selection="#{cc.attrs.aktuellesArchivale.dokumentarten}"
+					selectionMode="multiple">
+					<p:column>
+						<h:outputText value="#{d.name}" />
+					</p:column>
+				</p:dataTable>
 			</p:scrollPanel>
-			<p:commandButton value="ok"
-				action="#{editBean.saveDokumentarten}"
+			<p:commandButton value="ok" action="#{editBean.saveDokumentarten}"
 				oncomplete="editDokumentartenDialog.hide()" update="@form" />
 		</p:panelGrid>
 	</p:dialog>

@@ -61,15 +61,16 @@ public class EditBean implements Serializable {
 	 * Das aktuelle Archivale, welches durch speichere() oder lösche() verändert
 	 * wird.
 	 */
-	@Inject @AktuellesArchivale
+	@Inject
+	@AktuellesArchivale
 	private Archivale aktuellesArchivale;
-	
+
 	@Inject
 	private DetailBean details;
-	
+
 	@Inject
 	private List<Archivale> archivalien;
-	
+
 	private List<String> betreffs;
 	/**
 	 * Liste aller Namen, die im System gespeichert sind.
@@ -97,7 +98,7 @@ public class EditBean implements Serializable {
 	public EditBean() {
 		namen = new ArrayList<Name>();
 		organisationseinheiten = new ArrayList<Organisationseinheit>();
-		dokumentarten= new ArrayList<Dokumentart>();
+		dokumentarten = new ArrayList<Dokumentart>();
 		schlagworte = new ArrayList<Schlagwort>();
 
 		formularSchlagwörter = new String();
@@ -121,7 +122,8 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * @param details the details to set
+	 * @param details
+	 *            the details to set
 	 */
 	public void setDetails(DetailBean details) {
 		this.details = details;
@@ -178,19 +180,19 @@ public class EditBean implements Serializable {
 			List<Organisationseinheit> organisationseinheiten) {
 		this.organisationseinheiten = organisationseinheiten;
 	}
+
 	/**
 	 * @return the dokumentarten
 	 */
-	public List<Dokumentart> getDokumentartenheiten() {
+	public List<Dokumentart> getDokumentarten() {
 		return dokumentarten;
 	}
 
 	/**
-	 * @param organisationseinheiten
+	 * @param dokumentarten
 	 *            the dokumentarten to set
 	 */
-	public void setDokumentarten(
-			List<Dokumentart> dokumentarten) {
+	public void setDokumentarten(List<Dokumentart> dokumentarten) {
 		this.dokumentarten = dokumentarten;
 	}
 
@@ -260,17 +262,18 @@ public class EditBean implements Serializable {
 	 */
 	public String lösche() {
 		entityManager = entityManagerFactory.createEntityManager();
-		Archivale aktuellesArchivale = entityManager.merge(this.aktuellesArchivale);
+		Archivale aktuellesArchivale = entityManager
+				.merge(this.aktuellesArchivale);
 		entityManager.getTransaction().begin();
 		entityManager.remove(aktuellesArchivale);
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		
+
 		archivalien.remove(this.aktuellesArchivale);
 		details.setAktuellesArchivale(null);
 		return "index";
 	}
-	
+
 	/**
 	 * Speichert das aktuelle Archivale in die Datenbank.
 	 * 
@@ -320,7 +323,8 @@ public class EditBean implements Serializable {
 
 	public String loadOrganisationseinheiten() {
 		entityManager = entityManagerFactory.createEntityManager();
-		Query q=entityManager.createQuery("select o from Organisationseinheit o");
+		Query q = entityManager
+				.createQuery("select o from Organisationseinheit o");
 		organisationseinheiten = q.getResultList();
 		return "edit";
 	}
@@ -328,16 +332,22 @@ public class EditBean implements Serializable {
 	public String saveOrganisationseinheiten() {
 		return "edit";
 	}
-	
+
 	public String loadDokumentarten() {
 		entityManager = entityManagerFactory.createEntityManager();
-		Query q=entityManager.createQuery("select d from Dokumentart d");
+		Query q = entityManager.createQuery("select d from Dokumentart d");
 		dokumentarten = q.getResultList();
 		return "edit";
 	}
 
 	public String saveDokumentarten() {
-		//TODO
+		List<Dokumentart> archivaleDokumentarten = aktuellesArchivale
+				.getDokumentarten();
+		System.out.println("archivaleDokumentarten: "+archivaleDokumentarten.toString());
+		dokumentarten.clear();
+		for (Dokumentart d : archivaleDokumentarten) {
+			dokumentarten.add(d);
+		}
 		return "edit";
 	}
 
@@ -349,14 +359,16 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String loadSchlagworte() {
-		List<Schlagwort> schlagwörter = details.getAktuellesArchivale().getSchlagwörter();
+		List<Schlagwort> schlagwörter = details.getAktuellesArchivale()
+				.getSchlagwörter();
 		System.out.println(schlagwörter);
 		String output = "";
 		for (Schlagwort schlagwort : schlagwörter) {
 			output += schlagwort.getName();
 			output += ", ";
 		}
-		formularSchlagwörter = output.substring(0, output.length() - 2);
+		formularSchlagwörter = output.substring(0,
+				Math.max(output.length() - 2, 0));
 		return "edit";
 	}
 
@@ -370,53 +382,44 @@ public class EditBean implements Serializable {
 		List<Schlagwort> archivaleSchlagwörter = aktuellesArchivale
 				.getSchlagwörter();
 		String[] wörter = formularSchlagwörter.split(",");
-		Map<Schlagwort, Boolean> wörterMap = new HashMap<Schlagwort, Boolean>();
+		Map<Schlagwort, Boolean> deleteMap = new HashMap<Schlagwort, Boolean>();
 		for (String wort : wörter) {
 			wort = wort.trim();
-			for (Schlagwort s : schlagworte) {
-				wörterMap.put(s, false);
-				if (s.getName().equals(wort)) {
-					// Wort existiert bereits im System
-					wörterMap.put(s, true);
-					// ist es dem Archivale schon zugeordnet?
-					if (!archivaleSchlagwörter.contains(s)) {
-						archivaleSchlagwörter.add(s);
-					}
-				}
-			}
-
-			Schlagwort newEntry = new Schlagwort(wort);
+			Schlagwort entry = new Schlagwort(wort);
 			boolean neu = false;
+			if (!archivaleSchlagwörter.contains(entry)) {
+				archivaleSchlagwörter.add(entry);
+			}
 			if (schlagworte.isEmpty()) {
-				archivaleSchlagwörter.add(newEntry);
-				neu = true;
+				schlagworte.add(entry);
 			} else {
 				for (Schlagwort s : schlagworte) {
-					if (!wörterMap.get(s)) {
-						archivaleSchlagwörter.add(newEntry);
+					if (!schlagworte.contains(s)) {
 						neu = true;
 					}
 				}
 			}
 			if (neu) {
-				schlagworte.add(newEntry);
+				schlagworte.add(entry);
 			}
 		}
-		List<Schlagwort> zuEntfernen = new ArrayList<Schlagwort>();;
-		for (Schlagwort s : schlagworte) {
-			boolean imFormularVorhanden = false;
+		List<Schlagwort> zuEntfernen = new ArrayList<Schlagwort>();
+		for (Schlagwort s : archivaleSchlagwörter) {
+			deleteMap.put(s, false);
 			for (String wort : wörter) {
-				if (s.getName().equals(wort.trim())) {
-					imFormularVorhanden = true;
+				if (s.getName() == wort) {
+					deleteMap.put(s, true);
 				}
 			}
-			if (!imFormularVorhanden) {
+			if (!deleteMap.get(s)) {
 				zuEntfernen.add(s);
 			}
 		}
-			for (Schlagwort del : zuEntfernen) {
-				schlagworte.remove(del);
-			}
+		for (Schlagwort s : zuEntfernen) {
+			archivaleSchlagwörter.remove(s);
+		}
+		aktuellesArchivale.setSchlagwörter(archivaleSchlagwörter);
+
 		return "edit";
 	}
 }

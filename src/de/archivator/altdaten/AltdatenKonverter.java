@@ -130,6 +130,7 @@ public class AltdatenKonverter {
 		}
 		et.commit();
 		em.close();
+	
 	}
 
 	
@@ -171,16 +172,16 @@ public class AltdatenKonverter {
 			if(schubfach != 0){
 				archivale.setSchubfach(schubfach);
 			}
-					
+						
 			archivalienSammlung.add(archivale);
 		}
 		EntityManager em = emf.createEntityManager();
-		EntityTransaction et = em.getTransaction();
-		et.begin();
 		for (Archivale archivale : archivalienSammlung) {
+			EntityTransaction et = em.getTransaction();
+			et.begin();
 			archivale=em.merge(archivale);
+			et.commit();
 		}
-		et.commit();
 		em.close();
 	}
 	
@@ -252,7 +253,6 @@ public class AltdatenKonverter {
 					String datenString=datum.substring(6);
 					datenString = datenString.trim();
 					daten.add(Integer.parseInt(datenString));	
-					System.out.println("7. "+daten);
 			}
 		else{ daten.add(Integer.parseInt(datum));}
 		}	

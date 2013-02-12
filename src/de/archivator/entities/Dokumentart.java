@@ -27,9 +27,9 @@ import org.compass.annotations.Searchable;
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
-
 /**
  * Classe für die Dokumentarten der Archivalien.
+ * 
  * @author junghans
  * @version 1.0
  */
@@ -43,19 +43,12 @@ public class Dokumentart implements Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 	private int id;
 
+	@Column(unique = true)
 	private String name;
 
-	//bi-directional many-to-many association to Archivalien
+	// bi-directional many-to-many association to Archivalien
 	@ManyToMany
-	@JoinTable(
-		name="DOKUMENTARTEN_ARCHIVALIEN"
-		, joinColumns={
-			@JoinColumn(name="DOKUMENTARTEN_ID")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="ARCHIVALIEN_ID")
-			}, schema = "ARCHIVATOR"
-		)
+	@JoinTable(name = "DOKUMENTARTEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "DOKUMENTARTEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 
 	public Dokumentart() {

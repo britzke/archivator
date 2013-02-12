@@ -38,6 +38,7 @@ import org.junit.Test;
 import de.archivator.beans.DetailBean;
 import de.archivator.beans.EditBean;
 import de.archivator.entities.Archivale;
+import de.archivator.entities.Name;
 import de.archivator.entities.Schlagwort;
 
 /**
