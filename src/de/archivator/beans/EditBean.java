@@ -30,7 +30,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+
+import org.compass.core.Compass;
+import org.compass.core.CompassException;
+import org.compass.core.CompassSession;
 
 import de.archivator.annotations.AktuellesArchivale;
 import de.archivator.entities.Archivale;
@@ -56,6 +61,9 @@ public class EditBean implements Serializable {
 	@Inject
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
+
+	@Inject
+	private Compass compass;
 
 	/**
 	 * Das aktuelle Archivale, welches durch speichere() oder lösche() verändert
@@ -89,7 +97,7 @@ public class EditBean implements Serializable {
 	 */
 	private List<Schlagwort> schlagworte;
 
-	private String archivaleNames;
+	private String formularNames;
 	private String formularSchlagwörter;
 
 	/**
@@ -102,7 +110,7 @@ public class EditBean implements Serializable {
 		schlagworte = new ArrayList<Schlagwort>();
 
 		formularSchlagwörter = new String();
-		archivaleNames = new String();
+		formularNames = new String();
 	}
 
 	/**
@@ -212,18 +220,18 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * @return the archivaleNames
+	 * @return the formularNames
 	 */
-	public String getArchivaleNames() {
-		return archivaleNames;
+	public String getFormularNames() {
+		return formularNames;
 	}
 
 	/**
-	 * @param archivaleNames
-	 *            the archivaleNames to set
+	 * @param formularNames
+	 *            the formularNames to set
 	 */
-	public void setArchivaleNames(String archivaleNames) {
-		this.archivaleNames = archivaleNames;
+	public void setFormularNames(String formularNames) {
+		this.formularNames = formularNames;
 	}
 
 	/**
@@ -261,6 +269,7 @@ public class EditBean implements Serializable {
 	 * Löscht das aktuelle Archivale aus der Datenbank.
 	 */
 	public String lösche() {
+		// lösche aus der Datenbank
 		entityManager = entityManagerFactory.createEntityManager();
 		Archivale aktuellesArchivale = entityManager
 				.merge(this.aktuellesArchivale);
@@ -269,6 +278,18 @@ public class EditBean implements Serializable {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
+		// lösche aus dem Compass-Index
+		CompassSession session = compass.openSession();
+		try {
+		    session.delete(aktuellesArchivale);
+		    session.commit();
+		} catch (CompassException ce) {
+			ce.printStackTrace();
+		    session.rollback();
+		}
+		session.close();
+
+		// lösche aktuellen Archivale aus den Beans
 		archivalien.remove(this.aktuellesArchivale);
 		details.setAktuellesArchivale(null);
 		return "index";
@@ -280,12 +301,26 @@ public class EditBean implements Serializable {
 	 * @return "detail" immer
 	 */
 	public String speichere() {
+		// speichere in die Datenbank
 		entityManager = entityManagerFactory.createEntityManager();
 		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
 		entityManager.getTransaction().begin();
 
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		
+		//speichere in den Compass-Index
+		CompassSession session = compass.openSession();
+		try {
+		    session.save(aktuellesArchivale);
+		    session.commit();
+		} catch (CompassException ce) {
+			ce.printStackTrace();
+		    session.rollback();
+		}
+		session.close();
+		
+		//speichere in die Bean(s)
 		details.setAktuellesArchivale(aktuellesArchivale);
 		return "detail";
 	}
@@ -308,16 +343,59 @@ public class EditBean implements Serializable {
 	 * @return "edit" immer.
 	 */
 	public String loadNamen() {
+		formularNames = "";
+		List<Name> archivaleNames = aktuellesArchivale.getNamen();
+		for (Name archivaleName : archivaleNames) {
+			if (formularNames.length() != 0) {
+				formularNames += "; ";
+			}
+			formularNames += archivaleName.getNachname() + ", "
+					+ archivaleName.getVorname();
+		}
 		return "edit";
 	}
 
 	/**
-	 * Speichert die Namen aus der kommaseparierten Zeichenkette archivaleNamen
-	 * in die Liste namen.
+	 * Speichert die Namen aus der komma- und semikolaseparierten Zeichenkette
+	 * archivaleNamen in die Liste namen.
 	 * 
 	 * @return "edit" immer
 	 */
 	public String saveNamen() {
+		entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction t = entityManager.getTransaction();
+		t.begin();
+		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
+		List<Name> archivaleNames = aktuellesArchivale.getNamen();
+
+		Query q = entityManager
+				.createQuery("select o from Name o where o.nachname = :nachname and o.vorname = :vorname");
+
+		String[] fullNames = formularNames.split(";");
+		for (String fullName : fullNames) {
+			String[] nameParts = fullName.split(",");
+			String firstName = nameParts[1].trim();
+			String lastName = nameParts[0].trim();
+
+			q.setParameter("nachname", lastName);
+			q.setParameter("vorname", firstName);
+			List<Name> selectedNames = q.getResultList();
+			Name name;
+			if (selectedNames.size() == 0) {
+				// Name ist neu in der Datenbank
+				name = new Name(lastName, firstName);
+			} else {
+				name = selectedNames.get(0);
+			}
+			if (!archivaleNames.contains(name)) {
+				name = entityManager.merge(name);
+				archivaleNames.add(name);
+				List<Archivale> archivalien = name.getArchivalien();
+				archivalien.add(aktuellesArchivale);
+			}
+		}
+		t.commit();
+		details.setAktuellesArchivale(aktuellesArchivale);
 		return "edit";
 	}
 
@@ -343,7 +421,8 @@ public class EditBean implements Serializable {
 	public String saveDokumentarten() {
 		List<Dokumentart> archivaleDokumentarten = aktuellesArchivale
 				.getDokumentarten();
-		System.out.println("archivaleDokumentarten: "+archivaleDokumentarten.toString());
+		System.out.println("archivaleDokumentarten: "
+				+ archivaleDokumentarten.toString());
 		dokumentarten.clear();
 		for (Dokumentart d : archivaleDokumentarten) {
 			dokumentarten.add(d);
