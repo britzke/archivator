@@ -275,19 +275,20 @@ public class EditBean implements Serializable {
 				.merge(this.aktuellesArchivale);
 		entityManager.getTransaction().begin();
 		entityManager.remove(aktuellesArchivale);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 
 		// lösche aus dem Compass-Index
 		CompassSession session = compass.openSession();
 		try {
-		    session.delete(aktuellesArchivale);
-		    session.commit();
+			session.delete(aktuellesArchivale);
+			session.commit();
 		} catch (CompassException ce) {
 			ce.printStackTrace();
-		    session.rollback();
+			session.rollback();
 		}
+
+		entityManager.getTransaction().commit();
 		session.close();
+		entityManager.close();
 
 		// lösche aktuellen Archivale aus den Beans
 		archivalien.remove(this.aktuellesArchivale);
@@ -303,24 +304,24 @@ public class EditBean implements Serializable {
 	public String speichere() {
 		// speichere in die Datenbank
 		entityManager = entityManagerFactory.createEntityManager();
-		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
 		entityManager.getTransaction().begin();
+		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		
-		//speichere in den Compass-Index
+		// speichere in den Compass-Index
 		CompassSession session = compass.openSession();
 		try {
-		    session.save(aktuellesArchivale);
-		    session.commit();
+			session.save(aktuellesArchivale);
+			session.commit();
 		} catch (CompassException ce) {
 			ce.printStackTrace();
-		    session.rollback();
+			session.rollback();
 		}
+
+		entityManager.getTransaction().commit();
 		session.close();
-		
-		//speichere in die Bean(s)
+		entityManager.close();
+
+		// speichere in die Bean(s)
 		details.setAktuellesArchivale(aktuellesArchivale);
 		return "detail";
 	}
