@@ -94,36 +94,6 @@ public class DetailBean implements Serializable {
 	}
 
 	/**
-	 * Diese Methode wird ausgeführt, wenn der "Zurück"-Button gedrückt wurde.
-	 * Er führt von der Detail-Anzeige eines Archivales zurück zur Recherche.
-	 */
-	public void back() {
-
-	}
-
-	/**
-	 * Die Methode sortiert die Archivalien in der Liste nach dem angeklickten
-	 * Kriterium, nach Alphabet oder numerischer Menge. Wenn das Kriterium
-	 * nochmal angeklickt wird, wird die Liste umgedreht. Sie wird ausgeführt,
-	 * wenn ein Sortierungskriterium in der obersten Zeile der Liste angeklickt
-	 * wird.
-	 */
-	public void sortBy() {
-
-	}
-
-	/**
-	 * Diese Methode dient als action-Methode und wird ausgeführt, wenn der
-	 * Benutzer die Schaltfläche zur Anzeige des Dokumentes anwählt.
-	 * 
-	 * @return diese Methode gibt einen leeren String zurück.
-	 */
-	public String showDocument() {
-		return "";
-
-	}
-
-	/**
 	 * Speichert den <b>activeTab</b> in einer Eigenschaft.
 	 * @param event Hinweis auf den Parent und somit auf den activeIndex.
 	 */
