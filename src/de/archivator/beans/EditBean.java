@@ -74,6 +74,9 @@ public class EditBean implements Serializable {
 	private Archivale aktuellesArchivale;
 
 	@Inject
+	private SearchBean searchBean;
+
+	@Inject
 	private DetailBean details;
 
 	@Inject
@@ -261,6 +264,7 @@ public class EditBean implements Serializable {
 		if (aktuellesArchivale.getId() == 0) {
 			return "index";
 		} else {
+
 			return "detail";
 		}
 	}
@@ -291,7 +295,7 @@ public class EditBean implements Serializable {
 		entityManager.close();
 
 		// lösche aktuellen Archivale aus den Beans
-		archivalien.remove(this.aktuellesArchivale);
+		searchBean.search();
 		details.setAktuellesArchivale(null);
 		return "index";
 	}
@@ -322,6 +326,7 @@ public class EditBean implements Serializable {
 		entityManager.close();
 
 		// speichere in die Bean(s)
+		searchBean.search();
 		details.setAktuellesArchivale(aktuellesArchivale);
 		return "detail";
 	}
