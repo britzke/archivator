@@ -30,9 +30,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+
+import org.apache.derby.tools.sysinfo;
 
 import de.archivator.altdaten.model.Dataroot;
 import de.archivator.altdaten.model.TabelleX0020Archiv;
@@ -50,7 +53,9 @@ public class AltdatenKonverter {
 
 	List<TabelleX0020Archiv> tabelle;
 	EntityManagerFactory emf;
+	EntityManager em; 
 	Archivale archivale= new Archivale();
+	
 
 	/**
 	 * Erzeugt einen AltdatenKonverter,
@@ -59,7 +64,7 @@ public class AltdatenKonverter {
 	 */
 	public AltdatenKonverter() {
 		emf = Persistence.createEntityManagerFactory("archivator");
-		
+		em= emf.createEntityManager();
 		JAXBContext jaxbContext;
 		try {
 			jaxbContext = JAXBContext
@@ -117,29 +122,32 @@ public class AltdatenKonverter {
 					if (!abteilungVorhanden) {
 						organisationseinheiten.add(einzelAbteilung);
 					}
-				}//TODO else leere Datensätze werden übersprungen
+				}
 			}
 		}
-		EntityManager em = emf.createEntityManager();
+		
 		EntityTransaction et = em.getTransaction();
+		
 		et.begin();
-		System.out.println(organisationseinheiten.size());
+		
 		for (String organisationsheinheit : organisationseinheiten) {
 			System.out.println(organisationsheinheit);
 			Organisationseinheit o= new Organisationseinheit(organisationsheinheit);
-			o=em.merge(o);
+			o=em.merge(o);		
 		}
 		et.commit();
 		em.close();
-	
 	}
-
+ 
+	
 	
 	/**
 	 * Extrahiert die Archivalieneigenschaften aus den Altdaten um sie in die Datenbank zu speichern
 	 */
 	private void extractArchivale(){
 		List<Archivale> archivalienSammlung = new ArrayList<Archivale>();
+		Query q = em.createQuery("select n from Organisationseinheit n");
+		List<Organisationseinheit> orga =q.getResultList();
 		for (TabelleX0020Archiv altarchivale: tabelle){
 			Archivale archivale = new Archivale();
 			List<Integer> daten = new ArrayList<Integer>();
@@ -173,10 +181,25 @@ public class AltdatenKonverter {
 			if(schubfach != 0){
 				archivale.setSchubfach(schubfach);
 			}
+			String organisationseinheiten = altarchivale.getAbteilung();
+			if(organisationseinheiten != null){
+				for(Organisationseinheit o:orga){
+					if(o.getName().equals(organisationseinheiten)){
+						
+						List<Organisationseinheit>org = archivale.getOrganisationseinheiten();
+						org.add(o);
+						archivale.setOrganisationseinheiten(org);
+						
+						List<Archivale>arch=o.getArchivalien();
+						arch.add(archivale);
+						o.setArchivalien(arch);
+					}
+				}						
+			}
 						
 			archivalienSammlung.add(archivale);
 		}
-		EntityManager em = emf.createEntityManager();
+		
 		for (Archivale archivale : archivalienSammlung) {
 			EntityTransaction et = em.getTransaction();
 			et.begin();
@@ -184,8 +207,11 @@ public class AltdatenKonverter {
 			et.commit();
 		}
 		em.close();
+		
 	}
 	
+	
+
 	
 	/**
 	 * Wandelt das Datum von String in ganzzahlige Integerwerte um und speichert sie in eine Liste
