@@ -291,23 +291,37 @@ public class AltdatenKonverter {
 	 * zu holen.
 	 */
 	public void extractDokumentarten(){
+
 		List<String> dokumentarten = new ArrayList<String>();
 		for (TabelleX0020Archiv altarchivale: tabelle){
 			String dokumentart1 = altarchivale.getDokumentenartX00201();
 			String dokumentart2 = altarchivale.getDokumentenartX00202();
 			String dokumentart3 = altarchivale.getDokumentenartX00203();
 			
-			if(dokumentart1 != null){
+			if(dokumentart1 != null){                         //wird ausgeführt wenn dokumentart1 ungleich 0 ist
 			System.out.println(dokumentart1);
+			dokumentarten.add(dokumentart1);				  //fügt der List<String> dokumentarten die Strings von dokumentart1 hinzu
 			}
-			if(dokumentart2 != null){
+			if(dokumentart2 != null){                         //wird ausgeführt wenn dokumentart2 ungleich 0 ist
 			System.out.println(dokumentart2);
+			dokumentarten.add(dokumentart2);				  //fügt der List<String> dokumentarten die Strings von dokumentart2 hinzu
 			}
-			if(dokumentart3 != null){
+			if(dokumentart3 != null){                         //wird ausgeführt wenn dokumentart3 ungleich 0 ist
 			System.out.println(dokumentart3);
+			dokumentarten.add(dokumentart3);                  //fügt der List<String> dokumentarten die Strings von dokumentart3 hinzu
 			}
+			System.out.println(dokumentarten);
 		}
-		
+		/*
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+		for(String dokumentart : dokumentarten){
+
+		}
+		et.commit();
+		em.close();
+		*/	
 		
 	}
 	
