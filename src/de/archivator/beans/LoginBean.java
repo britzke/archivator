@@ -56,7 +56,6 @@ public class LoginBean implements Serializable {
 	 *            Wird nicht beachtet.
 	 */
 	public void login(ActionEvent actionEvent) {
-		System.err.println("Login gedrückt");
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (password.contentEquals(PASSWORD)) {
 			context.addMessage(null, new FacesMessage(

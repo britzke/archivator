@@ -56,7 +56,6 @@ public class DetailBean implements Serializable {
 	private int activeIndex;
 
 	public DetailBean() {
-		System.out.println("DetailBean<init>()");
 	}
 
 	/**
