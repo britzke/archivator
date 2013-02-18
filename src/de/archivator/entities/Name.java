@@ -3,6 +3,7 @@
  * and retrieving archived items.
  *
  * Copyright (C) 2012  Junghans
+ *                     burghard.britzke bubi@charmides.in-berlin.de
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -35,6 +36,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Classe für die Namen der Archivalien.
  * 
  * @author junghans
+ * @author burghard.britzke bubi@charmides.in-berlin.de
  * @version 1.0
  */
 @Entity
