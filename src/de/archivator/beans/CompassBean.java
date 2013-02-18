@@ -59,12 +59,10 @@ public class CompassBean {
 	 * neuen Compass-Objekt initialisiert.
 	 */
 	public CompassBean() {
-		System.out.println("CompassBean<init>()");
 		CompassConfiguration conf = new CompassConfiguration().configure();
 		conf.addClass(Archivale.class);
 		conf.addClass(Name.class);
 		compass = conf.buildCompass();
-		System.out.println("CompassBean<init>() - ende");
 	}
 
 	/**
@@ -72,7 +70,6 @@ public class CompassBean {
 	 */
 	@PostConstruct
 	public void init() {
-		System.out.println("CompassBean::init()");
 
 		EntityManager entityManager = entityManagerFactory
 				.createEntityManager();
