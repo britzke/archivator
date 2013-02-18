@@ -22,6 +22,7 @@ import org.compass.gps.device.jpa.JpaGpsDevice;
 import org.compass.gps.impl.SingleCompassGps;
 
 import de.archivator.entities.Archivale;
+import de.archivator.entities.Name;
 
 /**
  * Stellt das Compass-Objekt zur Indizierung und zur Suche zur Verfügung.
@@ -43,8 +44,9 @@ public class CompassBean {
 	 */
 	public CompassBean() {
 		System.out.println("CompassBean<init>()");
-		CompassConfiguration conf = new CompassConfiguration().configure()
-				.addClass(Archivale.class);
+		CompassConfiguration conf = new CompassConfiguration().configure();
+		conf.addClass(Archivale.class);
+		conf.addClass(Name.class);
 		compass = conf.buildCompass();
 		System.out.println("CompassBean<init>() - ende");
 	}

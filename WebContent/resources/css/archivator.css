@@ -21,7 +21,11 @@
 .label {
 	font-weight: bold;
 }
-
+.ui-datatable 
+.ui-sortable-column-icon {
+margin: 0px -10px 0px 0px !important;
+float: right;
+}
 /* details */
 
 [id$=detailGrid] {

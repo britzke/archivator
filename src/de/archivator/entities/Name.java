@@ -23,7 +23,11 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.compass.annotations.Searchable;
+import org.compass.annotations.SearchableComponent;
+import org.compass.annotations.SearchableId;
+import org.compass.annotations.SearchableProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -36,24 +40,49 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "NAMEN", schema = "ARCHIVATOR", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"NACHNAME", "VORNAME" }) })
-@Searchable
+@Searchable(root = false)
 public class Name implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@SearchableId
 	private int id;
 
+	@SearchableProperty
 	private String nachname;
 
+	@SearchableProperty
 	private String vorname;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "NAMEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "NAMEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
+	@SearchableComponent
 	private List<Archivale> archivalien;
 
+	private transient boolean marked;
+
+	/**
+	 * Erzeugt einen neuen Namen. Initialisiert die Liste der Archivalien.
+	 */
 	public Name() {
+		archivalien = new ArrayList<Archivale>();
+	}
+
+	/**
+	 * Erzeugt einen neuen Namen unter Angabe von Nachname und Vorname.
+	 * Initialisiert die Liste der Archivalien.
+	 * 
+	 * @param lastName
+	 *            Der Nachname des Namen.
+	 * @param firstName
+	 *            Der Vorname des Namen.
+	 */
+	public Name(String lastName, String firstName) {
+		archivalien = new ArrayList<Archivale>();
+		nachname = lastName;
+		vorname = firstName;
 	}
 
 	public int getId() {
@@ -88,4 +117,38 @@ public class Name implements Serializable {
 		this.archivalien = archivalien;
 	}
 
+	/**
+	 * @return the marked
+	 */
+	public boolean isMarked() {
+		return marked;
+	}
+
+	/**
+	 * @param marked
+	 *            the marked to set
+	 */
+	public void setMarked(boolean marked) {
+		this.marked = marked;
+	}
+
+	/**
+	 * Ein Name ist gleich mit einem anderen Namen, wenn entweder die IDs
+	 * übereinstimmen, oder der Nachname und der Vorname.
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object other) {
+		if (other instanceof Name) {
+			Name otherName = (Name) other;
+			if (this.id == otherName.getId()) {
+				return true;
+			}
+			if (this.nachname.equals(otherName.getNachname())
+					&& this.vorname.equals(otherName.getVorname())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

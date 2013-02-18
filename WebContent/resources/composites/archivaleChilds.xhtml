@@ -17,18 +17,16 @@
 		<p:ajax event="tabChange" listener="#{detailBean.onTabChange}" />
 		<p:tab title="Personen">
 			<p:commandButton id="editNamenButton" icon="ui-icon-pencil"
-				rendered="#{cc.attrs.angemeldet}"
+				rendered="#{cc.attrs.angemeldet}" update="@form"
 				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
 				action="#{editBean.loadNamen}" oncomplete="editNamenDialog.show()">
 				<pe:tooltip for="editNamenButton"
 					value="Bearbeiten der zugeordneten Namen" />
 			</p:commandButton>
 			<p:dataTable value="#{cc.attrs.aktuellesArchivale.namen}" var="name">
-				<p:column headerText="Vor- und Nachname">
+				<p:column sortBy="#{name.nachname}, #{name.vorname}"
+					headerText="Vor- und Nachname">
 					<h:outputText value="#{name.nachname}, #{name.vorname}" />
-				</p:column>
-				<p:column rendered="#{cc.attrs.angemeldet}">
-					<p:button icon="ui-icon-minus" />
 				</p:column>
 			</p:dataTable>
 		</p:tab>
@@ -45,7 +43,7 @@
 			<p:dataTable
 				value="#{cc.attrs.aktuellesArchivale.organisationseinheiten}"
 				var="oe">
-				<p:column headerText="Schulen bzw. Abteilungen">
+				<p:column sortBy="#{oe.name}" headerText="Schulen bzw. Abteilungen">
 					<h:outputText value="#{oe.name}"></h:outputText>
 				</p:column>
 			</p:dataTable>
@@ -84,16 +82,15 @@
 			</p:dataTable>
 		</p:tab>
 	</p:tabView>
-	<p:dialog widgetVar="editNamenDialog" header="Namen bearbeiten"
-		modal="true" style="position:fixed">
+	<p:dialog id="editNamenDialog" widgetVar="editNamenDialog"
+		header="Namen bearbeiten" modal="true" style="position:fixed">
 		<p:panelGrid columns="1">
 			<pe:tooltip for="namenTextArea" adjustX="-20" adjustY="-20"
-				value="Ordnen Sie dem Archivale Namen zu. Erfassen Sie die Namen mit
-				Vor- und Nachname. Trennen Sie mehrere Namen durch ein Komma.
-				Doppelnamen markieren Sie mit einem Bindestrich oder setzen beide
-				Namen in Anführungsstriche" />
+				value="Ordnen Sie dem Archivale Namen zu. Erfassen Sie die Namen in der Form
+				'Nachname, Vorname'. Trennen Sie Nachname und Vorname durch ein Komma (,).
+				Trennen Sie mehrere Namen durch ein Semikolon (;)." />
 			<p:inputTextarea id="namenTextArea" cols="50" rows="5"
-				value="#{editBean.archivaleNames}" />
+				value="#{editBean.formularNames}" />
 			<p:commandButton value="ok" action="#{editBean.saveNamen}"
 				oncomplete="editNamenDialog.hide()" update="@form" />
 		</p:panelGrid>

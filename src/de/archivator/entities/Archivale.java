@@ -23,7 +23,10 @@ package de.archivator.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.compass.annotations.Cascade;
 import org.compass.annotations.Searchable;
+import org.compass.annotations.SearchableCascading;
+import org.compass.annotations.SearchableComponent;
 import org.compass.annotations.SearchableId;
 import org.compass.annotations.SearchableProperty;
 
@@ -76,7 +79,9 @@ public class Archivale implements Serializable {
 	private int schubfach;
 
 	// bi-directional many-to-many association to Namen
-	@ManyToMany(mappedBy = "archivalien")
+	@ManyToMany(mappedBy = "archivalien", cascade=CascadeType.ALL)
+	@SearchableCascading(cascade = {Cascade.ALL})
+	@SearchableComponent
 	private List<Name> namen;
 
 	// bi-directional many-to-many association to Dokumentarten

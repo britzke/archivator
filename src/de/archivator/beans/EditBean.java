@@ -310,6 +310,7 @@ public class EditBean implements Serializable {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
+		entityManager.getTransaction().commit();
 
 		// speichere in den Compass-Index
 		CompassSession session = compass.openSession();
@@ -321,7 +322,6 @@ public class EditBean implements Serializable {
 			session.rollback();
 		}
 
-		entityManager.getTransaction().commit();
 		session.close();
 		entityManager.close();
 
@@ -369,8 +369,9 @@ public class EditBean implements Serializable {
 	 */
 	public String saveNamen() {
 		entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction t = entityManager.getTransaction();
-		t.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+
 		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
 		List<Name> archivaleNames = aktuellesArchivale.getNamen();
 
@@ -380,27 +381,52 @@ public class EditBean implements Serializable {
 		String[] fullNames = formularNames.split(";");
 		for (String fullName : fullNames) {
 			String[] nameParts = fullName.split(",");
-			String firstName = nameParts[1].trim();
+			String firstName = (nameParts.length == 2) ? nameParts[1].trim()
+					: "";
 			String lastName = nameParts[0].trim();
-
-			q.setParameter("nachname", lastName);
-			q.setParameter("vorname", firstName);
-			List<Name> selectedNames = q.getResultList();
-			Name name;
-			if (selectedNames.size() == 0) {
-				// Name ist neu in der Datenbank
-				name = new Name(lastName, firstName);
-			} else {
-				name = selectedNames.get(0);
-			}
-			if (!archivaleNames.contains(name)) {
-				name = entityManager.merge(name);
-				archivaleNames.add(name);
-				List<Archivale> archivalien = name.getArchivalien();
-				archivalien.add(aktuellesArchivale);
+			if (!firstName.equals("") || !lastName.equals("")) {
+				// ein Name von beiden ist gesetzt
+				q.setParameter("nachname", lastName);
+				q.setParameter("vorname", firstName);
+				List<Name> selectedNames = q.getResultList();
+				Name name;
+				if (selectedNames.size() == 0) {
+					// Name ist neu in der Datenbank
+					name = new Name(lastName, firstName);
+				} else {
+					name = selectedNames.get(0);
+				}
+				if (!archivaleNames.contains(name)) {
+					name = entityManager.merge(name);
+					archivaleNames.add(name);
+					List<Archivale> archivalien = name.getArchivalien();
+					archivalien.add(aktuellesArchivale);
+				}
+				name.setMarked(true);
 			}
 		}
-		t.commit();
+		for (int i = archivaleNames.size(); i > 0; i--) {
+			Name archivaleName = archivaleNames.get(i - 1);
+			if (!archivaleName.isMarked()) {
+				archivaleName.getArchivalien().remove(aktuellesArchivale);
+				archivaleNames.remove(i - 1);
+			}
+		}
+
+		// speichere in den Compass-Index
+		CompassSession session = compass.openSession();
+		try {
+			session.save(aktuellesArchivale);
+			session.commit();
+		} catch (CompassException ce) {
+			ce.printStackTrace();
+			session.rollback();
+		}
+
+		entityTransaction.commit();
+		session.close();
+		entityManager.close();
+
 		details.setAktuellesArchivale(aktuellesArchivale);
 		return "edit";
 	}

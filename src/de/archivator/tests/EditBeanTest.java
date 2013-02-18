@@ -32,11 +32,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import org.compass.core.Compass;
+import org.compass.core.CompassSession;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.archivator.beans.DetailBean;
 import de.archivator.beans.EditBean;
+import de.archivator.beans.SearchBean;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Name;
 import de.archivator.entities.Schlagwort;
@@ -56,6 +59,11 @@ public class EditBeanTest {
 	private Archivale aktuellesArchivale;
 	private DetailBean detailBean;
 	private List<Archivale> archivalien;
+	private Compass compass;
+	private CompassSession compassSession;
+	private SearchBean searchBean;
+	private Query query;
+	private List<Name> nameList;
 
 	/**
 	 * Erzeugt eine Umgebung, die von allen Tests benötigt wird.
@@ -83,19 +91,35 @@ public class EditBeanTest {
 		f = proband.getClass().getDeclaredField("details");
 		f.setAccessible(true);
 		f.set(proband, detailBean);
-		
+
+		searchBean = mock(SearchBean.class);
+		// searchBean injizieren
+		f = proband.getClass().getDeclaredField("searchBean");
+		f.setAccessible(true);
+		f.set(proband, searchBean);
+
 		entityManagerFactory = mock(EntityManagerFactory.class);
 		entityManager = mock(EntityManager.class);
 		when(entityManagerFactory.createEntityManager()).thenReturn(
 				entityManager);
 		entityTransaction = mock(EntityTransaction.class);
 		when(entityManager.getTransaction()).thenReturn(entityTransaction);
+		query = mock(Query.class);
+		when(entityManager.createQuery(anyString())).thenReturn(query);
 		when(entityManager.merge(aktuellesArchivale)).thenReturn(
 				aktuellesArchivale);
 		// entityManager injizieren
 		f = proband.getClass().getDeclaredField("entityManagerFactory");
 		f.setAccessible(true);
 		f.set(proband, entityManagerFactory);
+
+		compass = mock(Compass.class);
+		compassSession = mock(CompassSession.class);
+		when(compass.openSession()).thenReturn(compassSession);
+		// compass injizieren
+		f = proband.getClass().getDeclaredField("compass");
+		f.setAccessible(true);
+		f.set(proband, compass);
 	}
 
 	/**
@@ -136,7 +160,6 @@ public class EditBeanTest {
 		verify(entityManager, times(2)).getTransaction();
 		verify(entityManager).remove(aktuellesArchivale);
 		verify(entityTransaction).commit();
-		verify(archivalien).remove(anyObject());
 	}
 
 	/**
@@ -176,7 +199,7 @@ public class EditBeanTest {
 		String navigation = proband.erstelle();
 		assertEquals("erstelle() muss auf die edit-Seite navigieren", "edit",
 				navigation);
-		verify(detailBean).setAktuellesArchivale((Archivale)anyObject());
+		verify(detailBean).setAktuellesArchivale((Archivale) anyObject());
 	}
 
 	/**
@@ -184,9 +207,17 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testLoadNamen() {
+		List<Name> namen = new ArrayList<Name>();
+		namen.add(new Name("Müller", "Hans"));
+		namen.add(new Name("Meier", "Franz"));
+		aktuellesArchivale.setNamen(namen);
+
 		String navigation = proband.loadNamen();
+
 		assertEquals("loadNamen() muss zum Edit-View navigieren", "edit",
 				navigation);
+		assertEquals("Müller, Hans; Meier, Franz", proband.getFormularNames());
+
 	}
 
 	/**
@@ -194,9 +225,21 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testSaveNamen() {
+		proband.setFormularNames("Müller, Hans;");
+		nameList=new ArrayList<Name>();
+		Name name = new Name("Müller","Hans");
+		nameList.add(name);
+		List<Name> archivaleNamen = new ArrayList<Name>();
+		aktuellesArchivale.setNamen(archivaleNamen);
+		
+		when(query.getResultList()).thenReturn(nameList);
+		when(entityManager.merge(name)).thenReturn(new Name("Müller","Hans"));
+		
 		String navigation = proband.saveNamen();
 		assertEquals("saveNamen() muss zum Edit-View navigieren", "edit",
 				navigation);
+		assertEquals(1, aktuellesArchivale.getNamen().size());
+		
 	}
 
 	/**
@@ -287,9 +330,9 @@ public class EditBeanTest {
 		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
 
 		String navigation = proband.saveSchlagworte(); // test
-		
+
 		proband.setFormularSchlagwörter("Lette, Datenbank");
-		
+
 		navigation = proband.saveSchlagworte();
 
 		assertEquals("saveSchlagworte() muss zum Edit-View navigieren", "edit",
