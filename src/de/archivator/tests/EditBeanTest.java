@@ -268,11 +268,17 @@ public class EditBeanTest {
 		org.add(new Organisationseinheit("CD"));
 		org.add(new Organisationseinheit("Dokument"));
 		String navigation = proband.saveOrganisationseinheiten();
-		assertTrue("CD und Dokument sollten aufgelistet sein", navigation == "CD, Dokument");
+		assertTrue("CD und Dokument sollten aufgelistet sein", proband.getOrganisationseinheiten() == org);
 		org.clear();
 		org.add(new Organisationseinheit("Marmeladenglas"));
 		navigation = proband.saveOrganisationseinheiten();
-		assertFalse("Marmeladenglas muss abgelehnt werden", navigation == "CD, Dokument");
+		Boolean marmelade = false;
+		for (Organisationseinheit o : org) {
+			if (o.getName() == "Marmeladenglas") {
+				marmelade = true;
+			}
+		}
+		assertFalse("Marmeladenglas muss abgelehnt werden", marmelade);
 		assertEquals(
 				"saveOrganisationseinheiten() muss zum Edit-View navigieren",
 				"edit", navigation);
@@ -368,5 +374,6 @@ public class EditBeanTest {
 				"Im akutellen Archivale muss das Schlagwort 'Datenbank' gesetzt sein",
 				containsDatenbank);
 		assertTrue("Die Schlagworte müssen in den Details enthalten sein", detailBean.getAktuellesArchivale() == aktuellesArchivale);
+		//geplanter Test: Suchfunktion nutzen, um aktuellesArchivale über die Schlagworte zu suchen
 	}
 }

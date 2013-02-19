@@ -440,6 +440,13 @@ public class EditBean implements Serializable {
 	}
 
 	public String saveOrganisationseinheiten() {
+		List<Organisationseinheit> org = aktuellesArchivale.getOrganisationseinheiten();
+		org.clear();
+		for (Organisationseinheit o : organisationseinheiten) {
+			org.add(o);
+		}
+		aktuellesArchivale.setOrganisationseinheiten(org);
+		details.setAktuellesArchivale(aktuellesArchivale);
 		return "edit";
 	}
 
@@ -484,7 +491,7 @@ public class EditBean implements Serializable {
 
 	/**
 	 * Speichert die Schlagworte aus der kommaseparierten Zeichenkette
-	 * archivaleSchlagworte in die Liste schlagworte.
+	 * formularSchlagwörter in die Liste schlagworte.
 	 * 
 	 * @return "edit" immer.
 	 */
@@ -501,7 +508,7 @@ public class EditBean implements Serializable {
 			Schlagwort entry = new Schlagwort(wort);
 			boolean neu = false;
 			boolean neu2 = true;
-			deleteMap.put(entry, false);
+			deleteMap.put(entry, false); // You are already dead.
 			if (archivaleSchlagwörter.isEmpty()) {
 				archivaleSchlagwörter.add(entry);
 			} else {
@@ -536,6 +543,15 @@ public class EditBean implements Serializable {
 		}
 		aktuellesArchivale.setSchlagwörter(archivaleSchlagwörter);
 		details.setAktuellesArchivale(aktuellesArchivale);
+		
+		CompassSession session = compass.openSession();
+		try {
+			session.save(aktuellesArchivale);
+			session.commit();
+		} catch (CompassException ce) {
+			ce.printStackTrace();
+			session.rollback();
+		}
 
 		return "edit";
 	}
