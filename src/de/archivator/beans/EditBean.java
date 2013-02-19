@@ -494,20 +494,32 @@ public class EditBean implements Serializable {
 				.getSchlagwörter();
 		String[] wörter = formularSchlagwörter.split(",");
 		Map<Schlagwort, Boolean> deleteMap = new HashMap<Schlagwort, Boolean>();
+		for (Schlagwort s : archivaleSchlagwörter) {
+			deleteMap.put(s, true);
+		}
 		for (String wort : wörter) {
 			wort = wort.trim();
 			Schlagwort entry = new Schlagwort(wort);
 			boolean neu = false;
-			if (!archivaleSchlagwörter.contains(entry)) {
+			boolean neu2 = true;
+			deleteMap.put(entry, false);
+			if (archivaleSchlagwörter.isEmpty()) {
+				archivaleSchlagwörter.add(entry);
+			} else {
+				for (Schlagwort s : archivaleSchlagwörter) {
+					if (s.getName() == entry.getName()) {
+						neu2 = false;
+					}
+				}
+			}
+			if (neu2) {
 				archivaleSchlagwörter.add(entry);
 			}
 			if (schlagworte.isEmpty()) {
 				schlagworte.add(entry);
 			} else {
-				for (Schlagwort s : schlagworte) {
-					if (!schlagworte.contains(s)) {
-						neu = true;
-					}
+				if (!schlagworte.contains(entry)) {
+					neu = true;
 				}
 			}
 			if (neu) {
@@ -516,18 +528,12 @@ public class EditBean implements Serializable {
 		}
 		List<Schlagwort> zuEntfernen = new ArrayList<Schlagwort>();
 		for (Schlagwort s : archivaleSchlagwörter) {
-			deleteMap.put(s, false);
-			for (String wort : wörter) {
-				if (s.getName() == wort) {
-					deleteMap.put(s, true);
-				}
-			}
-			if (!deleteMap.get(s)) {
-				zuEntfernen.add(s);
-			}
+			zuEntfernen.add(s);
 		}
 		for (Schlagwort s : zuEntfernen) {
-			archivaleSchlagwörter.remove(s);
+			if (deleteMap.get(s)) {
+				archivaleSchlagwörter.remove(s);
+			}
 		}
 		aktuellesArchivale.setSchlagwörter(archivaleSchlagwörter);
 
