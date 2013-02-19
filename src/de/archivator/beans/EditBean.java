@@ -102,6 +102,7 @@ public class EditBean implements Serializable {
 
 	private String formularNames;
 	private String formularSchlagwörter;
+	private Dokumentart[] selectedDokumentarten;
 
 	/**
 	 * Erzeugt eine neue EditBean.
@@ -451,13 +452,16 @@ public class EditBean implements Serializable {
 	}
 
 	public String saveDokumentarten() {
-		List<Dokumentart> archivaleDokumentarten = aktuellesArchivale
-				.getDokumentarten();
-		System.out.println("archivaleDokumentarten: "
-				+ archivaleDokumentarten.toString());
-		dokumentarten.clear();
-		for (Dokumentart d : archivaleDokumentarten) {
-			dokumentarten.add(d);
+		ArrayList<Dokumentart> selection = new ArrayList<Dokumentart>();
+		for (Dokumentart d : selectedDokumentarten) {
+			selection.add(d);
+			System.out.println("add: "+d);
+		}
+		aktuellesArchivale.setDokumentarten(selection);
+		if (!aktuellesArchivale.getDokumentarten().isEmpty()) {
+			for (Dokumentart d : aktuellesArchivale.getDokumentarten()) {
+				System.out.println("d: " + d.getName());
+			}
 		}
 		return "edit";
 	}
@@ -532,5 +536,22 @@ public class EditBean implements Serializable {
 		aktuellesArchivale.setSchlagwörter(archivaleSchlagwörter);
 
 		return "edit";
+	}
+
+	/**
+	 * @return the selectedDokumentarten
+	 */
+	public Dokumentart[] getSelectedDokumentarten() {
+		return selectedDokumentarten;
+	}
+
+	/**
+	 * @param selectedDokumentarten the selectedDokumentarten to set
+	 */
+	public void setSelectedDokumentarten(Dokumentart[] selectedDokumentarten) {
+//		if (!aktuellesArchivale.getDokumentarten().isEmpty()) {
+//			selectedDokumentarten=(Dokumentart[]) aktuellesArchivale.getDokumentarten().toArray();
+//		}
+		this.selectedDokumentarten = selectedDokumentarten;
 	}
 }
