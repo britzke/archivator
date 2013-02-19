@@ -511,6 +511,7 @@ public class EditBean implements Serializable {
 			deleteMap.put(entry, false); // You are already dead.
 			if (archivaleSchlagwörter.isEmpty()) {
 				archivaleSchlagwörter.add(entry);
+				neu2=false;
 			} else {
 				for (Schlagwort s : archivaleSchlagwörter) {
 					if (s.getName() == entry.getName()) {
