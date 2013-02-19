@@ -535,6 +535,7 @@ public class EditBean implements Serializable {
 			}
 		}
 		aktuellesArchivale.setSchlagwörter(archivaleSchlagwörter);
+		details.setAktuellesArchivale(aktuellesArchivale);
 
 		return "edit";
 	}

@@ -367,5 +367,6 @@ public class EditBeanTest {
 		assertTrue(
 				"Im akutellen Archivale muss das Schlagwort 'Datenbank' gesetzt sein",
 				containsDatenbank);
+		assertTrue("Die Schlagworte müssen in den Details enthalten sein", detailBean.getAktuellesArchivale() == aktuellesArchivale);
 	}
 }
