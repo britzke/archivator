@@ -42,6 +42,7 @@ import de.archivator.beans.EditBean;
 import de.archivator.beans.SearchBean;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Name;
+import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
 /**
@@ -263,13 +264,18 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testSaveOrganisationseinheiten() {
-
+		List<Organisationseinheit> org = new ArrayList<Organisationseinheit>();
+		org.add(new Organisationseinheit("CD"));
+		org.add(new Organisationseinheit("Dokument"));
 		String navigation = proband.saveOrganisationseinheiten();
-
+		assertTrue("CD und Dokument sollten aufgelistet sein", navigation == "CD, Dokument");
+		org.clear();
+		org.add(new Organisationseinheit("Marmeladenglas"));
+		navigation = proband.saveOrganisationseinheiten();
+		assertFalse("Marmeladenglas muss abgelehnt werden", navigation == "CD, Dokument");
 		assertEquals(
 				"saveOrganisationseinheiten() muss zum Edit-View navigieren",
 				"edit", navigation);
-		fail("noch nicht fertig implementiert");
 	}
 
 	/**

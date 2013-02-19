@@ -472,7 +472,6 @@ public class EditBean implements Serializable {
 	public String loadSchlagworte() {
 		List<Schlagwort> schlagwörter = details.getAktuellesArchivale()
 				.getSchlagwörter();
-		System.out.println(schlagwörter);
 		String output = "";
 		for (Schlagwort schlagwort : schlagwörter) {
 			output += schlagwort.getName();
