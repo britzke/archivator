@@ -14,9 +14,9 @@ Aufsetzen einer Entwicklungsumgebung - Eclipse
    von MyFaces (2.1.10) und EclipseLink (2.4.1)
    
 3. Einrichten eines Servlet-Containers (Servers). Als Runtime wird
-   Tomcat in der aktuellen Version (zur Zeit 7.0.35) empfohlen.
+   Tomcat in der aktuellen Version (zur Zeit 7.0.37) empfohlen.
    
-4. Primefaces-Bibliothek in der aktuellen Version (aktuell 3.5.RC1)
+4. Primefaces-Bibliothek in der aktuellen Version (aktuell 3.5)
    zum Build-Path und zum Deployment-Assembly hinzufügen.
 
 5. Primefaces-Extensions in der aktuellen Version (z. Zt. 0.6.2)
