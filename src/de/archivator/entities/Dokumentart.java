@@ -23,6 +23,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.compass.annotations.Searchable;
+import org.compass.annotations.SearchableId;
+import org.compass.annotations.SearchableProperty;
 
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -35,19 +37,21 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "DOKUMENTARTEN", schema = "ARCHIVATOR")
-@Searchable
+@Searchable(root=false)
 public class Dokumentart implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@SearchableId
 	private int id;
 
 	@Column(unique = true)
+	@SearchableProperty
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany
+	@ManyToMany (cascade=CascadeType.ALL)
 	@JoinTable(name = "DOKUMENTARTEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "DOKUMENTARTEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 

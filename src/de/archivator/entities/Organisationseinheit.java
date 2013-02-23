@@ -23,7 +23,11 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.compass.annotations.Searchable;
+import org.compass.annotations.SearchableComponent;
+import org.compass.annotations.SearchableId;
+import org.compass.annotations.SearchableProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -35,33 +39,43 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "ORGANISATIONSEINHEITEN", schema = "ARCHIVATOR")
-@Searchable
+@Searchable(root=false)
 public class Organisationseinheit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@SearchableId
 	private int id;
 
 	@Column(unique = true)
+	@SearchableProperty
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany
+	@ManyToMany (cascade=CascadeType.ALL)
 	@JoinTable(name = "ORGANISATIONSEINHEITEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "ORGANISATIONSEINHEITEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
+	//@SearchableComponent
 	private List<Archivale> archivalien;
 
+	/**
+	 * Erzeugt eine neue Organisationseinheit und initialisiert die Liste der
+	 * Archivalien mit einer leeren Liste.
+	 */
 	public Organisationseinheit() {
+		archivalien = new ArrayList<Archivale>();
 	}
 
 	/**
 	 * Erzeugt eine neue Organisationseinheit unter Angabe des Namens.
+	 * Initialisiert die Liste der Archivalien mit einer leeren Liste
 	 * 
 	 * @param name
 	 *            Der Name der Organisationseinheit
 	 */
 	public Organisationseinheit(String name) {
 		this.name = name;
+		archivalien = new ArrayList<Archivale>();
 	}
 
 	public int getId() {
@@ -86,6 +100,27 @@ public class Organisationseinheit implements Serializable {
 
 	public void setArchivalien(List<Archivale> archivalien) {
 		this.archivalien = archivalien;
+	}
+
+	/**
+	 * Vergleicht zwei Organisationseinheiten. Wenn die ID gesetzt ist, dann
+	 * zählt die ID - wenn nicht, dann werden die Namen verglichen.
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object other) {
+		if (other instanceof Organisationseinheit) {
+			Organisationseinheit otherOrganisationseinheit = (Organisationseinheit) other;
+			if (this.id != 0 && this.id == otherOrganisationseinheit.getId()) {
+				return true;
+			}
+			if (name == null) {
+				return otherOrganisationseinheit.getName() == null;
+			} else {
+				return this.name.equals(otherOrganisationseinheit.getName());
+			}
+		}
+		return false;
 	}
 
 }
