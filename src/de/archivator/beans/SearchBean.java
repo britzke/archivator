@@ -89,17 +89,13 @@ public class SearchBean implements Serializable {
 		rechercheBean.setArchivalien(archivalien);
 
 		CompassSearchSession session = compass.openSearchSession();
-		CompassGps gps = new SingleCompassGps(compass);
-		CompassGpsDevice jpaDevice = new JpaGpsDevice("jpa",
-				entityManagerFactory);
-		gps.addGpsDevice(jpaDevice);
-		gps.start();
-
 		try {
 			String suchKriterium = rechercheBean.getSuchKriterium();
 			CompassHits hits = session.find(suchKriterium);
+			System.out.println("Hits");
 			for (int i = 0; i < hits.getLength(); i++) {
 				archivalien.add((Archivale) hits.data(i));
+				System.out.println(hits.hit(i).score()+" "+hits.hit(i).alias());
 			}
 		} finally {
 			session.close();
