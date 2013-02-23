@@ -35,9 +35,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.compass.core.Compass;
-import org.compass.core.CompassIndexSession;
 import org.compass.core.config.CompassConfiguration;
-import org.compass.core.mapping.ContractMapping;
 import org.compass.gps.CompassGps;
 import org.compass.gps.CompassGpsDevice;
 import org.compass.gps.device.jpa.JpaGpsDevice;
@@ -141,7 +139,7 @@ public class AltdatenKonverter {
 	 */
 	private void extractArchivale() {
 		em = emf.createEntityManager();
-		List<Archivale> archivalienSammlung = new ArrayList<Archivale>();
+
 		for (TabelleX0020Archiv altarchivale : tabelle) {
 			Archivale archivale = new Archivale();
 			List<Integer> daten = new ArrayList<Integer>();
@@ -191,7 +189,7 @@ public class AltdatenKonverter {
 			List<Organisationseinheit> databaseOrganisationeinheiten = q
 					.getResultList();
 			addArchivaleOrganisationseinheit(databaseOrganisationeinheiten,
-					archivale, altarchivale.getAbteilung());
+					archivale, altarchivale.getAbteilung());			
 
 			// Namen hinzufügen
 			q = em.createQuery("select n from Name n");
@@ -210,12 +208,8 @@ public class AltdatenKonverter {
 					altarchivale.getNameX00206());
 
 			et.commit();
-
-			archivalienSammlung.add(archivale);
 		}
-		// zusammenfügen();
 		em.close();
-
 	}
 
 	/**
