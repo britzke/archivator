@@ -98,7 +98,7 @@ public class AltdatenKonverter {
 	public static void main(String[] args) {
 		AltdatenKonverter me = new AltdatenKonverter();
 		// me.extractDokumentarten();
-		//me.extractOrganisationseinheiten();
+		// me.extractOrganisationseinheiten();
 		me.extractArchivale();
 
 		CompassConfiguration conf = new CompassConfiguration().configure();
@@ -184,12 +184,23 @@ public class AltdatenKonverter {
 			et.begin();
 			archivale = em.merge(archivale);
 
+			// Dokumentart(en) hinzufügen
+			Query q = em.createQuery("select d from Dokumentart d");
+			List<Dokumentart> databaseDokumentarten = q
+					.getResultList();
+			addArchivaleDokumentart(databaseDokumentarten, archivale,
+					altarchivale.getDokumentenartX00201());
+			addArchivaleDokumentart(databaseDokumentarten, archivale,
+					altarchivale.getDokumentenartX00202());
+			addArchivaleDokumentart(databaseDokumentarten, archivale,
+					altarchivale.getDokumentenartX00203());
+
 			// Organisationseinheit(en) hinzufügen
-			Query q = em.createQuery("select o from Organisationseinheit o");
+			q = em.createQuery("select o from Organisationseinheit o");
 			List<Organisationseinheit> databaseOrganisationeinheiten = q
 					.getResultList();
 			addArchivaleOrganisationseinheit(databaseOrganisationeinheiten,
-					archivale, altarchivale.getAbteilung());			
+					archivale, altarchivale.getAbteilung());
 
 			// Namen hinzufügen
 			q = em.createQuery("select n from Name n");
@@ -207,9 +218,108 @@ public class AltdatenKonverter {
 			addArchivaleName(databaseNames, archivale,
 					altarchivale.getNameX00206());
 
+			// Schlagworte hinzufügen
+			q = em.createQuery("select s from Schlagwort s");
+			List<Schlagwort> databaseSchlagwörter = q.getResultList();
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00201());
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00202());
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00203());
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00204());
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00205());
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00206());
+
 			et.commit();
 		}
 		em.close();
+	}
+
+	/**
+	 * Fügt dem Archivale eine Dokumentart hinzu. Existiert die Dokumentart in
+	 * der Datenbank noch nicht, so wird sie der Datenbank hinzugefügt,
+	 * ansonsten wird die bestehende Dokumentart referenziert.
+	 * 
+	 * @param databaseDokumentarten
+	 *            Liste von Dokumentarten aus der Datenbank.
+	 * @param archivale
+	 *            Das Archviale, dem die Dokumentart hinzugefügt werden soll.
+	 * @param dokumentenartString
+	 *            Dokumentart, die dem Archivale hinzugefügt werden soll.
+	 */
+	private void addArchivaleDokumentart(
+			List<Dokumentart> databaseDokumentarten, Archivale archivale,
+			String dokumentartString) {
+		if (dokumentartString != null) {
+			List<Dokumentart> archivaleDokumentarten = archivale
+					.getDokumentarten();
+			Dokumentart dokumentart = new Dokumentart(dokumentartString);
+			for (Dokumentart databaseDokumentart : databaseDokumentarten) {
+				if (dokumentart.equals(databaseDokumentart)) {
+					dokumentart = databaseDokumentart;
+					break; // das erste wird genommen
+				}
+			}
+			if (dokumentart.getId() == 0) {
+				databaseDokumentarten.add(dokumentart);
+			}
+			boolean schonVorhanden = false;
+			for (Dokumentart archivaleDokumentart : archivaleDokumentarten) {
+				if (dokumentart.equals(archivaleDokumentart)) {
+					schonVorhanden = true;
+					break;
+				}
+			}
+			if (!schonVorhanden) {
+				archivaleDokumentarten.add(dokumentart);
+				dokumentart.getArchivalien().add(archivale);
+			}
+		}
+	}
+
+	/**
+	 * Fügt dem Archivale ein Schlagwort hinzu. Existiert das Schlagwort in der
+	 * Datenbank noch nicht, so wird es der Datenbank hinzugefügt, ansonsten
+	 * wird das bestehende Schlagwort referenziert.
+	 * 
+	 * @param databaseSchlagwörter
+	 *            Liste aller Schlagwörter, die bereits in der Datenbank sind.
+	 * @param archivale
+	 *            Das Archivale, dem das Schlagwort zugeordnet werden soll.
+	 * @param schlagwortString
+	 *            Das Schlagwort, das dem Archivale zugeordnet werden soll.
+	 */
+	private void addArchivaleSchlagwort(List<Schlagwort> databaseSchlagwörter,
+			Archivale archivale, String schlagwortString) {
+		if (schlagwortString != null) {
+			List<Schlagwort> archivaleSchlagwörter = archivale
+					.getSchlagwörter();
+			Schlagwort schlagwort = new Schlagwort(schlagwortString);
+			for (Schlagwort databaseSchlagwort : databaseSchlagwörter) {
+				if (schlagwort.equals(databaseSchlagwort)) {
+					schlagwort = databaseSchlagwort;
+					break; // das erste wird genommen
+				}
+			}
+			if (schlagwort.getId() == 0) {
+				databaseSchlagwörter.add(schlagwort);
+			}
+			boolean schonVorhanden = false;
+			for (Schlagwort archivaleSchlagwort : archivaleSchlagwörter) {
+				if (schlagwort.equals(archivaleSchlagwort)) {
+					schonVorhanden = true;
+					break;
+				}
+			}
+			if (!schonVorhanden) {
+				archivaleSchlagwörter.add(schlagwort);
+				schlagwort.getArchivalien().add(archivale);
+			}
+		}
 	}
 
 	/**

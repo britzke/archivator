@@ -26,6 +26,7 @@ import org.compass.annotations.Searchable;
 import org.compass.annotations.SearchableId;
 import org.compass.annotations.SearchableProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -63,7 +64,11 @@ public class Schlagwort implements Serializable {
 		)
 	private List<Archivale> archivalien;
 
+	/**
+	 * Erzeugt ein neues Schlagwort.
+	 */
 	public Schlagwort() {
+		archivalien = new ArrayList<Archivale>();
 	}
 
 	/**
@@ -72,6 +77,7 @@ public class Schlagwort implements Serializable {
 	 */
 	public Schlagwort(String name) {
 		this.name= name;
+		archivalien = new ArrayList<Archivale>();
 	}
 
 	public int getId() {
@@ -98,4 +104,25 @@ public class Schlagwort implements Serializable {
 		this.archivalien = archivalien;
 	}
 
+	/**
+	 * Stellt fest, ob das Schlagwort gleich dem anderen ist. Schlagwörter sind
+	 * gleich, wenn entweder die IDs gleich sind, oder die ID des Einen
+	 * <i>null</i> und die Namen übereinstimmen.
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object other) {
+		if (other instanceof Schlagwort) {
+			Schlagwort otherSchlagwort = (Schlagwort) other;
+			if (this.id != 0 && this.id == otherSchlagwort.getId()) {
+				return true;
+			}
+			if (name == null) {
+				return otherSchlagwort.getName() == null;
+			} else {
+				return this.name.equals(otherSchlagwort.getName());
+			}
+		}
+		return false;
+	}
 }
