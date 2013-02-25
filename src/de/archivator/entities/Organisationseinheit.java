@@ -39,7 +39,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "ORGANISATIONSEINHEITEN", schema = "ARCHIVATOR")
-@Searchable(root=false)
+@Searchable(root = false)
 public class Organisationseinheit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -49,13 +49,13 @@ public class Organisationseinheit implements Serializable {
 	private int id;
 
 	@Column(unique = true)
-	@SearchableProperty
+	@SearchableProperty(name = "organisationseinheit")
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany (cascade=CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ORGANISATIONSEINHEITEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "ORGANISATIONSEINHEITEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
-	//@SearchableComponent
+	// @SearchableComponent
 	private List<Archivale> archivalien;
 
 	/**
