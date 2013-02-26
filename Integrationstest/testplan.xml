@@ -136,25 +136,15 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für die erweiterte Suche">
+	<testfall titel="Testfall für die erweiterte Suche mit leeren Suchfeld">
 		<vorraussetzungen>
-			<vorraussetzung>Suchfeld wird angezeigt, mit einem 'Suche' Button.
-			Darunter befindet sich eine 'erweiterte Suche' leiste mit einem Plus Symbol.</vorraussetzung>
+			<vorraussetzung>Suchfeld ist leer</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
 				Durch klicken auf die Schaltfläche ‘erweiterte Suche’ wird ein
 				Fenster ausgeklappt.
 				<ergebnisse>
-					<ergebnis>
-							Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
-						</ergebnis>
-					<ergebnis>
-							Das Suchfeld wird angezeigt.
-						</ergebnis>
-					<ergebnis>
-							Neben dem Suchfeld befindet sich der ‘Suche’ Button
-						</ergebnis>
 					<ergebnis>
    							Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
     					</ergebnis>
@@ -172,282 +162,64 @@
 			<schritt>
 				Durch Auswahl der jeweiligen Buttons kann bestimmt werden, auf
 				welche Attribute sich die Suche bezieht.
-				Drücken des 'Name' Buttons
-				<ergebnisse>
-					<ergebnis>
-					Der gewünschte Begriff wird in der Suchleiste ergänzt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der ‘Suche’ Button wird geklickt.
-				<ergebnisse>
-					<ergebnis>
-					    Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-
-	<testfall titel="Testfall für die erweiterte Suche Funktion 'Betreff' Button">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Das Suchfeld wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Neben dem Suchfeld befindet sich der ‘Suche’ Button
-			</vorraussetzung>
-			<vorraussetzung>
-   				Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		 Folgende Buttons werden darunter angezeigt:
-        		‘Betreff’
+				Für jeden Begriff den Test Case wiederholen.
+				Clicken Sie auf den folgenden Begriff:
+				‘Betreff’
         		‘Name’  
-				‘Und’
+       			‘Und’
        			‘Schlagwörter’
        			‘Titel’
         		‘Oder’
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der ‘Betreff’ Button wird geklickt.
 				<ergebnisse>
 					<ergebnis>
-					  Es wird der Text “betreff= “ Suchleiste eingetragen. 
-					  Wenn bereits Text in der Suchleise vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der 'Suche' Button wird gedrückt.
-				<ergebnisse>
-					<ergebnis>
-					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					Der gewünschte Begriff wird in der Suchleiste eingesetzt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
-
-	<testfall titel="Testfall für die erweiterte Suche Funktion 'Name' Button">
+	<testfall titel="Testfall für die erweiterte Suche mit nicht leeren Suchfeld">
 		<vorraussetzungen>
-			<vorraussetzung>
-				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Das Suchfeld wird angezeigt.
-				</vorraussetzung>
-			<vorraussetzung>
-				Neben dem Suchfeld befindet sich der ‘Suche’ Button
-			</vorraussetzung>
-			<vorraussetzung>
-   				Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		 Folgende Buttons werden darunter angezeigt:
-        		‘Betreff’
+			<vorraussetzung>Suchfeld ist nicht leer</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Durch klicken auf die Schaltfläche ‘erweiterte Suche’ wird ein
+				Fenster ausgeklappt.
+				<ergebnisse>
+					<ergebnis>
+   							Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
+    					</ergebnis>
+					<ergebnis>
+    						Folgende Buttons werden darunter angezeigt:
+        					‘Betreff’
+        					‘Name’  
+       					    ‘Und’
+       						‘Schlagwörter’
+       					    ‘Titel’
+        					‘Oder’
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Für jeden Begriff den Test Case wiederholen.
+				Clicken Sie auf den folgenden Begriff:
+				‘Betreff’
         		‘Name’  
-				‘Und’
+       			‘Und’
        			‘Schlagwörter’
        			‘Titel’
         		‘Oder’
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der ‘Name’ Button wird geklickt.
 				<ergebnisse>
 					<ergebnis>
-					 Es wird der Text “name = “ in die Suchleiste eingetragen. 
-					 Wenn bereits Text in Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt. 
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der 'Suche' Button wird gedrückt.
-				<ergebnisse>
-					<ergebnis>
-					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
+					Der gewünschte Begriff wird in der Suchleiste ergänzt mit AND.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für die erweiterte Suche Funktion 'Und' Button">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Das Suchfeld wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Neben dem Suchfeld befindet sich der ‘Suche’ Button
-			</vorraussetzung>
-			<vorraussetzung>
-   				Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		 	Folgende Buttons werden darunter angezeigt:
-        		‘Betreff’
-        		‘Name’  
-				‘Und’
-       			‘Schlagwörter’
-       			‘Titel’
-        		‘Oder’
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der ‘Und’ Button wird geklickt.
-				<ergebnisse>
-					<ergebnis>
-					  Es wird der Text “ and “ in die Suchleiste eingetragen.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der 'Suche' Button wird gedrückt.
-				<ergebnisse>
-					<ergebnis>
-					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
 
-	<testfall
-		titel="Testfall für die erweiterte Suche Funktion 'Schlagwort' Button">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Das Suchfeld wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Neben dem Suchfeld befindet sich der ‘Suche’ Button
-			</vorraussetzung>
-			<vorraussetzung>
-   				Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		 	Folgende Buttons werden darunter angezeigt:
-        		‘Betreff’
-        		‘Name’  
-				‘Und’
-       			‘Schlagwörter’
-       			‘Titel’
-        		‘Oder’
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der 'Schlagwortbutton' wird gedrückt.
-				<ergebnisse>
-					<ergebnis>
-					  Es wird der Text “Schlagwort= “ in die Suchleiste eingetragen. 
-				Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der 'Suche' Button wird gedrückt.
-				<ergebnisse>
-					<ergebnis>
-					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Testfall für die erweiterte Suche Funktion 'Titel' Button">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Das Suchfeld wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Neben dem Suchfeld befindet sich der ‘Suche’ Button
-			</vorraussetzung>
-			<vorraussetzung>
-   				Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		 	Folgende Buttons werden darunter angezeigt:
-        		‘Betreff’
-        		‘Name’  
-				‘Und’
-       			‘Schlagwörter’
-       			‘Titel’
-        		‘Oder’
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der ‘Titel’ Button wird geklickt.
-				<ergebnisse>
-					<ergebnis>
-					  Es wird der Text “titel = “ in die Suchleiste eingetragen. 
-					  Wenn bereits Text in der Suchleiste vorhanden ist, so wird die Zeichenfolge “ and “ vorangestellt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der 'Suche' Button wird gedrückt.
-				<ergebnisse>
-					<ergebnis>
-					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Testfall für die erweiterte Suche Funktion 'Oder' Button">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Das Dialogfenster ‘erweiterte Suche’ wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Das Suchfeld wird angezeigt.
-			</vorraussetzung>
-			<vorraussetzung>
-				Neben dem Suchfeld befindet sich der ‘Suche’ Button
-			</vorraussetzung>
-			<vorraussetzung>
-   				Es wird nun ein Minuszeichen neben ”erweiterte Suche” angezeigt.
-    		 	Folgende Buttons werden darunter angezeigt:
-        		‘Betreff’
-        		‘Name’  
-				‘Und’
-       			‘Schlagwörter’
-       			‘Titel’
-        		‘Oder’
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der ‘Oder’ Button wird geklickt.
-				<ergebnisse>
-					<ergebnis>
-					  Es wird der Text “ or “ in die Suchleiste Eingetragen.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der 'Suche' Button wird gedrückt.
-				<ergebnisse>
-					<ergebnis>
-					  Die Recherche Ergebnisse werden unter dem Recherche Formular angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
 
 	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
 		<vorraussetzungen>

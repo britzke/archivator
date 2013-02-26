@@ -58,7 +58,7 @@
 				<pe:tooltip for="editOrganisationseinheitenButton"
 					value="Bearbeiten der zugeordneten Dokumentarten" />
 			</p:commandButton>
-			<p:dataTable value="#{cc.attrs.aktuellesArchivale.dokumentarten}"
+			<p:dataTable value="#{editBean.aktuellesArchivale.dokumentarten}"
 				var="da">
 				<p:column headerText="Dokumentarten">
 					<h:outputText value="#{da.name}"></h:outputText>
@@ -122,8 +122,9 @@
 			<p:scrollPanel mode="native" style="width:110px;height:250px">
 				<p:dataTable value="#{editBean.dokumentarten}" var="d"
 					rowKey="#{d.id}"
-					selection="#{cc.attrs.aktuellesArchivale.dokumentarten}"
-					selectionMode="multiple">
+					selection="#{editBean.selectedDokumentarten}"
+					selectionMode="multiple"
+					>
 					<p:column>
 						<h:outputText value="#{d.name}" />
 					</p:column>
