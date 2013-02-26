@@ -21,6 +21,7 @@
 package de.archivator.altdaten;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -65,6 +66,13 @@ public class AltdatenKonverter {
 	static EntityManagerFactory emf;
 	EntityManager em;
 	Archivale archivale = new Archivale();
+	String[] schulen = {
+			"<falsche Wert>", // Zählung in den Altdaten fängt mit 1 an
+			"Lette-Verein", "GBF", "FGM", "TBF", "HBF", "KBF", "PhoLA",
+			"Setzerinnen-Schule", "Kunsthandarbeitsschule",
+			"Fortbildungsschule", "Kunstgewerbeschule",
+			"Fachschneiderei-Schule", "Werkstätte für Putz", "Handelsschule",
+			"PFH", "sonstige", "Lette-Kolonie" };
 
 	/**
 	 * Erzeugt einen AltdatenKonverter, der Daten aus einer XML-Datei liest und
@@ -187,8 +195,7 @@ public class AltdatenKonverter {
 			// Dokumentart(en) hinzufügen
 			Query q = em.createQuery("select d from Dokumentart d");
 			@SuppressWarnings("unchecked")
-			List<Dokumentart> databaseDokumentarten = q
-					.getResultList();
+			List<Dokumentart> databaseDokumentarten = q.getResultList();
 			addArchivaleDokumentart(databaseDokumentarten, archivale,
 					altarchivale.getDokumentenartX00201());
 			addArchivaleDokumentart(databaseDokumentarten, archivale,
@@ -204,6 +211,11 @@ public class AltdatenKonverter {
 			addArchivaleOrganisationseinheit(databaseOrganisationeinheiten,
 					archivale, altarchivale.getAbteilung());
 
+			int schule = altarchivale.getSchule().intValue();
+			if (schule != 0) {
+				addArchivaleOrganisationseinheit(databaseOrganisationeinheiten,
+						archivale, schulen[schule]);
+			}
 			// Namen hinzufügen
 			q = em.createQuery("select n from Name n");
 			@SuppressWarnings("unchecked")
@@ -257,30 +269,39 @@ public class AltdatenKonverter {
 	 */
 	private void addArchivaleDokumentart(
 			List<Dokumentart> databaseDokumentarten, Archivale archivale,
-			String dokumentartString) {
-		if (dokumentartString != null) {
+			String dokumentartName) {
+		if (dokumentartName != null) {
 			List<Dokumentart> archivaleDokumentarten = archivale
 					.getDokumentarten();
-			Dokumentart dokumentart = new Dokumentart(dokumentartString);
-			for (Dokumentart databaseDokumentart : databaseDokumentarten) {
-				if (dokumentart.equals(databaseDokumentart)) {
-					dokumentart = databaseDokumentart;
-					break; // das erste wird genommen
+			dokumentartName = dokumentartName.replaceAll("\n", "");
+			String[] dokumentartNamen = { dokumentartName };
+			if (dokumentartName.indexOf(",") != -1) {
+				dokumentartNamen = dokumentartName.split(",");
+			} else if (dokumentartName.indexOf("/") != -1) {
+				dokumentartNamen = dokumentartName.split("/");
+			}
+			for (String daName : dokumentartNamen) {
+				Dokumentart dokumentart = new Dokumentart(daName.trim());
+				for (Dokumentart databaseDokumentart : databaseDokumentarten) {
+					if (dokumentart.equals(databaseDokumentart)) {
+						dokumentart = databaseDokumentart;
+						break; // das erste wird genommen
+					}
 				}
-			}
-			if (dokumentart.getId() == 0) {
-				databaseDokumentarten.add(dokumentart);
-			}
-			boolean schonVorhanden = false;
-			for (Dokumentart archivaleDokumentart : archivaleDokumentarten) {
-				if (dokumentart.equals(archivaleDokumentart)) {
-					schonVorhanden = true;
-					break;
+				if (dokumentart.getId() == 0) {
+					databaseDokumentarten.add(dokumentart);
 				}
-			}
-			if (!schonVorhanden) {
-				archivaleDokumentarten.add(dokumentart);
-				dokumentart.getArchivalien().add(archivale);
+				boolean schonVorhanden = false;
+				for (Dokumentart archivaleDokumentart : archivaleDokumentarten) {
+					if (dokumentart.equals(archivaleDokumentart)) {
+						schonVorhanden = true;
+						break;
+					}
+				}
+				if (!schonVorhanden) {
+					archivaleDokumentarten.add(dokumentart);
+					dokumentart.getArchivalien().add(archivale);
+				}
 			}
 		}
 	}
@@ -355,21 +376,32 @@ public class AltdatenKonverter {
 						.split("/");
 			}
 			for (String oeName : organisationseinheitenNamen) {
-				List<Organisationseinheit> organisationseinheiten = archivale
+				List<Organisationseinheit> archivaleOrganisationseinheiten = archivale
 						.getOrganisationseinheiten();
 				Organisationseinheit organisationseinheit = new Organisationseinheit(
-						oeName);
+						oeName.trim());
 				for (Organisationseinheit databaseOrganisationseinheit : databaseOrganisationeinheiten) {
 					if (organisationseinheit
 							.equals(databaseOrganisationseinheit)) {
 						organisationseinheit = databaseOrganisationseinheit;
+						break; // nur der erste Treffer wird genommen
 					}
 				}
 				if (organisationseinheit.getId() == 0) {
 					databaseOrganisationeinheiten.add(organisationseinheit);
 				}
-				organisationseinheiten.add(organisationseinheit);
-				organisationseinheit.getArchivalien().add(archivale);
+				boolean schonVorhanden = false;
+				for (Organisationseinheit archivaleOrganisationseinheit : archivaleOrganisationseinheiten) {
+					if (organisationseinheit
+							.equals(archivaleOrganisationseinheit)) {
+						schonVorhanden = true;
+						break;
+					}
+				}
+				if (!schonVorhanden) {
+					archivaleOrganisationseinheiten.add(organisationseinheit);
+					organisationseinheit.getArchivalien().add(archivale);
+				}
 			}
 		}
 	}
