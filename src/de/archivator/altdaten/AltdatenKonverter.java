@@ -21,7 +21,6 @@
 package de.archivator.altdaten;
 
 import java.io.File;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -105,8 +104,7 @@ public class AltdatenKonverter {
 	 */
 	public static void main(String[] args) {
 		AltdatenKonverter me = new AltdatenKonverter();
-		// me.extractDokumentarten();
-		// me.extractOrganisationseinheiten();
+
 		me.extractArchivale();
 
 		CompassConfiguration conf = new CompassConfiguration().configure();
@@ -122,23 +120,6 @@ public class AltdatenKonverter {
 		gps.addGpsDevice(jpaDevice);
 		gps.start();
 		gps.index();
-	}
-
-	/**
-	 * Extrahiert einen Name-Objekt aus einer Zeichenkette.
-	 * 
-	 * @param nameString
-	 *            Zeichenkette mit einem Namen. Die Zeichenkette darf nicht null
-	 *            sein.
-	 * @return Das Name-Objekt.
-	 */
-	private Name extractName(String nameString) {
-		String nachname = nameString.split(",").length > 0 ? nameString
-				.split(",")[0].trim() : null;
-		String vorname = nameString.split(",").length > 1 ? nameString
-				.split(",")[1].trim() : null;
-		Name actualName = new Name(nachname, vorname);
-		return actualName;
 	}
 
 	/**
@@ -307,47 +288,6 @@ public class AltdatenKonverter {
 	}
 
 	/**
-	 * Fügt dem Archivale ein Schlagwort hinzu. Existiert das Schlagwort in der
-	 * Datenbank noch nicht, so wird es der Datenbank hinzugefügt, ansonsten
-	 * wird das bestehende Schlagwort referenziert.
-	 * 
-	 * @param databaseSchlagwörter
-	 *            Liste aller Schlagwörter, die bereits in der Datenbank sind.
-	 * @param archivale
-	 *            Das Archivale, dem das Schlagwort zugeordnet werden soll.
-	 * @param schlagwortString
-	 *            Das Schlagwort, das dem Archivale zugeordnet werden soll.
-	 */
-	private void addArchivaleSchlagwort(List<Schlagwort> databaseSchlagwörter,
-			Archivale archivale, String schlagwortString) {
-		if (schlagwortString != null) {
-			List<Schlagwort> archivaleSchlagwörter = archivale
-					.getSchlagwörter();
-			Schlagwort schlagwort = new Schlagwort(schlagwortString);
-			for (Schlagwort databaseSchlagwort : databaseSchlagwörter) {
-				if (schlagwort.equals(databaseSchlagwort)) {
-					schlagwort = databaseSchlagwort;
-					break; // das erste wird genommen
-				}
-			}
-			if (schlagwort.getId() == 0) {
-				databaseSchlagwörter.add(schlagwort);
-			}
-			boolean schonVorhanden = false;
-			for (Schlagwort archivaleSchlagwort : archivaleSchlagwörter) {
-				if (schlagwort.equals(archivaleSchlagwort)) {
-					schonVorhanden = true;
-					break;
-				}
-			}
-			if (!schonVorhanden) {
-				archivaleSchlagwörter.add(schlagwort);
-				schlagwort.getArchivalien().add(archivale);
-			}
-		}
-	}
-
-	/**
 	 * Fügt dem Archivale eine Organisationseinheit hinzu. Existiert die
 	 * Organisationseinheit in der Datenbank noch nicht, so wird sie der
 	 * Datenbank hinzugefügt, ansonsten wird die bestehende Organisationseinheit
@@ -407,6 +347,23 @@ public class AltdatenKonverter {
 	}
 
 	/**
+	 * Extrahiert einen Name-Objekt aus einer Zeichenkette.
+	 * 
+	 * @param nameString
+	 *            Zeichenkette mit einem Namen. Die Zeichenkette darf nicht null
+	 *            sein.
+	 * @return Das Name-Objekt.
+	 */
+	private Name extractName(String nameString) {
+		String nachname = nameString.split(",").length > 0 ? nameString
+				.split(",")[0].trim() : null;
+		String vorname = nameString.split(",").length > 1 ? nameString
+				.split(",")[1].trim() : null;
+		Name actualName = new Name(nachname, vorname);
+		return actualName;
+	}
+
+	/**
 	 * Fügt einem Archivale den angegebenen Namen hinzu, wenn dieser nicht null
 	 * ist.
 	 * 
@@ -432,6 +389,47 @@ public class AltdatenKonverter {
 			}
 			namen.add(name);
 			name.getArchivalien().add(archivale);
+		}
+	}
+
+	/**
+	 * Fügt dem Archivale ein Schlagwort hinzu. Existiert das Schlagwort in der
+	 * Datenbank noch nicht, so wird es der Datenbank hinzugefügt, ansonsten
+	 * wird das bestehende Schlagwort referenziert.
+	 * 
+	 * @param databaseSchlagwörter
+	 *            Liste aller Schlagwörter, die bereits in der Datenbank sind.
+	 * @param archivale
+	 *            Das Archivale, dem das Schlagwort zugeordnet werden soll.
+	 * @param schlagwortString
+	 *            Das Schlagwort, das dem Archivale zugeordnet werden soll.
+	 */
+	private void addArchivaleSchlagwort(List<Schlagwort> databaseSchlagwörter,
+			Archivale archivale, String schlagwortString) {
+		if (schlagwortString != null) {
+			List<Schlagwort> archivaleSchlagwörter = archivale
+					.getSchlagwörter();
+			Schlagwort schlagwort = new Schlagwort(schlagwortString);
+			for (Schlagwort databaseSchlagwort : databaseSchlagwörter) {
+				if (schlagwort.equals(databaseSchlagwort)) {
+					schlagwort = databaseSchlagwort;
+					break; // das erste wird genommen
+				}
+			}
+			if (schlagwort.getId() == 0) {
+				databaseSchlagwörter.add(schlagwort);
+			}
+			boolean schonVorhanden = false;
+			for (Schlagwort archivaleSchlagwort : archivaleSchlagwörter) {
+				if (schlagwort.equals(archivaleSchlagwort)) {
+					schonVorhanden = true;
+					break;
+				}
+			}
+			if (!schonVorhanden) {
+				archivaleSchlagwörter.add(schlagwort);
+				schlagwort.getArchivalien().add(archivale);
+			}
 		}
 	}
 
