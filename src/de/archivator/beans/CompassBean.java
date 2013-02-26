@@ -38,7 +38,10 @@ import org.compass.gps.device.jpa.JpaGpsDevice;
 import org.compass.gps.impl.SingleCompassGps;
 
 import de.archivator.entities.Archivale;
+import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
+import de.archivator.entities.Organisationseinheit;
+import de.archivator.entities.Schlagwort;
 
 /**
  * Stellt das Compass-Objekt zur Indizierung und zur Suche zur Verfügung.
@@ -54,6 +57,10 @@ public class CompassBean {
 	@Produces
 	Compass compass;
 
+	private CompassGpsDevice jpaDevice;
+
+	private CompassGps gps;
+
 	/**
 	 * Erzeugt eine neue CompassBean. Die Eigenschaft compass wird mit einem
 	 * neuen Compass-Objekt initialisiert.
@@ -61,35 +68,24 @@ public class CompassBean {
 	public CompassBean() {
 		CompassConfiguration conf = new CompassConfiguration().configure();
 		conf.addClass(Archivale.class);
+		conf.addClass(Dokumentart.class);
 		conf.addClass(Name.class);
+		conf.addClass(Organisationseinheit.class);
+		conf.addClass(Schlagwort.class);
 		compass = conf.buildCompass();
 	}
 
 	/**
-	 * Initialisiert den Compass-Index.
+	 * Initialisiert das CompassGpsDevice.
 	 */
 	@PostConstruct
 	public void init() {
 
-		EntityManager entityManager = entityManagerFactory
-				.createEntityManager();
-		CompassIndexSession session = compass.openIndexSession();
-		CompassGps gps = new SingleCompassGps(compass);
+		gps = new SingleCompassGps(compass);
 		CompassGpsDevice jpaDevice = new JpaGpsDevice("jpa",
 				entityManagerFactory);
 		gps.addGpsDevice(jpaDevice);
 		gps.start();
-		gps.index();
-		try {
-			Query q = entityManager.createQuery("select a from Archivale a");
-
-			List<Archivale> archivalien = q.getResultList();
-			for (Archivale archivale : archivalien) {
-				session.save(archivale);
-			}
-		} finally {
-			session.close();
-		}
 	}
 
 	/**

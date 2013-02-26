@@ -215,8 +215,7 @@ public class EditBeanTest {
 
 		String navigation = proband.loadNamen();
 
-		assertEquals("loadNamen() muss zum Edit-View navigieren", "edit",
-				navigation);
+		assertNull("loadNamen() muss zum gleichen View navigieren", navigation);
 		assertEquals("Müller, Hans; Meier, Franz", proband.getFormularNames());
 
 	}
@@ -227,20 +226,18 @@ public class EditBeanTest {
 	@Test
 	public void testSaveNamen() {
 		proband.setFormularNames("Müller, Hans;");
-		nameList=new ArrayList<Name>();
-		Name name = new Name("Müller","Hans");
+		nameList = new ArrayList<Name>();
+		Name name = new Name("Müller", "Hans");
 		nameList.add(name);
 		List<Name> archivaleNamen = new ArrayList<Name>();
 		aktuellesArchivale.setNamen(archivaleNamen);
-		
+
 		when(query.getResultList()).thenReturn(nameList);
-		when(entityManager.merge(name)).thenReturn(new Name("Müller","Hans"));
-		
+		when(entityManager.merge(name)).thenReturn(new Name("Müller", "Hans"));
+
 		String navigation = proband.saveNamen();
-		assertEquals("saveNamen() muss zum Edit-View navigieren", "edit",
-				navigation);
+		assertNull("saveNamen() muss zum gleichen View navigieren", navigation);
 		assertEquals(1, aktuellesArchivale.getNamen().size());
-		
 	}
 
 	/**
@@ -252,9 +249,9 @@ public class EditBeanTest {
 		Query q = mock(Query.class);
 		when(entityManager.createQuery(anyString())).thenReturn(q);
 		String navigation = proband.loadOrganisationseinheiten();
-		assertEquals(
-				"loadOrganisationseinheiten() muss zum Edit-View navigieren",
-				"edit", navigation);
+		assertNull(
+				"loadOrganisationseinheiten() muss zum gleichen View navigieren",
+				navigation);
 		verify(entityManager).createQuery(anyString());
 	}
 
@@ -268,7 +265,8 @@ public class EditBeanTest {
 		org.add(new Organisationseinheit("CD"));
 		org.add(new Organisationseinheit("Dokument"));
 		String navigation = proband.saveOrganisationseinheiten();
-		assertTrue("CD und Dokument sollten aufgelistet sein", proband.getOrganisationseinheiten() == org);
+		assertTrue("CD und Dokument sollten aufgelistet sein",
+				proband.getOrganisationseinheiten() == org);
 		org.clear();
 		org.add(new Organisationseinheit("Marmeladenglas"));
 		navigation = proband.saveOrganisationseinheiten();
@@ -279,9 +277,9 @@ public class EditBeanTest {
 			}
 		}
 		assertFalse("Marmeladenglas muss abgelehnt werden", marmelade);
-		assertEquals(
-				"saveOrganisationseinheiten() muss zum Edit-View navigieren",
-				"edit", navigation);
+		assertNull(
+				"saveOrganisationseinheiten() muss zum gleichen View navigieren",
+				navigation);
 	}
 
 	/**
@@ -312,7 +310,7 @@ public class EditBeanTest {
 		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
 
 		String navigation = proband.loadSchlagworte();
-		assertEquals("loadSchlagworte() muss zum Edit-View navigieren", "edit",
+		assertNull("loadSchlagworte() muss zum Edit-View navigieren",
 				navigation);
 		assertEquals("Der zu ladende Test soll 'Lette, Datenbank' sein",
 				"Lette, Datenbank", proband.getFormularSchlagwörter());
@@ -347,8 +345,7 @@ public class EditBeanTest {
 
 		navigation = proband.saveSchlagworte();
 
-		assertEquals("saveSchlagworte() muss zum Edit-View navigieren", "edit",
-				navigation);
+		assertNull(navigation);
 		List<Schlagwort> schlagwörter = aktuellesArchivale.getSchlagwörter();
 		boolean containsLette = false;
 		boolean containsProjekt = false;
@@ -373,7 +370,9 @@ public class EditBeanTest {
 		assertTrue(
 				"Im akutellen Archivale muss das Schlagwort 'Datenbank' gesetzt sein",
 				containsDatenbank);
-		assertTrue("Die Schlagworte müssen in den Details enthalten sein", detailBean.getAktuellesArchivale() == aktuellesArchivale);
-		//geplanter Test: Suchfunktion nutzen, um aktuellesArchivale über die Schlagworte zu suchen
+		assertTrue("Die Schlagworte müssen in den Details enthalten sein",
+				detailBean.getAktuellesArchivale() == aktuellesArchivale);
+		// geplanter Test: Suchfunktion nutzen, um aktuellesArchivale über die
+		// Schlagworte zu suchen
 	}
 }

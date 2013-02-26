@@ -347,7 +347,7 @@ public class EditBean implements Serializable {
 	 * Lädt die Namen, die dem Archivale zugeordnet ist, aus der Liste namen als
 	 * Komma separierten Text zur Bearbeitung in die Eigenschaft archivaleNamen.
 	 * 
-	 * @return "edit" immer.
+	 * @return null... immer.
 	 */
 	public String loadNamen() {
 		formularNames = "";
@@ -359,14 +359,14 @@ public class EditBean implements Serializable {
 			formularNames += archivaleName.getNachname() + ", "
 					+ archivaleName.getVorname();
 		}
-		return "edit";
+		return null;
 	}
 
 	/**
 	 * Speichert die Namen aus der komma- und semikolaseparierten Zeichenkette
 	 * archivaleNamen in die Liste namen.
 	 * 
-	 * @return "edit" immer
+	 * @return null... immer
 	 */
 	public String saveNamen() {
 		entityManager = entityManagerFactory.createEntityManager();
@@ -429,17 +429,28 @@ public class EditBean implements Serializable {
 		entityManager.close();
 
 		details.setAktuellesArchivale(aktuellesArchivale);
-		return "edit";
+		return null;
 	}
 
+	/**
+	 * Lädt die Eigenschaften für das Formular zur Bearbeitung
+	 * der Organisationseinheiten.
+	 * 
+	 * @return null... immer
+	 */
 	public String loadOrganisationseinheiten() {
 		entityManager = entityManagerFactory.createEntityManager();
 		Query q = entityManager
 				.createQuery("select o from Organisationseinheit o");
 		organisationseinheiten = q.getResultList();
-		return "edit";
+		return null;
 	}
 
+	/**
+	 * Sichert die Eigenschaften aus dem Formular
+	 * zur Bearbeitung der Organisationseinheiten.
+	 * @return null... immer
+	 */
 	public String saveOrganisationseinheiten() {
 		List<Organisationseinheit> org = aktuellesArchivale.getOrganisationseinheiten();
 		org.clear();
@@ -448,14 +459,14 @@ public class EditBean implements Serializable {
 		}
 		aktuellesArchivale.setOrganisationseinheiten(org);
 		details.setAktuellesArchivale(aktuellesArchivale);
-		return "edit";
+		return null;
 	}
 
 	public String loadDokumentarten() {
 		entityManager = entityManagerFactory.createEntityManager();
 		Query q = entityManager.createQuery("select d from Dokumentart d");
 		dokumentarten = q.getResultList();
-		return "edit";
+		return null;
 	}
 
 	public String saveDokumentarten() {
@@ -470,7 +481,7 @@ public class EditBean implements Serializable {
 				System.out.println("d: " + d.getName());
 			}
 		}
-		return "edit";
+		return null;
 	}
 
 	/**
@@ -478,7 +489,7 @@ public class EditBean implements Serializable {
 	 * schlagworte als Komma separierten Text zur Bearbeitung in die Eigenschaft
 	 * archivaleSchlagwörter.
 	 * 
-	 * @return "edit" immer.
+	 * @return null... immer.
 	 */
 	public String loadSchlagworte() {
 		List<Schlagwort> schlagwörter = details.getAktuellesArchivale()
@@ -490,14 +501,14 @@ public class EditBean implements Serializable {
 		}
 		formularSchlagwörter = output.substring(0,
 				Math.max(output.length() - 2, 0));
-		return "edit";
+		return null;
 	}
 
 	/**
 	 * Speichert die Schlagworte aus der kommaseparierten Zeichenkette
 	 * formularSchlagwörter in die Liste schlagworte.
 	 * 
-	 * @return "edit" immer.
+	 * @return null... immer.
 	 */
 	public String saveSchlagworte() {
 		List<Schlagwort> archivaleSchlagwörter = aktuellesArchivale
@@ -515,6 +526,7 @@ public class EditBean implements Serializable {
 			deleteMap.put(entry, false); // You are already dead.
 			if (archivaleSchlagwörter.isEmpty()) {
 				archivaleSchlagwörter.add(entry);
+				neu2=false;
 			} else {
 				for (Schlagwort s : archivaleSchlagwörter) {
 					if (s.getName() == entry.getName()) {
@@ -556,8 +568,7 @@ public class EditBean implements Serializable {
 			ce.printStackTrace();
 			session.rollback();
 		}
-
-		return "edit";
+		return null;
 	}
 
 	/**

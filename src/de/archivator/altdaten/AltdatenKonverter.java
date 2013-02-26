@@ -34,10 +34,20 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.compass.core.Compass;
+import org.compass.core.config.CompassConfiguration;
+import org.compass.gps.CompassGps;
+import org.compass.gps.CompassGpsDevice;
+import org.compass.gps.device.jpa.JpaGpsDevice;
+import org.compass.gps.impl.SingleCompassGps;
+
 import de.archivator.altdaten.model.Dataroot;
 import de.archivator.altdaten.model.TabelleX0020Archiv;
 import de.archivator.entities.Archivale;
+import de.archivator.entities.Dokumentart;
+import de.archivator.entities.Name;
 import de.archivator.entities.Organisationseinheit;
+import de.archivator.entities.Schlagwort;
 
 /**
  * Konvertiert die Altdaten des Archivs des Lette-Vereins aus einer XML-Datei in
@@ -46,13 +56,13 @@ import de.archivator.entities.Organisationseinheit;
  * @author e0_naumann
  * @author e0_schulz
  * @author mueller
- * @author burghard.britzke
+ * @author burghard.britzke bubi@charmides.in-berlin.de
  * 
  */
 public class AltdatenKonverter {
 
 	List<TabelleX0020Archiv> tabelle;
-	EntityManagerFactory emf;
+	static EntityManagerFactory emf;
 	EntityManager em;
 	Archivale archivale = new Archivale();
 
@@ -87,55 +97,40 @@ public class AltdatenKonverter {
 	 */
 	public static void main(String[] args) {
 		AltdatenKonverter me = new AltdatenKonverter();
-		me.extractOrganisationseinheiten();
 		// me.extractDokumentarten();
+		// me.extractOrganisationseinheiten();
 		me.extractArchivale();
+
+		CompassConfiguration conf = new CompassConfiguration().configure();
+		conf.addClass(Archivale.class);
+		conf.addClass(Dokumentart.class);
+		conf.addClass(Name.class);
+		conf.addClass(Organisationseinheit.class);
+		conf.addClass(Schlagwort.class);
+		Compass compass = conf.buildCompass();
+
+		CompassGps gps = new SingleCompassGps(compass);
+		CompassGpsDevice jpaDevice = new JpaGpsDevice("jpa", emf);
+		gps.addGpsDevice(jpaDevice);
+		gps.start();
+		gps.index();
 	}
 
 	/**
-	 * Extrahiert die Organisationseinheiten aus den Altdaten. und wird sie
-	 * zukünftig hoffentlich in die Datenbank speichern.
+	 * Extrahiert einen Name-Objekt aus einer Zeichenkette.
+	 * 
+	 * @param nameString
+	 *            Zeichenkette mit einem Namen. Die Zeichenkette darf nicht null
+	 *            sein.
+	 * @return Das Name-Objekt.
 	 */
-	private void extractOrganisationseinheiten() {
-		em = emf.createEntityManager();
-		List<String> organisationseinheiten = new ArrayList<String>();
-		for (TabelleX0020Archiv altArchivale : tabelle) {
-			String abteilung = altArchivale.getAbteilung();
-			if (abteilung != null) {
-				abteilung = abteilung.replaceAll("\n", "");
-				String[] abteilungen = { abteilung };
-				if (abteilung.indexOf(",") != -1) {
-					abteilungen = abteilung.split(",");
-				} else if (abteilung.indexOf("/") != -1) {
-					abteilungen = abteilung.split("/");
-				}
-				boolean abteilungVorhanden = false;
-				for (String einzelAbteilung : abteilungen) {
-					einzelAbteilung = einzelAbteilung.trim();
-					for (String organisatonseinheit : organisationseinheiten) {
-						if (einzelAbteilung.equals(organisatonseinheit)) {
-							abteilungVorhanden = true;
-						}
-					}
-					if (!abteilungVorhanden) {
-						organisationseinheiten.add(einzelAbteilung);
-					}
-				}
-			}
-		}
-
-		EntityTransaction et = em.getTransaction();
-
-		et.begin();
-
-		for (String organisationsheinheit : organisationseinheiten) {
-			System.out.println(organisationsheinheit);
-			Organisationseinheit o = new Organisationseinheit(
-					organisationsheinheit);
-			o = em.merge(o);
-		}
-		et.commit();
-		em.close();
+	private Name extractName(String nameString) {
+		String nachname = nameString.split(",").length > 0 ? nameString
+				.split(",")[0].trim() : null;
+		String vorname = nameString.split(",").length > 1 ? nameString
+				.split(",")[1].trim() : null;
+		Name actualName = new Name(nachname, vorname);
+		return actualName;
 	}
 
 	/**
@@ -144,7 +139,7 @@ public class AltdatenKonverter {
 	 */
 	private void extractArchivale() {
 		em = emf.createEntityManager();
-		List<Archivale> archivalienSammlung = new ArrayList<Archivale>();
+
 		for (TabelleX0020Archiv altarchivale : tabelle) {
 			Archivale archivale = new Archivale();
 			List<Integer> daten = new ArrayList<Integer>();
@@ -153,101 +148,259 @@ public class AltdatenKonverter {
 			datumsUmwandlung(altarchivale.getDatumX00203(), daten);
 
 			if (daten.size() != 0) {
-				Collections.sort(daten); // sortiert die einträge in der Liste
-				archivale.setVonJahr(daten.get(0)); // speichert den ersten
-													// Eintarg(niedrigstes Jahr)
-													// aus der Liste
-				archivale.setBisJahr(daten.get(daten.size() - 1)); // speichert
-																	// den
-																	// letzten
-																	// Eintrag(höchstes
-																	// Jahr) aus
-																	// der Liste
+				// sortiert die einträge in der Liste
+				Collections.sort(daten);
+				// speichert den ersten Eintarg(niedrigstes Jahr) aus der Liste
+				archivale.setVonJahr(daten.get(0));
+				// speichert den letzten Eintrag(höchstes Jahr) aus der Liste
+				archivale.setBisJahr(daten.get(daten.size() - 1));
 			}
-
-			String betreff = altarchivale.getBetreff(); // extrahiert alle
-														// Betreffe aus der
-														// altdatenxml
+			// extrahiert alle Betreffe aus der altdatenxml
+			String betreff = altarchivale.getBetreff();
 			if (betreff != null) {
 				betreff = betreff.trim();
 				archivale.setBetreff(betreff);
 			}
-			String inhalt = altarchivale.getInhalt(); // extrahiert alle Inhalte
-														// aus der altdatenxml
+			// extrahiert alle Inhalte aus der altdatenxml
+			String inhalt = altarchivale.getInhalt();
 			if (inhalt != null) {
 				inhalt = inhalt.trim();
 				archivale.setInhalt(inhalt);
 			}
-			String mappe = altarchivale.getObjektX0020Nummer(); // extrahiert
-																// alle
-																// Mappennummern
-																// aus der
-																// altdatenxml
+			// extrahiert alle Mappennummern aus der altdatenxml
+			String mappe = altarchivale.getObjektX0020Nummer();
 			if (mappe != null) {
 				String[] mappenTeile = mappe.split("/");
 				String mappenString = mappenTeile[1];
 				archivale.setMappe(Integer.parseInt(mappenString));
 			}
-			int schubfach = altarchivale.getSchubfachX0020Nummer();// extrahiert
-																	// alle
-																	// Schubfachnummern
-																	// aus der
-																	// altdatenxml
+			// extrahiert alle Schubfachnummern aus der altdatenxml
+			int schubfach = altarchivale.getSchubfachX0020Nummer();
 			if (schubfach != 0) {
 				archivale.setSchubfach(schubfach);
 			}
-			archivalienSammlung.add(archivale);
-		}
-		EntityTransaction et = em.getTransaction();
-		et.begin();
-		for (Archivale archivale : archivalienSammlung) {
 
+			EntityTransaction et = em.getTransaction();
+			et.begin();
 			archivale = em.merge(archivale);
 
-		}
-		zusammenfügen();
-		et.commit();
-		em.close();
+			// Dokumentart(en) hinzufügen
+			Query q = em.createQuery("select d from Dokumentart d");
+			@SuppressWarnings("unchecked")
+			List<Dokumentart> databaseDokumentarten = q
+					.getResultList();
+			addArchivaleDokumentart(databaseDokumentarten, archivale,
+					altarchivale.getDokumentenartX00201());
+			addArchivaleDokumentart(databaseDokumentarten, archivale,
+					altarchivale.getDokumentenartX00202());
+			addArchivaleDokumentart(databaseDokumentarten, archivale,
+					altarchivale.getDokumentenartX00203());
 
+			// Organisationseinheit(en) hinzufügen
+			q = em.createQuery("select o from Organisationseinheit o");
+			@SuppressWarnings("unchecked")
+			List<Organisationseinheit> databaseOrganisationeinheiten = q
+					.getResultList();
+			addArchivaleOrganisationseinheit(databaseOrganisationeinheiten,
+					archivale, altarchivale.getAbteilung());
+
+			// Namen hinzufügen
+			q = em.createQuery("select n from Name n");
+			@SuppressWarnings("unchecked")
+			List<Name> databaseNames = q.getResultList();
+			addArchivaleName(databaseNames, archivale,
+					altarchivale.getNameX00201());
+			addArchivaleName(databaseNames, archivale,
+					altarchivale.getNameX00202());
+			addArchivaleName(databaseNames, archivale,
+					altarchivale.getNameX00203());
+			addArchivaleName(databaseNames, archivale,
+					altarchivale.getNameX00204());
+			addArchivaleName(databaseNames, archivale,
+					altarchivale.getNameX00205());
+			addArchivaleName(databaseNames, archivale,
+					altarchivale.getNameX00206());
+
+			// Schlagworte hinzufügen
+			q = em.createQuery("select s from Schlagwort s");
+			@SuppressWarnings("unchecked")
+			List<Schlagwort> databaseSchlagwörter = q.getResultList();
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00201());
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00202());
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00203());
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00204());
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00205());
+			addArchivaleSchlagwort(databaseSchlagwörter, archivale,
+					altarchivale.getSchlagwortX00206());
+
+			et.commit();
+		}
+		em.close();
 	}
 
-	private void zusammenfügen() {
-		Query q = em.createQuery("select n from Organisationseinheit n");
-		List<Organisationseinheit> orga = q.getResultList();
-		Query qa = em.createQuery("select n from Archivale n");
-		List<Archivale> archivalenliste = qa.getResultList();
-		for (TabelleX0020Archiv altarchivale : tabelle) {
-			String organisationseinheiten = altarchivale.getAbteilung();
-			if (organisationseinheiten != null) {
-				for (Organisationseinheit o : orga) {
-					if (o.getName().equals(organisationseinheiten)) {
-						for (Archivale archiv : archivalenliste) {
-							try {
-								if ((archiv.getSchubfach() == altarchivale
-										.getSchubfachX0020Nummer())
-										&& (archiv.getInhalt()
-												.equals(altarchivale
-														.getInhalt()))) {
-									List<Organisationseinheit> org = archiv
-											.getOrganisationseinheiten();
-									org.add(o);
-									archiv.setOrganisationseinheiten(org);
-
-									List<Archivale> arch = o.getArchivalien();
-									arch.add(archiv);
-									o.setArchivalien(arch);
-								}
-							} catch (NullPointerException e) {
-								e.printStackTrace();
-								System.err.println("N_ID:"+archiv.getId()+" A_ID:"+altarchivale.getID());
-							}
-
-						}
-					}
+	/**
+	 * Fügt dem Archivale eine Dokumentart hinzu. Existiert die Dokumentart in
+	 * der Datenbank noch nicht, so wird sie der Datenbank hinzugefügt,
+	 * ansonsten wird die bestehende Dokumentart referenziert.
+	 * 
+	 * @param databaseDokumentarten
+	 *            Liste von Dokumentarten aus der Datenbank.
+	 * @param archivale
+	 *            Das Archviale, dem die Dokumentart hinzugefügt werden soll.
+	 * @param dokumentenartString
+	 *            Dokumentart, die dem Archivale hinzugefügt werden soll.
+	 */
+	private void addArchivaleDokumentart(
+			List<Dokumentart> databaseDokumentarten, Archivale archivale,
+			String dokumentartString) {
+		if (dokumentartString != null) {
+			List<Dokumentart> archivaleDokumentarten = archivale
+					.getDokumentarten();
+			Dokumentart dokumentart = new Dokumentart(dokumentartString);
+			for (Dokumentart databaseDokumentart : databaseDokumentarten) {
+				if (dokumentart.equals(databaseDokumentart)) {
+					dokumentart = databaseDokumentart;
+					break; // das erste wird genommen
 				}
 			}
+			if (dokumentart.getId() == 0) {
+				databaseDokumentarten.add(dokumentart);
+			}
+			boolean schonVorhanden = false;
+			for (Dokumentart archivaleDokumentart : archivaleDokumentarten) {
+				if (dokumentart.equals(archivaleDokumentart)) {
+					schonVorhanden = true;
+					break;
+				}
+			}
+			if (!schonVorhanden) {
+				archivaleDokumentarten.add(dokumentart);
+				dokumentart.getArchivalien().add(archivale);
+			}
 		}
+	}
 
+	/**
+	 * Fügt dem Archivale ein Schlagwort hinzu. Existiert das Schlagwort in der
+	 * Datenbank noch nicht, so wird es der Datenbank hinzugefügt, ansonsten
+	 * wird das bestehende Schlagwort referenziert.
+	 * 
+	 * @param databaseSchlagwörter
+	 *            Liste aller Schlagwörter, die bereits in der Datenbank sind.
+	 * @param archivale
+	 *            Das Archivale, dem das Schlagwort zugeordnet werden soll.
+	 * @param schlagwortString
+	 *            Das Schlagwort, das dem Archivale zugeordnet werden soll.
+	 */
+	private void addArchivaleSchlagwort(List<Schlagwort> databaseSchlagwörter,
+			Archivale archivale, String schlagwortString) {
+		if (schlagwortString != null) {
+			List<Schlagwort> archivaleSchlagwörter = archivale
+					.getSchlagwörter();
+			Schlagwort schlagwort = new Schlagwort(schlagwortString);
+			for (Schlagwort databaseSchlagwort : databaseSchlagwörter) {
+				if (schlagwort.equals(databaseSchlagwort)) {
+					schlagwort = databaseSchlagwort;
+					break; // das erste wird genommen
+				}
+			}
+			if (schlagwort.getId() == 0) {
+				databaseSchlagwörter.add(schlagwort);
+			}
+			boolean schonVorhanden = false;
+			for (Schlagwort archivaleSchlagwort : archivaleSchlagwörter) {
+				if (schlagwort.equals(archivaleSchlagwort)) {
+					schonVorhanden = true;
+					break;
+				}
+			}
+			if (!schonVorhanden) {
+				archivaleSchlagwörter.add(schlagwort);
+				schlagwort.getArchivalien().add(archivale);
+			}
+		}
+	}
+
+	/**
+	 * Fügt dem Archivale eine Organisationseinheit hinzu. Existiert die
+	 * Organisationseinheit in der Datenbank noch nicht, so wird sie der
+	 * Datenbank hinzugefügt, ansonsten wird die bestehende Organisationseinheit
+	 * refernziert.
+	 * 
+	 * @param databaseOrganisationeinheiten
+	 *            Die Organisationeinheiten die in der Datenbank schon vorhanden
+	 *            sind.
+	 * @param archivale
+	 *            Das Archivale, dem die Organisationseinheit hinzugefügt wird.
+	 * @param organisationseinheitName
+	 *            Der Name der Organisationseinheit.
+	 */
+	private void addArchivaleOrganisationseinheit(
+			List<Organisationseinheit> databaseOrganisationeinheiten,
+			Archivale archivale, String organisationseinheitName) {
+		if (organisationseinheitName != null) {
+			organisationseinheitName = organisationseinheitName.replaceAll(
+					"\n", "");
+			String[] organisationseinheitenNamen = { organisationseinheitName };
+			if (organisationseinheitName.indexOf(",") != -1) {
+				organisationseinheitenNamen = organisationseinheitName
+						.split(",");
+			} else if (organisationseinheitName.indexOf("/") != -1) {
+				organisationseinheitenNamen = organisationseinheitName
+						.split("/");
+			}
+			for (String oeName : organisationseinheitenNamen) {
+				List<Organisationseinheit> organisationseinheiten = archivale
+						.getOrganisationseinheiten();
+				Organisationseinheit organisationseinheit = new Organisationseinheit(
+						oeName);
+				for (Organisationseinheit databaseOrganisationseinheit : databaseOrganisationeinheiten) {
+					if (organisationseinheit
+							.equals(databaseOrganisationseinheit)) {
+						organisationseinheit = databaseOrganisationseinheit;
+					}
+				}
+				if (organisationseinheit.getId() == 0) {
+					databaseOrganisationeinheiten.add(organisationseinheit);
+				}
+				organisationseinheiten.add(organisationseinheit);
+				organisationseinheit.getArchivalien().add(archivale);
+			}
+		}
+	}
+
+	/**
+	 * Fügt einem Archivale den angegebenen Namen hinzu, wenn dieser nicht null
+	 * ist.
+	 * 
+	 * @param databaseNames
+	 *            Liste von Namen, die in der Datenbank vorhanden sind.
+	 * @param archivale
+	 *            Das Archivale, dem der Name hinzugefügt werden soll.
+	 * @param nameString
+	 *            Der Name, der dem Archivale hinzugefügt werden soll.
+	 */
+	private void addArchivaleName(List<Name> databaseNames,
+			Archivale archivale, String nameString) {
+		if (nameString != null) {
+			List<Name> namen = archivale.getNamen();
+			Name name = extractName(nameString);
+			for (Name databaseName : databaseNames) {
+				if (name.equals(databaseName)) {
+					name = databaseName;
+				}
+			}
+			if (name.getId() == 0) {
+				databaseNames.add(name);
+			}
+			namen.add(name);
+			name.getArchivalien().add(archivale);
+		}
 	}
 
 	/**
@@ -328,50 +481,4 @@ public class AltdatenKonverter {
 		}
 		return daten;
 	}
-
-	/**
-	 * Diese Methode ist dafür zuständig, die Dokumentarten aus den Altdaten zu
-	 * holen.
-	 */
-	public void extractDokumentarten() {
-
-		List<String> dokumentarten = new ArrayList<String>();
-		for (TabelleX0020Archiv altarchivale : tabelle) {
-			String dokumentart1 = altarchivale.getDokumentenartX00201();
-			String dokumentart2 = altarchivale.getDokumentenartX00202();
-			String dokumentart3 = altarchivale.getDokumentenartX00203();
-
-			if (dokumentart1 != null) { // wird ausgeführt wenn dokumentart1
-										// ungleich 0 ist
-				System.out.println(dokumentart1);
-				dokumentarten.add(dokumentart1); // fügt der List<String>
-													// dokumentarten die Strings
-													// von dokumentart1 hinzu
-			}
-			if (dokumentart2 != null) { // wird ausgeführt wenn dokumentart2
-										// ungleich 0 ist
-				System.out.println(dokumentart2);
-				dokumentarten.add(dokumentart2); // fügt der List<String>
-													// dokumentarten die Strings
-													// von dokumentart2 hinzu
-			}
-			if (dokumentart3 != null) { // wird ausgeführt wenn dokumentart3
-										// ungleich 0 ist
-				System.out.println(dokumentart3);
-				dokumentarten.add(dokumentart3); // fügt der List<String>
-													// dokumentarten die Strings
-													// von dokumentart3 hinzu
-			}
-			System.out.println(dokumentarten);
-		}
-		/*
-		 * EntityManager em = emf.createEntityManager(); EntityTransaction et =
-		 * em.getTransaction(); et.begin(); for(String dokumentart :
-		 * dokumentarten){
-		 * 
-		 * } et.commit(); em.close();
-		 */
-
-	}
-
 }

@@ -60,7 +60,7 @@ public class Name implements Serializable {
 	// bi-directional many-to-many association to Archivalien
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "NAMEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "NAMEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
-	@SearchableComponent
+	//@SearchableComponent
 	private List<Archivale> archivalien;
 
 	private transient boolean marked;
@@ -143,12 +143,21 @@ public class Name implements Serializable {
 	public boolean equals(Object other) {
 		if (other instanceof Name) {
 			Name otherName = (Name) other;
-			if (this.id == otherName.getId()) {
+			if (this.id != 0 && this.id == otherName.getId()) {
 				return true;
 			}
-			if (this.nachname.equals(otherName.getNachname())
-					&& this.vorname.equals(otherName.getVorname())) {
-				return true;
+			if (vorname == null && nachname == null) {
+				return otherName.getNachname() == null
+						&& otherName.getVorname() == null;
+			} else {
+				if (vorname == null) {
+					return nachname.equals(otherName.getNachname());
+				} else {
+					if (this.nachname.equals(otherName.getNachname())
+							&& this.vorname.equals(otherName.getVorname())) {
+						return true;
+					}
+				}
 			}
 		}
 		return false;
