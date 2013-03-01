@@ -5,16 +5,16 @@
 	<testfall titel="Testfall für erfolgreichen Login">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Der Benutzer ist nicht als Rechercheur authensisiert.
+					Der Benutzer ist nicht angemeldet.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Erfasse das korrekte Kennwort in das Textfeld für das
-				Kennwort.
+				Trage das korrekte Kennwort in das Textfeld für das
+				Anmeldekennwort ein.
 			</schritt>
 			<schritt>
-				Wähle die Schaltfläche "Login"
+				Drücke die Schaltfläche "Login"
 				<ergebnisse>
 					<ergebnis>
 						Es wird die Meldung "angemeldet als Redakteur" dauerhaft angezeigt.
@@ -33,35 +33,16 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für fehlgeschlagenen Login">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer ist nicht als Rechercheur authensisiert.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Im LoginFenster muss das Kennwort falsch eingegeben werden.
-				Der Login
-				Button wird gedrückt
-				<ergebnisse>
-					<ergebnis>
-						Die Meldung "Falsches Kennwort" wird angezeigt
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
+	
 	<testfall titel="Testfall für Logout">
 		<vorraussetzungen>
 			<vorraussetzung>
-					Der Redakteur ist angemeldet
+					Der Redakteur ist angemeldet.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Der Logout-Button wird gedrückt
+				Der Logout-Button wird gedrückt.
 				<ergebnisse>
 					<ergebnis>
 						Anstatt des Logout-Buttons, wird wieder das LoginFenster angezeigt.
@@ -71,43 +52,7 @@
 		</durchführung>
 	</testfall>
 
-	<testfall titel="Testfall für SeiteZurückButton nach Anmeldung">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer hat sich gerade angemeldet, es wurde noch keine Suche durchgeführt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der SeiteZurück-Button im Browserfenster wird gedrückt
-				<ergebnisse>
-					<ergebnis>
-						Der Benutzer immer noch angemeldet, das Login-Fenster erscheint und ist leer.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-
-	<testfall titel="Testfall für SeiteVorwärtsButton">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer ist angemeldet und hat den SeiteZurückButton im Browser gedrückt
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der SeiteVorwärtButton wird gedrückt
-				<ergebnisse>
-					<ergebnis>
-						Der Benutzer ist angemeldet, der Logout-Button erscheint
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
+	
 	<testfall titel="Testfall für falsches Passwort">
 		<vorraussetzungen>
 			<vorraussetzung>
@@ -163,7 +108,7 @@
 				Durch Auswahl der jeweiligen Buttons kann bestimmt werden, auf
 				welche Attribute sich die Suche bezieht.
 				Für jeden Begriff den Test Case wiederholen.
-				Clicken Sie auf den folgenden Begriff:
+				Klicken Sie auf den folgenden Begriff:
 				‘Betreff’
         		‘Name’  
        			‘Und’
@@ -203,7 +148,7 @@
 			</schritt>
 			<schritt>
 				Für jeden Begriff den Test Case wiederholen.
-				Clicken Sie auf den folgenden Begriff:
+				Klicken Sie auf den folgenden Begriff:
 				‘Betreff’
         		‘Name’  
        			‘Und’
@@ -219,87 +164,6 @@
 		</durchführung>
 	</testfall>
 
-
-
-	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der Benutzer drückt den 'Zurück' Button
-				<ergebnisse>
-					<ergebnis>
-						Das Schlagwort ist nicht mehr im Suchfeld eingetragen. 
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der Benutzer drückt den 'Forwärts' Button
-				<ergebnisse>
-					<ergebnis>
-						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Testfall für SeiteZurückButton nach Sucheintrag">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der Benutzer drückt den 'Zurück' Button
-				<ergebnisse>
-					<ergebnis>
-						Das Schlagwort ist nicht mehr im Suchfeld eingetragen. 
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall titel="Testfall für SeiteForwärtsButton nach Sucheintrag">
-		<vorraussetzungen>
-			<vorraussetzung>
-					Der Benutzer hat ein oder mehrere Schlagworte in die Suchleiste eingetragen.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Der Benutzer drückt den 'Forwärts' Button
-				<ergebnisse>
-					<ergebnis>
-						Das Schlagwort ist immernoch im Suchfeld eingetragen. 
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Der 'Suche' Button wird gedrückt.
-				<ergebnisse>
-					<ergebnis>
-					  Die Recherche Ergebnisse werden angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
 
 	<testfall titel="Korrekte Seitenunterteilung (Paging) der Ergebnisanzeige">
 		<vorraussetzungen>
@@ -325,23 +189,20 @@
 		</durchführung>
 	</testfall>
 
-	<!-- <vorraussetzungen> Der Benutzer ist als Redakteur angemeldet. Bin mir 
-		da Unsicher , da man angemeldet sein muss um zu Bearbeiten -->
+
 	<testfall titel="Bearbeitungsanzeige anzeigen">
 		<vorraussetzungen>
 			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
+				Der Benutzer ist als Redakteur authentisiert.
 			</vorraussetzung>
 			<vorraussetzung>
-				Es werden Ergebnisse in der Ergebnisliste angezeigt.
+				Nach erfolgreicher Suche werden Ergebnisse in der Ergebnisliste angezeigt.
 			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
 				Die Schaltfläche “Bearbeiten“ eines Ergebnisses anwählen.
 				<ergebnisse>
-					<!-- woher weiß der Tester, ob alle Informationen richtig angezeigt 
-						werden? -->
 					<ergebnis>
 						Die Bearbeitungsanzeige wird angezeigt mit den
 						verschieden Feldern richtig ausgefüllt mit den Informationen der
@@ -355,9 +216,11 @@
 	<testfall titel="Bearbeitung abbrechen">
 		<vorraussetzungen>
 			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
+				Der Benutzer ist als Redakteur authentisiert.
 			</vorraussetzung>
 			<vorraussetzung>
+				Führe eine Suche durch die mindestens ein Ergebniss liefert.
+				Wähle ein Ergebniss aus.
 				Die Detailansicht wird angezeigt.
 			</vorraussetzung>
 		</vorraussetzungen>
@@ -411,7 +274,7 @@
 
 	<testfall titel="Detailanzeige">
 		<vorraussetzungen>
-			<vorraussetzung>Es werden Ergebnisse in der Ergebnisliste angezeigt.</vorraussetzung>
+			<vorraussetzung>Nach erfolgreicher Suche werden Ergebnisse in der Ergebnisliste angezeigt.</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
@@ -425,79 +288,11 @@
 		</durchführung>
 	</testfall>
 
-	<testfall
-		titel="Zwischen Bearbeitungsformular und Detailansicht mit den Schaltflächen des Webbrowsers navigieren">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-				Detailanzeige wird angezeigt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Wähle die Schaltfläche "Bearbeiten" neben einem Rechercheergebnis
-				an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "vorherige Seite anzeigen" des Webbrowsers
-				an.
-				<ergebnisse>
-					<ergebnis>
-						Die Detailanzeige wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-			<schritt>
-				Wähle die Schaltfläche "nächste Seite anzeigen" des Webbrowsers an.
-				<ergebnisse>
-					<ergebnis>
-						Das Bearbeitungsformular wird angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
-	<testfall
-		titel="Kein Speichern beim Navigieren aus dem Bearbeitungsformular mit den Schaltflächen des Webbrowsers">
-		<vorraussetzungen>
-			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
-			</vorraussetzung>
-			<vorraussetzung>
-					Bearbeitungsformular wird angezeigt.
-			</vorraussetzung>
-		</vorraussetzungen>
-		<durchführung>
-			<schritt>
-				Den Wert eines Feldes ändern.
-			</schritt>
-			<schritt>
-				Die Schaltfläche "vorherige Seite anzeigen" des Webbrowsers
-				anwählen.
-			</schritt>
-			<schritt>
-				Die Schaltfläche "nächste Seite anzeigen" des Webbrowsers anwählen.
-				<ergebnisse>
-					<ergebnis>
-						Der geänderte Wert ist wieder ungeändert zurückgesetzt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-		</durchführung>
-	</testfall>
-
+	
 	<testfall titel="Eigenschaften gültig ändern">
 		<vorraussetzungen>
 			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
+				Der Benutzer ist als Redakteur authentisiert.
 			</vorraussetzung>
 			<vorraussetzung>
 				Die Detailansicht wird angezeigt.
@@ -600,9 +395,10 @@
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
+			
 			<schritt>
 				Ändere das Attribut Datum mit gültigen Werten (von-bis),
-				wobei der bis-Wert nicht 0 ist.
+				wobei weder der von noch der bis-Wert nicht 0 ist.
 			</schritt>
 			<schritt>
 				Wähle die Schaltfläche "Speichern" an.
@@ -611,7 +407,31 @@
 						Das Archivale wird in der Detailansicht angezeigt.
 					</ergebnis>
 					<ergebnis>
-						Das Attribut Datum wird mit dem geänderten Werten (von-bis) angezeigt.
+						Das Attribut Datum wird mit den geänderten Werten (von-bis) angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		
+			<schritt>
+				Ändere das Attribut von-Datum mit gültigen Werten, wobei der
+				bis-Wert den Wert 0 hat.
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Für das Attribut Datum wird nur der gerade eingetragene Wert angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -624,8 +444,8 @@
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Ändere das Attribut Datum mit gültigen Werten, wobei der
-				bis-Wert den Wert 0 hat.
+				Ändere das Attribut bis -Datum mit gültigen Werten, wobei der
+				von-Wert den Wert 0 hat.
 			</schritt>
 			<schritt>
 				Wähle die Schaltfläche "Speichern" an.
@@ -634,59 +454,109 @@
 						Das Archivale wird in der Detailansicht angezeigt.
 					</ergebnis>
 					<ergebnis>
-						Für das Attribut Datum wird nur ein Wert - der geänderte Wert angezeigt.
-					</ergebnis>
-				</ergebnisse>
-			</schritt>
-
-			<!-- von hier an müssen die Schritte noch abgeändert werden -->
-			<schritt>
-				Personen:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
-				<ergebnisse>
-					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
+						Für das Attribut Datum wird 0- dem gerade eingetragene Wert angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Organisationseinheit:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
+				Wähle die Schaltfläche "Bearbeiten" an.
 				<ergebnisse>
 					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
+						Das Bearbeitungsformular wird angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Schlagwörter:
-				Das Attribut ändern mit gültigem Wert.
-				Speichern.
-				Die
-				Detailansicht von der Archivale öffnen.
+				Klicke auf den Reiter"Personen".
+				Klicke den BearbeitenButton in dem Reiter.
+				Ändern das Attribut mit gültigem Wert.
+				In dem Reiter auf Ok drücken.
+				Wähle die Schaltfläche "Speichern" an.
 				<ergebnisse>
 					<ergebnis>
-							Die Archivale ist angezeigt mit dem Attribut korrekt
-							geändert.
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+							Der Eingetragene Personenname wird korekt angezeigtund mit einem "," am Ende versehen.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
-			<!-- bis hier müssen die Schritte noch abgeändert werden -->
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Klicke auf den Reiter"Organisationseinheiten".
+				Klicke den BearbeitenButton in dem Reiter.
+				Wähle eine Organisationseinheit aus der Liste aus.
+				In dem Reiter auf Ok drücken.
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+							Die gänderte Organisationseinheit wird korrekt angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Klicke auf den Reiter"Schlagwörter".
+				Klicke den BearbeitenButton in dem Reiter.
+				Ändern das Attribut mit gültigem Wert.
+				In dem Reiter auf Ok drücken.
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Die gänderte Schlagwort wird korrekt angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Bearbeitungsformular wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Klicke auf den Reiter"Dokumentenart".
+				Klicke den BearbeitenButton in dem Reiter.
+				Wähle eine Dokumentenart aus der Liste aus.
+				In dem Reiter auf Ok drücken.
+				Wähle die Schaltfläche "Speichern" an.
+				<ergebnisse>
+					<ergebnis>
+						Das Archivale wird in der Detailansicht angezeigt.
+					</ergebnis>
+					<ergebnis>
+						Die gänderte Dokumentenart wird korrekt angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
 		</durchführung>
 	</testfall>
 
 	<testfall titel="Eigenschaften ungültig ändern">
 		<vorraussetzungen>
 			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
+				Der Benutzer ist als Redakteur authentisiert.
 			</vorraussetzung>
 			<vorraussetzung>
 				Die Detailansicht wird angezeigt.
@@ -726,7 +596,7 @@
 	<testfall titel="Archviale löschen">
 		<vorraussetzungen>
 			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
+				Der Benutzer ist als Redakteur authentisiert.
 			</vorraussetzung>
 			<vorraussetzung>
 				Das Rechercheergebnis mit mindestens einem Archivale wird angezeigt.
@@ -755,7 +625,7 @@
 	<testfall titel="Erfassen eines neuen Archivales">
 		<vorraussetzungen>
 			<vorraussetzung>
-				Der Benutzer ist als Rechercheur authentisiert.
+				Der Benutzer ist als Redakteur authentisiert.
 			</vorraussetzung>
 			<vorraussetzung>
 				Das Rechercheergebnis wird angezeigt.
