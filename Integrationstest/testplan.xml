@@ -171,12 +171,10 @@
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
-				Führe eine Recherche durch, die mehr als zehn Ergebnisse
-				erzielt.
+				Führe eine Recherche durch, die mehr als zehn Ergebnisse erzielt.
 			</schritt>
 			<schritt>
-				Zähle die Anzahl der Ergebnisse, die auf der ersten Seite angezeigt
-				werden.
+				Zähle die Anzahl der Ergebnisse, die auf der ersten Seite angezeigt	werden.
 				<ergebnisse>
 					<ergebnis>
 						Es wird ein Paginator am unteren Ende der Liste der Rechercheergebnisse angezeigt.
@@ -204,9 +202,7 @@
 				Die Schaltfläche “Bearbeiten“ eines Ergebnisses anwählen.
 				<ergebnisse>
 					<ergebnis>
-						Die Bearbeitungsanzeige wird angezeigt mit den
-						verschieden Feldern richtig ausgefüllt mit den Informationen der
-						Ausgewählten Bean.
+						Die Bearbeitungsanzeige wird angezeigt,die verschiedenen Feldern sind mit weiteren Informationen zu dem Suchbegriff gefüllt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>
@@ -237,9 +233,10 @@
 				Ändere alle Attribute mit gültigem Wert.
 			</schritt>
 			<schritt>
-				Wähle die Schaltfläche "abbrechen"
+				Wähle den PfeilButton, der zur vorherigen Seite zurücknavigiert.
 				<ergebnisse>
 					<ergebnis>
+						Die Sucheinträge werden angezeigt.
 						Das Archivale wird mit ungeänderten Werten angezeigt.
 					</ergebnis>
 				</ergebnisse>
@@ -558,9 +555,6 @@
 			<vorraussetzung>
 				Der Benutzer ist als Redakteur authentisiert.
 			</vorraussetzung>
-			<vorraussetzung>
-				Die Detailansicht wird angezeigt.
-			</vorraussetzung>
 		</vorraussetzungen>
 		<durchführung>
 			<schritt>
@@ -572,7 +566,7 @@
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Ändere alle Attribute mit ungültigen Werten
+				Ändere alle Attribute mit ungültigen Werten.
 			</schritt>
 			<schritt>
 				Wähle die Schaltfläche "Speichern".
@@ -590,8 +584,138 @@
 			</schritt>
 		</durchführung>
 	</testfall>
-
 	
+	<testfall titel="Korrekte Navigation des implementiertien Seite-Zurück-Buttons als Rechercheur">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist nicht angemeldet.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Führe eine Suche durch die mindestens ein Ergebniss liefert.
+				Kicke auf ein Ergebniss.
+				<ergebnisse>
+					<ergebnis>
+						Das Archviale wird in der Detailansicht angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle den integrierten Seite-Zurück-Button an.
+				<ergebnisse>
+					<ergebnis>
+						Die ErgebnissListe wird erneut angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Korrekte Navigation des implementiertien Seite-Zurück-Buttons als Redakteur">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Der Benutzer ist als Redakteur authentisiert.
+			</vorraussetzung>
+			<vorraussetzung>
+				Das Rechercheergebnis mit mindestens einem Archivale wird angezeigt.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Klicke ein Suchergebniss an, um in die Detailansicht zugelangen.
+				<ergebnisse>
+					<ergebnis>
+						Das Archviale wird in der Detailansicht angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle den integrierten Seite-Zurück-Button an.
+				<ergebnisse>
+					<ergebnis>
+						Die ErgebnissListe wird erneut angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			
+			<schritt>
+				Wähle die Schaltfläche "Bearbeiten" neben dem Archivale an
+				<ergebnisse>
+					<ergebnis>
+						Das Archviale wird in der Bearbeitenansicht angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle den integrierten Seite-Zurück-Button an.
+				<ergebnisse>
+					<ergebnis>
+						Die ErgebnissListe wird erneut angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			
+			<schritt>
+				Klicke ein Suchergebniss an, um in die Detailansicht zugelangen.
+				<ergebnisse>
+					<ergebnis>
+						Das Archviale wird in der Detailansicht angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle den BearbeitenButton.
+				<ergebnisse>
+					<ergebnis>
+						Das Achivale wird in der Bearbeitenansicht angezeigt.		<!-- ???? -->
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle den integrierten Seite-Zurück-Button an.
+				<ergebnisse>
+					<ergebnis>
+						Das Achivale wird in der Detailansichtansicht angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle den integrierten Seite-Zurück-Button an.
+				<ergebnisse>
+					<ergebnis>
+						Die ErgebnissListe wird erneut angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
+
+	<testfall titel="Nutzen der Navigationelemente des Browsers">
+		<vorraussetzungen>
+			<vorraussetzung>
+				Irgend eine Internetseite wurde vor dem Laden der Archivsoftware geladen.
+			</vorraussetzung>
+		</vorraussetzungen>
+		<durchführung>
+			<schritt>
+				Wähle den vom Browser bereitgestellten EineSeiteZurückButton an.
+				<ergebnisse>
+					<ergebnis>
+						Die Archivsoftware wird verlassen und die zuvor vom Browser geladenen Internetseite wird angezeigt.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+			<schritt>
+				Wähle den vom Browser bereitgestellten EineSeiteVorButton an.
+				<ergebnisse>
+					<ergebnis>
+						Man befindet sich an der selben Stelle in der Archivsoftware, an der man vorher diese verlassen hat.
+					</ergebnis>
+				</ergebnisse>
+			</schritt>
+		</durchführung>
+	</testfall>
 
 	<testfall titel="Archviale löschen">
 		<vorraussetzungen>
