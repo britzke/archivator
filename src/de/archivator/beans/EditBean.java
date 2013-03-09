@@ -21,9 +21,7 @@ package de.archivator.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -389,6 +387,7 @@ public class EditBean implements Serializable {
 				// ein Name von beiden ist gesetzt
 				q.setParameter("nachname", lastName);
 				q.setParameter("vorname", firstName);
+				@SuppressWarnings("unchecked")
 				List<Name> selectedNames = q.getResultList();
 				Name name;
 				if (selectedNames.size() == 0) {
@@ -433,11 +432,12 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * Lädt die Eigenschaften für das Formular zur Bearbeitung
-	 * der Organisationseinheiten.
+	 * Lädt die Eigenschaften für das Formular zur Bearbeitung der
+	 * Organisationseinheiten.
 	 * 
 	 * @return null... immer
 	 */
+	@SuppressWarnings("unchecked")
 	public String loadOrganisationseinheiten() {
 		entityManager = entityManagerFactory.createEntityManager();
 		Query q = entityManager
@@ -447,12 +447,14 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * Sichert die Eigenschaften aus dem Formular
-	 * zur Bearbeitung der Organisationseinheiten.
+	 * Sichert die Eigenschaften aus dem Formular zur Bearbeitung der
+	 * Organisationseinheiten.
+	 * 
 	 * @return null... immer
 	 */
 	public String saveOrganisationseinheiten() {
-		List<Organisationseinheit> org = aktuellesArchivale.getOrganisationseinheiten();
+		List<Organisationseinheit> org = aktuellesArchivale
+				.getOrganisationseinheiten();
 		org.clear();
 		for (Organisationseinheit o : organisationseinheiten) {
 			org.add(o);
@@ -462,6 +464,7 @@ public class EditBean implements Serializable {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String loadDokumentarten() {
 		entityManager = entityManagerFactory.createEntityManager();
 		Query q = entityManager.createQuery("select d from Dokumentart d");
@@ -473,13 +476,11 @@ public class EditBean implements Serializable {
 		ArrayList<Dokumentart> selection = new ArrayList<Dokumentart>();
 		for (Dokumentart d : selectedDokumentarten) {
 			selection.add(d);
-			System.out.println("add: "+d);
 		}
 		aktuellesArchivale.setDokumentarten(selection);
 		if (!aktuellesArchivale.getDokumentarten().isEmpty()) {
-			for (Dokumentart d : aktuellesArchivale.getDokumentarten()) {
-				System.out.println("d: " + d.getName());
-			}
+//			for (Dokumentart d : aktuellesArchivale.getDokumentarten()) {
+//			}
 		}
 		return null;
 	}
@@ -511,55 +512,53 @@ public class EditBean implements Serializable {
 	 * @return null... immer.
 	 */
 	public String saveSchlagworte() {
+		entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+
+		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
 		List<Schlagwort> archivaleSchlagwörter = aktuellesArchivale
 				.getSchlagwörter();
+
+		formularSchlagwörter = formularSchlagwörter.replace("\n", "");
+		formularSchlagwörter = formularSchlagwörter.replace("\r", "");
 		String[] wörter = formularSchlagwörter.split(",");
-		Map<Schlagwort, Boolean> deleteMap = new HashMap<Schlagwort, Boolean>();
-		for (Schlagwort s : archivaleSchlagwörter) {
-			deleteMap.put(s, true);
-		}
-		for (String wort : wörter) {
-			wort = wort.trim();
-			Schlagwort entry = new Schlagwort(wort);
-			boolean neu = false;
-			boolean neu2 = true;
-			deleteMap.put(entry, false); // You are already dead.
-			if (archivaleSchlagwörter.isEmpty()) {
-				archivaleSchlagwörter.add(entry);
-				neu2=false;
+
+		Query q = entityManager
+				.createQuery("select s from Schlagwort s where s.name = :name");
+
+		for (String formularSchlagwort : wörter) {
+			Schlagwort schlagwort;
+			q.setParameter("name", formularSchlagwort);
+			@SuppressWarnings("unchecked")
+			List<Schlagwort> selectedSchlagworts = q.getResultList();
+			if (selectedSchlagworts.size() == 0) {
+				// Schlagwort ist neu in der Datenbank
+				schlagwort = new Schlagwort(formularSchlagwort);
 			} else {
-				for (Schlagwort s : archivaleSchlagwörter) {
-					if (s.getName() == entry.getName()) {
-						neu2 = false;
-					}
-				}
+				schlagwort = selectedSchlagworts.get(0);
 			}
-			if (neu2) {
-				archivaleSchlagwörter.add(entry);
+			if (!archivaleSchlagwörter.contains(schlagwort)) {
+				schlagwort = entityManager.merge(schlagwort);
+				archivaleSchlagwörter.add(schlagwort);
+				List<Archivale> archivalien = schlagwort.getArchivalien();
+				archivalien.add(aktuellesArchivale);
 			}
-			if (schlagworte.isEmpty()) {
-				schlagworte.add(entry);
-			} else {
-				if (!schlagworte.contains(entry)) {
-					neu = true;
-				}
-			}
-			if (neu) {
-				schlagworte.add(entry);
+			// bearbeitete archivaleSchlagwörter markierten
+			// weil die dann unten nicht gelöscht werden dürfen
+			schlagwort.setMarked(true);
+		}
+
+		// nicht markierte archivaleSchlagwörter löschen
+		for (int i = archivaleSchlagwörter.size(); i > 0; i--) {
+			Schlagwort archivaleSchlagwort = archivaleSchlagwörter.get(i - 1);
+			if (!archivaleSchlagwort.isMarked()) {
+				archivaleSchlagwort.getArchivalien().remove(aktuellesArchivale);
+				archivaleSchlagwörter.remove(i - 1);
 			}
 		}
-		List<Schlagwort> zuEntfernen = new ArrayList<Schlagwort>();
-		for (Schlagwort s : archivaleSchlagwörter) {
-			zuEntfernen.add(s);
-		}
-		for (Schlagwort s : zuEntfernen) {
-			if (deleteMap.get(s)) {
-				archivaleSchlagwörter.remove(s);
-			}
-		}
-		aktuellesArchivale.setSchlagwörter(archivaleSchlagwörter);
-		details.setAktuellesArchivale(aktuellesArchivale);
-		
+
+		// speichere in den Compass-Index
 		CompassSession session = compass.openSession();
 		try {
 			session.save(aktuellesArchivale);
@@ -568,6 +567,13 @@ public class EditBean implements Serializable {
 			ce.printStackTrace();
 			session.rollback();
 		}
+
+		entityTransaction.commit();
+		session.close();
+		entityManager.close();
+
+		details.setAktuellesArchivale(aktuellesArchivale);
+
 		return null;
 	}
 
@@ -579,12 +585,14 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * @param selectedDokumentarten the selectedDokumentarten to set
+	 * @param selectedDokumentarten
+	 *            the selectedDokumentarten to set
 	 */
 	public void setSelectedDokumentarten(Dokumentart[] selectedDokumentarten) {
-//		if (!aktuellesArchivale.getDokumentarten().isEmpty()) {
-//			selectedDokumentarten=(Dokumentart[]) aktuellesArchivale.getDokumentarten().toArray();
-//		}
+		// if (!aktuellesArchivale.getDokumentarten().isEmpty()) {
+		// selectedDokumentarten=(Dokumentart[])
+		// aktuellesArchivale.getDokumentarten().toArray();
+		// }
 		this.selectedDokumentarten = selectedDokumentarten;
 	}
 }

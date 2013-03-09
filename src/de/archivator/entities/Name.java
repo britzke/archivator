@@ -63,6 +63,7 @@ public class Name implements Serializable {
 	//@SearchableComponent
 	private List<Archivale> archivalien;
 
+	// dient zur Traversierung von Namenslisten
 	private transient boolean marked;
 
 	/**

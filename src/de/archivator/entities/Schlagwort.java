@@ -2,7 +2,8 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  Junghans
+ * Copyright (C) 2012  Junghans,
+ *                     burghard.britzke bubi@charmdes.in-berlin.de
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -63,6 +64,8 @@ public class Schlagwort implements Serializable {
 			}, schema = "ARCHIVATOR"
 		)
 	private List<Archivale> archivalien;
+	
+	private transient boolean marked;
 
 	/**
 	 * Erzeugt ein neues Schlagwort.
@@ -105,6 +108,20 @@ public class Schlagwort implements Serializable {
 	}
 
 	/**
+	 * @return the marked
+	 */
+	public boolean isMarked() {
+		return marked;
+	}
+
+	/**
+	 * @param marked the marked to set
+	 */
+	public void setMarked(boolean marked) {
+		this.marked = marked;
+	}
+
+	/**
 	 * Stellt fest, ob das Schlagwort gleich dem anderen ist. Schlagwörter sind
 	 * gleich, wenn entweder die IDs gleich sind, oder die ID des Einen
 	 * <i>null</i> und die Namen übereinstimmen.
@@ -124,5 +141,13 @@ public class Schlagwort implements Serializable {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Antwortet mit einer menschenlesbarern Form des Schlagwortes.
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return "("+id+","+name+")";
 	}
 }

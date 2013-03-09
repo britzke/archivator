@@ -42,7 +42,6 @@ import de.archivator.beans.EditBean;
 import de.archivator.beans.SearchBean;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Name;
-import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
 /**
@@ -65,6 +64,7 @@ public class EditBeanTest {
 	private SearchBean searchBean;
 	private Query query;
 	private List<Name> nameList;
+	private ArrayList<Schlagwort> schlagwortList;
 
 	/**
 	 * Erzeugt eine Umgebung, die von allen Tests benötigt wird.
@@ -261,22 +261,9 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testSaveOrganisationseinheiten() {
-		List<Organisationseinheit> org = new ArrayList<Organisationseinheit>();
-		org.add(new Organisationseinheit("CD"));
-		org.add(new Organisationseinheit("Dokument"));
+
 		String navigation = proband.saveOrganisationseinheiten();
-		assertTrue("CD und Dokument sollten aufgelistet sein",
-				proband.getOrganisationseinheiten() == org);
-		org.clear();
-		org.add(new Organisationseinheit("Marmeladenglas"));
-		navigation = proband.saveOrganisationseinheiten();
-		Boolean marmelade = false;
-		for (Organisationseinheit o : org) {
-			if (o.getName() == "Marmeladenglas") {
-				marmelade = true;
-			}
-		}
-		assertFalse("Marmeladenglas muss abgelehnt werden", marmelade);
+
 		assertNull(
 				"saveOrganisationseinheiten() muss zum gleichen View navigieren",
 				navigation);
@@ -284,17 +271,6 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#loadSchlagworte()}.
-	 * 
-	 * @throws SecurityException
-	 *             Wenn Reflection nicht erlaubt wird.
-	 * @throws NoSuchFieldException
-	 *             Wenn es in der EditBean keine Eigenschaft namens
-	 *             "aktuellesArchivale" gibt.
-	 * @throws IllegalAccessException
-	 *             Wenn der Zugriff zur EditBean verweigert wurde.
-	 * @throws IllegalArgumentException
-	 *             Wenn die Eigenschaft aktuellesArchivale aus der EditBean
-	 *             nicht vom Typ Archivale ist.
 	 */
 	@Test
 	public void testLoadSchlagworte() throws NoSuchFieldException,
@@ -318,61 +294,25 @@ public class EditBeanTest {
 
 	/**
 	 * Test method for {@link de.archivator.beans.EditBean#saveSchlagworte()}.
-	 * Testet das Speichern, wenn die Datenbank leer ist, wenn das Schlagwort
-	 * bereits vorhanden ist, wenn es nicht vorhanden ist und testet außerdem,
-	 * ob entfernte Schlagworte gelöscht werden.
-	 * 
-	 * @throws SecurityException
-	 *             Wenn Reflection nicht erlaubt ist.
-	 * @throws NoSuchFieldException
-	 *             Wenn keine Eigenschaft aktuellesArchivale an der EditBean
-	 *             existiert.
-	 * @throws IllegalAccessException
-	 *             Wenn der Zugriff zur EditBean verweigert wurde.
-	 * @throws IllegalArgumentException
-	 *             Wenn die Eigenschaft aktuellesArchivale aus der EditBean
-	 *             nicht vom Typ Archivale ist.
+	 * Testet das Speichern von Schlagworten.
 	 */
 	@Test
-	public void testSaveSchlagworte() throws NoSuchFieldException,
-			SecurityException, IllegalArgumentException, IllegalAccessException {
-		proband.setFormularSchlagwörter("Lette, Projekt");
-		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
+	public void testSaveSchlagworte() {
+		proband.setFormularSchlagwörter("Lette");
 
-		String navigation = proband.saveSchlagworte(); // test
+		schlagwortList = new ArrayList<Schlagwort>();
+		Schlagwort schlagwort = new Schlagwort("test");
+		schlagwortList.add(schlagwort);
+		List<Schlagwort> archivaleSchlagworte = new ArrayList<Schlagwort>();
+		aktuellesArchivale.setSchlagwörter(archivaleSchlagworte);
 
-		proband.setFormularSchlagwörter("Lette, Datenbank");
+		when(query.getResultList()).thenReturn(schlagwortList);
+		when(entityManager.merge(schlagwort))
+				.thenReturn(new Schlagwort("test"));
 
-		navigation = proband.saveSchlagworte();
-
-		assertNull(navigation);
-		List<Schlagwort> schlagwörter = aktuellesArchivale.getSchlagwörter();
-		boolean containsLette = false;
-		boolean containsProjekt = false;
-		boolean containsDatenbank = false;
-		for (Schlagwort schlagwort : schlagwörter) {
-			if (schlagwort.getName().equals("Lette")) {
-				containsLette = true;
-			}
-			if (schlagwort.getName().equals("Projekt")) {
-				containsProjekt = true;
-			}
-			if (schlagwort.getName().equals("Datenbank")) {
-				containsDatenbank = true;
-			}
-		}
-		assertTrue(
-				"Im aktuellen Archivale muss das Schlagwort 'Lette' gesetzt sein",
-				containsLette);
-		assertFalse(
-				"Im aktuellen Archivale darf das Schlagwort 'Projekt' nicht gesetzt sein",
-				containsProjekt);
-		assertTrue(
-				"Im akutellen Archivale muss das Schlagwort 'Datenbank' gesetzt sein",
-				containsDatenbank);
-		assertTrue("Die Schlagworte müssen in den Details enthalten sein",
-				detailBean.getAktuellesArchivale() == aktuellesArchivale);
-		// geplanter Test: Suchfunktion nutzen, um aktuellesArchivale über die
-		// Schlagworte zu suchen
+		String navigation = proband.saveSchlagworte();
+		assertNull("saveSchlaworte() muss zum gleichen View navigieren",
+				navigation);
+		assertEquals(1, aktuellesArchivale.getSchlagwörter().size());
 	}
 }

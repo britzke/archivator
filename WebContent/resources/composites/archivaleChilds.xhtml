@@ -66,9 +66,10 @@
 			</p:dataTable>
 		</p:tab>
 		<p:tab title="Schlagworte">
-			<p:commandButton id="editSchlagwörterButton" icon="ui-icon-pencil"
+			<p:commandButton id="editSchlagwörterButton"
 				rendered="#{cc.attrs.angemeldet}"
 				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
+				icon="ui-icon-pencil" update="@form"
 				action="#{editBean.loadSchlagworte}"
 				oncomplete="editSchlagworteDialog.show()">
 				<pe:tooltip for="editSchlagwörterButton"
