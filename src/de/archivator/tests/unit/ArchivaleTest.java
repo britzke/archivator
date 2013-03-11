@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.archivator.tests;
+package de.archivator.tests.unit;
 
 import static org.junit.Assert.*;
 
