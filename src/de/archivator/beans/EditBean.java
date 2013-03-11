@@ -479,8 +479,8 @@ public class EditBean implements Serializable {
 		}
 		aktuellesArchivale.setDokumentarten(selection);
 		if (!aktuellesArchivale.getDokumentarten().isEmpty()) {
-//			for (Dokumentart d : aktuellesArchivale.getDokumentarten()) {
-//			}
+			// for (Dokumentart d : aktuellesArchivale.getDokumentarten()) {
+			// }
 		}
 		return null;
 	}
@@ -530,26 +530,28 @@ public class EditBean implements Serializable {
 				.createQuery("select s from Schlagwort s where s.name = :name");
 
 		for (String formularSchlagwort : wörter) {
-			Schlagwort schlagwort;
 			formularSchlagwort = formularSchlagwort.trim();
-			q.setParameter("name", formularSchlagwort);
-			@SuppressWarnings("unchecked")
-			List<Schlagwort> selectedSchlagworts = q.getResultList();
-			if (selectedSchlagworts.size() == 0) {
-				// Schlagwort ist neu in der Datenbank
-				schlagwort = new Schlagwort(formularSchlagwort);
-			} else {
-				schlagwort = selectedSchlagworts.get(0);
+			if (formularSchlagwort.length() > 0) {
+				Schlagwort schlagwort;
+				q.setParameter("name", formularSchlagwort);
+				@SuppressWarnings("unchecked")
+				List<Schlagwort> selectedSchlagworts = q.getResultList();
+				if (selectedSchlagworts.size() == 0) {
+					// Schlagwort ist neu in der Datenbank
+					schlagwort = new Schlagwort(formularSchlagwort);
+				} else {
+					schlagwort = selectedSchlagworts.get(0);
+				}
+				if (!archivaleSchlagwörter.contains(schlagwort)) {
+					schlagwort = entityManager.merge(schlagwort);
+					archivaleSchlagwörter.add(schlagwort);
+					List<Archivale> archivalien = schlagwort.getArchivalien();
+					archivalien.add(aktuellesArchivale);
+				}
+				// bearbeitete archivaleSchlagwörter markierten
+				// weil die dann unten nicht gelöscht werden dürfen
+				schlagwort.setMarked(true);
 			}
-			if (!archivaleSchlagwörter.contains(schlagwort)) {
-				schlagwort = entityManager.merge(schlagwort);
-				archivaleSchlagwörter.add(schlagwort);
-				List<Archivale> archivalien = schlagwort.getArchivalien();
-				archivalien.add(aktuellesArchivale);
-			}
-			// bearbeitete archivaleSchlagwörter markierten
-			// weil die dann unten nicht gelöscht werden dürfen
-			schlagwort.setMarked(true);
 		}
 
 		// nicht markierte archivaleSchlagwörter löschen
