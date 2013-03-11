@@ -522,6 +522,8 @@ public class EditBean implements Serializable {
 
 		formularSchlagwörter = formularSchlagwörter.replace("\n", "");
 		formularSchlagwörter = formularSchlagwörter.replace("\r", "");
+		formularSchlagwörter = formularSchlagwörter.trim();
+		formularSchlagwörter = formularSchlagwörter.replaceAll(",$", "");
 		String[] wörter = formularSchlagwörter.split(",");
 
 		Query q = entityManager
@@ -529,6 +531,7 @@ public class EditBean implements Serializable {
 
 		for (String formularSchlagwort : wörter) {
 			Schlagwort schlagwort;
+			formularSchlagwort = formularSchlagwort.trim();
 			q.setParameter("name", formularSchlagwort);
 			@SuppressWarnings("unchecked")
 			List<Schlagwort> selectedSchlagworts = q.getResultList();
