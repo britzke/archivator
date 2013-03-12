@@ -43,3 +43,6 @@ Aufsetzen einer Entwicklungsumgebung - Eclipse
 
 11. PowerMock-Mockito zum Build-Path in der aktuellen Version (aktuell 1.5)
     hinzufügen - [PowerMock-Projektseite](http://code.google.com/p/powermock/).
+
+12. Selenium-Server-Standalone zum durchführen der automatischen Integrationstests (aktuell 2.31.0)
+    hinzufügen - [Seleniumdownload](http://code.google.com/p/selenium/downloads/list)
