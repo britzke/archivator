@@ -24,7 +24,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.compass.annotations.Searchable;
-import org.compass.annotations.SearchableComponent;
 import org.compass.annotations.SearchableId;
 import org.compass.annotations.SearchableProperty;
 
@@ -51,10 +50,10 @@ public class Name implements Serializable {
 	@SearchableId
 	private int id;
 
-	@SearchableProperty
+	@SearchableProperty (name="person")
 	private String nachname;
 
-	@SearchableProperty
+	@SearchableProperty (name="person")
 	private String vorname;
 
 	// bi-directional many-to-many association to Archivalien

@@ -49,7 +49,7 @@ public class Schlagwort implements Serializable {
 	private int id;
 
 	@Column (unique=true)
-	@SearchableProperty
+	@SearchableProperty (name="schlagwort")
 	private String name;
 
 	//bi-directional many-to-many association to Archivalien

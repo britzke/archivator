@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -271,7 +272,7 @@ public class EditBean implements Serializable {
 	/**
 	 * Löscht das aktuelle Archivale aus der Datenbank.
 	 */
-	public String lösche() {
+	public String lösche(FacesContext ctx) {
 		// lösche aus der Datenbank
 		entityManager = entityManagerFactory.createEntityManager();
 		Archivale aktuellesArchivale = entityManager
@@ -294,7 +295,7 @@ public class EditBean implements Serializable {
 		entityManager.close();
 
 		// lösche aktuellen Archivale aus den Beans
-		searchBean.search();
+		searchBean.search(ctx);
 		details.setAktuellesArchivale(null);
 		return "index";
 	}
@@ -304,7 +305,7 @@ public class EditBean implements Serializable {
 	 * 
 	 * @return "detail" immer
 	 */
-	public String speichere() {
+	public String speichere(FacesContext ctx) {
 		// speichere in die Datenbank
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -325,7 +326,7 @@ public class EditBean implements Serializable {
 		entityManager.close();
 
 		// speichere in die Bean(s)
-		searchBean.search();
+		searchBean.search(ctx);
 		details.setAktuellesArchivale(aktuellesArchivale);
 		return "detail";
 	}

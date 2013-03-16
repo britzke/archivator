@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManagerFactory;
@@ -32,10 +34,6 @@ import javax.persistence.EntityManagerFactory;
 import org.compass.core.Compass;
 import org.compass.core.CompassHits;
 import org.compass.core.CompassSearchSession;
-import org.compass.gps.CompassGps;
-import org.compass.gps.CompassGpsDevice;
-import org.compass.gps.device.jpa.JpaGpsDevice;
-import org.compass.gps.impl.SingleCompassGps;
 
 import de.archivator.entities.Archivale;
 
@@ -61,6 +59,7 @@ public class SearchBean implements Serializable {
 
 	@Inject
 	private Compass compass;
+
 	/**
 	 * Antwortet mit dem Wert des rechercheBean
 	 * 
@@ -84,30 +83,38 @@ public class SearchBean implements Serializable {
 	 * 
 	 * @return "index" konstant.
 	 */
-	public String search() {
-		List<Archivale> archivalien = new ArrayList<Archivale>();
-		rechercheBean.setArchivalien(archivalien);
+	public String search(FacesContext ctx) {
+		String suchKriterium = rechercheBean.getSuchKriterium();
+		if (suchKriterium.length() == 0) {
+			FacesMessage message = new FacesMessage(
+					"Bitte Suchbegriff eingeben");
+			message.setSeverity(FacesMessage.SEVERITY_INFO);
+			ctx.addMessage("searchForm:inputSearch", message);
+		} else {
+			List<Archivale> archivalien = new ArrayList<Archivale>();
+			rechercheBean.setArchivalien(archivalien);
 
-		CompassSearchSession session = compass.openSearchSession();
-		try {
-			String suchKriterium = rechercheBean.getSuchKriterium();
-			CompassHits hits = session.find(suchKriterium);
-			System.out.println("Hits");
-			for (int i = 0; i < hits.getLength(); i++) {
-				archivalien.add((Archivale) hits.data(i));
-				System.out.println(hits.hit(i).score()+" "+hits.hit(i).alias());
+			CompassSearchSession session = compass.openSearchSession();
+			try {
+				CompassHits hits = session.find(suchKriterium);
+				System.out.println("Hits");
+				for (int i = 0; i < hits.getLength(); i++) {
+					archivalien.add((Archivale) hits.data(i));
+					System.out.println(hits.hit(i).score() + " "
+							+ hits.hit(i).getHighlightedText());
+				}
+			} finally {
+				session.close();
 			}
-		} finally {
-			session.close();
 		}
 		return "index";
 	}
 
 	/**
 	 * ActionListener-Methode für die Schaltfläche "Betreff". Der Text
-	 * "betreff:" wird in die Eigenschaft suchKriterium der RechercheBean gespeichert. Ist
-	 * bereits ein Text im suchKriterium, so wird der text " AND "
-	 * vorangestellt.
+	 * "betreff:" wird in die Eigenschaft suchKriterium der RechercheBean
+	 * gespeichert. Ist bereits ein Text im suchKriterium, so wird der text
+	 * " AND " vorangestellt.
 	 */
 	public void betreffClicked() {
 		String query = rechercheBean.getSuchKriterium();
@@ -120,16 +127,63 @@ public class SearchBean implements Serializable {
 	}
 
 	/**
-	 * ActionListener-Methode für die Schaltfläche "Name". Der Text "name:"
-	 * wird in die Eigenschaft suchKriterium gespeichert. Ist bereits ein Text
-	 * im suchKriterium, so wird der text " and " vorangestellt.
+	 * ActionListener-Methode für die Schaltfläche "Dokumentart". Der Text
+	 * "dokumentart:" wird in die Eigenschaft suchKriterium gespeichert. Ist
+	 * bereits ein Text im suchKriterium, so wird der text " and "
+	 * vorangestellt.
+	 */
+	public void dokumentartClicked() {
+		String query = rechercheBean.getSuchKriterium();
+		if (query.length() == 0) {
+			query = "dokumentart:";
+		} else {
+			query += " AND dokumentart:";
+		}
+		rechercheBean.setSuchKriterium(query);
+	}
+
+	/**
+	 * ActionListener-Methode für die Schaltfläche "Name". Der Text "name:" wird
+	 * in die Eigenschaft suchKriterium gespeichert. Ist bereits ein Text im
+	 * suchKriterium, so wird der text " and " vorangestellt.
 	 */
 	public void nameClicked() {
 		String query = rechercheBean.getSuchKriterium();
-		if (query.length() == 0){
+		if (query.length() == 0) {
 			query = "name:";
 		} else {
 			query += " AND name:";
+		}
+		rechercheBean.setSuchKriterium(query);
+	}
+
+	/**
+	 * ActionListener-Methode für die Schaltfläche "Name". Der Text
+	 * "organisationseinheit:" wird in die Eigenschaft suchKriterium
+	 * gespeichert. Ist bereits ein Text im suchKriterium, so wird der text
+	 * " and " vorangestellt.
+	 */
+	public void organisationseinheitClicked() {
+		String query = rechercheBean.getSuchKriterium();
+		if (query.length() == 0) {
+			query = "organisationseinheit:";
+		} else {
+			query += " AND organisationseinheit:";
+		}
+		rechercheBean.setSuchKriterium(query);
+	}
+
+	/**
+	 * ActionListener-Methode für die Schaltfläche "Person". Der Text "person:"
+	 * wird in die Eigenschaft suchKriterium gespeichert. Ist bereits ein Text
+	 * im suchKriterium, so wird der text " and " vorangestellt.
+	 */
+	public void personClicked() {
+		String query = rechercheBean.getSuchKriterium();
+		if (query.length() == 0) {
+			query = "person:";
+		} else {
+			query += " AND person:";
 		}
 		rechercheBean.setSuchKriterium(query);
 	}
@@ -164,6 +218,36 @@ public class SearchBean implements Serializable {
 		}
 		rechercheBean.setSuchKriterium(query);
 	}
+	
+	/**
+	 * ActionListener-Methode für die Schaltfläche "von Jahr". Der Text "vonJahr:"
+	 * wird in die Eigenschaft suchKriterium gespeichert. Ist bereits ein Text
+	 * im suchKriterium, so wird der text " and " vorangestellt.
+	 */
+	public void vonJahrClicked() {
+		String query = rechercheBean.getSuchKriterium();
+		if (query.length() == 0) {
+			query = "vonJahr:";
+		} else {
+			query += " AND vonJahr:";
+		}
+		rechercheBean.setSuchKriterium(query);
+	}
+	
+	/**
+	 * ActionListener-Methode für die Schaltfläche "bis Jahr". Der Text "bisJahr:"
+	 * wird in die Eigenschaft suchKriterium gespeichert. Ist bereits ein Text
+	 * im suchKriterium, so wird der text " and " vorangestellt.
+	 */
+	public void bisJahrClicked() {
+		String query = rechercheBean.getSuchKriterium();
+		if (query.length() == 0) {
+			query = "bisJahr:";
+		} else {
+			query += " AND bisJahr:";
+		}
+		rechercheBean.setSuchKriterium(query);
+	}
 
 	/**
 	 * ActionListener-Methode für die Schaltfläche "and". Der Text " and " wird
@@ -171,7 +255,7 @@ public class SearchBean implements Serializable {
 	 */
 	public void andClicked() {
 		String query = rechercheBean.getSuchKriterium();
-		query +=" AND ";
+		query += " AND ";
 		rechercheBean.setSuchKriterium(query);
 	}
 
@@ -181,7 +265,7 @@ public class SearchBean implements Serializable {
 	 */
 	public void orClicked() {
 		String query = rechercheBean.getSuchKriterium();
-		query +=" OR ";
+		query += " OR ";
 		rechercheBean.setSuchKriterium(query);
 	}
 

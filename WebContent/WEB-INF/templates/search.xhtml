@@ -4,25 +4,33 @@
 	xmlns:p="http://primefaces.org/ui" id="searchForm">
 
 	<p:panelGrid columns="2">
-		<p:inputText id="inputSearch" value="#{rechercheBean.suchKriterium}" required="true"></p:inputText>
-		<p:commandButton value="Suche" action="#{searchBean.search}"
-			update="@all" />
+		<p:focus for="inputSearch">
+			<p:inputText id="inputSearch" value="#{rechercheBean.suchKriterium}"></p:inputText>
+			<p:commandButton value="Suche"
+				action="#{searchBean.search(facesContext)}" update="@all" />
+		</p:focus>
 	</p:panelGrid>
 
-	<p:panel header="erweiterte Suche" toggleable="true" collapsed="true" >
-	<p:panelGrid id="extendedSearch" columns="3">
-		<p:commandButton value="Betreff" update="@form"
-			actionListener="#{searchBean.betreffClicked}" />
-		<p:commandButton value="Name" update="@form"
-			actionListener="#{searchBean.nameClicked}" />
-		<p:commandButton value="und" update="@form"
-			actionListener="#{searchBean.andClicked}" />
-		<p:commandButton value="Schlagwort" update="@form"
-			actionListener="#{searchBean.schlagwortClicked}" />
-		<p:commandButton value="Titel" update="@form"
-			actionListener="#{searchBean.titelClicked}" />
-		<p:commandButton value="oder" update="@form"
-			actionListener="#{searchBean.orClicked}" />
-	</p:panelGrid>
+	<p:panel header="erweiterte Suche" toggleable="true" collapsed="true">
+		<p:panelGrid id="extendedSearch" columns="3">
+			<p:commandButton value="Dokumentart" update="@form"
+				actionListener="#{searchBean.dokumentartClicked}" />
+			<p:commandButton value="Person" update="@form"
+				actionListener="#{searchBean.personClicked}" />
+			<p:commandButton value="und" update="@form"
+				actionListener="#{searchBean.andClicked}" />
+			<p:commandButton value="Schlagwort" update="@form"
+				actionListener="#{searchBean.schlagwortClicked}" />
+			<p:commandButton value="Betreff" update="@form"
+				actionListener="#{searchBean.betreffClicked}" />
+			<p:commandButton value="oder" update="@form"
+				actionListener="#{searchBean.orClicked}" />
+			<p:commandButton value="Organisationseinheit" update="@form"
+				actionListener="#{searchBean.organisationseinheitClicked}" />
+			<p:commandButton value="von Jahr" update="@form"
+				actionListener="#{searchBean.vonJahrClicked}" />
+			<p:commandButton value="bis Jahr" update="@form"
+				actionListener="#{searchBean.bisJahrClicked}" />
+		</p:panelGrid>
 	</p:panel>
 </h:form>

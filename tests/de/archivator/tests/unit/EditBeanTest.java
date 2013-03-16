@@ -27,6 +27,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -65,6 +66,7 @@ public class EditBeanTest {
 	private Query query;
 	private List<Name> nameList;
 	private ArrayList<Schlagwort> schlagwortList;
+	private FacesContext facesContext;
 
 	/**
 	 * Erzeugt eine Umgebung, die von allen Tests benötigt wird.
@@ -121,6 +123,9 @@ public class EditBeanTest {
 		f = proband.getClass().getDeclaredField("compass");
 		f.setAccessible(true);
 		f.set(proband, compass);
+		
+		facesContext = mock(FacesContext.class);
+
 	}
 
 	/**
@@ -154,8 +159,7 @@ public class EditBeanTest {
 	 */
 	@Test
 	public void testLösche() {
-
-		String navigation = proband.lösche();
+		String navigation = proband.lösche(facesContext);
 		assertEquals("lösche() muss auf die Index-Seite navigieren", "index",
 				navigation);
 		verify(entityManager, times(2)).getTransaction();
@@ -169,7 +173,7 @@ public class EditBeanTest {
 	@Test
 	public void testSpeichereNeuesArchivale() {
 
-		String navigation = proband.speichere();
+		String navigation = proband.speichere(facesContext);
 		assertEquals("lösche() muss auf die Detailseite navigieren", "detail",
 				navigation);
 		verify(entityManager, times(2)).getTransaction();
@@ -184,7 +188,7 @@ public class EditBeanTest {
 		aktuellesArchivale.setId(1);
 		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
 
-		String navigation = proband.speichere(); // test
+		String navigation = proband.speichere(facesContext); // test
 
 		assertEquals("lösche() muss auf die Detailseite navigieren", "detail",
 				navigation);
