@@ -19,18 +19,14 @@
  */
 package de.archivator.beans;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import javax.inject.Named;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 
 import org.compass.core.Compass;
-import org.compass.core.CompassIndexSession;
 import org.compass.core.config.CompassConfiguration;
 import org.compass.gps.CompassGps;
 import org.compass.gps.CompassGpsDevice;
@@ -49,6 +45,7 @@ import de.archivator.entities.Schlagwort;
  * @author burghard.britzke bubi@charmides.in-berlin.de
  */
 @ApplicationScoped
+@Named
 public class CompassBean {
 
 	@Inject
@@ -62,8 +59,8 @@ public class CompassBean {
 	private CompassGps gps;
 
 	/**
-	 * Erzeugt eine neue CompassBean. Die Eigenschaft compass wird mit einem
-	 * neuen Compass-Objekt initialisiert.
+	 * Erzeugt eine neue CompassBean. Die Eigenschaft <i>compass</i> wird mit
+	 * einem neuen Compass-Objekt initialisiert.
 	 */
 	public CompassBean() {
 		CompassConfiguration conf = new CompassConfiguration().configure();
@@ -82,11 +79,21 @@ public class CompassBean {
 	public void init() {
 
 		gps = new SingleCompassGps(compass);
-		CompassGpsDevice jpaDevice = new JpaGpsDevice("jpa",
+		jpaDevice = new JpaGpsDevice("jpa",
 				entityManagerFactory);
 		gps.addGpsDevice(jpaDevice);
 		gps.start();
 	}
+	
+	/**
+	 * Erneuert den Index für die Suche.
+	 * @return null... navigiert zum gleichen View.
+	 */
+	public String fullIndex() {
+		gps.index();
+		return null;
+	}
+
 
 	/**
 	 * @return the compass

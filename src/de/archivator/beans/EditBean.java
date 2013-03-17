@@ -90,6 +90,7 @@ public class EditBean implements Serializable {
 	 * Liste aller Organisationseinheiten, die im System gespeichert sind.
 	 */
 	private List<Organisationseinheit> organisationseinheiten;
+	private Organisationseinheit[] selectedOrganisationseinheiten;
 	/**
 	 * Liste aller Dokumentarten, die im System gespeichert sind.
 	 */
@@ -111,7 +112,7 @@ public class EditBean implements Serializable {
 		organisationseinheiten = new ArrayList<Organisationseinheit>();
 		dokumentarten = new ArrayList<Dokumentart>();
 		schlagworte = new ArrayList<Schlagwort>();
-
+		selectedOrganisationseinheiten = new Organisationseinheit[0];
 		formularSchlagwörter = new String();
 		formularNames = new String();
 	}
@@ -190,6 +191,22 @@ public class EditBean implements Serializable {
 	public void setOrganisationseinheiten(
 			List<Organisationseinheit> organisationseinheiten) {
 		this.organisationseinheiten = organisationseinheiten;
+	}
+
+	/**
+	 * @return the selectedOrganisationseinheiten
+	 */
+	public Organisationseinheit[] getSelectedOrganisationseinheiten() {
+		return selectedOrganisationseinheiten;
+	}
+
+	/**
+	 * @param selectedOrganisationseinheiten
+	 *            the selectedOrganisationseinheiten to set
+	 */
+	public void setSelectedOrganisationseinheiten(
+			Organisationseinheit[] selectedOrganisationseinheiten) {
+		this.selectedOrganisationseinheiten = selectedOrganisationseinheiten;
 	}
 
 	/**
@@ -444,6 +461,14 @@ public class EditBean implements Serializable {
 		Query q = entityManager
 				.createQuery("select o from Organisationseinheit o");
 		organisationseinheiten = q.getResultList();
+		List<Organisationseinheit> archivaleOrganisationseinheiten = aktuellesArchivale
+				.getOrganisationseinheiten();
+		selectedOrganisationseinheiten = new Organisationseinheit[archivaleOrganisationseinheiten
+				.size()];
+		int i = 0;
+		for (Organisationseinheit oe : archivaleOrganisationseinheiten) {
+			selectedOrganisationseinheiten[i++] = oe;
+		}
 		return null;
 	}
 
@@ -457,10 +482,9 @@ public class EditBean implements Serializable {
 		List<Organisationseinheit> org = aktuellesArchivale
 				.getOrganisationseinheiten();
 		org.clear();
-		for (Organisationseinheit o : organisationseinheiten) {
-			org.add(o);
+		for (Organisationseinheit oe : selectedOrganisationseinheiten) {
+			org.add(oe);
 		}
-		aktuellesArchivale.setOrganisationseinheiten(org);
 		details.setAktuellesArchivale(aktuellesArchivale);
 		return null;
 	}
