@@ -3,6 +3,9 @@ package de.archivator.tests.integration;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,9 +18,10 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 
 /**
  * Testet das Loginverhalten mit Hilfe von FireFox
+ * 
  * @author Janine Naumann
  * @author Atilla Schulz
- *
+ * 
  */
 public class LoginTest {
 
@@ -25,17 +29,18 @@ public class LoginTest {
 	WebDriver driver;
 
 	/**
-	 * Der Firefoxpfad muss gegebenenfalls angepasst werden
+	 * Die Umgebungsvariable PATH muss auf das Firefox-Verzeichnis verwiesen
+	 * werden. Erstellt den Firefox-Webdriver, um die gewünschte Seite
+	 * aufzurufen. Wartet nach dem aufruf 3sec auf den DOM-Tree
 	 * 
 	 * @throws Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-
 		profile = new FirefoxProfile();
-		driver = new FirefoxDriver(new FirefoxBinary(new File(
-				"D:/Programme/Mozilla Firefox/firefox.exe")), profile);
+		driver = new FirefoxDriver();
 		driver.get("http://localhost:8080/archivator/faces/index.xhtml");
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 
 	/**
@@ -43,25 +48,27 @@ public class LoginTest {
 	 */
 	@Test
 	public void testLoginErfolgreich() {
+		// Enter the query string "Cheese"
+		WebElement query = driver.findElement(By
+				.xpath("//input[@type='password']"));
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		query.sendKeys("secret");
+
+		WebElement query2 = driver.findElement(By
+				.xpath("//button[contains(@id, 'login')]"));
+		query2.click();
+
+		// Wirft eine NoSuchElementException, falls das Element nicht
+		// vorhanden ist
 		try {
-			// Enter the query string "Cheese"
-			WebElement query = driver.findElement(By.name("j_id_q:password"));
-			query.sendKeys("secret");
-
-			WebElement query2 = driver.findElement(By.name("j_id_q:login"));
-			query2.click();
-
-			Thread.sleep(3000);
-
-			// Wirft eine NoSuchElementException, falls das Element nicht
-			// vorhanden ist
-			driver.findElement(By.name("j_id_q:logout"));
-			WebElement e = driver.findElement(By
-					.className("ui-messages-info-summary"));
-			assertEquals("Sie haben sich erfolgreich angemeldet!", e.getText());
-		} catch (Exception e) {
-			fail(e.getMessage());
+			driver.findElement(By.xpath("//button[contains(@name, 'logout')]"));
+		} catch (NoSuchElementException e) {
+			fail("Es wurde kein Logout-Button gefunden. Der Login war nicht erfolgreich.");
 		}
+
+		WebElement e = driver.findElement(By
+				.className("ui-messages-info-summary"));
+		assertEquals("Sie haben sich erfolgreich angemeldet!", e.getText());
 	}
 
 	/**
@@ -69,25 +76,28 @@ public class LoginTest {
 	 */
 	@Test
 	public void testLoginNichtErfolgreich() {
+
+		// Enter the query string "Cheese"
+		WebElement query = driver.findElement(By
+				.xpath("//input[@type='password']"));
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		query.sendKeys("asdf");
+
+		WebElement query2 = driver.findElement(By
+				.xpath("//button[contains(@id, 'login')]"));
+		query2.click();
+
+		// Wirft eine NoSuchElementException, falls das Element nicht
+		// vorhanden ist
 		try {
-			// Enter the query string "Cheese"
-			WebElement query = driver.findElement(By.name("j_id_q:password"));
-			query.sendKeys("asdf");
-
-			WebElement query2 = driver.findElement(By.name("j_id_q:login"));
-			query2.click();
-
-			Thread.sleep(3000);
-
-			// Wirft eine NoSuchElementException, falls das Element nicht
-			// vorhanden ist
-			driver.findElement(By.name("j_id_q:login"));
-			WebElement e = driver.findElement(By
-					.className("ui-messages-info-summary"));
-			assertEquals("Falsches Kennwort!", e.getText());
-		} catch (Exception e) {
-			fail(e.getMessage());
+			driver.findElement(By.xpath("//button[contains(@id, 'login')]"));
+		} catch (NoSuchElementException e) {
+			fail("Es wurde kein Login-Button gefunden. Der Logout war nicht erfolgreich.");
 		}
+		WebElement e = driver.findElement(By
+				.className("ui-messages-info-summary"));
+		assertEquals("Falsches Kennwort!", e.getText());
+
 	}
 
 	/**
@@ -96,18 +106,15 @@ public class LoginTest {
 	@Test
 	public void testLogout() {
 		testLoginErfolgreich();
-		try {
-			WebElement e = driver.findElement(By.name("j_id_q:logout"));
-			e.click();
-			Thread.sleep(3000);
 
-			driver.findElement(By.name("j_id_q:login"));
+		WebElement e = driver.findElement(By
+				.xpath("//button[contains(@id, 'logout')]"));
+		e.click();
 
-			e = driver.findElement(By.className("ui-messages-info-summary"));
-			assertEquals("Sie haben sich erfolgreich abgemeldet!", e.getText());
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+		driver.findElement(By.xpath("//button[contains(@id, 'login')]"));
+
+		e = driver.findElement(By.className("ui-messages-info-summary"));
+		assertEquals("Sie haben sich erfolgreich abgemeldet!", e.getText());
 
 	}
 
