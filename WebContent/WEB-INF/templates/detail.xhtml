@@ -19,7 +19,7 @@
 		header="Bestätigung zum Löschen"
 		message="Soll das aktuelle Archivale gelöscht werden?"
 		tooltip="Löschen des aktuellen Archivales"
-		action="#{editBean.lösche}"
+		action="#{editBean.lösche(facesContext)}"
 		rendered="#{loginBean.angemeldet}"
 	/>
 	<p:panel id="detailPanel"
