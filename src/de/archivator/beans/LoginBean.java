@@ -21,12 +21,13 @@ package de.archivator.beans;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+
+import javax.inject.Named;
 
 /**
  * Stellt die Funktionen für die An- und Abmeldung zur Verfügung.
@@ -34,7 +35,7 @@ import javax.faces.bean.SessionScoped;
  * @author e0_wiezorek
  * @author burghard.britzke
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class LoginBean implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -45,6 +46,9 @@ public class LoginBean implements Serializable {
 	private String password;
 	private boolean angemeldet;
 
+	public LoginBean() {
+		
+	}
 	/**
 	 * Diese Methode wird als ActionListener der Schaltfläche “anmelden”
 	 * angesprochen. Es wird die Eigenschaft “angemeldet” auf den Wert “true”
