@@ -46,9 +46,6 @@ public class LoginBean implements Serializable {
 	private String password;
 	private boolean angemeldet;
 
-	public LoginBean() {
-		
-	}
 	/**
 	 * Diese Methode wird als ActionListener der Schaltfläche “anmelden”
 	 * angesprochen. Es wird die Eigenschaft “angemeldet” auf den Wert “true”
