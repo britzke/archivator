@@ -38,9 +38,7 @@ import org.compass.core.CompassSession;
 
 import de.archivator.annotations.AktuellesArchivale;
 import de.archivator.entities.Archivale;
-import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
-import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
 /**
@@ -87,32 +85,19 @@ public class EditBean implements Serializable {
 	 */
 	private List<Name> namen;
 	/**
-	 * Liste aller Organisationseinheiten, die im System gespeichert sind.
-	 */
-	private List<Organisationseinheit> organisationseinheiten;
-	private Organisationseinheit[] selectedOrganisationseinheiten;
-	/**
-	 * Liste aller Dokumentarten, die im System gespeichert sind.
-	 */
-	private List<Dokumentart> dokumentarten;
-	/**
 	 * Liste aller Schlagworte, die im System gespeichert sind.
 	 */
 	private List<Schlagwort> schlagworte;
 
 	private String formularNames;
 	private String formularSchlagwörter;
-	private Dokumentart[] selectedDokumentarten;
 
 	/**
 	 * Erzeugt eine neue EditBean.
 	 */
 	public EditBean() {
 		namen = new ArrayList<Name>();
-		organisationseinheiten = new ArrayList<Organisationseinheit>();
-		dokumentarten = new ArrayList<Dokumentart>();
 		schlagworte = new ArrayList<Schlagwort>();
-		selectedOrganisationseinheiten = new Organisationseinheit[0];
 		formularSchlagwörter = new String();
 		formularNames = new String();
 	}
@@ -175,53 +160,6 @@ public class EditBean implements Serializable {
 	 */
 	public void setNamen(List<Name> namen) {
 		this.namen = namen;
-	}
-
-	/**
-	 * @return the organisationseinheiten
-	 */
-	public List<Organisationseinheit> getOrganisationseinheiten() {
-		return organisationseinheiten;
-	}
-
-	/**
-	 * @param organisationseinheiten
-	 *            the organisationseinheiten to set
-	 */
-	public void setOrganisationseinheiten(
-			List<Organisationseinheit> organisationseinheiten) {
-		this.organisationseinheiten = organisationseinheiten;
-	}
-
-	/**
-	 * @return the selectedOrganisationseinheiten
-	 */
-	public Organisationseinheit[] getSelectedOrganisationseinheiten() {
-		return selectedOrganisationseinheiten;
-	}
-
-	/**
-	 * @param selectedOrganisationseinheiten
-	 *            the selectedOrganisationseinheiten to set
-	 */
-	public void setSelectedOrganisationseinheiten(
-			Organisationseinheit[] selectedOrganisationseinheiten) {
-		this.selectedOrganisationseinheiten = selectedOrganisationseinheiten;
-	}
-
-	/**
-	 * @return the dokumentarten
-	 */
-	public List<Dokumentart> getDokumentarten() {
-		return dokumentarten;
-	}
-
-	/**
-	 * @param dokumentarten
-	 *            the dokumentarten to set
-	 */
-	public void setDokumentarten(List<Dokumentart> dokumentarten) {
-		this.dokumentarten = dokumentarten;
 	}
 
 	/**
@@ -450,67 +388,6 @@ public class EditBean implements Serializable {
 	}
 
 	/**
-	 * Lädt die Eigenschaften für das Formular zur Bearbeitung der
-	 * Organisationseinheiten.
-	 * 
-	 * @return null... immer
-	 */
-	@SuppressWarnings("unchecked")
-	public String loadOrganisationseinheiten() {
-		entityManager = entityManagerFactory.createEntityManager();
-		Query q = entityManager
-				.createQuery("select o from Organisationseinheit o");
-		organisationseinheiten = q.getResultList();
-		List<Organisationseinheit> archivaleOrganisationseinheiten = aktuellesArchivale
-				.getOrganisationseinheiten();
-		selectedOrganisationseinheiten = new Organisationseinheit[archivaleOrganisationseinheiten
-				.size()];
-		int i = 0;
-		for (Organisationseinheit oe : archivaleOrganisationseinheiten) {
-			selectedOrganisationseinheiten[i++] = oe;
-		}
-		return null;
-	}
-
-	/**
-	 * Sichert die Eigenschaften aus dem Formular zur Bearbeitung der
-	 * Organisationseinheiten.
-	 * 
-	 * @return null... immer
-	 */
-	public String saveOrganisationseinheiten() {
-		List<Organisationseinheit> org = aktuellesArchivale
-				.getOrganisationseinheiten();
-		org.clear();
-		for (Organisationseinheit oe : selectedOrganisationseinheiten) {
-			org.add(oe);
-		}
-		details.setAktuellesArchivale(aktuellesArchivale);
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public String loadDokumentarten() {
-		entityManager = entityManagerFactory.createEntityManager();
-		Query q = entityManager.createQuery("select d from Dokumentart d");
-		dokumentarten = q.getResultList();
-		return null;
-	}
-
-	public String saveDokumentarten() {
-		ArrayList<Dokumentart> selection = new ArrayList<Dokumentart>();
-		for (Dokumentart d : selectedDokumentarten) {
-			selection.add(d);
-		}
-		aktuellesArchivale.setDokumentarten(selection);
-		if (!aktuellesArchivale.getDokumentarten().isEmpty()) {
-			// for (Dokumentart d : aktuellesArchivale.getDokumentarten()) {
-			// }
-		}
-		return null;
-	}
-
-	/**
 	 * Lädt die Schlagworte, die dem Archivale zugeordnet ist, aus der Liste
 	 * schlagworte als Komma separierten Text zur Bearbeitung in die Eigenschaft
 	 * archivaleSchlagwörter.
@@ -605,24 +482,5 @@ public class EditBean implements Serializable {
 		details.setAktuellesArchivale(aktuellesArchivale);
 
 		return null;
-	}
-
-	/**
-	 * @return the selectedDokumentarten
-	 */
-	public Dokumentart[] getSelectedDokumentarten() {
-		return selectedDokumentarten;
-	}
-
-	/**
-	 * @param selectedDokumentarten
-	 *            the selectedDokumentarten to set
-	 */
-	public void setSelectedDokumentarten(Dokumentart[] selectedDokumentarten) {
-		// if (!aktuellesArchivale.getDokumentarten().isEmpty()) {
-		// selectedDokumentarten=(Dokumentart[])
-		// aktuellesArchivale.getDokumentarten().toArray();
-		// }
-		this.selectedDokumentarten = selectedDokumentarten;
 	}
 }

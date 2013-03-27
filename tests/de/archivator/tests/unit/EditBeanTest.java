@@ -245,35 +245,6 @@ public class EditBeanTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link de.archivator.beans.EditBean#loadOrganisationseinheiten()}.
-	 */
-	@Test
-	public void testLoadOrganisationseinheiten() {
-		Query q = mock(Query.class);
-		when(entityManager.createQuery(anyString())).thenReturn(q);
-		String navigation = proband.loadOrganisationseinheiten();
-		assertNull(
-				"loadOrganisationseinheiten() muss zum gleichen View navigieren",
-				navigation);
-		verify(entityManager).createQuery(anyString());
-	}
-
-	/**
-	 * Test method for
-	 * {@link de.archivator.beans.EditBean#saveOrganisationseinheiten()}.
-	 */
-	@Test
-	public void testSaveOrganisationseinheiten() {
-
-		String navigation = proband.saveOrganisationseinheiten();
-
-		assertNull(
-				"saveOrganisationseinheiten() muss zum gleichen View navigieren",
-				navigation);
-	}
-
-	/**
 	 * Test method for {@link de.archivator.beans.EditBean#loadSchlagworte()}.
 	 */
 	@Test

@@ -23,7 +23,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.compass.annotations.Searchable;
-import org.compass.annotations.SearchableComponent;
 import org.compass.annotations.SearchableId;
 import org.compass.annotations.SearchableProperty;
 
@@ -53,9 +52,8 @@ public class Organisationseinheit implements Serializable {
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "ORGANISATIONSEINHEITEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "ORGANISATIONSEINHEITEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
-	// @SearchableComponent
 	private List<Archivale> archivalien;
 
 	/**

@@ -56,7 +56,7 @@ public class Dokumentart implements Serializable {
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "DOKUMENTARTEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "DOKUMENTARTEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 
