@@ -16,3 +16,5 @@
 /build
 /build/**
 /db
+/doc
+/javadoc.xml
