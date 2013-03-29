@@ -39,7 +39,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "SCHLAGWÖRTER", schema = "ARCHIVATOR")
 @Searchable(root = false)
-public class Schlagwort implements Serializable {
+public class Schlagwort implements Serializable, Markable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

@@ -42,7 +42,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "NAMEN", schema = "ARCHIVATOR", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"NACHNAME", "VORNAME" }) })
 @Searchable(root = false)
-public class Name implements Serializable {
+public class Name implements Serializable, Markable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

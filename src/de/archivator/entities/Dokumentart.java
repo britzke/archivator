@@ -26,6 +26,7 @@ import org.compass.annotations.Searchable;
 import org.compass.annotations.SearchableId;
 import org.compass.annotations.SearchableProperty;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -43,7 +44,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "DOKUMENTARTEN", schema = "ARCHIVATOR")
 @Searchable(root = false)
-public class Dokumentart implements Serializable {
+public class Dokumentart implements Serializable, Markable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -56,10 +57,13 @@ public class Dokumentart implements Serializable {
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany (cascade = { CascadeType.MERGE, CascadeType.REFRESH,
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.PERSIST })
 	@JoinTable(name = "DOKUMENTARTEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "DOKUMENTARTEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
+
+	// dient zur Traversierung von Objekt-Listen
+	private transient boolean marked;
 
 	/**
 	 * Erzeugt eine neue Dokumentart.
@@ -101,6 +105,21 @@ public class Dokumentart implements Serializable {
 
 	public void setArchivalien(List<Archivale> archivalien) {
 		this.archivalien = archivalien;
+	}
+
+	/**
+	 * @return the marked
+	 */
+	public boolean isMarked() {
+		return marked;
+	}
+
+	/**
+	 * @param marked
+	 *            the marked to set
+	 */
+	public void setMarked(boolean marked) {
+		this.marked = marked;
 	}
 
 	/**
