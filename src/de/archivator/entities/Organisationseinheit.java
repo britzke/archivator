@@ -52,7 +52,8 @@ public class Organisationseinheit implements Serializable {
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.PERSIST })
 	@JoinTable(name = "ORGANISATIONSEINHEITEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "ORGANISATIONSEINHEITEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 

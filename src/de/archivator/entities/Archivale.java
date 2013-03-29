@@ -79,23 +79,27 @@ public class Archivale implements Serializable {
 	private int schubfach;
 
 	// bi-directional many-to-many association to Namen
-	@ManyToMany(mappedBy = "archivalien", cascade=CascadeType.ALL)
-	//@SearchableCascading(cascade = {Cascade.ALL})
+	@ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
+			CascadeType.REFRESH, CascadeType.PERSIST })
+	// @SearchableCascading(cascade = {Cascade.ALL})
 	@SearchableComponent
 	private List<Name> namen;
 
 	// bi-directional many-to-many association to Dokumentarten
-	@ManyToMany(mappedBy = "archivalien", cascade=CascadeType.ALL)
+	@ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
+			CascadeType.REFRESH, CascadeType.PERSIST })
 	@SearchableComponent
 	private List<Dokumentart> dokumentarten;
 
 	// bi-directional many-to-many association to Organisationseinheiten
-	@ManyToMany(mappedBy = "archivalien", cascade=CascadeType.ALL)
+	@ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
+			CascadeType.REFRESH, CascadeType.PERSIST })
 	@SearchableComponent
 	private List<Organisationseinheit> organisationseinheiten;
 
 	// bi-directional many-to-many association to Schlagwörter
-	@ManyToMany(mappedBy = "archivalien", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
+			CascadeType.REFRESH, CascadeType.PERSIST })
 	@SearchableComponent
 	private List<Schlagwort> schlagwörter;
 

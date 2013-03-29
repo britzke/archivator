@@ -50,16 +50,17 @@ public class Name implements Serializable {
 	@SearchableId
 	private int id;
 
-	@SearchableProperty (name="person")
+	@SearchableProperty(name = "person")
 	private String nachname;
 
-	@SearchableProperty (name="person")
+	@SearchableProperty(name = "person")
 	private String vorname;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.PERSIST })
 	@JoinTable(name = "NAMEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "NAMEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
-	//@SearchableComponent
+	// @SearchableComponent
 	private List<Archivale> archivalien;
 
 	// dient zur Traversierung von Namenslisten

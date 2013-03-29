@@ -31,15 +31,14 @@ import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
-
 /**
- * Classe für die Schlagwörter der Archivalien.
- * @author junghans
- * @version 1.0
+ * Entity-Mapping für die Schlagwörter der Archivalien.
+ * 
+ * @author junghans, burghard.britzke bubi@charmides.in-berlin.de
  */
 @Entity
 @Table(name = "SCHLAGWÖRTER", schema = "ARCHIVATOR")
-@Searchable (root=false)
+@Searchable(root = false)
 public class Schlagwort implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -48,23 +47,16 @@ public class Schlagwort implements Serializable {
 	@SearchableId
 	private int id;
 
-	@Column (unique=true)
-	@SearchableProperty (name="schlagwort")
+	@Column(unique = true)
+	@SearchableProperty(name = "schlagwort")
 	private String name;
 
-	//bi-directional many-to-many association to Archivalien
-	@ManyToMany (cascade=CascadeType.ALL)
-	@JoinTable(
-		name="\"SCHLAGWÖRTER_ARCHIVALIEN\""
-		, joinColumns={
-			@JoinColumn(name="SCHLAGWÖRTER_ID")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="ARCHIVALIEN_ID")
-			}, schema = "ARCHIVATOR"
-		)
+	// bi-directional many-to-many association to Archivalien
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.PERSIST })
+	@JoinTable(name = "\"SCHLAGWÖRTER_ARCHIVALIEN\"", joinColumns = { @JoinColumn(name = "SCHLAGWÖRTER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
-	
+
 	private transient boolean marked;
 
 	/**
@@ -76,10 +68,12 @@ public class Schlagwort implements Serializable {
 
 	/**
 	 * Erzeugt ein Neues Schlagwort mit dem angegebenen Namen.
-	 * @param name Das Schlagwort
+	 * 
+	 * @param name
+	 *            Das Schlagwort
 	 */
 	public Schlagwort(String name) {
-		this.name= name;
+		this.name = name;
 		archivalien = new ArrayList<Archivale>();
 	}
 
@@ -115,7 +109,8 @@ public class Schlagwort implements Serializable {
 	}
 
 	/**
-	 * @param marked the marked to set
+	 * @param marked
+	 *            the marked to set
 	 */
 	public void setMarked(boolean marked) {
 		this.marked = marked;
@@ -142,12 +137,13 @@ public class Schlagwort implements Serializable {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Antwortet mit einer menschenlesbarern Form des Schlagwortes.
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return "("+id+","+name+")";
+		return "(" + id + "," + name + ")";
 	}
 }
