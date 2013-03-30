@@ -18,9 +18,7 @@
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 		<f:facet name="header">Ergebnisse</f:facet>
 		<p>
-			<p:commandLink id="detailLink" action="detail">
-				<f:setPropertyActionListener
-					target="#{detailBean.aktuellesArchivale}" value="#{archivale}" />
+			<p:commandLink id="detailLink" action="#{editBean.loadAktuellesArchivale(archivale)}">
 				#{archivale.betreff == null?'&#60;kein Betreff&#62;':archivale.betreff}
 				<pe:tooltip for="detailLink" value="Detailansicht dieses Archivales"></pe:tooltip>
 			</p:commandLink>

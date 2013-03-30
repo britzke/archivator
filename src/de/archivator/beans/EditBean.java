@@ -210,6 +210,21 @@ public class EditBean implements Serializable {
 	// Action-Routinen
 
 	/**
+	 * Lädt das aktuelle Archivale aus der Datenbank erneut ein und setzt es in
+	 * der DetailBean.
+	 * 
+	 * @return "detail"... immer
+	 */
+	public String loadAktuellesArchivale(Archivale a) {
+		entityManager = entityManagerFactory.createEntityManager();
+		a = entityManager.merge(a);
+		entityManager.refresh(a);
+		details.setAktuellesArchivale(a);
+		entityManager.close();
+		return "detail";
+	}
+
+	/**
 	 * Action-Routine für die Schaltfläche "zurück".
 	 * 
 	 * @return "index" wenn ein neues Archivale erfasst werden sollte. "detail"
