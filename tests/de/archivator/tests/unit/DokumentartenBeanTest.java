@@ -27,7 +27,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -53,13 +52,12 @@ import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Organisationseinheit;
 
 /**
+ * Testet die Funktion der DokumentartenBean.
  * @author burghard.britzke bubi@charmides.in-berlin.de
- * 
  */
 @RunWith(MockitoJUnitRunner.class)
 public class DokumentartenBeanTest {
 
-	protected static final int SIZE_OF_SELECTED_DOKUMENTARTEN = 3;
 	protected  Dokumentart[] selectedItems = {
 			new Dokumentart("DA1"), new Dokumentart("DA2"),
 			new Dokumentart("DA3") };
