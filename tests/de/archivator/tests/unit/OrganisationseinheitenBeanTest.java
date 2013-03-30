@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -57,13 +57,12 @@ import de.archivator.entities.Organisationseinheit;
 @RunWith(MockitoJUnitRunner.class)
 public class OrganisationseinheitenBeanTest {
 
-	protected static final int SIZE_OF_SELECTED_ITEMS = 3;
 	protected Organisationseinheit[] selectedItems = {
 			new Organisationseinheit("OE1"), new Organisationseinheit("OE2"),
 			new Organisationseinheit("OE3") };
+	private Archivale aktuellesArchivale;
+	private List<Organisationseinheit> archivaleItems;
 
-	@Mock
-	Archivale aktuellesArchivale;
 	@Mock
 	EntityManagerFactory entityManagerFactory;
 	@Mock
@@ -78,11 +77,8 @@ public class OrganisationseinheitenBeanTest {
 	private CompassSession compassSession;
 	@Mock
 	DetailBean detailBean;
-
 	@Mock
 	private List<Organisationseinheit> allItems;
-	@Mock
-	private List<Organisationseinheit> archivaleItems;
 
 	@InjectMocks
 	OrganisationseinheitenBean proband = new OrganisationseinheitenBean();
@@ -92,19 +88,23 @@ public class OrganisationseinheitenBeanTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		archivaleItems = new ArrayList<Organisationseinheit>();
+		archivaleItems.add(new Organisationseinheit("OE1"));
+
+		aktuellesArchivale = new Archivale();
+		aktuellesArchivale.setOrganisationseinheiten(archivaleItems);
 		Field f = proband.getClass().getSuperclass()
-				.getDeclaredField("selectedItems");
+				.getDeclaredField("aktuellesArchivale");
 		f.setAccessible(true);
-		f.set(proband,
-				new Organisationseinheit[SIZE_OF_SELECTED_ITEMS]);
+		f.set(proband, aktuellesArchivale);
+
+		proband.setSelectedItems(selectedItems);
+
 		when(entityManagerFactory.createEntityManager()).thenReturn(
 				entityManager);
 		when(entityManager.createQuery(anyString())).thenReturn(query);
 		when(entityManager.getTransaction()).thenReturn(entityTransaction);
 		when(query.getResultList()).thenReturn(archivaleItems);
-		when(aktuellesArchivale.getOrganisationseinheiten()).thenReturn(
-				archivaleItems);
-		when(archivaleItems.size()).thenReturn(4);
 	}
 
 	/**
@@ -196,6 +196,7 @@ public class OrganisationseinheitenBeanTest {
 			SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException,
 			NoSuchFieldException {
+		proband.init();
 		Method m = proband.getClass().getDeclaredMethod("resizeSelectedItems");
 		m.setAccessible(true);
 		m.invoke(proband);
@@ -211,66 +212,16 @@ public class OrganisationseinheitenBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#addAktuellesArchivaleToItem(de.archivator.entities.Archivale, de.archivator.entities.Organisationseinheit)}
-	 * .
-	 * 
-	 * @throws SecurityException
-	 * @throws NoSuchMethodException
-	 *             Wenn die Methode addAktuellesArchivaleToItem() nicht im
-	 *             Probanden implementiert ist.
-	 * @throws InvocationTargetException
-	 *             Wenn addAktuellesArchivaleToItem() eine Exception wirft.
-	 * @throws IllegalArgumentException
-	 *             Wenn die Anzahl oder der Typ der Parameter nicht zum
-	 *             Probanden passt.
-	 * @throws IllegalAccessException
-	 */
-	@Test
-	public void testAddAktuellesArchivaleToItemArchivaleOrganisationseinheit()
-			throws NoSuchMethodException, SecurityException,
-			IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException {
-		Class<?>[] parameterTypes = { Archivale.class,
-				Organisationseinheit.class };
-		Organisationseinheit organisationseinheit = new Organisationseinheit();
-		Object[] parameters = { aktuellesArchivale, organisationseinheit };
-		Method m = proband.getClass().getDeclaredMethod(
-				"addAktuellesArchivaleToItem", parameterTypes);
-		m.setAccessible(true);
-		m.invoke(proband, parameters);
-		assertTrue(
-				"Die Archivale muss der Organisationseinheit hinzugefügt worden sein",
-				organisationseinheit.getArchivalien().size() == 1);
-	}
-
-	/**
-	 * Test method for
 	 * {@link de.archivator.beans.MultiSelectionListBean#loadItems()}.
 	 */
 	@Test
 	public void testLoadItems() {
-		Iterator<Organisationseinheit> i = new Iterator<Organisationseinheit>() {
-			int count = 0;
+		proband.init();
 
-			@Override
-			public boolean hasNext() {
-				return count++ < SIZE_OF_SELECTED_ITEMS;
-			}
-
-			@Override
-			public Organisationseinheit next() {
-				return new Organisationseinheit("O" + count);
-			}
-
-			@Override
-			public void remove() {
-			}
-		};
-		when(archivaleItems.iterator()).thenReturn(i);
-		
 		proband.loadItems();
-		
-		// TODO verify something
+
+		assertEquals(archivaleItems.size(), proband.getSelectedItems().length);
+
 	}
 
 	/**
@@ -283,21 +234,23 @@ public class OrganisationseinheitenBeanTest {
 	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testSaveItems() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		// if entityManager should merge by answering with the Object provided as Parameter.
+	public void testSaveItems() throws NoSuchFieldException, SecurityException,
+			IllegalArgumentException, IllegalAccessException {
+		// if entityManager should merge by answering with the Object provided
+		// as Parameter.
 		when(entityManager.merge(any())).thenAnswer(new Answer<Object>() {
-		    public Object answer(InvocationOnMock invocation) {
-		        Object[] args = invocation.getArguments();
-		        return args[0];
-		    }});
+			public Object answer(InvocationOnMock invocation) {
+				Object[] args = invocation.getArguments();
+				return args[0];
+			}
+		});
 		when(compass.openSession()).thenReturn(compassSession);
 
-		Field f = proband.getClass().getSuperclass().getDeclaredField("selectedItems");
-		f.setAccessible(true);
-		f.set(proband,selectedItems);
+		proband.setSelectedItems(selectedItems);
 		proband.init();
+
 		proband.saveItems();
-		
+
 		verify(entityTransaction).commit();
 		verify(compassSession).commit();
 		verify(detailBean).setAktuellesArchivale(any(Archivale.class));

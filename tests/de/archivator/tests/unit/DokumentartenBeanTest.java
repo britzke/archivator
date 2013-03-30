@@ -20,11 +20,13 @@
 package de.archivator.tests.unit;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -61,19 +63,19 @@ public class DokumentartenBeanTest {
 	protected  Dokumentart[] selectedItems = {
 			new Dokumentart("DA1"), new Dokumentart("DA2"),
 			new Dokumentart("DA3") };
+	private List<Dokumentart> archivaleItems;
+	private Archivale aktuellesArchivale;
 
 	@Mock
-	Archivale aktuellesArchivale;
-	@Mock
-	EntityManagerFactory entityManagerFactory;
+	private EntityManagerFactory entityManagerFactory;
 	@Mock
 	private EntityManager entityManager;
 	@Mock
 	private Query query;
 	@Mock
-	EntityTransaction entityTransaction;
+	private EntityTransaction entityTransaction;
 	@Mock
-	Compass compass;
+	private Compass compass;
 	@Mock
 	private CompassSession compassSession;
 	@Mock
@@ -81,8 +83,6 @@ public class DokumentartenBeanTest {
 
 	@Mock
 	private List<Dokumentart> allItems;
-	@Mock
-	private List<Dokumentart> archivaleItems;
 
 	@InjectMocks
 	DokumentartenBean proband = new DokumentartenBean();
@@ -92,19 +92,23 @@ public class DokumentartenBeanTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		archivaleItems = new ArrayList<Dokumentart>();
+		archivaleItems.add(new Dokumentart("DA1"));
+
+		aktuellesArchivale = new Archivale();
+		aktuellesArchivale.setDokumentarten(archivaleItems);
 		Field f = proband.getClass().getSuperclass()
-				.getDeclaredField("selectedItems");
+				.getDeclaredField("aktuellesArchivale");
 		f.setAccessible(true);
-		f.set(proband,
-				new Organisationseinheit[SIZE_OF_SELECTED_DOKUMENTARTEN]);
+		f.set(proband, aktuellesArchivale);
+
+		proband.setSelectedItems(selectedItems);
+
 		when(entityManagerFactory.createEntityManager()).thenReturn(
 				entityManager);
 		when(entityManager.createQuery(anyString())).thenReturn(query);
 		when(entityManager.getTransaction()).thenReturn(entityTransaction);
 		when(query.getResultList()).thenReturn(archivaleItems);
-		when(aktuellesArchivale.getDokumentarten()).thenReturn(
-				archivaleItems);
-		when(archivaleItems.size()).thenReturn(4);
 	}
 
 	/**
@@ -196,6 +200,8 @@ public class DokumentartenBeanTest {
 			SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException,
 			NoSuchFieldException {
+		proband.init();
+		
 		Method m = proband.getClass().getDeclaredMethod("resizeSelectedItems");
 		m.setAccessible(true);
 		m.invoke(proband);
@@ -211,67 +217,15 @@ public class DokumentartenBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#addAktuellesArchivaleToItem(de.archivator.entities.Archivale, de.archivator.entities.Organisationseinheit)}
-	 * .
-	 * 
-	 * @throws SecurityException
-	 * @throws NoSuchMethodException
-	 *             Wenn die Methode addAktuellesArchivaleToItem() nicht im
-	 *             Probanden implementiert ist.
-	 * @throws InvocationTargetException
-	 *             Wenn addAktuellesArchivaleToItem() eine Exception wirft.
-	 * @throws IllegalArgumentException
-	 *             Wenn die Anzahl oder der Typ der Parameter nicht zum
-	 *             Probanden passt.
-	 * @throws IllegalAccessException
-	 */
-	@Test
-	public void testAddAktuellesArchivaleToItemArchivaleOrganisationseinheit()
-			throws NoSuchMethodException, SecurityException,
-			IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException {
-		Class<?>[] parameterTypes = { Archivale.class,
-				Dokumentart.class };
-		Dokumentart dokumentart = new Dokumentart();
-		Object[] parameters = { aktuellesArchivale, dokumentart };
-		Method m = proband.getClass().getDeclaredMethod(
-				"addAktuellesArchivaleToItem", parameterTypes);
-		m.setAccessible(true);
-		m.invoke(proband, parameters);
-		assertTrue(
-				"Die Archivale muss der Organisationseinheit hinzugefügt worden sein",
-				dokumentart.getArchivalien().size() == 1);
-	}
-
-	/**
-	 * Test method for
 	 * {@link de.archivator.beans.MultiSelectionListBean#loadItems()}.
 	 */
 	@Test
 	public void testLoadItems() {
-		Iterator<Dokumentart> i = new Iterator<Dokumentart>() {
-			int size = SIZE_OF_SELECTED_DOKUMENTARTEN;
-			int count = 0;
-
-			@Override
-			public boolean hasNext() {
-				return count++ < size;
-			}
-
-			@Override
-			public Dokumentart next() {
-				return new Dokumentart("D" + count);
-			}
-
-			@Override
-			public void remove() {
-			}
-		};
-		when(archivaleItems.iterator()).thenReturn(i);
-
+		proband.init();
+		
 		proband.loadItems();
 		
-		// TODO verify something
+		assertEquals(archivaleItems.size(), proband.getSelectedItems().length);
 	}
 
 	/**
