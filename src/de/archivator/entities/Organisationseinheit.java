@@ -40,7 +40,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "ORGANISATIONSEINHEITEN", schema = "ARCHIVATOR")
 @Searchable(root = false)
-public class Organisationseinheit implements Serializable, Markable {
+public class Organisationseinheit implements Serializable, MarkableArchvialeListContainer {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -53,8 +53,7 @@ public class Organisationseinheit implements Serializable, Markable {
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.PERSIST })
+	@ManyToMany
 	@JoinTable(name = "ORGANISATIONSEINHEITEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "ORGANISATIONSEINHEITEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 

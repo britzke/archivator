@@ -52,8 +52,7 @@ public class Schlagwort implements Serializable, Markable {
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.PERSIST })
+	@ManyToMany
 	@JoinTable(name = "\"SCHLAGWÖRTER_ARCHIVALIEN\"", joinColumns = { @JoinColumn(name = "SCHLAGWÖRTER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 

@@ -44,7 +44,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "DOKUMENTARTEN", schema = "ARCHIVATOR")
 @Searchable(root = false)
-public class Dokumentart implements Serializable, Markable {
+public class Dokumentart implements Serializable, MarkableArchvialeListContainer {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -57,8 +57,7 @@ public class Dokumentart implements Serializable, Markable {
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.PERSIST })
+	@ManyToMany
 	@JoinTable(name = "DOKUMENTARTEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "DOKUMENTARTEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 

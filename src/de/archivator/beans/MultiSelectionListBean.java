@@ -2,7 +2,7 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  burghard.britzke bubi@charmides.in-berlin.de
+ * Copyright (C) 2013  burghard.britzke bubi@charmides.in-berlin.de
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package de.archivator.beans;
 
 import java.util.List;
@@ -36,6 +35,7 @@ import org.compass.core.CompassSession;
 
 import de.archivator.annotations.AktuellesArchivale;
 import de.archivator.entities.Archivale;
+import de.archivator.entities.MarkableArchvialeListContainer;
 
 /**
  * Die MultipleSelectionListBean dient der Bearbeitung von DataTable Elementen
@@ -45,7 +45,7 @@ import de.archivator.entities.Archivale;
  */
 @Named
 @RequestScoped
-public abstract class MultiSelectionListBean<T> {
+public abstract class MultiSelectionListBean<T extends MarkableArchvialeListContainer> {
 	@Inject
 	protected EntityManagerFactory entityManagerFactory;
 	protected EntityManager entityManager;
@@ -136,9 +136,6 @@ public abstract class MultiSelectionListBean<T> {
 	 */
 	protected abstract void resizeSelectedItems();
 
-	protected abstract void addAktuellesArchivaleToItem(Archivale archivale,
-			T item);
-
 	/**
 	 * Lädt die Items zur Bearbeitung durch den Benutzer in das Formular.
 	 * 
@@ -162,26 +159,34 @@ public abstract class MultiSelectionListBean<T> {
 	 * @return Die Navigationszeichenkette für das JSF-Servlet. null... immer.
 	 */
 	public String saveItems() {
+		if (archivaleItems == null)
+			throw new IllegalStateException(String.format(
+					ILLEGAL_STATE_MESSAGE, "archivaleItems"));
+		if (selectedItems == null)
+			throw new IllegalStateException(String.format(
+					ILLEGAL_STATE_MESSAGE, "selectedItems"));
+		
 		entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 
 		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
 		refreshArchivaleItems(); // operate on merged archivaleItems
-
-		if (archivaleItems == null)
-			throw new IllegalStateException(String.format(
-					ILLEGAL_STATE_MESSAGE, "archivaleItems"));
-		archivaleItems.clear();
-		if (selectedItems == null)
-			throw new IllegalStateException(String.format(
-					ILLEGAL_STATE_MESSAGE, "selectedItems"));
-
+		System.out.println("selectedItems:");
 		for (T item : selectedItems) {
+			item = entityManager.merge(item);
 			if (!archivaleItems.contains(item)) {
-				item = entityManager.merge(item);
 				archivaleItems.add(item);
-				addAktuellesArchivaleToItem(aktuellesArchivale, item);
+				item.getArchivalien().add(aktuellesArchivale);
+			}
+			item.setMarked(true);
+		}
+		// remove not marked Items
+		for (int i = archivaleItems.size(); i > 0; i--) {
+			T archivaleItem = archivaleItems.get(i - 1);
+			if (!archivaleItem.isMarked()) {
+				archivaleItem.getArchivalien().remove(aktuellesArchivale);
+				archivaleItems.remove(i - 1);
 			}
 		}
 

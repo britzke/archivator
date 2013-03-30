@@ -2,7 +2,7 @@
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  burghard.britzke bubi@charmides.in-berlin.de
+ * Copyright (C) 2013  burghard.britzke bubi@charmides.in-berlin.de
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import de.archivator.entities.Archivale;
 import de.archivator.entities.Dokumentart;
 
 /**
@@ -61,12 +60,5 @@ public class DokumentartenBean extends MultiSelectionListBean<Dokumentart> {
 	@Override
 	protected void resizeSelectedItems() {
 		selectedItems = new Dokumentart[archivaleItems.size()];
-	}
-
-	@Override
-	protected void addAktuellesArchivaleToItem(Archivale archivale,
-			Dokumentart item) {
-		item.getArchivalien().add(archivale);
-		
 	}
 }

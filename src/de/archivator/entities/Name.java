@@ -57,8 +57,7 @@ public class Name implements Serializable, Markable {
 	private String vorname;
 
 	// bi-directional many-to-many association to Archivalien
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.PERSIST })
+	@ManyToMany
 	@JoinTable(name = "NAMEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "NAMEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	// @SearchableComponent
 	private List<Archivale> archivalien;
