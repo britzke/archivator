@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+	<Resource name="jdbc/archivatorDB" auth="Container" type="javax.sql.DataSource"
+		username="archivator"
+		password="archivator" 
+		maxActive="1" maxIdle="1" maxWait="10000" driverClassName="org.apache.derby.jdbc.ClientDriver"
+		url="jdbc:derby://localhost:1527/archivator.jdb" />
+
+</Context>

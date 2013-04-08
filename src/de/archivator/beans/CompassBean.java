@@ -79,21 +79,23 @@ public class CompassBean {
 	public void init() {
 
 		gps = new SingleCompassGps(compass);
-		jpaDevice = new JpaGpsDevice("jpa",
-				entityManagerFactory);
+		jpaDevice = new JpaGpsDevice("jpa", entityManagerFactory);
 		gps.addGpsDevice(jpaDevice);
 		gps.start();
 	}
-	
+
 	/**
 	 * Erneuert den Index für die Suche.
+	 * 
 	 * @return null... navigiert zum gleichen View.
 	 */
 	public String fullIndex() {
-		gps.index();
+		if (!gps.isPerformingIndexOperation()) {
+			entityManagerFactory.getCache().evictAll();
+			gps.index();
+		}
 		return null;
 	}
-
 
 	/**
 	 * @return the compass

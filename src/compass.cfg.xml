@@ -1,26 +1,33 @@
 <compass-core-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://www.compass-project.org/schema/core-config"
-    xsi:schemaLocation="http://www.compass-project.org/schema/core-config
-http://www.compass-project.org/schema/compass-core-config-2.2.xsd" >
+	xmlns="http://www.compass-project.org/schema/core-config"
+	xsi:schemaLocation="http://www.compass-project.org/schema/core-config
+http://www.compass-project.org/schema/compass-core-config-2.2.xsd">
 
-    <compass name="default" >
+	<compass name="default">
+		<connection>
+ 
+			<jdbc dialect="org.apache.lucene.store.jdbc.dialect.DerbyDialect">
+				<dataSourceProvider>
+					<jndi lookup="java:comp/env/jdbc/archivatorDB" />
+				</dataSourceProvider>
+			</jdbc>
+ 
+<!-- 		
+			<jdbc dialect="org.apache.lucene.store.jdbc.dialect.DerbyDialect"
+				managed="false">
 
-        <connection>
+				<dataSourceProvider>
 
-            <jdbc
-                dialect="org.apache.lucene.store.jdbc.dialect.DerbyDialect"
-                managed="false" >
-
-                <dataSourceProvider>
-
-                    <driverManager
-                        driverClass="org.apache.derby.jdbc.ClientDriver"
-                        password="123"
-                        url="jdbc:derby://localhost:1527/archivator.jdb;create=true"
-                        username="archivator" />
-                </dataSourceProvider>
-            </jdbc>
-        </connection>
-    </compass>
+					<driverManager driverClass="org.apache.derby.jdbc.ClientDriver"
+						password="123" url="jdbc:derby://localhost:1527/archivator.jdb;create=true"
+						username="archivator" />
+				</dataSourceProvider>
+			</jdbc>
+ -->
+		</connection>
+		<jndi>
+			<environment><property name="" value=""/></environment>
+		</jndi>
+	</compass>
 
 </compass-core-config>
