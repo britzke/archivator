@@ -1,0 +1,37 @@
+<h:form xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:cc="http://java.sun.com/jsf/composite/composites">
+
+	<p:confirmDialog widgetVar="anmeldungNotwendigDialog"
+		visible="#{not loginBean.angemeldet}" header="Anmeldung erforderlich"
+		message="Bitte melden Sie sich an, um das Archiv bearbeiten zu können">
+		<p:commandButton value="OK" action="index"
+			onclick="anmeldungNotwendigDialog.hide()" />
+	</p:confirmDialog>
+
+	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
+		action="#{editBean.back}" immediate="true">
+		<pe:tooltip for="zurückButton"
+			value="zurück zur vorherigen Ansicht (ohne Speichern)" />
+	</p:commandButton>
+	<p:fileUpload fileUploadListener="#{importBean.handleFileUpload}"  
+            mode="advanced"
+            multiple="false"
+            update="messages"  
+            sizeLimit="1000000"
+            fileLimit="2" 
+            allowTypes="/(\.|\/)(xml)$/" 
+            cancelLabel="abbrechen"
+            uploadLabel="laden"
+            label="suchen"/>
+    <p:growl id="messages" showDetail="true"/>  
+	<p:panel id="detailPanel" rendered="#{loginBean.angemeldet}"
+		header="Datenimport">
+		<p:panelGrid id="detailGrid" columns="2">
+		</p:panelGrid>
+	</p:panel>
+</h:form>
