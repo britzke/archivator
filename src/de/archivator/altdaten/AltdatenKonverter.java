@@ -20,7 +20,9 @@
  */
 package de.archivator.altdaten;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -77,7 +79,7 @@ public class AltdatenKonverter {
 	 * Erzeugt einen AltdatenKonverter, der Daten aus einer XML-Datei liest und
 	 * diese in Java-Objekte umwandelt.
 	 */
-	public AltdatenKonverter() {
+	public AltdatenKonverter(InputStream is) {
 		emf = Persistence.createEntityManagerFactory("archivator");
 
 		JAXBContext jaxbContext;
@@ -86,8 +88,7 @@ public class AltdatenKonverter {
 					.newInstance("de.archivator.altdaten.model");
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			unmarshaller.setEventHandler(new AltdatenValidationEventHandler());
-			Dataroot archive = (Dataroot) unmarshaller.unmarshal(new File(
-					"altdaten/Archivdatenbank.xml"));
+			Dataroot archive = (Dataroot) unmarshaller.unmarshal(is);
 			tabelle = archive.getTabelleX0020Archiv();
 
 		} catch (JAXBException e) {
@@ -101,9 +102,11 @@ public class AltdatenKonverter {
 	 * 
 	 * @param args
 	 *            Wird nicht beachtet.
+	 * @throws FileNotFoundException 
 	 */
-	public static void main(String[] args) {
-		AltdatenKonverter me = new AltdatenKonverter();
+	public static void main(String[] args) throws FileNotFoundException {
+		AltdatenKonverter me = new AltdatenKonverter(new FileInputStream(
+				"altdaten/Archivdatenbank.xml"));
 
 		me.extractArchivale();
 
@@ -126,7 +129,7 @@ public class AltdatenKonverter {
 	 * Extrahiert die Archivalieneigenschaften aus den Altdaten um sie in die
 	 * Datenbank zu speichern
 	 */
-	private void extractArchivale() {
+	public void extractArchivale() {
 		em = emf.createEntityManager();
 
 		for (TabelleX0020Archiv altarchivale : tabelle) {
