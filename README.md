@@ -46,3 +46,7 @@ Aufsetzen einer Entwicklungsumgebung - Eclipse
 
 12. Selenium-Server-Standalone zum durchführen der automatischen Integrationstests (aktuell 2.31.0)
     hinzufügen - [Seleniumdownload](http://code.google.com/p/selenium/downloads/list)
+
+13. Apache Commons - [FileUpload](http://commons.apache.org/proper/commons-fileupload/download_fileupload.cgi) (aktuell 1.3)
+
+14. Apache Commons - [io](http://commons.apache.org/proper/commons-io/download_io.cgi) (aktuell 2.4)
