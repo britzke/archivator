@@ -5,7 +5,7 @@
 	<Resource name="jdbc/archivatorDB" auth="Container" type="javax.sql.DataSource"
 		username="archivator"
 		password="archivator" 
-		maxActive="1" maxIdle="1" maxWait="10000" driverClassName="org.apache.derby.jdbc.ClientDriver"
+		maxActive="2" maxIdle="1" maxWait="10000" driverClassName="org.apache.derby.jdbc.ClientDriver"
 		url="jdbc:derby://localhost:1527/archivator.jdb" />
 
 </Context>
