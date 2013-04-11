@@ -1,7 +1,3 @@
-/**
- * 
- */
-package de.archivator.beans;
 /*
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
@@ -21,6 +17,8 @@ package de.archivator.beans;
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package de.archivator.beans;
+
 import java.io.IOException;
 
 import javax.faces.application.FacesMessage;
