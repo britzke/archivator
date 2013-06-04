@@ -46,7 +46,6 @@ public class DebugPhaseListener implements PhaseListener {
 	 * 
 	 * @see javax.faces.event.PhaseListener#afterPhase(javax.faces.event.PhaseEvent)
 	 */
-	@Override
 	public void afterPhase(PhaseEvent event) {
 		System.out.println("after Phase: "+event.getPhaseId());
 		FacesContext f= event.getFacesContext();
@@ -61,7 +60,6 @@ public class DebugPhaseListener implements PhaseListener {
 	 * auf der Konsole an.
 	 * @see javax.faces.event.PhaseListener#beforePhase(javax.faces.event.PhaseEvent)
 	 */
-	@Override
 	public void beforePhase(PhaseEvent event) {
 		System.out.println("before Phase: "+event.getPhaseId());
 	}
@@ -71,7 +69,6 @@ public class DebugPhaseListener implements PhaseListener {
 	 * registriert werden soll.
 	 * @see javax.faces.event.PhaseListener#getPhaseId()
 	 */
-	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.ANY_PHASE;
 	}
