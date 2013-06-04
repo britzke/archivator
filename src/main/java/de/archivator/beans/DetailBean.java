@@ -83,7 +83,7 @@ public class DetailBean implements Serializable {
 	 */
 	public int getActiveIndex() {
 		return activeIndex;
-	}
+	}       
 
 	/**
 	 * @param activeIndex the activeIndex to set
