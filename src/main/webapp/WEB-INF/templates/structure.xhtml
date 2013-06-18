@@ -14,7 +14,16 @@
 
 	<pe:ajaxErrorHandler />
 	<div id="header">
-		<ui:insert name="header">archivator</ui:insert>
+		<ui:insert name="header">
+			<h:form  rendered="#{loginBean.angemeldet}">
+				<p:menubar>
+					<p:submenu label="Admin">
+						<p:menuitem value="Import" action="import" immediate="true" ajax="false"></p:menuitem>
+						<p:menuitem value="Re-Index" action="#{compassBean.fullIndex}"></p:menuitem>
+					</p:submenu>
+				</p:menubar>
+			</h:form>
+		</ui:insert>
 	</div>
 
 	<div id="search">
