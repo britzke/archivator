@@ -29,7 +29,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManagerFactory;
 
 import org.compass.core.Compass;
 import org.compass.core.CompassHits;
@@ -48,11 +47,6 @@ import de.archivator.entities.Archivale;
 @RequestScoped
 public class SearchBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-	/**
-	 * Ermöglicht den Zugriff auf die Datenbank
-	 */
-	@Inject
-	private EntityManagerFactory entityManagerFactory;
 
 	@Inject
 	private RechercheBean rechercheBean;

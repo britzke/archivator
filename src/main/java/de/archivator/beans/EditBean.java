@@ -76,9 +76,6 @@ public class EditBean implements Serializable {
 	@Inject
 	private DetailBean details;
 
-	@Inject
-	private List<Archivale> archivalien;
-
 	private List<String> betreffs;
 	/**
 	 * Liste aller Namen, die im System gespeichert sind.
