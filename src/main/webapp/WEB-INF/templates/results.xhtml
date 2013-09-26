@@ -6,7 +6,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<pe:ajaxErrorHandler />
-	<p:commandButton id="neuButton" icon="ui-icon-plus"
+	<p:commandButton id="neuButton" value="+ neuen Datensatz erfassen"
 		rendered="#{loginBean.angemeldet}" action="#{editBean.erstelle}">
 		<pe:tooltip for="neuButton" value="neues Archivale erfassen" />
 	</p:commandButton>
