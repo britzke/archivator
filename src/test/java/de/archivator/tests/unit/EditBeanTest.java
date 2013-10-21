@@ -59,6 +59,7 @@ public class EditBeanTest {
 	private EntityTransaction entityTransaction;
 	private Archivale aktuellesArchivale;
 	private DetailBean detailBean;
+	private List<Archivale> archivalien;
 	private Compass compass;
 	private CompassSession compassSession;
 	private SearchBean searchBean;
@@ -72,6 +73,7 @@ public class EditBeanTest {
 	 * 
 	 * @throws java.lang.Exception
 	 */
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		proband = new EditBean();
@@ -80,6 +82,11 @@ public class EditBeanTest {
 		Field f = proband.getClass().getDeclaredField("aktuellesArchivale");
 		f.setAccessible(true);
 		f.set(proband, aktuellesArchivale);
+
+		archivalien = mock(List.class);
+		f = proband.getClass().getDeclaredField("archivalien");
+		f.setAccessible(true);
+		f.set(proband, archivalien);
 
 		detailBean = mock(DetailBean.class);
 		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
