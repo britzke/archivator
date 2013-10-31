@@ -24,7 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import de.archivator.entities.Koerperschaft;
+import de.archivator.entities.Körperschaft;
 
 /**
  * Die KoerperschaftenBean dient der Bearbeitung von
@@ -35,28 +35,28 @@ import de.archivator.entities.Koerperschaft;
  */
 @Named
 @RequestScoped
-public class KoerperschaftenBean extends
-		MultiSelectionListBean<Koerperschaft> {
+public class KörperschaftenBean extends
+		MultiSelectionListBean<Körperschaft> {
 
 	/**
-	 * Initialisiert die Koerperschaften mit einer Liste aller
+	 * Initialisiert die Körperschaften mit einer Liste aller
 	 * Koerperschaften, die in der Datenbank vorhanden sind.
 	 */
 	@PostConstruct
 	public void init() {
-		queryForAllItems = "select o from Organisationseinheit o order by o.name";
-		archivaleItems = aktuellesArchivale.getKoerperschaften();
+		queryForAllItems = "select o from Körperschaften o order by o.name";
+		archivaleItems = aktuellesArchivale.getKörperschaften();
 
 		super.init();
 	}
 
 	@Override
 	protected void refreshArchivaleItems() {
-		archivaleItems = aktuellesArchivale.getKoerperschaften();
+		archivaleItems = aktuellesArchivale.getKörperschaften();
 	}
 
 	@Override
 	protected void resizeSelectedItems() {
-		selectedItems = new Koerperschaft[archivaleItems.size()];
+		selectedItems = new Körperschaft[archivaleItems.size()];
 	}
 }

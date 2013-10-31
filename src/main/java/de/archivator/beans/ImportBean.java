@@ -40,7 +40,7 @@ import de.archivator.altdaten.AltdatenKonverter;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
-import de.archivator.entities.Koerperschaft;
+import de.archivator.entities.Körperschaft;
 import de.archivator.entities.Schlagwort;
 
 /**
@@ -70,7 +70,7 @@ public class ImportBean {
     		conf.addClass(Archivale.class);
     		conf.addClass(Dokumentart.class);
     		conf.addClass(Name.class);
-    		conf.addClass(Koerperschaft.class);
+    		conf.addClass(Körperschaft.class);
     		conf.addClass(Schlagwort.class);
     		Compass compass = conf.buildCompass();
 

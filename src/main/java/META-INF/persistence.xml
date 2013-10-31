@@ -8,7 +8,7 @@
 		<class>de.archivator.entities.Archivale</class>
 		<class>de.archivator.entities.Dokumentart</class>
 		<class>de.archivator.entities.Name</class>
-		<class>de.archivator.entities.Koerperschaft</class>
+		<class>de.archivator.entities.Körperschaft</class>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="create-tables" />
 			<property name="eclipselink.ddl-generation.output-mode"

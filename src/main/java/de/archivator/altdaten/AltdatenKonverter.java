@@ -48,7 +48,7 @@ import de.archivator.altdaten.model.TabelleX0020Archiv;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
-import de.archivator.entities.Koerperschaft;
+import de.archivator.entities.Körperschaft;
 import de.archivator.entities.Schlagwort;
 
 /**
@@ -114,7 +114,7 @@ public class AltdatenKonverter {
 		conf.addClass(Archivale.class);
 		conf.addClass(Dokumentart.class);
 		conf.addClass(Name.class);
-		conf.addClass(Koerperschaft.class);
+		conf.addClass(Körperschaft.class);
 		conf.addClass(Schlagwort.class);
 		Compass compass = conf.buildCompass();
 
@@ -190,7 +190,7 @@ public class AltdatenKonverter {
 			// Koerperschaft(en) hinzufügen
 			q = em.createQuery("select o from Koerperschaft o");
 			@SuppressWarnings("unchecked")
-			List<Koerperschaft> databaseKoerperschaften = q
+			List<Körperschaft> databaseKoerperschaften = q
 					.getResultList();
 			addArchivaleKoerperschaft(databaseKoerperschaften,
 					archivale, altarchivale.getAbteilung());
@@ -305,7 +305,7 @@ public class AltdatenKonverter {
 	 *            Der Name der Koerperschaft.
 	 */
 	private void addArchivaleKoerperschaft(
-			List<Koerperschaft> databaseKoerperschaften,
+			List<Körperschaft> databaseKoerperschaften,
 			Archivale archivale, String koerperschaftName) {
 		if (koerperschaftName != null) {
 			koerperschaftName = koerperschaftName.replaceAll(
@@ -319,31 +319,31 @@ public class AltdatenKonverter {
 						.split("/");
 			}
 			for (String koerpName : koerperschaftenNamen) {
-				List<Koerperschaft> archivaleKoerperschaften = archivale
+				List<Körperschaft> archivaleKoerperschaften = archivale
 						.getKoerperschaften();
-				Koerperschaft koerperschaft = new Koerperschaft(
+				Körperschaft körperschaft = new Körperschaft(
 						koerpName.trim());
-				for (Koerperschaft databaseKoerperschaft : databaseKoerperschaften) {
-					if (koerperschaft
+				for (Körperschaft databaseKoerperschaft : databaseKoerperschaften) {
+					if (körperschaft
 							.equals(databaseKoerperschaften)) {
-						koerperschaft = databaseKoerperschaft;
+						körperschaft = databaseKoerperschaft;
 						break; // nur der erste Treffer wird genommen
 					}
 				}
-				if (koerperschaft.getId() == 0) {
-					databaseKoerperschaften.add(koerperschaft);
+				if (körperschaft.getId() == 0) {
+					databaseKoerperschaften.add(körperschaft);
 				}
 				boolean schonVorhanden = false;
-				for (Koerperschaft archivaleKoerperschaft : archivaleKoerperschaften) {
-					if (koerperschaft
+				for (Körperschaft archivaleKoerperschaft : archivaleKoerperschaften) {
+					if (körperschaft
 							.equals(archivaleKoerperschaft)) {
 						schonVorhanden = true;
 						break;
 					}
 				}
 				if (!schonVorhanden) {
-					archivaleKoerperschaften.add(koerperschaft);
-					koerperschaft.getArchivalien().add(archivale);
+					archivaleKoerperschaften.add(körperschaft);
+					körperschaft.getArchivalien().add(archivale);
 				}
 			}
 		}

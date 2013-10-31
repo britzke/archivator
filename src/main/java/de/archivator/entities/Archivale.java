@@ -30,7 +30,7 @@ import org.compass.annotations.SearchableProperty;
 
 import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
-import de.archivator.entities.Koerperschaft;
+import de.archivator.entities.Körperschaft;
 import de.archivator.entities.Schlagwort;
 
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class Archivale implements Serializable {
 	@ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
 			CascadeType.REFRESH, CascadeType.PERSIST })
 	@SearchableComponent
-	private List<Koerperschaft> koerperschaften;
+	private List<Körperschaft> körperschaften;
 
 	// bi-directional many-to-many association to Schlagwörter
 	@ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
@@ -108,7 +108,7 @@ public class Archivale implements Serializable {
 	 */
 	public Archivale() {
 		namen = new ArrayList<Name>();
-		koerperschaften = new ArrayList<Koerperschaft>();
+		körperschaften = new ArrayList<Körperschaft>();
 		dokumentarten = new ArrayList<Dokumentart>();
 		schlagwörter = new ArrayList<Schlagwort>();
 	}
@@ -193,13 +193,13 @@ public class Archivale implements Serializable {
 		this.dokumentarten = dokumentarten;
 	}
 
-	public List<Koerperschaft> getKoerperschaften() {
-		return this.koerperschaften;
+	public List<Körperschaft> getKörperschaften() {
+		return this.körperschaften;
 	}
 
-	public void setKoerperschaften(
-			List<Koerperschaft> koerperschaften) {
-		this.koerperschaften = koerperschaften;
+	public void setKörperschaften(
+			List<Körperschaft> körperschaften) {
+		this.körperschaften = körperschaften;
 	}
 
 	public List<Schlagwort> getSchlagwörter() {

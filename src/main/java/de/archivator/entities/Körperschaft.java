@@ -38,9 +38,9 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @version 1.0
  */
 @Entity
-@Table(name = "KoerperschaftEN", schema = "ARCHIVATOR")
+@Table(name = "KÖRPERSCHAFTEN", schema = "ARCHIVATOR")
 @Searchable(root = false)
-public class Koerperschaft implements Serializable, MarkableArchvialeListContainer {
+public class Körperschaft implements Serializable, MarkableArchvialeListContainer {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -54,28 +54,28 @@ public class Koerperschaft implements Serializable, MarkableArchvialeListContain
 
 	// bi-directional many-to-many association to Archivalien
 	@ManyToMany
-	@JoinTable(name = "KOERPERSCHAFTEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "KoerperschaftEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
+	@JoinTable(name = "KÖRPERSCHAFTEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "KörperschaftEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 
 	// dient zur Traversierung von Objekt-Listen
 	private transient boolean marked;
 
 	/**
-	 * Erzeugt eine neue Koerperschaft und initialisiert die Liste der
+	 * Erzeugt eine neue Körperschaft und initialisiert die Liste der
 	 * Archivalien mit einer leeren Liste.
 	 */
-	public Koerperschaft() {
+	public Körperschaft() {
 		archivalien = new ArrayList<Archivale>();
 	}
 
 	/**
-	 * Erzeugt eine neue Koerperschaft unter Angabe des Namens.
+	 * Erzeugt eine neue Körperschaft unter Angabe des Namens.
 	 * Initialisiert die Liste der Archivalien mit einer leeren Liste
 	 * 
 	 * @param name
-	 *            Der Name der Koerperschaft
+	 *            Der Name der Körperschaft
 	 */
-	public Koerperschaft(String name) {
+	public Körperschaft(String name) {
 		this.name = name;
 		archivalien = new ArrayList<Archivale>();
 	}
@@ -119,21 +119,21 @@ public class Koerperschaft implements Serializable, MarkableArchvialeListContain
 	}
 
 	/**
-	 * Vergleicht zwei Koerperschaften. Wenn die ID gesetzt ist, dann
+	 * Vergleicht zwei Körperschaften. Wenn die ID gesetzt ist, dann
 	 * zählt die ID - wenn nicht, dann werden die Namen verglichen.
 	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object other) {
-		if (other instanceof Koerperschaft) {
-			Koerperschaft otherKoerperschaft = (Koerperschaft) other;
-			if (this.id != 0 && this.id == otherKoerperschaft.getId()) {
+		if (other instanceof Körperschaft) {
+			Körperschaft otherKörperschaft = (Körperschaft) other;
+			if (this.id != 0 && this.id == otherKörperschaft.getId()) {
 				return true;
 			}
 			if (name == null) {
-				return otherKoerperschaft.getName() == null;
+				return otherKörperschaft.getName() == null;
 			} else {
-				return this.name.equals(otherKoerperschaft.getName());
+				return this.name.equals(otherKörperschaft.getName());
 			}
 		}
 		return false;
