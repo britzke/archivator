@@ -32,15 +32,15 @@ import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
- * Classe für die Organisationseinheiten der Archivalien.
+ * Classe für die Koerperschaften der Archivalien.
  * 
  * @author junghans
  * @version 1.0
  */
 @Entity
-@Table(name = "ORGANISATIONSEINHEITEN", schema = "ARCHIVATOR")
+@Table(name = "KoerperschaftEN", schema = "ARCHIVATOR")
 @Searchable(root = false)
-public class Organisationseinheit implements Serializable, MarkableArchvialeListContainer {
+public class Koerperschaft implements Serializable, MarkableArchvialeListContainer {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -49,33 +49,33 @@ public class Organisationseinheit implements Serializable, MarkableArchvialeList
 	private int id;
 
 	@Column(unique = true)
-	@SearchableProperty(name = "organisationseinheit")
+	@SearchableProperty(name = "Körperschaften")
 	private String name;
 
 	// bi-directional many-to-many association to Archivalien
 	@ManyToMany
-	@JoinTable(name = "ORGANISATIONSEINHEITEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "ORGANISATIONSEINHEITEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
+	@JoinTable(name = "KOERPERSCHAFTEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "KoerperschaftEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 
 	// dient zur Traversierung von Objekt-Listen
 	private transient boolean marked;
 
 	/**
-	 * Erzeugt eine neue Organisationseinheit und initialisiert die Liste der
+	 * Erzeugt eine neue Koerperschaft und initialisiert die Liste der
 	 * Archivalien mit einer leeren Liste.
 	 */
-	public Organisationseinheit() {
+	public Koerperschaft() {
 		archivalien = new ArrayList<Archivale>();
 	}
 
 	/**
-	 * Erzeugt eine neue Organisationseinheit unter Angabe des Namens.
+	 * Erzeugt eine neue Koerperschaft unter Angabe des Namens.
 	 * Initialisiert die Liste der Archivalien mit einer leeren Liste
 	 * 
 	 * @param name
-	 *            Der Name der Organisationseinheit
+	 *            Der Name der Koerperschaft
 	 */
-	public Organisationseinheit(String name) {
+	public Koerperschaft(String name) {
 		this.name = name;
 		archivalien = new ArrayList<Archivale>();
 	}
@@ -119,21 +119,21 @@ public class Organisationseinheit implements Serializable, MarkableArchvialeList
 	}
 
 	/**
-	 * Vergleicht zwei Organisationseinheiten. Wenn die ID gesetzt ist, dann
+	 * Vergleicht zwei Koerperschaften. Wenn die ID gesetzt ist, dann
 	 * zählt die ID - wenn nicht, dann werden die Namen verglichen.
 	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object other) {
-		if (other instanceof Organisationseinheit) {
-			Organisationseinheit otherOrganisationseinheit = (Organisationseinheit) other;
-			if (this.id != 0 && this.id == otherOrganisationseinheit.getId()) {
+		if (other instanceof Koerperschaft) {
+			Koerperschaft otherKoerperschaft = (Koerperschaft) other;
+			if (this.id != 0 && this.id == otherKoerperschaft.getId()) {
 				return true;
 			}
 			if (name == null) {
-				return otherOrganisationseinheit.getName() == null;
+				return otherKoerperschaft.getName() == null;
 			} else {
-				return this.name.equals(otherOrganisationseinheit.getName());
+				return this.name.equals(otherKoerperschaft.getName());
 			}
 		}
 		return false;

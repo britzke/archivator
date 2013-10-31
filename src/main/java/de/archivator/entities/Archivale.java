@@ -30,7 +30,7 @@ import org.compass.annotations.SearchableProperty;
 
 import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
-import de.archivator.entities.Organisationseinheit;
+import de.archivator.entities.Koerperschaft;
 import de.archivator.entities.Schlagwort;
 
 import java.util.ArrayList;
@@ -89,11 +89,11 @@ public class Archivale implements Serializable {
 	@SearchableComponent
 	private List<Dokumentart> dokumentarten;
 
-	// bi-directional many-to-many association to Organisationseinheiten
+	// bi-directional many-to-many association to Koerperschaften
 	@ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
 			CascadeType.REFRESH, CascadeType.PERSIST })
 	@SearchableComponent
-	private List<Organisationseinheit> organisationseinheiten;
+	private List<Koerperschaft> koerperschaften;
 
 	// bi-directional many-to-many association to Schlagwörter
 	@ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
@@ -103,12 +103,12 @@ public class Archivale implements Serializable {
 
 	/**
 	 * Erzeugt ein neues Archivale. Initialisiert die Liste der Namen,
-	 * Dokumentarten, Organisationseinheiten und Schlagwörter für dieses
+	 * Dokumentarten, Koerperschaften und Schlagwörter für dieses
 	 * Archivale.
 	 */
 	public Archivale() {
 		namen = new ArrayList<Name>();
-		organisationseinheiten = new ArrayList<Organisationseinheit>();
+		koerperschaften = new ArrayList<Koerperschaft>();
 		dokumentarten = new ArrayList<Dokumentart>();
 		schlagwörter = new ArrayList<Schlagwort>();
 	}
@@ -193,13 +193,13 @@ public class Archivale implements Serializable {
 		this.dokumentarten = dokumentarten;
 	}
 
-	public List<Organisationseinheit> getOrganisationseinheiten() {
-		return this.organisationseinheiten;
+	public List<Koerperschaft> getKoerperschaften() {
+		return this.koerperschaften;
 	}
 
-	public void setOrganisationseinheiten(
-			List<Organisationseinheit> organisationseinheiten) {
-		this.organisationseinheiten = organisationseinheiten;
+	public void setKoerperschaften(
+			List<Koerperschaft> koerperschaften) {
+		this.koerperschaften = koerperschaften;
 	}
 
 	public List<Schlagwort> getSchlagwörter() {

@@ -49,7 +49,7 @@ import de.archivator.beans.DetailBean;
 import de.archivator.beans.DokumentartenBean;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Dokumentart;
-import de.archivator.entities.Organisationseinheit;
+import de.archivator.entities.Koerperschaft;
 
 /**
  * Testet die Funktion der DokumentartenBean.
@@ -139,7 +139,7 @@ public class DokumentartenBeanTest {
 				.getDeclaredField("archivaleItems");
 		f.setAccessible(true);
 		@SuppressWarnings("unchecked")
-		List<Organisationseinheit> o = (List<Organisationseinheit>) f
+		List<Koerperschaft> o = (List<Koerperschaft>) f
 				.get(proband);
 		assertNotNull(o);
 	}
@@ -179,7 +179,7 @@ public class DokumentartenBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#resizeSelectedItems()}
+	 * {@link de.archivator.beans.KoerperschaftenBean#resizeSelectedItems()}
 	 * .
 	 * 
 	 * @throws SecurityException
