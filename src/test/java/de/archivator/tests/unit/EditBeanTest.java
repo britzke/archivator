@@ -83,11 +83,6 @@ public class EditBeanTest {
 		f.setAccessible(true);
 		f.set(proband, aktuellesArchivale);
 
-		archivalien = mock(List.class);
-		f = proband.getClass().getDeclaredField("archivalien");
-		f.setAccessible(true);
-		f.set(proband, archivalien);
-
 		detailBean = mock(DetailBean.class);
 		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
 		// detailBean injizieren
