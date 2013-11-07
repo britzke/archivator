@@ -11,24 +11,24 @@
 		<pe:tooltip for="zurückButton" value="zurück zum Rechercheergebnis" />
 	</p:commandButton>
 	<p:commandButton id="editButton" icon="ui-icon-pencil"
-		rendered="#{loginBean.angemeldet}" action="edit" >
-		<pe:tooltip for="editButton" value="Bearbeiten des Archivales"/>
+		rendered="#{loginBean.angemeldet}" action="edit">
+		<pe:tooltip for="editButton" value="Bearbeiten des Archivales" />
 	</p:commandButton>
-	<cc:confirmButton 
-		icon="ui-icon-minus"
-		header="Bestätigung zum Löschen"
+	<cc:confirmButton icon="ui-icon-minus" header="Bestätigung zum Löschen"
 		message="Soll das aktuelle Archivale gelöscht werden?"
 		tooltip="Löschen des aktuellen Archivales"
 		action="#{editBean.lösche(facesContext)}"
-		rendered="#{loginBean.angemeldet}"
-	/>
+		rendered="#{loginBean.angemeldet}" />
+	<p:commandButton id="druckButton" ajax="false" icon="ui-icon-print" action="#{pdfExportBean.createPdf(facesContext)}">
+		<pe:tooltip for="druckButton" value="Datensatz als PDF exportieren" />
+	</p:commandButton>
 	<p:panel id="detailPanel"
 		header="Details zu '#{detailBean.aktuellesArchivale.betreff}'">
 		<p:panelGrid id="detailGrid" columns="2">
 			<p:panelGrid id="leftDetailGrid" columns="1">
 				<p:panelGrid columns="4">
 					<h:outputText value="Datum:" styleClass="label" />
-					<h:outputText value="#{detailBean.aktuellesArchivale.vonJahr}"/>
+					<h:outputText value="#{detailBean.aktuellesArchivale.vonJahr}" />
 					<h:outputText value=" - "
 						rendered="#{detailBean.aktuellesArchivale.bisJahr != 0}" />
 					<h:outputText value="#{detailBean.aktuellesArchivale.bisJahr}"
@@ -40,7 +40,7 @@
 				<!--
 				<p:scrollPanel style="width:450px;height:100px"> 
 				 -->
-					<h:outputText value="#{detailBean.aktuellesArchivale.inhalt}" />
+				<h:outputText value="#{detailBean.aktuellesArchivale.inhalt}" />
 				<!-- 
 				</p:scrollPanel>
 				 -->

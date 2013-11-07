@@ -125,5 +125,25 @@
 			<artifactId>selenium-java</artifactId>
 			<version>2.33.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.0.6</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>struts</groupId>
+			<artifactId>struts</artifactId>
+			<version>1.2.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
 	</dependencies>
 </project>
