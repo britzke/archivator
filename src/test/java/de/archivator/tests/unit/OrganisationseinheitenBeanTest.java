@@ -20,7 +20,7 @@
 package de.archivator.tests.unit;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 import java.lang.reflect.Field;
@@ -46,55 +46,53 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import de.archivator.beans.DetailBean;
-import de.archivator.beans.DokumentartenBean;
+import de.archivator.beans.OrganisationseinheitenBean;
 import de.archivator.entities.Archivale;
-import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Organisationseinheit;
 
 /**
- * Testet die Funktion der DokumentartenBean.
  * @author burghard.britzke bubi@charmides.in-berlin.de
+ * 
  */
 @RunWith(MockitoJUnitRunner.class)
-public class DokumentartenBeanTest {
+public class OrganisationseinheitenBeanTest {
 
-	protected  Dokumentart[] selectedItems = {
-			new Dokumentart("DA1"), new Dokumentart("DA2"),
-			new Dokumentart("DA3") };
-	private List<Dokumentart> archivaleItems;
+	protected Organisationseinheit[] selectedItems = {
+			new Organisationseinheit("OE1"), new Organisationseinheit("OE2"),
+			new Organisationseinheit("OE3") };
 	private Archivale aktuellesArchivale;
+	private List<Organisationseinheit> archivaleItems;
 
 	@Mock
-	private EntityManagerFactory entityManagerFactory;
+	EntityManagerFactory entityManagerFactory;
 	@Mock
 	private EntityManager entityManager;
 	@Mock
 	private Query query;
 	@Mock
-	private EntityTransaction entityTransaction;
+	EntityTransaction entityTransaction;
 	@Mock
-	private Compass compass;
+	Compass compass;
 	@Mock
 	private CompassSession compassSession;
 	@Mock
 	DetailBean detailBean;
-
 	@Mock
-	private List<Dokumentart> allItems;
+	private List<Organisationseinheit> allItems;
 
 	@InjectMocks
-	DokumentartenBean proband = new DokumentartenBean();
+	OrganisationseinheitenBean proband = new OrganisationseinheitenBean();
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		archivaleItems = new ArrayList<Dokumentart>();
-		archivaleItems.add(new Dokumentart("DA1"));
+		archivaleItems = new ArrayList<Organisationseinheit>();
+		archivaleItems.add(new Organisationseinheit("OE1"));
 
 		aktuellesArchivale = new Archivale();
-		aktuellesArchivale.setDokumentarten(archivaleItems);
+		aktuellesArchivale.setOrganisationseinheiten(archivaleItems);
 		Field f = proband.getClass().getSuperclass()
 				.getDeclaredField("aktuellesArchivale");
 		f.setAccessible(true);
@@ -199,7 +197,6 @@ public class DokumentartenBeanTest {
 			IllegalArgumentException, InvocationTargetException,
 			NoSuchFieldException {
 		proband.init();
-		
 		Method m = proband.getClass().getDeclaredMethod("resizeSelectedItems");
 		m.setAccessible(true);
 		m.invoke(proband);
@@ -207,7 +204,7 @@ public class DokumentartenBeanTest {
 		Field f = proband.getClass().getSuperclass()
 				.getDeclaredField("selectedItems");
 		f.setAccessible(true);
-		Dokumentart[] selectedItems = (Dokumentart[]) f
+		Organisationseinheit[] selectedItems = (Organisationseinheit[]) f
 				.get(proband);
 
 		assertEquals(archivaleItems.size(), selectedItems.length);
@@ -220,10 +217,11 @@ public class DokumentartenBeanTest {
 	@Test
 	public void testLoadItems() {
 		proband.init();
-		
+
 		proband.loadItems();
-		
+
 		assertEquals(archivaleItems.size(), proband.getSelectedItems().length);
+
 	}
 
 	/**
@@ -236,21 +234,23 @@ public class DokumentartenBeanTest {
 	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testSaveItems() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		// if entityManager should merge by answering with the Object provided as Parameter.
+	public void testSaveItems() throws NoSuchFieldException, SecurityException,
+			IllegalArgumentException, IllegalAccessException {
+		// if entityManager should merge by answering with the Object provided
+		// as Parameter.
 		when(entityManager.merge(any())).thenAnswer(new Answer<Object>() {
-		    public Object answer(InvocationOnMock invocation) {
-		        Object[] args = invocation.getArguments();
-		        return args[0];
-		    }});
+			public Object answer(InvocationOnMock invocation) {
+				Object[] args = invocation.getArguments();
+				return args[0];
+			}
+		});
 		when(compass.openSession()).thenReturn(compassSession);
 
-		Field f = proband.getClass().getSuperclass().getDeclaredField("selectedItems");
-		f.setAccessible(true);
-		f.set(proband,selectedItems);
+		proband.setSelectedItems(selectedItems);
 		proband.init();
+
 		proband.saveItems();
-		
+
 		verify(entityTransaction).commit();
 		verify(compassSession).commit();
 		verify(detailBean).setAktuellesArchivale(any(Archivale.class));

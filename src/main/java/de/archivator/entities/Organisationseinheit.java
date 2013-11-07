@@ -3,7 +3,6 @@
  * and retrieving archived items.
  *
  * Copyright (C) 2012  Junghans
- *                     burghard.britzke bubi@charmides.in-berlin.de
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,22 +26,21 @@ import org.compass.annotations.Searchable;
 import org.compass.annotations.SearchableId;
 import org.compass.annotations.SearchableProperty;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
- * Classe für die Namen der Archivalien.
+ * Classe für die Organisationseinheiten der Archivalien.
  * 
  * @author junghans
- * @author burghard.britzke bubi@charmides.in-berlin.de
  * @version 1.0
  */
 @Entity
-@Table(name = "NAMEN", schema = "ARCHIVATOR", uniqueConstraints = { @UniqueConstraint(columnNames = {
-		"NACHNAME", "VORNAME" }) })
+@Table(name = "ORGANISATIONSEINHEITEN", schema = "ARCHIVATOR")
 @Searchable(root = false)
-public class Name implements Serializable, Markable {
+public class Organisationseinheit implements Serializable, MarkableArchvialeListContainer {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -50,41 +48,36 @@ public class Name implements Serializable, Markable {
 	@SearchableId
 	private int id;
 
-	@SearchableProperty(name = "person")
-	private String nachname;
-
-	@SearchableProperty(name = "person")
-	private String vorname;
+	@Column(unique = true)
+	@SearchableProperty(name = "organisationseinheit")
+	private String name;
 
 	// bi-directional many-to-many association to Archivalien
 	@ManyToMany
-	@JoinTable(name = "NAMEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "NAMEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
-	// @SearchableComponent
+	@JoinTable(name = "ORGANISATIONSEINHEITEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "ORGANISATIONSEINHEITEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 
-	// dient zur Traversierung von Namenslisten
+	// dient zur Traversierung von Objekt-Listen
 	private transient boolean marked;
 
 	/**
-	 * Erzeugt einen neuen Namen. Initialisiert die Liste der Archivalien.
+	 * Erzeugt eine neue Organisationseinheit und initialisiert die Liste der
+	 * Archivalien mit einer leeren Liste.
 	 */
-	public Name() {
+	public Organisationseinheit() {
 		archivalien = new ArrayList<Archivale>();
 	}
 
 	/**
-	 * Erzeugt einen neuen Namen unter Angabe von Nachname und Vorname.
-	 * Initialisiert die Liste der Archivalien.
+	 * Erzeugt eine neue Organisationseinheit unter Angabe des Namens.
+	 * Initialisiert die Liste der Archivalien mit einer leeren Liste
 	 * 
-	 * @param lastName
-	 *            Der Nachname des Namen.
-	 * @param firstName
-	 *            Der Vorname des Namen.
+	 * @param name
+	 *            Der Name der Organisationseinheit
 	 */
-	public Name(String lastName, String firstName) {
+	public Organisationseinheit(String name) {
+		this.name = name;
 		archivalien = new ArrayList<Archivale>();
-		nachname = lastName;
-		vorname = firstName;
 	}
 
 	public int getId() {
@@ -95,20 +88,12 @@ public class Name implements Serializable, Markable {
 		this.id = id;
 	}
 
-	public String getNachname() {
-		return this.nachname;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setNachname(String nachname) {
-		this.nachname = nachname;
-	}
-
-	public String getVorname() {
-		return this.vorname;
-	}
-
-	public void setVorname(String vorname) {
-		this.vorname = vorname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<Archivale> getArchivalien() {
@@ -127,39 +112,31 @@ public class Name implements Serializable, Markable {
 	}
 
 	/**
-	 * @param marked
-	 *            the marked to set
+	 * @param marked the marked to set
 	 */
 	public void setMarked(boolean marked) {
 		this.marked = marked;
 	}
 
 	/**
-	 * Ein Name ist gleich mit einem anderen Namen, wenn entweder die IDs
-	 * übereinstimmen, oder der Nachname und der Vorname.
+	 * Vergleicht zwei Organisationseinheiten. Wenn die ID gesetzt ist, dann
+	 * zählt die ID - wenn nicht, dann werden die Namen verglichen.
 	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object other) {
-		if (other instanceof Name) {
-			Name otherName = (Name) other;
-			if (this.id != 0 && this.id == otherName.getId()) {
+		if (other instanceof Organisationseinheit) {
+			Organisationseinheit otherOrganisationseinheit = (Organisationseinheit) other;
+			if (this.id != 0 && this.id == otherOrganisationseinheit.getId()) {
 				return true;
 			}
-			if (vorname == null && nachname == null) {
-				return otherName.getNachname() == null
-						&& otherName.getVorname() == null;
+			if (name == null) {
+				return otherOrganisationseinheit.getName() == null;
 			} else {
-				if (vorname == null) {
-					return nachname.equals(otherName.getNachname());
-				} else {
-					if (this.nachname.equals(otherName.getNachname())
-							&& this.vorname.equals(otherName.getVorname())) {
-						return true;
-					}
-				}
+				return this.name.equals(otherOrganisationseinheit.getName());
 			}
 		}
 		return false;
 	}
+
 }

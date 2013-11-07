@@ -30,7 +30,7 @@ import org.compass.annotations.SearchableProperty;
 
 import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
-import de.archivator.entities.Körperschaft;
+import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
 import java.util.ArrayList;
@@ -89,11 +89,11 @@ public class Archivale implements Serializable {
 	@SearchableComponent
 	private List<Dokumentart> dokumentarten;
 
-	// bi-directional many-to-many association to Koerperschaften
+	// bi-directional many-to-many association to Organisationseinheiten
 	@ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
 			CascadeType.REFRESH, CascadeType.PERSIST })
 	@SearchableComponent
-	private List<Körperschaft> körperschaften;
+	private List<Organisationseinheit> organisationseinheiten;
 
 	// bi-directional many-to-many association to Schlagwörter
 	@ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
@@ -103,12 +103,12 @@ public class Archivale implements Serializable {
 
 	/**
 	 * Erzeugt ein neues Archivale. Initialisiert die Liste der Namen,
-	 * Dokumentarten, Koerperschaften und Schlagwörter für dieses
+	 * Dokumentarten, Organisationseinheiten und Schlagwörter für dieses
 	 * Archivale.
 	 */
 	public Archivale() {
 		namen = new ArrayList<Name>();
-		körperschaften = new ArrayList<Körperschaft>();
+		organisationseinheiten = new ArrayList<Organisationseinheit>();
 		dokumentarten = new ArrayList<Dokumentart>();
 		schlagwörter = new ArrayList<Schlagwort>();
 	}
@@ -193,13 +193,13 @@ public class Archivale implements Serializable {
 		this.dokumentarten = dokumentarten;
 	}
 
-	public List<Körperschaft> getKörperschaften() {
-		return this.körperschaften;
+	public List<Organisationseinheit> getOrganisationseinheiten() {
+		return this.organisationseinheiten;
 	}
 
-	public void setKörperschaften(
-			List<Körperschaft> körperschaften) {
-		this.körperschaften = körperschaften;
+	public void setOrganisationseinheiten(
+			List<Organisationseinheit> organisationseinheiten) {
+		this.organisationseinheiten = organisationseinheiten;
 	}
 
 	public List<Schlagwort> getSchlagwörter() {
