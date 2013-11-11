@@ -10,6 +10,10 @@
 		rendered="#{loginBean.angemeldet}" action="#{editBean.erstelle}">
 		<pe:tooltip for="neuButton" value="neues Archivale erfassen" />
 	</p:commandButton>
+	<p:commandButton id="druckButton" ajax="false" icon="ui-icon-print" action="#{pdfExportBean.createPdfFromList(facesContext)}">
+		<pe:tooltip for="druckButton" value="Datensatz als PDF exportieren" />
+	</p:commandButton>
+	
 	<p:separator />
 
 	<p:dataList value="#{rechercheBean.archivalien}" var="archivale" 

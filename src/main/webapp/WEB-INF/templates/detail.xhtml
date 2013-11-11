@@ -19,7 +19,7 @@
 		tooltip="Löschen des aktuellen Archivales"
 		action="#{editBean.lösche(facesContext)}"
 		rendered="#{loginBean.angemeldet}" />
-	<p:commandButton id="druckButton" ajax="false" icon="ui-icon-print" action="#{pdfExportBean.createPdf(facesContext)}">
+	<p:commandButton id="druckButton" ajax="false" icon="ui-icon-print" action="#{pdfExportBean.createPdfFromRecord(facesContext)}">
 		<pe:tooltip for="druckButton" value="Datensatz als PDF exportieren" />
 	</p:commandButton>
 	<p:panel id="detailPanel"
