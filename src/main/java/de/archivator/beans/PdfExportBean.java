@@ -37,25 +37,28 @@ package de.archivator.beans;
  */
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 
 import de.archivator.entities.Archivale;
+import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
+import de.archivator.entities.Organisationseinheit;
 
 /**
  * Die PdfExportBean dient zum generieren einer PDF-Datei, die die Informationen
@@ -73,30 +76,59 @@ public class PdfExportBean {
 
 	@Inject
 	private RechercheBean rechercheBean;
-	Archivale aktuellesArchivale;
-	Document document;
+
+	private List<Archivale> archivalien;
+
+	private Document document;
+
+	private FacesContext context;
+
+	private final String FILENAME = "document";
 
 	/**
 	 * Die Methode createPdfFromRecord dient zum Erzeugen einer PDF-Datei aus
 	 * einem einzelnen Archiv-Datensatz
 	 */
 	public void createPdfFromRecord(FacesContext context) {
-
+		this.context = context;
+		archivalien = new ArrayList<Archivale>();
+		archivalien.add(detailBean.getAktuellesArchivale());
+		createDocument();
+	}
+	
+	/**
+	 * Die Methode createPdfFromList dient zum Erzeugen einer PDF-Datei aus
+	 * einem Recherche-Ergebnis
+	 */
+	public void createPdfFromList(FacesContext context) {
+		this.context = context;
+		archivalien = rechercheBean.getArchivalien();
+		createDocument();	
+	}
+	
+	/**
+	 * Die Methode createDocument erzeugt ein Pdf-Dokument
+	 * und füllt sie mit den Inhalten aus der Liste "archivalien"
+	 */
+	private void createDocument() {
 		try {
 			document = new Document();
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			PdfWriter.getInstance(document, baos);
 			document.open();
-			aktuellesArchivale = detailBean.getAktuellesArchivale();
-			addContent();
+
+			for (int i = 0; i < archivalien.size(); i++) {
+				addContentFrom(archivalien.get(i));
+			}
+			
 			document.close();
-			HttpServletResponse response = (HttpServletResponse) context
+			HttpServletResponse response = (HttpServletResponse) this.context
 					.getExternalContext().getResponse();
 			response.setContentType("application/pdf");
 			// den Browser informieren, dass er eine neue Datei erhält und sie
 			// herunterladen soll, anstatt sie auf der Seite darzustellen
 			response.setHeader("Content-disposition",
-					"attachment; filename=output1.pdf");
+					"attachment; filename="+FILENAME);
 			// the contentlength
 			response.setContentLength(baos.size());
 			// write ByteArrayOutputStream to the ServletOutputStream
@@ -105,57 +137,48 @@ public class PdfExportBean {
 			os.flush();
 			os.close();
 		} catch (Exception e) {
+			System.out.println("Exception");
 		}
 		context.responseComplete();
 	}
 
 	/**
-	 * die Methode addDetails dient zum Hinzufügen von Details aus dem aktuellen
-	 * Archivale in das Dokument
+	 * die Methode addDetails dient zum Hinzufügen von Details aus einem Archivale
+	 * in ein Dokument
 	 */
-	private void addContent() throws DocumentException {
-		document.add(new Paragraph("Betreff: "
-				+ aktuellesArchivale.getBetreff()));
+	private void addContentFrom(Archivale aktuellesArchivale) throws DocumentException {
+		LineSeparator UNDERLINE = new LineSeparator(1, 100, null,
+				Element.ALIGN_CENTER, -2);
+		
+		document.add(Chunk.NEWLINE);
+		document.add(UNDERLINE);
+		document.add(Chunk.NEWLINE);
+
+		Paragraph headline = new Paragraph(aktuellesArchivale.getBetreff());
+		headline.setAlignment(Element.ALIGN_CENTER);
+		document.add(headline);
 		document.add(new Paragraph("Inhalt: " + aktuellesArchivale.getInhalt()));
 		document.add(new Paragraph("Datum (Jahr): "
 				+ aktuellesArchivale.getVonJahr() + " - "
 				+ aktuellesArchivale.getBisJahr()));
+
 		List<Name> names = aktuellesArchivale.getNamen();
 		for (Name n : names) {
 			document.add(new Paragraph("Name:" + n.getVorname() + " "
 					+ n.getNachname()));
 		}
+
+		List<Organisationseinheit> organisationseinheiten = aktuellesArchivale
+				.getOrganisationseinheiten();
+		for (Organisationseinheit o : organisationseinheiten) {
+			document.add(new Paragraph("Organisationseinheiten:" + o.getName()));
+		}
+
+		List<Dokumentart> dokumentarten = aktuellesArchivale.getDokumentarten();
+		for (Dokumentart d : dokumentarten) {
+			document.add(new Paragraph("Dokumentarten:" + d.getName()));
+		}
 	}
 
-	/**
-	 * Die Methode createPdfFromList dient zum Erzeugen einer PDF-Datei aus
-	 * einem Recherche-Ergebnis
-	 */
-	public void createPdfFromList(FacesContext context) {
-		try {
-			document = new Document();
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			PdfWriter.getInstance(document, baos);
-			document.open();
-			List<Archivale> archivalien = rechercheBean.getArchivalien();
-			for (Archivale archivale : archivalien) {
-				aktuellesArchivale = archivale;
-				addContent();
-			}
-			document.close();
-			HttpServletResponse response = (HttpServletResponse) context
-					.getExternalContext().getResponse();
-			response.setContentType("application/pdf");
-			response.setHeader("Content-disposition",
-					"attachment; filename=list.pdf");
-			response.setContentLength(baos.size());
-			ServletOutputStream os = response.getOutputStream();
-			baos.writeTo(os);
-			os.flush();
-			os.close();
-		} catch (Exception e){
-	}
-		context.responseComplete();
 
-	}
 }
