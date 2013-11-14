@@ -95,7 +95,7 @@ public class PdfExportBean {
 		archivalien.add(detailBean.getAktuellesArchivale());
 		createDocument();
 	}
-	
+
 	/**
 	 * Die Methode createPdfFromList dient zum Erzeugen einer PDF-Datei aus
 	 * einem Recherche-Ergebnis
@@ -103,12 +103,12 @@ public class PdfExportBean {
 	public void createPdfFromList(FacesContext context) {
 		this.context = context;
 		archivalien = rechercheBean.getArchivalien();
-		createDocument();	
+		createDocument();
 	}
-	
+
 	/**
-	 * Die Methode createDocument erzeugt ein Pdf-Dokument
-	 * und füllt sie mit den Inhalten aus der Liste "archivalien"
+	 * Die Methode createDocument erzeugt ein Pdf-Dokument und füllt sie mit den
+	 * Inhalten aus der Liste "archivalien"
 	 */
 	private void createDocument() {
 		try {
@@ -120,15 +120,15 @@ public class PdfExportBean {
 			for (int i = 0; i < archivalien.size(); i++) {
 				addContentFrom(archivalien.get(i));
 			}
-			
+
 			document.close();
 			HttpServletResponse response = (HttpServletResponse) this.context
 					.getExternalContext().getResponse();
 			response.setContentType("application/pdf");
 			// den Browser informieren, dass er eine neue Datei erhält und sie
 			// herunterladen soll, anstatt sie auf der Seite darzustellen
-			response.setHeader("Content-disposition",
-					"attachment; filename="+FILENAME);
+			response.setHeader("Content-disposition", "attachment; filename="
+					+ FILENAME);
 			// the contentlength
 			response.setContentLength(baos.size());
 			// write ByteArrayOutputStream to the ServletOutputStream
@@ -143,13 +143,14 @@ public class PdfExportBean {
 	}
 
 	/**
-	 * die Methode addDetails dient zum Hinzufügen von Details aus einem Archivale
-	 * in ein Dokument
+	 * die Methode addDetails dient zum Hinzufügen von Details aus einem
+	 * Archivale in ein Dokument
 	 */
-	private void addContentFrom(Archivale aktuellesArchivale) throws DocumentException {
+	private void addContentFrom(Archivale aktuellesArchivale)
+			throws DocumentException {
 		LineSeparator UNDERLINE = new LineSeparator(1, 100, null,
 				Element.ALIGN_CENTER, -2);
-		
+
 		document.add(Chunk.NEWLINE);
 		document.add(UNDERLINE);
 		document.add(Chunk.NEWLINE);
@@ -157,28 +158,49 @@ public class PdfExportBean {
 		Paragraph headline = new Paragraph(aktuellesArchivale.getBetreff());
 		headline.setAlignment(Element.ALIGN_CENTER);
 		document.add(headline);
+		document.add(Chunk.NEWLINE);
 		document.add(new Paragraph("Inhalt: " + aktuellesArchivale.getInhalt()));
+		document.add(Chunk.NEWLINE);
 		document.add(new Paragraph("Datum (Jahr): "
 				+ aktuellesArchivale.getVonJahr() + " - "
 				+ aktuellesArchivale.getBisJahr()));
+		document.add(Chunk.NEWLINE);
 
 		List<Name> names = aktuellesArchivale.getNamen();
-		for (Name n : names) {
-			document.add(new Paragraph("Name:" + n.getVorname() + " "
-					+ n.getNachname()));
+		if (names.size() > 0) {
+			document.add(new Paragraph("Personen: "));
+			for (Name n : names) {
+				document.add(new Paragraph("  -" + n.getVorname() + " "
+						+ n.getNachname()));
+			}
+			document.add(Chunk.NEWLINE);
 		}
 
 		List<Organisationseinheit> organisationseinheiten = aktuellesArchivale
 				.getOrganisationseinheiten();
-		for (Organisationseinheit o : organisationseinheiten) {
-			document.add(new Paragraph("Organisationseinheiten:" + o.getName()));
+		if (organisationseinheiten.size() > 0) {
+			document.add(new Paragraph("Organisationseinheiten: "));
+			for (Organisationseinheit o : organisationseinheiten) {
+				document.add(new Paragraph("Organisationseinheiten:"
+						+ o.getName()));
+			}
+			document.add(Chunk.NEWLINE);
 		}
 
 		List<Dokumentart> dokumentarten = aktuellesArchivale.getDokumentarten();
-		for (Dokumentart d : dokumentarten) {
-			document.add(new Paragraph("Dokumentarten:" + d.getName()));
+		if (dokumentarten.size() > 0) {
+			document.add(new Paragraph("Dokumentarten: "));
+			for (Dokumentart d : dokumentarten) {
+				document.add(new Paragraph("Dokumentarten:" + d.getName()));
+			}
+			document.add(Chunk.NEWLINE);
+		}
+		
+		if (archivalien.indexOf(aktuellesArchivale) == archivalien.size() - 1) {
+			document.add(Chunk.NEWLINE);
+			document.add(UNDERLINE);
+			document.add(Chunk.NEWLINE);
 		}
 	}
-
 
 }
