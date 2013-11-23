@@ -37,6 +37,7 @@ package de.archivator.beans;
  */
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,37 +74,41 @@ public class PdfExportBean {
 
 	@Inject
 	private DetailBean detailBean;
-
 	@Inject
 	private RechercheBean rechercheBean;
-
 	private List<Archivale> archivalien;
-
 	private Document document;
-
 	private FacesContext context;
-
 	private final String FILENAME = "document";
+	private ByteArrayOutputStream byteArrayOutputStream;
 
 	/**
 	 * Die Methode createPdfFromRecord dient zum Erzeugen einer PDF-Datei aus
 	 * einem einzelnen Archiv-Datensatz
+	 * 
+	 * @throws IOException
 	 */
-	public void createPdfFromRecord(FacesContext context) {
+	public void createPdfFromRecord(FacesContext context) throws IOException {
 		this.context = context;
 		archivalien = new ArrayList<Archivale>();
 		archivalien.add(detailBean.getAktuellesArchivale());
-		createDocument();
+		if (archivalien.size() > 0)
+			createDocument();
+		createResponse();
 	}
 
 	/**
 	 * Die Methode createPdfFromList dient zum Erzeugen einer PDF-Datei aus
 	 * einem Recherche-Ergebnis
+	 * 
+	 * @throws IOException
 	 */
-	public void createPdfFromList(FacesContext context) {
+	public void createPdfFromList(FacesContext context) throws IOException {
 		this.context = context;
 		archivalien = rechercheBean.getArchivalien();
-		createDocument();
+		if (archivalien.size() > 0)
+			createDocument();
+		createResponse();
 	}
 
 	/**
@@ -113,33 +118,17 @@ public class PdfExportBean {
 	private void createDocument() {
 		try {
 			document = new Document();
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			PdfWriter.getInstance(document, baos);
+			byteArrayOutputStream = new ByteArrayOutputStream();
+			PdfWriter.getInstance(document, byteArrayOutputStream);
 			document.open();
-
 			for (int i = 0; i < archivalien.size(); i++) {
 				addContentFrom(archivalien.get(i));
 			}
-
 			document.close();
-			HttpServletResponse response = (HttpServletResponse) this.context
-					.getExternalContext().getResponse();
-			response.setContentType("application/pdf");
-			// den Browser informieren, dass er eine neue Datei erhält und sie
-			// herunterladen soll, anstatt sie auf der Seite darzustellen
-			response.setHeader("Content-disposition", "attachment; filename="
-					+ FILENAME);
-			// the contentlength
-			response.setContentLength(baos.size());
-			// write ByteArrayOutputStream to the ServletOutputStream
-			ServletOutputStream os = response.getOutputStream();
-			baos.writeTo(os);
-			os.flush();
-			os.close();
 		} catch (Exception e) {
-			System.out.println("Exception");
+			System.out.println("Exception" + e);
 		}
-		context.responseComplete();
+
 	}
 
 	/**
@@ -195,11 +184,35 @@ public class PdfExportBean {
 			}
 			document.add(Chunk.NEWLINE);
 		}
-		
+
 		if (archivalien.indexOf(aktuellesArchivale) == archivalien.size() - 1) {
 			document.add(Chunk.NEWLINE);
 			document.add(UNDERLINE);
 			document.add(Chunk.NEWLINE);
+		}
+	}
+
+	private void createResponse() {
+		try {
+
+			HttpServletResponse response = (HttpServletResponse) this.context
+					.getExternalContext().getResponse();
+			response.setContentType("application/pdf");
+			// den Browser informieren, dass er eine neue Datei erhält und sie
+			// herunterladen soll, anstatt sie auf der Seite darzustellen
+			response.setHeader("Content-disposition", "attachment; filename="
+					+ FILENAME);
+			// the contentlength
+			response.setContentLength(byteArrayOutputStream.size());
+			// write ByteArrayOutputStream to the ServletOutputStream
+			ServletOutputStream os = response.getOutputStream();
+			byteArrayOutputStream.writeTo(os);
+			os.flush();
+			os.close();
+			System.out.println("response");
+			context.responseComplete();
+		} catch (Exception e) {
+			System.out.println("exception");
 		}
 	}
 
