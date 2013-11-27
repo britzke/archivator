@@ -79,8 +79,13 @@ public class PdfExportBean {
 	private List<Archivale> archivalien;
 	private Document document;
 	private FacesContext context;
-	private final String FILENAME = "document";
+	private final String FILENAME = "document.pdf";
 	private ByteArrayOutputStream byteArrayOutputStream;
+
+	private boolean printPersonen;
+	private boolean printDatum;
+	private boolean printOrganisationseinheiten;
+	private boolean printDokumentarten;
 
 	/**
 	 * Die Methode createPdfFromRecord dient zum Erzeugen einer PDF-Datei aus
@@ -92,9 +97,10 @@ public class PdfExportBean {
 		this.context = context;
 		archivalien = new ArrayList<Archivale>();
 		archivalien.add(detailBean.getAktuellesArchivale());
-		if (archivalien.size() > 0)
+		if (archivalien.size() > 0) {
 			createDocument();
-		createResponse();
+			createResponse();
+		}
 	}
 
 	/**
@@ -106,9 +112,10 @@ public class PdfExportBean {
 	public void createPdfFromList(FacesContext context) throws IOException {
 		this.context = context;
 		archivalien = rechercheBean.getArchivalien();
-		if (archivalien.size() > 0)
+		if (archivalien.size() > 0) {
 			createDocument();
-		createResponse();
+			createResponse();
+		}
 	}
 
 	/**
@@ -140,49 +147,64 @@ public class PdfExportBean {
 		LineSeparator UNDERLINE = new LineSeparator(1, 100, null,
 				Element.ALIGN_CENTER, -2);
 
+		// beim ersten Archivdatensatz einen Absatz hinzufügen,
+		// da sonst Leerzeilen nicht eingefügt werden
+		if (archivalien.indexOf(aktuellesArchivale) == 0) {
+			document.add(new Paragraph(""));
+		}
+
 		document.add(Chunk.NEWLINE);
 		document.add(UNDERLINE);
 		document.add(Chunk.NEWLINE);
 
-		Paragraph headline = new Paragraph(aktuellesArchivale.getBetreff());
-		headline.setAlignment(Element.ALIGN_CENTER);
-		document.add(headline);
+		document.add(new Paragraph("Betreff: "
+				+ aktuellesArchivale.getBetreff()));
 		document.add(Chunk.NEWLINE);
 		document.add(new Paragraph("Inhalt: " + aktuellesArchivale.getInhalt()));
 		document.add(Chunk.NEWLINE);
+		document.add(new Paragraph("Mappe: " + aktuellesArchivale.getMappe()
+				+ " Schubfach: " + aktuellesArchivale.getSchubfach()));
 		document.add(new Paragraph("Datum (Jahr): "
 				+ aktuellesArchivale.getVonJahr() + " - "
 				+ aktuellesArchivale.getBisJahr()));
 		document.add(Chunk.NEWLINE);
 
-		List<Name> names = aktuellesArchivale.getNamen();
-		if (names.size() > 0) {
-			document.add(new Paragraph("Personen: "));
-			for (Name n : names) {
-				document.add(new Paragraph("  -" + n.getVorname() + " "
-						+ n.getNachname()));
+		if (printPersonen) {
+			List<Name> names = aktuellesArchivale.getNamen();
+			if (names.size() > 0) {
+				document.add(new Paragraph("Personen: "));
+				for (Name n : names) {
+					document.add(new Paragraph("  - " + n.getVorname() + " "
+							+ n.getNachname()));
+				}
+				document.add(Chunk.NEWLINE);
 			}
-			document.add(Chunk.NEWLINE);
 		}
 
-		List<Organisationseinheit> organisationseinheiten = aktuellesArchivale
-				.getOrganisationseinheiten();
-		if (organisationseinheiten.size() > 0) {
-			document.add(new Paragraph("Organisationseinheiten: "));
-			for (Organisationseinheit o : organisationseinheiten) {
-				document.add(new Paragraph("Organisationseinheiten:"
-						+ o.getName()));
+		if (printOrganisationseinheiten) {
+			List<Organisationseinheit> organisationseinheiten = aktuellesArchivale
+					.getOrganisationseinheiten();
+			if (organisationseinheiten.size() > 0) {
+				document.add(new Paragraph("Organisationseinheiten: "));
+				for (Organisationseinheit o : organisationseinheiten) {
+					document.add(new Paragraph("Organisationseinheiten:"
+							+ o.getName()));
+				}
+				document.add(Chunk.NEWLINE);
 			}
-			document.add(Chunk.NEWLINE);
+
 		}
 
-		List<Dokumentart> dokumentarten = aktuellesArchivale.getDokumentarten();
-		if (dokumentarten.size() > 0) {
-			document.add(new Paragraph("Dokumentarten: "));
-			for (Dokumentart d : dokumentarten) {
-				document.add(new Paragraph("Dokumentarten:" + d.getName()));
+		if (printDokumentarten) {
+			List<Dokumentart> dokumentarten = aktuellesArchivale
+					.getDokumentarten();
+			if (dokumentarten.size() > 0) {
+				document.add(new Paragraph("Dokumentarten: "));
+				for (Dokumentart d : dokumentarten) {
+					document.add(new Paragraph("Dokumentarten:" + d.getName()));
+				}
+				document.add(Chunk.NEWLINE);
 			}
-			document.add(Chunk.NEWLINE);
 		}
 
 		if (archivalien.indexOf(aktuellesArchivale) == archivalien.size() - 1) {
@@ -190,6 +212,7 @@ public class PdfExportBean {
 			document.add(UNDERLINE);
 			document.add(Chunk.NEWLINE);
 		}
+
 	}
 
 	private void createResponse() {
@@ -214,6 +237,39 @@ public class PdfExportBean {
 		} catch (Exception e) {
 			System.out.println("exception");
 		}
+	}
+
+	public boolean isPrintPersonen() {
+		return printPersonen;
+	}
+
+	public void setPrintPersonen(boolean printPersonen) {
+		this.printPersonen = printPersonen;
+	}
+
+	public boolean isPrintDatum() {
+		return printDatum;
+	}
+
+	public void setPrintDatum(boolean printDatum) {
+		this.printDatum = printDatum;
+	}
+
+	public boolean isPrintOrganisationseinheiten() {
+		return printOrganisationseinheiten;
+	}
+
+	public void setPrintOrganisationseinheiten(
+			boolean printOrganisationseinheiten) {
+		this.printOrganisationseinheiten = printOrganisationseinheiten;
+	}
+
+	public boolean isPrintDokumentarten() {
+		return printDokumentarten;
+	}
+
+	public void setPrintDokumentarten(boolean printDokumentarten) {
+		this.printDokumentarten = printDokumentarten;
 	}
 
 }
