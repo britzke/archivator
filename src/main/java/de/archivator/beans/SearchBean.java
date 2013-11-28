@@ -160,9 +160,9 @@ public class SearchBean implements Serializable {
 	public void organisationseinheitClicked() {
 		String query = rechercheBean.getSuchKriterium();
 		if (query.length() == 0) {
-			query = "organisationseinheit:";
+			query = "körperschaft:";
 		} else {
-			query += " AND organisationseinheit:";
+			query += " AND körperschaft:";
 		}
 		rechercheBean.setSuchKriterium(query);
 	}

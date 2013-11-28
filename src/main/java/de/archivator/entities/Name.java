@@ -32,7 +32,7 @@ import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
- * Klasse für den Namen einer Person der Archivalien.
+ * Classe für die Namen der Archivalien.
  * 
  * @author junghans
  * @author burghard.britzke bubi@charmides.in-berlin.de

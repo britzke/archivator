@@ -6,6 +6,6 @@
 		username="archivator"
 		password="archivator" 
 		maxActive="2" maxIdle="1" maxWait="10000" driverClassName="org.apache.derby.jdbc.EmbeddedDriver"
-		url="jdbc:derby:/root/Desktop/archivator.jdb;create=true" />
+		url="jdbc:derby:/home/e0_eger/archivator.jdb;create=true" />
 
 </Context>

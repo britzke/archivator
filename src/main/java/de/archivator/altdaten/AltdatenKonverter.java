@@ -48,7 +48,7 @@ import de.archivator.altdaten.model.TabelleX0020Archiv;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
-import de.archivator.entities.Körperschaft;
+import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
 /**
@@ -114,7 +114,7 @@ public class AltdatenKonverter {
 		conf.addClass(Archivale.class);
 		conf.addClass(Dokumentart.class);
 		conf.addClass(Name.class);
-		conf.addClass(Körperschaft.class);
+		conf.addClass(Organisationseinheit.class);
 		conf.addClass(Schlagwort.class);
 		Compass compass = conf.buildCompass();
 
@@ -187,17 +187,17 @@ public class AltdatenKonverter {
 			addArchivaleDokumentart(databaseDokumentarten, archivale,
 					altarchivale.getDokumentenartX00203());
 
-			// Koerperschaft(en) hinzufügen
-			q = em.createQuery("select o from Koerperschaft o");
+			// Organisationseinheit(en) hinzufügen
+			q = em.createQuery("select o from Organisationseinheit o");
 			@SuppressWarnings("unchecked")
-			List<Körperschaft> databaseKoerperschaften = q
+			List<Organisationseinheit> databaseOrganisationeinheiten = q
 					.getResultList();
-			addArchivaleKoerperschaft(databaseKoerperschaften,
+			addArchivaleOrganisationseinheit(databaseOrganisationeinheiten,
 					archivale, altarchivale.getAbteilung());
 
 			int schule = altarchivale.getSchule().intValue();
 			if (schule != 0) {
-				addArchivaleKoerperschaft(databaseKoerperschaften,
+				addArchivaleOrganisationseinheit(databaseOrganisationeinheiten,
 						archivale, schulen[schule]);
 			}
 			// Namen hinzufügen
@@ -291,59 +291,59 @@ public class AltdatenKonverter {
 	}
 
 	/**
-	 * Fügt dem Archivale eine Koerperschaft hinzu. Existiert die
-	 * Koerperschaft in der Datenbank noch nicht, so wird sie der
-	 * Datenbank hinzugefügt, ansonsten wird die bestehende Koerperschaft
+	 * Fügt dem Archivale eine Organisationseinheit hinzu. Existiert die
+	 * Organisationseinheit in der Datenbank noch nicht, so wird sie der
+	 * Datenbank hinzugefügt, ansonsten wird die bestehende Organisationseinheit
 	 * refernziert.
 	 * 
-	 * @param databaseKoerperschaften
-	 *            Die Koerperschaften die in der Datenbank schon vorhanden
+	 * @param databaseOrganisationeinheiten
+	 *            Die Organisationeinheiten die in der Datenbank schon vorhanden
 	 *            sind.
 	 * @param archivale
-	 *            Das Archivale, dem die Koerperschaft hinzugefügt wird.
-	 * @param koerperschaftName
-	 *            Der Name der Koerperschaft.
+	 *            Das Archivale, dem die Organisationseinheit hinzugefügt wird.
+	 * @param organisationseinheitName
+	 *            Der Name der Organisationseinheit.
 	 */
-	private void addArchivaleKoerperschaft(
-			List<Körperschaft> databaseKoerperschaften,
-			Archivale archivale, String koerperschaftName) {
-		if (koerperschaftName != null) {
-			koerperschaftName = koerperschaftName.replaceAll(
+	private void addArchivaleOrganisationseinheit(
+			List<Organisationseinheit> databaseOrganisationeinheiten,
+			Archivale archivale, String organisationseinheitName) {
+		if (organisationseinheitName != null) {
+			organisationseinheitName = organisationseinheitName.replaceAll(
 					"\n", "");
-			String[] koerperschaftenNamen = { koerperschaftName };
-			if (koerperschaftName.indexOf(",") != -1) {
-				koerperschaftenNamen = koerperschaftName
+			String[] organisationseinheitenNamen = { organisationseinheitName };
+			if (organisationseinheitName.indexOf(",") != -1) {
+				organisationseinheitenNamen = organisationseinheitName
 						.split(",");
-			} else if (koerperschaftName.indexOf("/") != -1) {
-				koerperschaftenNamen = koerperschaftName
+			} else if (organisationseinheitName.indexOf("/") != -1) {
+				organisationseinheitenNamen = organisationseinheitName
 						.split("/");
 			}
-			for (String koerpName : koerperschaftenNamen) {
-				List<Körperschaft> archivaleKoerperschaften = archivale
-						.getKoerperschaften();
-				Körperschaft körperschaft = new Körperschaft(
-						koerpName.trim());
-				for (Körperschaft databaseKoerperschaft : databaseKoerperschaften) {
-					if (körperschaft
-							.equals(databaseKoerperschaften)) {
-						körperschaft = databaseKoerperschaft;
+			for (String oeName : organisationseinheitenNamen) {
+				List<Organisationseinheit> archivaleOrganisationseinheiten = archivale
+						.getOrganisationseinheiten();
+				Organisationseinheit organisationseinheit = new Organisationseinheit(
+						oeName.trim());
+				for (Organisationseinheit databaseOrganisationseinheit : databaseOrganisationeinheiten) {
+					if (organisationseinheit
+							.equals(databaseOrganisationseinheit)) {
+						organisationseinheit = databaseOrganisationseinheit;
 						break; // nur der erste Treffer wird genommen
 					}
 				}
-				if (körperschaft.getId() == 0) {
-					databaseKoerperschaften.add(körperschaft);
+				if (organisationseinheit.getId() == 0) {
+					databaseOrganisationeinheiten.add(organisationseinheit);
 				}
 				boolean schonVorhanden = false;
-				for (Körperschaft archivaleKoerperschaft : archivaleKoerperschaften) {
-					if (körperschaft
-							.equals(archivaleKoerperschaft)) {
+				for (Organisationseinheit archivaleOrganisationseinheit : archivaleOrganisationseinheiten) {
+					if (organisationseinheit
+							.equals(archivaleOrganisationseinheit)) {
 						schonVorhanden = true;
 						break;
 					}
 				}
 				if (!schonVorhanden) {
-					archivaleKoerperschaften.add(körperschaft);
-					körperschaft.getArchivalien().add(archivale);
+					archivaleOrganisationseinheiten.add(organisationseinheit);
+					organisationseinheit.getArchivalien().add(archivale);
 				}
 			}
 		}

@@ -36,7 +36,7 @@ import org.compass.gps.impl.SingleCompassGps;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
-import de.archivator.entities.Körperschaft;
+import de.archivator.entities.Organisationseinheit;
 import de.archivator.entities.Schlagwort;
 
 /**
@@ -67,7 +67,7 @@ public class CompassBean {
 		conf.addClass(Archivale.class);
 		conf.addClass(Dokumentart.class);
 		conf.addClass(Name.class);
-		conf.addClass(Körperschaft.class);
+		conf.addClass(Organisationseinheit.class);
 		conf.addClass(Schlagwort.class);
 		compass = conf.buildCompass();
 	}
