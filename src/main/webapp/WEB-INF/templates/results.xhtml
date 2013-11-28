@@ -15,7 +15,7 @@
 		<pe:tooltip for="druckButton" value="Datensatz als PDF exportieren" />
 	</p:commandButton>
 
-	<p:overlayPanel id="druckPanel" for="druckButton" showEffect="fade" hideEffect="fade">
+	<p:overlayPanel id="druckPanel" for="druckButton">
 		<h:panelGrid columns="2">
 			<p:selectBooleanCheckbox value="#{pdfExportBean.printPersonen}"
 				label="Personen"></p:selectBooleanCheckbox>

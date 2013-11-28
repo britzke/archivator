@@ -162,12 +162,16 @@ public class PdfExportBean {
 		document.add(Chunk.NEWLINE);
 		document.add(new Paragraph("Inhalt: " + aktuellesArchivale.getInhalt()));
 		document.add(Chunk.NEWLINE);
+
 		document.add(new Paragraph("Mappe: " + aktuellesArchivale.getMappe()
 				+ " Schubfach: " + aktuellesArchivale.getSchubfach()));
-		document.add(new Paragraph("Datum (Jahr): "
-				+ aktuellesArchivale.getVonJahr() + " - "
-				+ aktuellesArchivale.getBisJahr()));
 		document.add(Chunk.NEWLINE);
+		if (printDatum) {
+			document.add(new Paragraph("Datum (Jahr): "
+					+ aktuellesArchivale.getVonJahr() + " - "
+					+ aktuellesArchivale.getBisJahr()));
+			document.add(Chunk.NEWLINE);
+		}
 
 		if (printPersonen) {
 			List<Name> names = aktuellesArchivale.getNamen();
@@ -208,7 +212,6 @@ public class PdfExportBean {
 		}
 
 		if (archivalien.indexOf(aktuellesArchivale) == archivalien.size() - 1) {
-			document.add(Chunk.NEWLINE);
 			document.add(UNDERLINE);
 			document.add(Chunk.NEWLINE);
 		}

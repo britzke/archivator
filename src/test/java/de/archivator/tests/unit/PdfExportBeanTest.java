@@ -18,6 +18,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -76,20 +77,21 @@ public class PdfExportBeanTest {
 		f = proband.getClass().getDeclaredField("rechercheBean");
 		f.setAccessible(true);
 		f.set(proband, rechercheBean);
-
-		response = mock(HttpServletResponse.class);
+		
 		externalContext = mock(ExternalContext.class);
 
 		facesContext = mock(FacesContext.class);
 	}
 
 	/**
-	 * testet die Methode zum Erzeugen der PDF aus einem einzelnen
-	 * Archiv-Datensatz
+	 * testet ob die Liste der Archivalien nach der Erzeugung des Dokuments
+	 * nicht null ist
 	 * @throws IOException
 	 */
 	@Test
 	public void testCreatePdfFromRecord() throws IOException {
+		//testen ob archivalien Objekt das übergebene Objekt ist
+		//
 		aktuellesArchivale.setId(1);
 		aktuellesArchivale.setBetreff("TestBetreff");
 		aktuellesArchivale.setVonJahr(2000);
@@ -98,8 +100,9 @@ public class PdfExportBeanTest {
 		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
 		proband.createPdfFromRecord(facesContext);
 		assertNotNull(archivalien);
+		assertTrue(archivalien.size()>0);
+		assertEquals(aktuellesArchivale, archivalien.get(0));
 		assertNotNull(document);
-		assertTrue(document.getPageNumber() > 0);
 	}
 	
 
@@ -122,7 +125,7 @@ public class PdfExportBeanTest {
 		proband.createPdfFromList(facesContext);
 		assertNotNull(archivalien);
 		assertNotNull(document);
-		assertTrue(document.getPageNumber() > 0);
+
 	}
 
 }
