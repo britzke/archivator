@@ -5,11 +5,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
 	version="2.1">
 
-	<application>
-		<resource-bundle>
-			<base-name>message</base-name>
-			<var>msgs</var>
-		</resource-bundle>
-	</application>
+<application>
+	<resource-bundle>
+	<base-name>resources.Messages.message</base-name>
+	<var>msg</var>
+	</resource-bundle>
 
+</application>
 </faces-config>

@@ -5,6 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
+<f:loadBundle basename="resources.Messages.message" var="msgs"/>
 
 	<p:confirmDialog widgetVar="anmeldungNotwendigDialog"
 		visible="#{not loginBean.angemeldet}" header="#{msgs.edit.confirmDialog.header}"
@@ -16,7 +17,7 @@
 	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
 		action="#{editBean.back}" immediate="true">
 		<pe:tooltip for="zurückButton"
-			value="zurück zur vorherigen Ansicht (ohne Speichern)" />
+			value="#{msgs.edit.commandButton.tooltip.value}" />
 	</p:commandButton>
 	<cc:confirmButton icon="ui-icon-minus" header="Bestätigung zum Löschen"
 		message="Soll das aktuelle Archivale gelöscht werden?"
@@ -68,4 +69,5 @@
 		<cc:archivaleChilds angemeldet="#{loginBean.angemeldet}"
 			aktuellesArchivale="#{editBean.aktuellesArchivale}" />
 	</p:panel>
+	
 </h:form>
