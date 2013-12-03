@@ -13,76 +13,91 @@
 </composite:interface>
 
 <composite:implementation>
-	<p:tabView effect="fade" activeIndex="#{detailBean.activeIndex}">
-		<p:ajax event="tabChange" listener="#{detailBean.onTabChange}" />
-		<p:tab title="Personen">
-			<p:commandButton id="editNamenButton" icon="ui-icon-pencil"
-				rendered="#{cc.attrs.angemeldet}" update="@form"
-				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
-				action="#{editBean.loadNamen}" oncomplete="editNamenDialog.show()">
-				<pe:tooltip for="editNamenButton"
-					value="Bearbeiten der zugeordneten Namen" />
-			</p:commandButton>
-			<p:dataTable value="#{cc.attrs.aktuellesArchivale.namen}" var="name">
-				<p:column sortBy="#{name.nachname}, #{name.vorname}"
-					headerText="Vor- und Nachname">
-					<h:outputText value="#{name.nachname}, #{name.vorname}" />
-				</p:column>
-			</p:dataTable>
-		</p:tab>
-		<p:tab title="Organisationseinheiten">
-			<p:commandButton id="editOrganisationseinheitenButton"
-				rendered="#{cc.attrs.angemeldet}"
-				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
-				icon="ui-icon-pencil" update="@form"
-				action="#{organisationseinheitenBean.loadItems}"
-				oncomplete="editOrganisationseinheitenDialog.show()">
-				<pe:tooltip for="editOrganisationseinheitenButton"
-					value="Bearbeiten der zugeordneten Organisationseinheiten" />
-			</p:commandButton>
-			<p:dataTable
-				value="#{cc.attrs.aktuellesArchivale.organisationseinheiten}"
-				var="oe">
-				<p:column sortBy="#{oe.name}" headerText="Schulen bzw. Abteilungen">
-					<h:outputText value="#{oe.name}"></h:outputText>
-				</p:column>
-			</p:dataTable>
-		</p:tab>
-		<p:tab title="Dokumentarten">
-			<p:commandButton id="editDokumentartenButton"
-				rendered="#{cc.attrs.angemeldet}"
-				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
-				icon="ui-icon-pencil" update="@form"
-				action="#{dokumentartenBean.loadItems}"
-				oncomplete="editDokumentartenDialog.show()">
-				<pe:tooltip for="editOrganisationseinheitenButton"
-					value="Bearbeiten der zugeordneten Dokumentarten" />
-			</p:commandButton>
-			<p:dataTable value="#{cc.attrs.aktuellesArchivale.dokumentarten}"
-				var="da">
-				<p:column headerText="Dokumentarten">
-					<h:outputText value="#{da.name}"></h:outputText>
-				</p:column>
-			</p:dataTable>
-		</p:tab>
-		<p:tab title="Schlagworte">
-			<p:commandButton id="editSchlagwörterButton"
-				rendered="#{cc.attrs.angemeldet}"
-				disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
-				icon="ui-icon-pencil" update="@form"
-				action="#{editBean.loadSchlagworte}"
-				oncomplete="editSchlagworteDialog.show()">
-				<pe:tooltip for="editSchlagwörterButton"
-					value="Bearbeiten der zugeordneten Schlagwörter" />
-			</p:commandButton>
-			<p:dataTable value="#{cc.attrs.aktuellesArchivale.schlagwörter}"
-				var="schlagworte">
-				<p:column headerText="Schlagworte">
-					<h:outputText value="#{schlagworte.name}"></h:outputText>
-				</p:column>
-			</p:dataTable>
-		</p:tab>
-	</p:tabView>
+<composite:actionSource name="exceptionDialog"></composite:actionSource>
+    <p:tabView effect="fade" activeIndex="#{detailBean.activeIndex}">
+        <p:ajax event="tabChange" listener="#{detailBean.onTabChange}" />
+        <p:tab title="Personen">
+            <p:commandButton id="editNamenButton" icon="ui-icon-pencil"
+                rendered="#{cc.attrs.angemeldet}" update="@form"
+                disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
+                action="#{editBean.loadNamen}" oncomplete="editNamenDialog.show()">
+                <pe:tooltip for="editNamenButton"
+                    value="Bearbeiten der zugeordneten Namen" />
+            </p:commandButton>
+            <p:dataTable value="#{cc.attrs.aktuellesArchivale.namen}" var="name">
+                <p:column sortBy="#{name.nachname}, #{name.vorname}"
+                    headerText="Vor- und Nachname">
+                    <h:outputText value="#{name.nachname}, #{name.vorname}" />
+                </p:column>
+            </p:dataTable>
+        </p:tab>
+        <p:tab title="Organisationseinheiten">
+            <p:commandButton id="editOrganisationseinheitenButton"
+                rendered="#{cc.attrs.angemeldet}"
+                disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
+                icon="ui-icon-pencil" update="@form"
+                action="#{organisationseinheitenBean.loadItems}"
+                oncomplete="editOrganisationseinheitenDialog.show()">
+                <pe:tooltip for="editOrganisationseinheitenButton"
+                    value="Bearbeiten der zugeordneten Organisationseinheiten" />
+            </p:commandButton>
+            <p:dataTable
+                value="#{cc.attrs.aktuellesArchivale.organisationseinheiten}"
+                var="oe">
+                <p:column sortBy="#{oe.name}" headerText="Schulen bzw. Abteilungen">
+                    <h:outputText value="#{oe.name}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        </p:tab>
+        <p:tab title="Dokumentarten">
+            <p:commandButton id="editDokumentartenButton"
+                rendered="#{cc.attrs.angemeldet}"
+                disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
+                icon="ui-icon-pencil" update="@form"
+                action="#{dokumentartenBean.loadItems}"
+                oncomplete="editDokumentartenDialog.show()">
+                <pe:tooltip for="editOrganisationseinheitenButton"
+                    value="Bearbeiten der zugeordneten Dokumentarten" />
+            </p:commandButton>
+            <p:dataTable value="#{cc.attrs.aktuellesArchivale.dokumentarten}"
+                var="da">
+                <p:column headerText="Dokumentarten">
+                    <h:outputText value="#{da.name}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        </p:tab>
+        <p:tab title="Schlagworte">
+            <p:commandButton id="editSchlagwörterButton"
+                rendered="#{cc.attrs.angemeldet}"
+                disabled="#{cc.attrs.aktuellesArchivale.id == 0}"
+                icon="ui-icon-pencil" update="@form"
+                action="#{editBean.loadSchlagworte}"
+                oncomplete="editSchlagworteDialog.show()">
+                <pe:tooltip for="editSchlagwörterButton"
+                    value="Bearbeiten der zugeordneten Schlagwörter" />
+            </p:commandButton>
+            <p:dataTable value="#{cc.attrs.aktuellesArchivale.schlagwörter}"
+                var="schlagworte">
+                <p:column headerText="Schlagworte">
+                    <h:outputText value="#{schlagworte.name}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        </p:tab>
+        
+        <p:tab title="Bilder"> <!-- Tap zum einfügen der Bilder -->
+        
+             <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}" mode="advanced" dragDropSupport="false"  
+                  update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" >  
+                 
+                 
+               </p:fileUpload>
+ 
+            <p:growl id="messages" showDetail="true"/>  
+          
+      
+            
+        </p:tab>
+    </p:tabView>
 	<p:dialog id="editNamenDialog" widgetVar="editNamenDialog"
 		header="Namen bearbeiten" modal="true" style="position:fixed">
 		<p:panelGrid columns="1">
@@ -122,10 +137,8 @@
 		<p:panelGrid columns="1">
 			<p:scrollPanel mode="native" style="width:110px;height:250px">
 				<p:dataTable value="#{dokumentartenBean.allItems}" var="d"
-					rowKey="#{d.id}"
-					selection="#{dokumentartenBean.selectedItems}"
-					selectionMode="multiple"
-					>
+					rowKey="#{d.id}" selection="#{dokumentartenBean.selectedItems}"
+					selectionMode="multiple">
 					<p:column>
 						<h:outputText value="#{d.name}" />
 					</p:column>
