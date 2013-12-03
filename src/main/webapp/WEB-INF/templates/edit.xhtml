@@ -7,8 +7,8 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
 
 	<p:confirmDialog widgetVar="anmeldungNotwendigDialog"
-		visible="#{not loginBean.angemeldet}" header="Anmeldung erforderlich"
-		message="Bitte melden Sie sich an, um das Archiv bearbeiten zu können">
+		visible="#{not loginBean.angemeldet}" header="#{msgs.edit.confirmDialog.header}"
+		message="#{msgs.edit.confirmDialog.message}">
 		<p:commandButton value="OK" action="index"
 			onclick="anmeldungNotwendigDialog.hide()" />
 	</p:confirmDialog>
