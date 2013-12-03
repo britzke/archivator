@@ -6,35 +6,30 @@
 	<p:panelGrid columns="2">
 		<p:focus for="inputSearch">
 			<p:inputText id="inputSearch" value="#{rechercheBean.suchKriterium}"></p:inputText>
-			<p:commandButton value="#{msgs.search.Suche}"
+			<p:commandButton value="Suche"
 				action="#{searchBean.search(facesContext)}" update="@all" />
 		</p:focus>
 	</p:panelGrid>
-<<<<<<< HEAD
 	
 	<p:panel header="erweiterte Suche" toggleable="true" collapsed="true">
-=======
-
-	<p:panel header="#{msgs.search.erweiterteSuche}" toggleable="true" collapsed="true">
->>>>>>> branch 'Internationalisierung' of https://github.com/britzke/archivator.git
 		<p:panelGrid id="extendedSearch" columns="3">
-			<p:commandButton value="#{msgs.search.Dokumentart}" update="@form"
+			<p:commandButton value="Dokumentart" update="@form"
 				actionListener="#{searchBean.dokumentartClicked}" />
-			<p:commandButton value="#{msgs.search.Person}" update="@form"
+			<p:commandButton value="Person" update="@form"
 				actionListener="#{searchBean.personClicked}" />
-			<p:commandButton value="#{msgs.search.und}" update="@form"
+			<p:commandButton value="und" update="@form"
 				actionListener="#{searchBean.andClicked}" />
-			<p:commandButton value="#{msgs.search.Schlagwort}" update="@form"
+			<p:commandButton value="Schlagwort" update="@form"
 				actionListener="#{searchBean.schlagwortClicked}" />
-			<p:commandButton value="#{msgs.search.Betreff}" update="@form"
+			<p:commandButton value="Betreff" update="@form"
 				actionListener="#{searchBean.betreffClicked}" />
-			<p:commandButton value="#{msgs.search.oder}" update="@form"
+			<p:commandButton value="oder" update="@form"
 				actionListener="#{searchBean.orClicked}" />
-			<p:commandButton value="#{msgs.search.Körperschaft}" update="@form"
+			<p:commandButton value="Körperschaft" update="@form"
 				actionListener="#{searchBean.körperschaftClicked}" />
-			<p:commandButton value="#{msgs.search.vonJahr}" update="@form"
+			<p:commandButton value="von Jahr" update="@form"
 				actionListener="#{searchBean.vonJahrClicked}" />
-			<p:commandButton value="#{msgs.search.vonJahr}" update="@form"
+			<p:commandButton value="bis Jahr" update="@form"
 				actionListener="#{searchBean.bisJahrClicked}" />
 		</p:panelGrid>
 	</p:panel>

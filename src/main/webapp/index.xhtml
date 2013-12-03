@@ -6,13 +6,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	<f:view locale="#{facesContext.externalContext.requestLocale}"> 
 <h:head />
 <h:body>
 	<ui:composition template="/WEB-INF/templates/structure.xhtml">
 		<ui:define name="search">
 			<ui:include src="/WEB-INF/templates/search.xhtml" />
-<h:outputText value="test #{facesContext.externalContext.requestLocale}"/>
 		</ui:define>
 		<ui:define name="login">
 			<ui:include src="/WEB-INF/templates/login.xhtml" />
@@ -22,5 +20,4 @@
 		</ui:define>
 	</ui:composition>
 </h:body>
- </f:view>
 </html>

@@ -5,60 +5,59 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
-	
-	<f:view locale="#{facesContext.externalContext.requestLocale}">
-		
-		<p:commandButton id="#{msgs.detail.commandButton.zurueckButton}"
-			icon="ui-icon-arrowreturnthick-1-w" action="index">
-			<pe:tooltip for="zurückButton" value="#{msgss.detail.zurueckButton}" />
-		</p:commandButton>
-		<p:commandButton id="editButton" icon="ui-icon-pencil"
-			rendered="#{loginBean.angemeldet}" action="edit">
-			<pe:tooltip for="editButton" value="{#msgs.detail.editButton}" />
-		</p:commandButton>
-		<cc:confirmButton icon="ui-icon-minus"
-			header="#{msgs.detail.confirmButton.header}"
-			message="#{msgs.detail.confirmButton.message}"
-			tooltip="#{msgs.detail.confirmButton.tooltip}"
-			action="#{editBean.lösche(facesContext)}"
-			rendered="#{loginBean.angemeldet}" />
-		<p:panel id="detailPanel"
-			header="Details zu '#{msgs.detailBean.aktuellesArchivale.betreff}'">
-			<p:panelGrid id="detailGrid" columns="2">
-				<p:panelGrid id="leftDetailGrid" columns="1">
-					<p:panelGrid columns="4">
-						<h:outputText value="#{msgs.detail.datum}" styleClass="label" />
-						<h:outputText value="#{msgs.detailBean.aktuellesArchivale.vonJahr}" />
-						<h:outputText value=" - "
-							rendered="#{msgs.detailBean.aktuellesArchivale.bisJahr != 0}" />
-						<h:outputText value="#{detailBean.aktuellesArchivale.bisJahr}"
-							rendered="#{detailBean.aktuellesArchivale.bisJahr != 0}" />
-					</p:panelGrid>
-					<h:outputText value="#{msgs.detail.betreff}" styleClass="label" />
-					<h:outputText value="#{msgs.detailBean.aktuellesArchivale.betreff}" />
-					<h:outputText value="#{msgs.detail.inhalt}" styleClass="label" />
-					<!--
+
+	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
+		action="index">
+		<pe:tooltip for="zurückButton" value="zurück zum Rechercheergebnis" />
+	</p:commandButton>
+	<p:commandButton id="editButton" icon="ui-icon-pencil"
+		rendered="#{loginBean.angemeldet}" action="edit" >
+		<pe:tooltip for="editButton" value="Bearbeiten des Archivales"/>
+	</p:commandButton>
+	<cc:confirmButton 
+		icon="ui-icon-minus"
+		header="Bestätigung zum Löschen"
+		message="Soll das aktuelle Archivale gelöscht werden?"
+		tooltip="Löschen des aktuellen Archivales"
+		action="#{editBean.lösche(facesContext)}"
+		rendered="#{loginBean.angemeldet}"
+	/>
+	<p:panel id="detailPanel"
+		header="Details zu '#{detailBean.aktuellesArchivale.betreff}'">
+		<p:panelGrid id="detailGrid" columns="2">
+			<p:panelGrid id="leftDetailGrid" columns="1">
+				<p:panelGrid columns="4">
+					<h:outputText value="Datum:" styleClass="label" />
+					<h:outputText value="#{detailBean.aktuellesArchivale.vonJahr}"/>
+					<h:outputText value=" - "
+						rendered="#{detailBean.aktuellesArchivale.bisJahr != 0}" />
+					<h:outputText value="#{detailBean.aktuellesArchivale.bisJahr}"
+						rendered="#{detailBean.aktuellesArchivale.bisJahr != 0}" />
+				</p:panelGrid>
+				<h:outputText value="Betreff" styleClass="label" />
+				<h:outputText value="#{detailBean.aktuellesArchivale.betreff}" />
+				<h:outputText value="Inhalt" styleClass="label" />
+				<!--
 				<p:scrollPanel style="width:450px;height:100px"> 
 				 -->
-					<h:outputText value="#{msgs.detailBean.aktuellesArchivale.inhalt}" />
-					<!-- 
+					<h:outputText value="#{detailBean.aktuellesArchivale.inhalt}" />
+				<!-- 
 				</p:scrollPanel>
 				 -->
-				</p:panelGrid>
-				<p:panelGrid id="rightDetailGrid" columns="1">
-					<p:panel style="float:right" header="Ort">
-						<p:panelGrid columns="2">
-							<h:outputText value="#{msgs.detail.schubfach}" styleClass="label" />
-							<h:outputText value="#{msgs.detailBean.aktuellesArchivale.schubfach}" />
-							<h:outputText value="#{msgs.detail.mappe}" styleClass="label" />
-							<h:outputText value="#{msgs.detailBean.aktuellesArchivale.mappe}" />
-						</p:panelGrid>
-					</p:panel>
-					<p:graphicImage value="#{msgs.detailBean.aktuellesArchivale.datei}" />
-				</p:panelGrid>
 			</p:panelGrid>
-			<cc:archivaleChilds angemeldet="#{loginBean.angemeldet}"
-				aktuellesArchivale="#{detailBean.aktuellesArchivale}" />
-		</p:panel>
-	</f:view>
+			<p:panelGrid id="rightDetailGrid" columns="1">
+				<p:panel style="float:right" header="Ort">
+					<p:panelGrid columns="2">
+						<h:outputText value="Schubfach:" styleClass="label" />
+						<h:outputText value="#{detailBean.aktuellesArchivale.schubfach}" />
+						<h:outputText value="Mappe:" styleClass="label" />
+						<h:outputText value="#{detailBean.aktuellesArchivale.mappe}" />
+					</p:panelGrid>
+				</p:panel>
+				<p:graphicImage value="#{detailBean.aktuellesArchivale.datei}" />
+			</p:panelGrid>
+		</p:panelGrid>
+		<cc:archivaleChilds angemeldet="#{loginBean.angemeldet}"
+			aktuellesArchivale="#{detailBean.aktuellesArchivale}" />
+	</p:panel>
 </h:form>
