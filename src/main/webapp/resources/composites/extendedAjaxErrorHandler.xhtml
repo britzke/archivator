@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:implementation>
+	<!-- An example of protocol, where title and body are defined through <f:facet name="title"> and/or <f:facet name="body"> -->
+	<pe:ajaxErrorHandler type="java.lang.IllegalStateException"
+		button="Close warning!">
+		<f:facet name="title">  
+        Error <span style="color: red;">{error-name}</span>
+		</f:facet>
+		<f:facet name="body">
+			<div>
+				<h:form>
+					<p:tabView>
+						<p:tab title="Message">
+							<h:panelGrid columns="2">
+								<h:outputLabel value="Error message:" />
+								<h:outputText value="{error-message}"
+									style="font-size: 1.2em;color:navy;" />
+
+								<h:outputLabel value="Server name:" />
+								<h:outputText value="{error-hostname}"
+									style="font-size: 1.2em;color:navy;" />
+							</h:panelGrid>
+
+						</p:tab>
+						<p:tab title="Detail">
+							<div style="overflow: auto; height: 300px; width: 700px;">
+								{error-stacktrace}</div>
+						</p:tab>
+					</p:tabView>
+				</h:form>
+			</div>
+		</f:facet>
+	</pe:ajaxErrorHandler>
+</composite:implementation>
+</html>
