@@ -5,8 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
-<f:loadBundle basename="resources.Messages.message" var="msgs"/>
-
+		
 	<p:confirmDialog widgetVar="anmeldungNotwendigDialog"
 		visible="#{not loginBean.angemeldet}" header="#{msgs.edit.confirmDialog.header}"
 		message="#{msgs.edit.confirmDialog.message}">
