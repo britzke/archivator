@@ -8,7 +8,7 @@
 	<pe:ajaxErrorHandler />
 	<p:commandButton id="neuButton" icon="ui-icon-plus"
 		rendered="#{loginBean.angemeldet}" action="#{editBean.erstelle}">
-		<pe:tooltip for="neuButton" value="neuen Datensatz erfassen." />
+		<pe:tooltip for="neuButton" value="#{msgs['results.NeuenDatensatzErfassen']}" />
 	</p:commandButton>
 	<p:separator />
 
@@ -20,12 +20,12 @@
 		<p>
 			<p:commandLink id="detailLink" action="#{editBean.loadAktuellesArchivale(archivale)}">
 				#{archivale.betreff == null?'&#60;kein Betreff&#62;':archivale.betreff}
-				<pe:tooltip for="detailLink" value="Detailansicht dieses Archivales"></pe:tooltip>
+				<pe:tooltip for="detailLink" value="#{msgs['results.commandLink.tooltip.value']}"></pe:tooltip>
 			</p:commandLink>
 			<p:commandButton id="editButton" icon="ui-icon-pencil" action="edit" rendered="#{loginBean.angemeldet}">
 				<f:setPropertyActionListener
 					target="#{detailBean.aktuellesArchivale}" value="#{archivale}" />
-				<pe:tooltip for="editButton" value="Bearbeiten des Archivales"></pe:tooltip>
+				<pe:tooltip for="editButton" value="#{msgs['results.BearbeitenDesArchivales']}"></pe:tooltip>
 			</p:commandButton>
 			<br />
 			<h:outputText id="inhaltText" value="#{archivale.shortInhalt} (#{archivale.vonJahr}#{archivale.bisJahr gt 0? ' &#8211; '.concat(archivale.bisJahr):''}) "></h:outputText>

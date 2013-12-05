@@ -18,8 +18,8 @@
 			<h:form  rendered="#{loginBean.angemeldet}">
 				<p:menubar>
 					<p:submenu label="Admin">
-						<p:menuitem value="Import" action="import" immediate="true" ajax="false"></p:menuitem>
-						<p:menuitem value="Re-Index" action="#{compassBean.fullIndex}"></p:menuitem>
+						<p:menuitem value="#{msgs['structure.Import']}" action="import" immediate="true" ajax="false"></p:menuitem>
+						<p:menuitem value="#{msgs['structure.Re-Index']}" action="#{compassBean.fullIndex}"></p:menuitem>
 					</p:submenu>
 				</p:menubar>
 			</h:form>
