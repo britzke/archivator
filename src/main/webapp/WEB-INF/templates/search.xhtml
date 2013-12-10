@@ -11,25 +11,25 @@
 		</p:focus>
 	</p:panelGrid>
 
-	<p:panel header="#{msgs['search.erweiterteSuche}" toggleable="true" collapsed="true">
+	<p:panel header="#{msgs['search.erweiterteSuche']}" toggleable="true" collapsed="true">
 		<p:panelGrid id="extendedSearch" columns="3">
-			<p:commandButton value="#{msgs.search.Dokumentart}" update="@form"
+			<p:commandButton value="#{msgs['search.Dokumentart']}" update="@form"
 				actionListener="#{searchBean.dokumentartClicked}" />
-			<p:commandButton value="#{msgs.search.Person}" update="@form"
+			<p:commandButton value="#{msgs['search.Person']}" update="@form"
 				actionListener="#{searchBean.personClicked}" />
-			<p:commandButton value="#{msgs.search.und}" update="@form"
+			<p:commandButton value="#{msgs['search.und']}" update="@form"
 				actionListener="#{searchBean.andClicked}" />
-			<p:commandButton value="#{msgs.search.Schlagwort}" update="@form"
+			<p:commandButton value="#{msgs['search.Schlagwort']}" update="@form"
 				actionListener="#{searchBean.schlagwortClicked}" />
-			<p:commandButton value="#{msgs.search.Betreff}" update="@form"
+			<p:commandButton value="#{msgs['search.Betreff']}" update="@form"
 				actionListener="#{searchBean.betreffClicked}" />
-			<p:commandButton value="#{msgs.search.oder}" update="@form"
+			<p:commandButton value="#{msgs['search.oder']}" update="@form"
 				actionListener="#{searchBean.orClicked}" />
-			<p:commandButton value="#{msgs.search.Körperschaft}" update="@form"
+			<p:commandButton value="#{msgs['search.Körperschaft']}" update="@form"
 				actionListener="#{searchBean.körperschaftClicked}" />
-			<p:commandButton value="#{msgs.search.vonJahr}" update="@form"
+			<p:commandButton value="#{msgs['search.vonJahr']}" update="@form"
 				actionListener="#{searchBean.vonJahrClicked}" />
-			<p:commandButton value="#{msgs.search.vonJahr}" update="@form"
+			<p:commandButton value="#{msgs['search.vonJahr']}" update="@form"
 				actionListener="#{searchBean.bisJahrClicked}" />
 		</p:panelGrid>
 	</p:panel>
