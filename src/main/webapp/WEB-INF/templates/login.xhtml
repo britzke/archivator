@@ -4,19 +4,19 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	
-	<p:panelGrid columns="3" title="#{msgs.login.LoginBereich}"
+	<p:panelGrid columns="3" title="#{msgs['login.LoginBereich']}"
 		rendered="#{!loginBean.angemeldet}">
-		<h:outputLabel for="password" value="#{msgs.login.Anmeldekennwort}" />
+		<h:outputLabel for="password" value="#{msgs['login.Anmeldekennwort']}" />
 		<p:password id="password" value="#{loginBean.password}"
 			required="true" />
 		<p:commandButton id="login" actionListener="#{loginBean.login}"
-			value="#{msgs.login.login}" update="@all" />
+			value="#{msgs['login.login']}" update="@all" />
 	</p:panelGrid>
 
 	<p:panelGrid columns="2" rendered="#{loginBean.angemeldet}">
-		<h:outputText value="#{msgs.login.angemeldet}" />
+		<h:outputText value="#{msgs['login.angemeldet']}" />
 		<p:commandButton id="logout" actionListener="#{loginBean.logout}"
-			value="#{msgs.login.Logout}" update="@all" />
+			value="#{msg['login.Logout']}" update="@all" />
 	</p:panelGrid>
 
 </h:form>
