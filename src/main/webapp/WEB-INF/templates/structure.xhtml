@@ -15,11 +15,13 @@
 	<pe:ajaxErrorHandler />
 	<div id="header">
 		<ui:insert name="header">
-			<h:form  rendered="#{loginBean.angemeldet}">
+			<h:form rendered="#{loginBean.angemeldet}">
 				<p:menubar>
 					<p:submenu label="#{msgs['structure.Admin']}">
-						<p:menuitem value="#{msgs['structure.Import']}" action="import" immediate="true" ajax="false"></p:menuitem>
-						<p:menuitem value="#{msgs['structure.Re-Index']}" action="#{compassBean.fullIndex}"></p:menuitem>
+						<p:menuitem value="#{msgs['structure.Import']}" action="import"
+							immediate="true" ajax="false"></p:menuitem>
+						<p:menuitem value="#{msgs['structure.Re-Index']}"
+							action="#{compassBean.fullIndex}"></p:menuitem>
 					</p:submenu>
 				</p:menubar>
 			</h:form>

@@ -16,7 +16,7 @@
 		paginator="true" paginatorAlwaysVisible="false" rows="10"
 		paginatorPosition="bottom"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-		<f:facet name="header">Ergebnisse</f:facet>
+		<f:facet name="header"><h:outputText value="#{msgs['results.ergebnis']}"/></f:facet>
 		<p>
 			<p:commandLink id="detailLink" action="#{editBean.loadAktuellesArchivale(archivale)}">
 				#{archivale.betreff == null?'&#60;kein Betreff&#62;':archivale.betreff}
