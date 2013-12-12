@@ -54,7 +54,7 @@ public class Körperschaft implements Serializable, MarkableArchvialeListContain
 
 	// bi-directional many-to-many association to Archivalien
 	@ManyToMany
-	@JoinTable(name = "KÖRPERSCHAFTEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "KörperschaftEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
+	@JoinTable(name = "KÖRPERSCHAFTEN_ARCHIVALIEN", joinColumns = { @JoinColumn(name = "KÖRPERSCHAFTEN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARCHIVALIEN_ID") }, schema = "ARCHIVATOR")
 	private List<Archivale> archivalien;
 
 	// dient zur Traversierung von Objekt-Listen

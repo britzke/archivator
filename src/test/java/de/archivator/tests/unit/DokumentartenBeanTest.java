@@ -111,7 +111,7 @@ public class DokumentartenBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#init()}.
+	 * {@link de.archivator.beans.KörperschaftenBean#init()}.
 	 * 
 	 * @throws SecurityException
 	 * @throws NoSuchFieldException
@@ -146,7 +146,7 @@ public class DokumentartenBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#refreshArchivaleItems()}
+	 * {@link de.archivator.beans.KörperschaftenBean#refreshArchivaleItems()}
 	 * Testet die protected Methode refreshArchivaleItems().
 	 * 
 	 * @throws SecurityException

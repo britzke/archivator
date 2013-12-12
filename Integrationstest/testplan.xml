@@ -487,9 +487,9 @@
 				</ergebnisse>
 			</schritt>
 			<schritt>
-				Klicke auf den Reiter"Organisationseinheiten".
+				Klicke auf den Reiter"Körperschaften".
 				Klicke den BearbeitenButton in dem Reiter.
-				Wähle eine Organisationseinheit aus der Liste aus.
+				Wähle eine Körperschaft aus der Liste aus.
 				In dem Reiter auf Ok drücken.
 				Wähle die Schaltfläche "Speichern" an.
 				<ergebnisse>
@@ -497,7 +497,7 @@
 						Das Archivale wird in der Detailansicht angezeigt.
 					</ergebnis>
 					<ergebnis>
-							Die gänderte Organisationseinheit wird korrekt angezeigt.
+							Die gänderte Körperschaft wird korrekt angezeigt.
 					</ergebnis>
 				</ergebnisse>
 			</schritt>

@@ -109,7 +109,7 @@ public class KörperschaftenBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#init()}.
+	 * {@link de.archivator.beans.KörperschaftenBean#init()}.
 	 * 
 	 * @throws SecurityException
 	 * @throws NoSuchFieldException

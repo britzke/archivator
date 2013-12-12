@@ -153,16 +153,16 @@ public class SearchBean implements Serializable {
 
 	/**
 	 * ActionListener-Methode für die Schaltfläche "Name". Der Text
-	 * "organisationseinheit:" wird in die Eigenschaft suchKriterium
+	 * "körperschaft:" wird in die Eigenschaft suchKriterium
 	 * gespeichert. Ist bereits ein Text im suchKriterium, so wird der text
 	 * " and " vorangestellt.
 	 */
-	public void organisationseinheitClicked() {
+	public void körperschaftClicked() {
 		String query = rechercheBean.getSuchKriterium();
 		if (query.length() == 0) {
-			query = "organisationseinheit:";
+			query = "körperschaft:";
 		} else {
-			query += " AND organisationseinheit:";
+			query += " AND körperschaft:";
 		}
 		rechercheBean.setSuchKriterium(query);
 	}

@@ -320,7 +320,7 @@ public class AltdatenKonverter {
 			}
 			for (String koerpName : koerperschaftenNamen) {
 				List<Körperschaft> archivaleKoerperschaften = archivale
-						.getKoerperschaften();
+						.getKörperschaften();
 				Körperschaft körperschaft = new Körperschaft(
 						koerpName.trim());
 				for (Körperschaft databaseKoerperschaft : databaseKoerperschaften) {
