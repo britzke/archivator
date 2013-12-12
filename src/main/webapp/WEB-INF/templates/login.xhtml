@@ -10,13 +10,13 @@
 		<p:password id="password" value="#{loginBean.password}"
 			required="true" />
 		<p:commandButton id="login" actionListener="#{loginBean.login}"
-			value="#{msgs['login.login']}" update="@all" />
+			value="#{msgs['login.Login']}" update="@all" />
 	</p:panelGrid>
 
 	<p:panelGrid columns="2" rendered="#{loginBean.angemeldet}">
-		<h:outputText value="#{msgs['login.angemeldet']}" />
+		<h:outputText value="#{msgs['login.angemeldetAlsRedakteur']}" />
 		<p:commandButton id="logout" actionListener="#{loginBean.logout}"
-			value="#{msg['login.Logout']}" update="@all" />
+			value="#{msgs['login.Logout']}" update="@all" />
 	</p:panelGrid>
 
 </h:form>
