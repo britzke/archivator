@@ -7,20 +7,20 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
 		
 	<p:confirmDialog widgetVar="anmeldungNotwendigDialog"
-		visible="#{not loginBean.angemeldet}" header="#{msgs.edit.confirmDialog.header}"
-		message="#{msgs.edit.confirmDialog.message}">
-		<p:commandButton value="OK" action="index"
+		visible="#{not loginBean.angemeldet}" header="#{msgs['edit.confirmDialog.header']}"
+		message="#{msgs['edit.confirmDialog.message']}">
+		<p:commandButton value="#{msgs['editBean.OK']}" action="index"
 			onclick="anmeldungNotwendigDialog.hide()" />
 	</p:confirmDialog>
 
 	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
 		action="#{editBean.back}" immediate="true">
 		<pe:tooltip for="zurückButton"
-			value="#{msgs.edit.commandButton.tooltip.value}" />
+			value="#{msgs['edit.commandButton.tooltip.value']}" />
 	</p:commandButton>
-	<cc:confirmButton icon="ui-icon-minus" header="Bestätigung zum Löschen"
-		message="Soll das aktuelle Archivale gelöscht werden?"
-		tooltip="Löschen des aktuellen Archivales" action="#{editBean.lösche(facesContext)}"
+	<cc:confirmButton icon="ui-icon-minus" header="#{msgs['edit.confirmButton.header']}"
+		message="#{msgs['edit.confirmButton.message']}"
+		tooltip="{msgs['edit.confirmButton.tooltip']}" action="#{editBean.lösche(facesContext)}"
 		rendered="#{loginBean.angemeldet}" immediate="true"/>
 	<p:commandButton id="speicherButton" icon="ui-icon-check" update=":messages"
 		rendered="#{loginBean.angemeldet}" action="#{editBean.speichere(facesContext)}">
@@ -28,11 +28,12 @@
 			value="Speichern des aktuellen Archivales" />
 	</p:commandButton>
 	<p:panel id="detailPanel" rendered="#{loginBean.angemeldet}"
-		header="Datenerfassung: '#{editBean.aktuellesArchivale.betreff}'">
+		header="{msgs['edit.panel.header']} '#{editBean['aktuellesArchivale.betreff']}">
+		
 		<p:panelGrid id="detailGrid" columns="2">
 			<p:panelGrid id="leftDetailGrid" columns="1">
 				<p:panelGrid columns="4">
-					<h:outputText value="Datum (Jahr):" styleClass="label" />
+					<h:outputText value="#{msgs['edit.panelGrid.outputText']}" styleClass="label" />
 					<p:inplace emptyLabel="..."><p:inputText value="#{editBean.aktuellesArchivale.vonJahr}"
 						maxlength="4" size="1" />
 					</p:inplace>
@@ -40,13 +41,13 @@
 					<p:inputText value="#{editBean.aktuellesArchivale.bisJahr}"
 						maxlength="4" size="1" />
 				</p:panelGrid>
-				<h:outputText value="Betreff" styleClass="label" />
-				<p:inplace id="inplaceBetreff" editor="true" emptyLabel="Hier den Betreff erfassen...">
+				<h:outputText value="#{msgs['edit.Betreff']}" styleClass="label" />
+				<p:inplace id="inplaceBetreff" editor="true" emptyLabel="#{msgs['edit.inplace.id.inplaceBetreff.emptyLabel']}">
 					<p:inputText value="#{editBean.aktuellesArchivale.betreff}"
 						size="104" />
 				</p:inplace>
-				<h:outputText value="Inhalt" styleClass="label" />
-				<p:inplace id="inplaceInhalt" editor="true" emptyLabel="Hier den Inhalt erfassen...">
+				<h:outputText value="#{msgs['edit.Inhalt']}" styleClass="label" />
+				<p:inplace id="inplaceInhalt" editor="true" emptyLabel="#{msgs['edit.inplace.id.inplaceInhalt.emptyLabel']}">
 					<p:inputTextarea value="#{editBean.aktuellesArchivale.inhalt}"
 						autoResize="false" style="width:440px;height:100px" />
 				</p:inplace>
@@ -54,10 +55,10 @@
 			<p:panelGrid id="rightDetailGrid" columns="1">
 				<p:panel style="float:right" header="Ort">
 					<p:panelGrid columns="2">
-						<h:outputText value="Schubfach:" styleClass="label" />
+						<h:outputText value="#{msgs['edit.Schubfach']}" styleClass="label" />
 						<p:inputText value="#{editBean.aktuellesArchivale.schubfach}"
 							maxlength="3" size="1" />
-						<h:outputText value="Mappe:" styleClass="label" />
+						<h:outputText value="#{msgs['edit.Mappe']}" styleClass="label" />
 						<p:inputText value="#{editBean.aktuellesArchivale.mappe}"
 							maxlength="3" size="1" />
 					</p:panelGrid>
