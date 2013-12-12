@@ -25,15 +25,14 @@
 	<p:commandButton id="speicherButton" icon="ui-icon-check" update=":messages"
 		rendered="#{loginBean.angemeldet}" action="#{editBean.speichere(facesContext)}">
 		<pe:tooltip for="speicherButton"
-			value="Speichern des aktuellen Archivales" />
+			value="#{msgs['edit.commandButton.tooltip']}" />
 	</p:commandButton>
 	<p:panel id="detailPanel" rendered="#{loginBean.angemeldet}"
 		header="{msgs['edit.panel.header']} '#{editBean['aktuellesArchivale.betreff']}">
-		
 		<p:panelGrid id="detailGrid" columns="2">
 			<p:panelGrid id="leftDetailGrid" columns="1">
 				<p:panelGrid columns="4">
-					<h:outputText value="#{msgs['edit.panelGrid.outputText']}" styleClass="label" />
+					<h:outputText value="Datum (Jahr):" styleClass="label" />
 					<p:inplace emptyLabel="..."><p:inputText value="#{editBean.aktuellesArchivale.vonJahr}"
 						maxlength="4" size="1" />
 					</p:inplace>
