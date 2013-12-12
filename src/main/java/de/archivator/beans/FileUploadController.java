@@ -26,9 +26,10 @@ public class FileUploadController {
 	@Inject
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
+	private Bilder bild;
 
 	public void handleFileUpload(FileUploadEvent event) {
-		System.out.println(event);
+		System.out.println("tetsqufzguid"+event);
 		entityManager = entityManagerFactory.createEntityManager();
 		try {
 
@@ -46,14 +47,14 @@ public class FileUploadController {
 			bildDaten = buffer.toByteArray();
 			inputStream.close();
 			buffer.close();
-			EntityTransaction uploadTransaction = entityManager
-					.getTransaction();
+			EntityTransaction uploadTransaction = entityManager.getTransaction();
 			uploadTransaction.begin();
-			Bilder bild = new Bilder();
+			bild = new Bilder();
 			bild.setDatei(bildDaten);
 			bild.setBeschreibung(fileName);
 			entityManager.persist(bild);
 			uploadTransaction.commit();
+			System.out.println(bild);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("Failed");
