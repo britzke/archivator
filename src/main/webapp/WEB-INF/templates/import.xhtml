@@ -7,8 +7,8 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
 
 	<p:confirmDialog widgetVar="anmeldungNotwendigDialog"
-		visible="#{not loginBean.angemeldet}" header=""
-		message="Bitte melden Sie sich an, um das Archiv bearbeiten zu können">
+		visible="#{not loginBean.angemeldet}" header="#{msgs['import.confirmDialog.header']}"
+		message="#{msgs['import.confirmDialog.message']}">
 		<p:commandButton value="OK" action="index"
 			onclick="anmeldungNotwendigDialog.hide()" />
 	</p:confirmDialog>
@@ -16,7 +16,7 @@
 	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
 		action="#{editBean.back}" immediate="true">
 		<pe:tooltip for="zurückButton"
-			value="zurück zur vorherigen Ansicht (ohne Speichern)" />
+			value="#{msgs['import.commandButton.tooltip.value']}" />
 	</p:commandButton>
 	<p:fileUpload fileUploadListener="#{importBean.handleFileUpload}"  
             mode="advanced"
@@ -25,9 +25,9 @@
             sizeLimit="1000000"
             fileLimit="2" 
             allowTypes="/(\.|\/)(xml)$/" 
-            cancelLabel="abbrechen"
-            uploadLabel="laden"
-            label="suchen"/>
+            cancelLabel="#{msgs['import.abbrechen']}"
+            uploadLabel="#{msgs['import.laden']}"
+            label="#{msgs['import.Datenimport']}"/>
     <p:growl id="messages" showDetail="true"/>  
 	<p:panel id="detailPanel" rendered="#{loginBean.angemeldet}"
 		header="Datenimport">
