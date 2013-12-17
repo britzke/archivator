@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+	<f:view lang="#{facesContext.externalContext.requestLocale}">
 	<ui:define name="title">archivator - Import '<h:outputText value="#{editBean.aktuellesArchivale.betreff}" rendered="#{loginBean.angemeldet}"/>'</ui:define>	
 	<ui:define name="search">
 		<ui:include src="/WEB-INF/templates/blank.xhtml" />
@@ -14,4 +15,5 @@
 	<ui:define name="main">
 		<ui:include src="/WEB-INF/templates/import.xhtml" />
 	</ui:define>
+	</f:view>
 </ui:composition>
