@@ -42,6 +42,7 @@ import de.archivator.entities.Archivale;
  * 
  * @author burghard.britzke
  * @author e0_schulz
+ * 
  */
 @Named
 @RequestScoped
