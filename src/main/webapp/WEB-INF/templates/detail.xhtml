@@ -32,9 +32,9 @@
 			<p:outputLabel value="Dokumentarten"></p:outputLabel>
 
 			<p:selectBooleanCheckbox
-				value="#{pdfExportBean.printOrganisationseinheiten}"
-				label="Organisationseinheiten"></p:selectBooleanCheckbox>
-			<p:outputLabel value="Organisationseinheiten"></p:outputLabel>
+				value="#{pdfExportBean.printKörperschaften}"
+				label="Körperschaften"></p:selectBooleanCheckbox>
+			<p:outputLabel value="Körperschaften"></p:outputLabel>
 
 			<p:commandButton ajax="false"
 				action="#{pdfExportBean.createPdfFromRecord(facesContext)}"
