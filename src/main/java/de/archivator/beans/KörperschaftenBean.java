@@ -24,39 +24,39 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import de.archivator.entities.Organisationseinheit;
+import de.archivator.entities.Körperschaft;
 
 /**
- * Die OrganisationseinheitenBean dient der Bearbeitung von
- * Organisationseinheiten der Eigenschaft aktuellesArchivale aus der
+ * Die KörperschaftenBean dient der Bearbeitung von
+ * Körperschaften der Eigenschaft aktuellesArchivale aus der
  * {@link DetailBean}.
  * 
  * @author burghard.britzke bubi@charmides.in-berlin.de
  */
 @Named
 @RequestScoped
-public class OrganisationseinheitenBean extends
-		MultiSelectionListBean<Organisationseinheit> {
+public class KörperschaftenBean extends
+		MultiSelectionListBean<Körperschaft> {
 
 	/**
-	 * Initialisiert die Organisationseinheiten mit einer Liste aller
-	 * Organisationseinheiten, die in der Datenbank vorhanden sind.
+	 * Initialisiert die Körperschaften mit einer Liste aller
+	 * Körperschaften, die in der Datenbank vorhanden sind.
 	 */
 	@PostConstruct
 	public void init() {
-		queryForAllItems = "select o from Organisationseinheit o order by o.name";
-		archivaleItems = aktuellesArchivale.getOrganisationseinheiten();
+		queryForAllItems = "select o from Körperschaft o order by o.name";
+		archivaleItems = aktuellesArchivale.getKörperschaften();
 
 		super.init();
 	}
 
 	@Override
 	protected void refreshArchivaleItems() {
-		archivaleItems = aktuellesArchivale.getOrganisationseinheiten();
+		archivaleItems = aktuellesArchivale.getKörperschaften();
 	}
 
 	@Override
 	protected void resizeSelectedItems() {
-		selectedItems = new Organisationseinheit[archivaleItems.size()];
+		selectedItems = new Körperschaft[archivaleItems.size()];
 	}
 }

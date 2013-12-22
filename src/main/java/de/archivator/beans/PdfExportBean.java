@@ -59,7 +59,7 @@ import com.itextpdf.text.pdf.draw.LineSeparator;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Dokumentart;
 import de.archivator.entities.Name;
-import de.archivator.entities.Organisationseinheit;
+import de.archivator.entities.Körperschaft;
 
 /**
  * Die PdfExportBean dient zum generieren einer PDF-Datei, die die Informationen
@@ -84,7 +84,7 @@ public class PdfExportBean {
 
 	private boolean printPersonen;
 	private boolean printDatum;
-	private boolean printOrganisationseinheiten;
+	private boolean printKörperschaften;
 	private boolean printDokumentarten;
 
 	/**
@@ -186,13 +186,13 @@ public class PdfExportBean {
 			}
 		}
 
-		if (printOrganisationseinheiten) {
-			List<Organisationseinheit> organisationseinheiten = aktuellesArchivale
-					.getOrganisationseinheiten();
-			if (organisationseinheiten.size() > 0) {
-				document.add(new Paragraph("Organisationseinheiten: "));
-				for (Organisationseinheit o : organisationseinheiten) {
-					document.add(new Paragraph("Organisationseinheiten:"
+		if (printKörperschaften) {
+			List<Körperschaft> körperschaften = aktuellesArchivale
+					.getKörperschaften();
+			if (körperschaften.size() > 0) {
+				document.add(new Paragraph("Körperschaften: "));
+				for (Körperschaft o : körperschaften) {
+					document.add(new Paragraph("Körperschaften:"
 							+ o.getName()));
 				}
 				document.add(Chunk.NEWLINE);
@@ -259,13 +259,13 @@ public class PdfExportBean {
 		this.printDatum = printDatum;
 	}
 
-	public boolean isPrintOrganisationseinheiten() {
-		return printOrganisationseinheiten;
+	public boolean isPrintKörperschaften() {
+		return printKörperschaften;
 	}
 
-	public void setPrintOrganisationseinheiten(
-			boolean printOrganisationseinheiten) {
-		this.printOrganisationseinheiten = printOrganisationseinheiten;
+	public void setPrintKörperschaften(
+			boolean printKörperschaften) {
+		this.printKörperschaften = printKörperschaften;
 	}
 
 	public boolean isPrintDokumentarten() {

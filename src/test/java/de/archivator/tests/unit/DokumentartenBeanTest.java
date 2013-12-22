@@ -3,6 +3,8 @@
  * and retrieving archived items.
  *
  * Copyright (C) 2012  burghard.britzke bubi@charmides.in-berlin.de
+ * 						Daniela Spazier
+ * 						Maria Eger
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -49,11 +51,13 @@ import de.archivator.beans.DetailBean;
 import de.archivator.beans.DokumentartenBean;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Dokumentart;
-import de.archivator.entities.Organisationseinheit;
+import de.archivator.entities.Körperschaft;
 
 /**
  * Testet die Funktion der DokumentartenBean.
  * @author burghard.britzke bubi@charmides.in-berlin.de
+ * @author Daniela Spazier
+ * @author Maria Eger
  */
 @RunWith(MockitoJUnitRunner.class)
 public class DokumentartenBeanTest {
@@ -111,7 +115,7 @@ public class DokumentartenBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#init()}.
+	 * {@link de.archivator.beans.KörperschaftenBean#init()}.
 	 * 
 	 * @throws SecurityException
 	 * @throws NoSuchFieldException
@@ -139,14 +143,14 @@ public class DokumentartenBeanTest {
 				.getDeclaredField("archivaleItems");
 		f.setAccessible(true);
 		@SuppressWarnings("unchecked")
-		List<Organisationseinheit> o = (List<Organisationseinheit>) f
+		List<Körperschaft> o = (List<Körperschaft>) f
 				.get(proband);
 		assertNotNull(o);
 	}
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#refreshArchivaleItems()}
+	 * {@link de.archivator.beans.KörperschaftenBean#refreshArchivaleItems()}
 	 * Testet die protected Methode refreshArchivaleItems().
 	 * 
 	 * @throws SecurityException
@@ -179,7 +183,7 @@ public class DokumentartenBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#resizeSelectedItems()}
+	 * {@link de.archivator.beans.KörperschaftenBean#resizeSelectedItems()}
 	 * .
 	 * 
 	 * @throws SecurityException

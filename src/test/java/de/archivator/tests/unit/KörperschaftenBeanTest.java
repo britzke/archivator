@@ -46,22 +46,22 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import de.archivator.beans.DetailBean;
-import de.archivator.beans.OrganisationseinheitenBean;
+import de.archivator.beans.KörperschaftenBean;
 import de.archivator.entities.Archivale;
-import de.archivator.entities.Organisationseinheit;
+import de.archivator.entities.Körperschaft;
 
 /**
  * @author burghard.britzke bubi@charmides.in-berlin.de
  * 
  */
 @RunWith(MockitoJUnitRunner.class)
-public class OrganisationseinheitenBeanTest {
+public class KörperschaftenBeanTest {
 
-	protected Organisationseinheit[] selectedItems = {
-			new Organisationseinheit("OE1"), new Organisationseinheit("OE2"),
-			new Organisationseinheit("OE3") };
+	protected Körperschaft[] selectedItems = {
+			new Körperschaft("KOERP1"), new Körperschaft("KOERP2"),
+			new Körperschaft("KOERP3") };
 	private Archivale aktuellesArchivale;
-	private List<Organisationseinheit> archivaleItems;
+	private List<Körperschaft> archivaleItems;
 
 	@Mock
 	EntityManagerFactory entityManagerFactory;
@@ -78,21 +78,21 @@ public class OrganisationseinheitenBeanTest {
 	@Mock
 	DetailBean detailBean;
 	@Mock
-	private List<Organisationseinheit> allItems;
+	private List<Körperschaft> allItems;
 
 	@InjectMocks
-	OrganisationseinheitenBean proband = new OrganisationseinheitenBean();
+	KörperschaftenBean proband = new KörperschaftenBean();
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		archivaleItems = new ArrayList<Organisationseinheit>();
-		archivaleItems.add(new Organisationseinheit("OE1"));
+		archivaleItems = new ArrayList<Körperschaft>();
+		archivaleItems.add(new Körperschaft("KOERP1"));
 
 		aktuellesArchivale = new Archivale();
-		aktuellesArchivale.setOrganisationseinheiten(archivaleItems);
+		aktuellesArchivale.setKörperschaften(archivaleItems);
 		Field f = proband.getClass().getSuperclass()
 				.getDeclaredField("aktuellesArchivale");
 		f.setAccessible(true);
@@ -109,7 +109,7 @@ public class OrganisationseinheitenBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#init()}.
+	 * {@link de.archivator.beans.KörperschaftenBean#init()}.
 	 * 
 	 * @throws SecurityException
 	 * @throws NoSuchFieldException
@@ -137,14 +137,14 @@ public class OrganisationseinheitenBeanTest {
 				.getDeclaredField("archivaleItems");
 		f.setAccessible(true);
 		@SuppressWarnings("unchecked")
-		List<Organisationseinheit> o = (List<Organisationseinheit>) f
+		List<Körperschaft> k = (List<Körperschaft>) f
 				.get(proband);
-		assertNotNull(o);
+		assertNotNull(k);
 	}
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#refreshArchivaleItems()}
+	 * {@link de.archivator.beans.KörperschaftenBean#refreshArchivaleItems()}
 	 * Testet die protected Methode refreshArchivaleItems().
 	 * 
 	 * @throws SecurityException
@@ -177,7 +177,7 @@ public class OrganisationseinheitenBeanTest {
 
 	/**
 	 * Test method for
-	 * {@link de.archivator.beans.OrganisationseinheitenBean#resizeSelectedItems()}
+	 * {@link de.archivator.beans.KörperschaftenBean#resizeSelectedItems()}
 	 * .
 	 * 
 	 * @throws SecurityException
@@ -204,7 +204,7 @@ public class OrganisationseinheitenBeanTest {
 		Field f = proband.getClass().getSuperclass()
 				.getDeclaredField("selectedItems");
 		f.setAccessible(true);
-		Organisationseinheit[] selectedItems = (Organisationseinheit[]) f
+		Körperschaft[] selectedItems = (Körperschaft[]) f
 				.get(proband);
 
 		assertEquals(archivaleItems.size(), selectedItems.length);

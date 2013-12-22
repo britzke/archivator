@@ -143,29 +143,29 @@
 </foreign-key>
 </foreign-key-list>
 </table>
-<table id="d84a8c:13ad058e91e:-7fba" name="Organisationseinheiten_Archivalien">
+<table id="d84a8c:13ad058e91e:-7fba" name="Körperschaften_Archivalien">
 <column-list>
 <column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="d84a8c:13ad058e91e:-7fb5" mandatory="true" name="Archivalien_ID">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
 </column>
-<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="d84a8c:13ad058e91e:-7fb6" mandatory="true" name="Organisationseinheiten_ID">
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="d84a8c:13ad058e91e:-7fb6" mandatory="true" name="Körperschaften_ID">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1c1ee5d:142db77a55f:-7fe0" mandatory="true" name="ID">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
 </column>
 </column-list>
-<primary-key id="d84a8c:13ad058e91e:-7fb9" name="PK_ORGANISATIONSEINHEITEN_ARCHIVALIEN">
+<primary-key id="d84a8c:13ad058e91e:-7fb9" name="PK_KÖRPERSCHAFTEN_ARCHIVALIEN">
 <primary-key-column name="Archivalien_ID"/>
-<primary-key-column name="Organisationseinheiten_ID"/>
+<primary-key-column name="Körperschaften_ID"/>
 </primary-key>
 <foreign-key-list>
-<foreign-key id="d84a8c:13ad058e91e:-7f81" name="FK_Organisationseinheiten_Archivalien_Archivalien" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ARCHIVALIEN" referenced-table="Archivalien" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key id="d84a8c:13ad058e91e:-7f81" name="FK_Körperschaften_Archivalien_Archivalien" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ARCHIVALIEN" referenced-table="Archivalien" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="Archivalien_ID" referenced-key-column-name="ID"/>
-</foreign-key>
-<foreign-key id="d84a8c:13ad058e91e:-7edd" name="FK_Organisationseinheiten_Archivalien_Organisationseinheiten" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ORGANISATIONSEINHEITEN" referenced-table="Organisationseinheiten" referenced-table-schema="Archiv" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
-<foreign-key-column column-name="Organisationseinheiten_ID" referenced-key-column-name="ID"/>
 </foreign-key>
 </foreign-key-list>
 </table>
-<table id="d84a8c:13ad058e91e:-7f59" name="Organisationseinheiten">
+<table id="d84a8c:13ad058e91e:-7f59" name="Körperschaften">
 <column-list>
 <column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="d84a8c:13ad058e91e:-7f55" mandatory="true" name="ID">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
@@ -174,7 +174,7 @@
 <data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
 </column>
 </column-list>
-<primary-key id="d84a8c:13ad058e91e:-7f58" name="PK_ORGANISATIONSEINHEITEN">
+<primary-key id="d84a8c:13ad058e91e:-7f58" name="PK_KÖRPERSCHAFTEN">
 <primary-key-column name="ID"/>
 </primary-key>
 </table>
