@@ -172,7 +172,6 @@ public abstract class MultiSelectionListBean<T extends MarkableArchvialeListCont
 
 		aktuellesArchivale = entityManager.merge(aktuellesArchivale);
 		refreshArchivaleItems(); // operate on merged archivaleItems
-		System.out.println("selectedItems:");
 		for (T item : selectedItems) {
 			item = entityManager.merge(item);
 			if (!archivaleItems.contains(item)) {

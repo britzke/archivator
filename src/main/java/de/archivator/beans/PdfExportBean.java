@@ -133,7 +133,7 @@ public class PdfExportBean {
 			}
 			document.close();
 		} catch (Exception e) {
-			System.out.println("Exception" + e);
+			e.printStackTrace();
 		}
 
 	}
@@ -236,10 +236,9 @@ public class PdfExportBean {
 			byteArrayOutputStream.writeTo(os);
 			os.flush();
 			os.close();
-			System.out.println("response");
 			context.responseComplete();
 		} catch (Exception e) {
-			System.out.println("exception");
+			e.printStackTrace();
 		}
 	}
 
