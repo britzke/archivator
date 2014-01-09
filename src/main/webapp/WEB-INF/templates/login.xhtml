@@ -2,21 +2,21 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	
-	
-	<p:panelGrid columns="3" title="Login-Bereich"
-		rendered="#{!loginBean.angemeldet}">
-		<h:outputLabel for="password" value="Anmeldekennwort" />
-		<p:password id="password" value="#{loginBean.password}"
-			required="true" />
-		<p:commandButton id="login" actionListener="#{loginBean.login}"
-			value="Login" update="@all" />
-	</p:panelGrid>
+	<f:view lang="#{facesContext.externalContext.requestLocale}">
+		<p:panelGrid columns="3" title="#{msgs['login.LoginBereich']}"
+			rendered="#{!loginBean.angemeldet}">
+			<h:outputLabel for="password"
+				value="#{msgs['login.Anmeldekennwort']}" />
+			<p:password id="password" value="#{loginBean.password}"
+				required="true" />
+			<p:commandButton id="login" actionListener="#{loginBean.login}"
+				value="#{msgs['login.Login']}" update="@all" />
+		</p:panelGrid>
 
-	<p:panelGrid columns="2" rendered="#{loginBean.angemeldet}">
-		<h:outputText value="angemeldet als Redakteur" />
-		<p:commandButton id="logout" actionListener="#{loginBean.logout}"
-			value="Logout" update="@all" />
-	</p:panelGrid>
-
+		<p:panelGrid columns="2" rendered="#{loginBean.angemeldet}">
+			<h:outputText value="#{msgs['login.angemeldetAlsRedakteur']}" />
+			<p:commandButton id="logout" actionListener="#{loginBean.logout}"
+				value="#{msgs['login.Logout']}" update="@all" />
+		</p:panelGrid>
+	</f:view>
 </h:form>

@@ -2,35 +2,37 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" id="searchForm">
-
+<f:view locale="#{facesContext.externalContext.requestLocale}">
 	<p:panelGrid columns="2">
 		<p:focus for="inputSearch">
 			<p:inputText id="inputSearch" value="#{rechercheBean.suchKriterium}"></p:inputText>
-			<p:commandButton value="Suche"
+			<p:commandButton value="#{msgs['search.Suche']}"
 				action="#{searchBean.search(facesContext)}" update="@all" />
 		</p:focus>
 	</p:panelGrid>
-	
-	<p:panel header="erweiterte Suche" toggleable="true" collapsed="true">
+
+	<p:panel header="#{msgs['search.erweiterteSuche']}" toggleable="true" collapsed="true">
 		<p:panelGrid id="extendedSearch" columns="3">
-			<p:commandButton value="Dokumentart" update="@form"
+			<p:commandButton value="#{msgs['search.Dokumentart']}" update="@form"
 				actionListener="#{searchBean.dokumentartClicked}" />
-			<p:commandButton value="Person" update="@form"
+			<p:commandButton value="#{msgs['search.Person']}" update="@form"
 				actionListener="#{searchBean.personClicked}" />
-			<p:commandButton value="und" update="@form"
+			<p:commandButton value="#{msgs['search.und']}" update="@form"
 				actionListener="#{searchBean.andClicked}" />
-			<p:commandButton value="Schlagwort" update="@form"
+			<p:commandButton value="#{msgs['search.Schlagwort']}" update="@form"
 				actionListener="#{searchBean.schlagwortClicked}" />
-			<p:commandButton value="Betreff" update="@form"
+			<p:commandButton value="#{msgs['search.Betreff']}" update="@form"
 				actionListener="#{searchBean.betreffClicked}" />
-			<p:commandButton value="oder" update="@form"
+			<p:commandButton value="#{msgs['search.oder']}" update="@form"
 				actionListener="#{searchBean.orClicked}" />
-			<p:commandButton value="Körperschaft" update="@form"
+			<p:commandButton value="#{msgs['search.Körperschaft']}" update="@form"
 				actionListener="#{searchBean.körperschaftClicked}" />
-			<p:commandButton value="von Jahr" update="@form"
+			<p:commandButton value="#{msgs['search.vonJahr']}" update="@form"
 				actionListener="#{searchBean.vonJahrClicked}" />
-			<p:commandButton value="bis Jahr" update="@form"
+			<p:commandButton value="#{msgs['search.vonJahr']}" update="@form"
 				actionListener="#{searchBean.bisJahrClicked}" />
 		</p:panelGrid>
 	</p:panel>
+</f:view>	
 </h:form>
+

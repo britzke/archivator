@@ -6,52 +6,56 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
-<h:head>
-	<h:outputStylesheet library="css" name="archivator.css" />
-	<title><ui:insert name="title">archivator</ui:insert></title>
-</h:head>
-<h:body>
+<f:view lang="#{facesContext.externalContext.requestLocale}">
+	<h:head>
+		<h:outputStylesheet library="css" name="archivator.css" />
+		<title><ui:insert name="title">archivator</ui:insert></title>
+	</h:head>
+	<h:body>
 
-	<pe:ajaxErrorHandler />
-	<div id="header">
-		<ui:insert name="header">
-			<h:form  rendered="#{loginBean.angemeldet}">
-				<p:menubar>
-					<p:submenu label="Admin">
-						<p:menuitem value="Import" action="import" immediate="true" ajax="false"></p:menuitem>
-						<p:menuitem value="Re-Index" action="#{compassBean.fullIndex}"></p:menuitem>
-					</p:submenu>
-				</p:menubar>
-			</h:form>
-		</ui:insert>
-	</div>
+		<pe:ajaxErrorHandler />
+		<div id="header">
+			<ui:insert name="header">
+				<h:form rendered="#{loginBean.angemeldet}">
+					<p:menubar>
+						<p:submenu label="#{msgs['structure.Admin']}">
+							<p:menuitem value="#{msgs['structure.Import']}" action="import"
+								immediate="true" ajax="false"></p:menuitem>
+							<p:menuitem value="#{msgs['structure.Re-Index']}"
+								action="#{compassBean.fullIndex}"></p:menuitem>
+						</p:submenu>
+					</p:menubar>
+				</h:form>
+			</ui:insert>
+		</div>
 
-	<div id="search">
-		<ui:insert name="search">
-			<ui:include src="/WEB-INF/templates/search.xhtml" />
-		</ui:insert>
-	</div>
+		<div id="search">
+			<ui:insert name="search">
+				<ui:include src="/WEB-INF/templates/search.xhtml" />
+			</ui:insert>
+		</div>
 
-	<div id="login">
-		<ui:insert name="login">
-			<ui:include src="/WEB-INF/templates/login.xhtml" />
-		</ui:insert>
-	</div>
-	<p:messages id="messages" />
-	<div id="main">
-		<ui:insert name="main">
-			<ui:include src="/WEB-INF/templates/blank.xhtml" />
-		</ui:insert>
-	</div>
-	<p:ajaxStatus
-		style="width:64px;height:64px;position:fixed;right:50px;bottom:50px">
-		<f:facet name="start">
-			<p:graphicImage value="/images/loading.gif" />
-		</f:facet>
+		<div id="login">
+			<ui:insert name="login">
+				<ui:include src="/WEB-INF/templates/login.xhtml" />
+			</ui:insert>
+		</div>
+		<p:messages id="messages" />
+		<div id="main">
+			<ui:insert name="main">
+				<ui:include src="/WEB-INF/templates/blank.xhtml" />
+			</ui:insert>
+		</div>
+		<p:ajaxStatus
+			style="width:64px;height:64px;position:fixed;right:50px;bottom:50px">
+			<f:facet name="start">
+				<p:graphicImage value="/images/loading.gif" />
+			</f:facet>
 
-		<f:facet name="complete">
-			<h:outputText value="" />
-		</f:facet>
-	</p:ajaxStatus>
-</h:body>
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
+	</h:body>
+</f:view>
 </html>

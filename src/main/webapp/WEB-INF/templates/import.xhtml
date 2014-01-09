@@ -5,18 +5,19 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
+<f:view lang="#{facesContext.externalContext.requestLocale}">
 
 	<p:confirmDialog widgetVar="anmeldungNotwendigDialog"
-		visible="#{not loginBean.angemeldet}" header="Anmeldung erforderlich"
-		message="Bitte melden Sie sich an, um das Archiv bearbeiten zu können">
-		<p:commandButton value="OK" action="index"
+		visible="#{not loginBean.angemeldet}" header="#{msgs['import.confirmDialog.header']}"
+		message="#{msgs['import.confirmDialog.message']}">
+		<p:commandButton value="#{msgs['import.OK']}" action="index"
 			onclick="anmeldungNotwendigDialog.hide()" />
 	</p:confirmDialog>
 
 	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
 		action="#{editBean.back}" immediate="true">
 		<pe:tooltip for="zurückButton"
-			value="zurück zur vorherigen Ansicht (ohne Speichern)" />
+			value="#{msgs['import.commandButton.tooltip.value']}" />
 	</p:commandButton>
 	<p:fileUpload fileUploadListener="#{importBean.handleFileUpload}"  
             mode="advanced"
@@ -25,13 +26,14 @@
             sizeLimit="1000000"
             fileLimit="2" 
             allowTypes="/(\.|\/)(xml)$/" 
-            cancelLabel="abbrechen"
-            uploadLabel="laden"
-            label="suchen"/>
+            cancelLabel="#{msgs['import.abbrechen']}"
+            uploadLabel="#{msgs['import.laden']}"
+            label="#{msgs['import.suchen']}"/>
     <p:growl id="messages" showDetail="true"/>  
 	<p:panel id="detailPanel" rendered="#{loginBean.angemeldet}"
-		header="Datenimport">
+		header="#{msgs['import.Datenimport']}">
 		<p:panelGrid id="detailGrid" columns="2">
 		</p:panelGrid>
 	</p:panel>
+	</f:view>
 </h:form>
