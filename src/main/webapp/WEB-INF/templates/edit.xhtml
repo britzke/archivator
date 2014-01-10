@@ -5,7 +5,6 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
-	<f:view lang="#{facesContext.externalContext.requestLocale}">
 		
 	<p:confirmDialog widgetVar="anmeldungNotwendigDialog"
 		visible="#{not loginBean.angemeldet}" header="#{msgs['edit.confirmDialog.header']}"
@@ -69,5 +68,4 @@
 		<cc:archivaleChilds angemeldet="#{loginBean.angemeldet}"
 			aktuellesArchivale="#{editBean.aktuellesArchivale}" />
 	</p:panel>
-	</f:view>
 </h:form>
