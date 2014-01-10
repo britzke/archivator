@@ -1,7 +1,30 @@
+/*
+ * This file is part of archivator, a software system for managing
+ * and retrieving archived items.
+ *
+ * Copyright (C) 2013, 2014
+ * 						Jan Müller
+ * 						burghard.britzke bubi@charmides.in-berlin.de
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package de.archivator.tests.unit;
 
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -11,6 +34,8 @@ import java.util.List;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +47,11 @@ import de.archivator.beans.PdfExportBean;
 import de.archivator.beans.RechercheBean;
 import de.archivator.entities.Archivale;
 
+/**
+ * Testet die PdfExportBean.
+ * @author Jan Müller
+ * @author burghard.britzke bubi@charmides.in-berlin.de
+ */
 public class PdfExportBeanTest {
 
 	private PdfExportBean proband;
@@ -32,6 +62,8 @@ public class PdfExportBeanTest {
 	private FacesContext facesContext;
 	private ExternalContext externalContext;
 	private Document document;
+	private HttpServletResponse response;
+	private ServletOutputStream servletOutputStream;
 
 	/**
 	 * Erzeugt eine Umgebung, die von allen Tests benötigt wird.
@@ -65,13 +97,20 @@ public class PdfExportBeanTest {
 		f.setAccessible(true);
 		f.set(proband, rechercheBean);
 
+		servletOutputStream =mock(ServletOutputStream.class);
+		
+		response = mock(HttpServletResponse.class);
+		when(response.getOutputStream()).thenReturn(servletOutputStream);
+		
 		externalContext = mock(ExternalContext.class);
+		when(externalContext.getResponse()).thenReturn(response);
 
 		facesContext = mock(FacesContext.class);
+		when(facesContext.getExternalContext()).thenReturn(externalContext);
 	}
 
 	/**
-	 * testet ob die Liste der Archivalien nach der Erzeugung des Dokuments
+	 * Testet ob die Liste der Archivalien nach der Erzeugung des Dokuments
 	 * nicht null ist
 	 * 
 	 * @throws IOException
@@ -88,8 +127,12 @@ public class PdfExportBeanTest {
 		ArrayList<Archivale> alist = new ArrayList<Archivale>();
 		alist.add(aktuellesArchivale);
 		when(detailBean.getAktuellesArchivale()).thenReturn(aktuellesArchivale);
+
 		proband.createPdfFromRecord(facesContext);
+
 		assertNotNull(document);
+		verify(response).setContentType(eq("application/pdf"));
+		
 	}
 
 	/**
@@ -109,7 +152,9 @@ public class PdfExportBeanTest {
 		for (int i = 0; i < 3; i++)
 			alist.add(aktuellesArchivale);
 		when(rechercheBean.getArchivalien()).thenReturn(alist);
+		
 		proband.createPdfFromList(facesContext);
+		
 		assertNotNull(document);
 	}
 
