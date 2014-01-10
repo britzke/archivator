@@ -1,26 +1,8 @@
-package de.archivator.beans;
-
 /*
  * This file is part of archivator, a software system for managing
  * and retrieving archived items.
  *
- * Copyright (C) 2012  müller, dreher,
- *                     burghard.britzke bubi@charmides.in-berlin.de
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; package de.archivator.beans;
-
- /*
- * This file is part of archivator, a software system for managing
- * and retrieving archived items.
- *
- * Copyright (C) 2012  müller, dreher,
- *                     burghard.britzke bubi@charmides.in-berlin.de
+ * Copyright (C) 2012  Jan Müller
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -35,6 +17,7 @@ package de.archivator.beans;
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package de.archivator.beans;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -67,7 +50,6 @@ import de.archivator.entities.Körperschaft;
  * 
  * @author Jan Müller
  */
-
 @Named(value = "pdfExportBean")
 @RequestScoped
 public class PdfExportBean {
@@ -91,6 +73,8 @@ public class PdfExportBean {
 	 * Die Methode createPdfFromRecord dient zum Erzeugen einer PDF-Datei aus
 	 * einem einzelnen Archiv-Datensatz
 	 * 
+	 * @param context
+	 *            Der FacesContext
 	 * @throws IOException
 	 */
 	public void createPdfFromRecord(FacesContext context) throws IOException {
@@ -135,13 +119,15 @@ public class PdfExportBean {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
 	 * Die Methode addDetails dient zum Hinzufügen von Details aus einem
 	 * Archivale in ein Dokument.
 	 * 
+	 * @param aktuellesArchivale
+	 *            Das aktuelle Archivale, dessen Details zum PDF-Dokument
+	 *            hinzugefügt werden soll.
 	 */
 	private void addContentFrom(Archivale aktuellesArchivale)
 			throws DocumentException {
@@ -192,8 +178,7 @@ public class PdfExportBean {
 			if (körperschaften.size() > 0) {
 				document.add(new Paragraph("Körperschaften: "));
 				for (Körperschaft o : körperschaften) {
-					document.add(new Paragraph("Körperschaften:"
-							+ o.getName()));
+					document.add(new Paragraph("Körperschaften:" + o.getName()));
 				}
 				document.add(Chunk.NEWLINE);
 			}
@@ -216,12 +201,15 @@ public class PdfExportBean {
 			document.add(UNDERLINE);
 			document.add(Chunk.NEWLINE);
 		}
-
 	}
 
+	/**
+	 * Schreibt den Inhalt des vorbereiteten byteArrayOutputStreams in den
+	 * Response, stellt sicher, dass der Inhalt an den Klienten versendet wird
+	 * und schließt den Response dann JSF-seitig ab.
+	 */
 	private void createResponse() {
 		try {
-
 			HttpServletResponse response = (HttpServletResponse) this.context
 					.getExternalContext().getResponse();
 			response.setContentType("application/pdf");
@@ -262,8 +250,7 @@ public class PdfExportBean {
 		return printKörperschaften;
 	}
 
-	public void setPrintKörperschaften(
-			boolean printKörperschaften) {
+	public void setPrintKörperschaften(boolean printKörperschaften) {
 		this.printKörperschaften = printKörperschaften;
 	}
 
@@ -274,5 +261,4 @@ public class PdfExportBean {
 	public void setPrintDokumentarten(boolean printDokumentarten) {
 		this.printDokumentarten = printDokumentarten;
 	}
-
 }
