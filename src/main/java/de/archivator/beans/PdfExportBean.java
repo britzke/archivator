@@ -61,7 +61,7 @@ public class PdfExportBean {
 	private List<Archivale> archivalien;
 	private Document document;
 	private FacesContext context;
-	private final String FILENAME = "document.pdf";
+	private String filename = "document.pdf";
 	private ByteArrayOutputStream byteArrayOutputStream;
 
 	private boolean printPersonen;
@@ -96,6 +96,8 @@ public class PdfExportBean {
 	public void createPdfFromList(FacesContext context) throws IOException {
 		this.context = context;
 		archivalien = rechercheBean.getArchivalien();
+		filename = "Suche nach ";
+
 		if (archivalien.size() > 0) {
 			createDocument();
 			createResponse();
@@ -108,6 +110,10 @@ public class PdfExportBean {
 	 */
 	private void createDocument() {
 		try {
+			filename = "Suche nach: ";
+			for (Archivale a : archivalien) {
+				filename = filename +" "+ a.getBetreff();
+			}
 			document = new Document();
 			byteArrayOutputStream = new ByteArrayOutputStream();
 			PdfWriter.getInstance(document, byteArrayOutputStream);
@@ -216,7 +222,7 @@ public class PdfExportBean {
 			// den Browser informieren, dass er eine neue Datei erhält und sie
 			// herunterladen soll, anstatt sie auf der Seite darzustellen
 			response.setHeader("Content-disposition", "attachment; filename="
-					+ FILENAME);
+					+ filename);
 			// the contentlength
 			response.setContentLength(byteArrayOutputStream.size());
 			// write ByteArrayOutputStream to the ServletOutputStream
