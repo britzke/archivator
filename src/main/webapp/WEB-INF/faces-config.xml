@@ -8,18 +8,19 @@
 
 	<factory>
 		<exception-handler-factory>
-			org.primefaces.extensions.component.ajaxerrorhandler.AjaxExceptionHandlerFactory
-		</exception-handler-factory>
+			org.primefaces.extensions.component.ajaxerrorhandler.AjaxExceptionHandlerFactory</exception-handler-factory>
 	</factory>
 	<application>
+		<message-bundle>message</message-bundle>
 		<locale-config>
 			<default-locale>de</default-locale>
 			<supported-locale>en</supported-locale>
 			<supported-locale>tr</supported-locale>
 		</locale-config>
-		<message-bundle>
+		<resource-bundle>
 			<base-name>message</base-name>
 			<var>msgs</var>
-		</message-bundle>
+		</resource-bundle>
+
 	</application>
 </faces-config>
