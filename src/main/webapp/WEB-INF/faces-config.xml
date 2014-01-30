@@ -17,9 +17,9 @@
 			<supported-locale>en</supported-locale>
 			<supported-locale>tr</supported-locale>
 		</locale-config>
-		<resource-bundle>
+		<message-bundle>
 			<base-name>message</base-name>
 			<var>msgs</var>
-		</resource-bundle>
+		</message-bundle>
 	</application>
 </faces-config>
