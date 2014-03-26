@@ -20,13 +20,13 @@
 package de.archivator.beans;
 
 import java.io.Serializable;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
-
 import javax.inject.Named;
 
 /**
@@ -56,16 +56,25 @@ public class LoginBean implements Serializable {
 	 *            Wird nicht beachtet.
 	 */
 	public void login(ActionEvent actionEvent) {
-		FacesContext context = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		String messageBundleName = facesContext.getApplication()
+				.getMessageBundle();
+		Locale locale = facesContext.getViewRoot().getLocale();
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(
+				messageBundleName, locale);
 		if (password.contentEquals(PASSWORD)) {
-			context.addMessage(null, new FacesMessage(
-					"Sie haben sich erfolgreich angemeldet!"));
+			facesContext.addMessage(
+					null,
+					new FacesMessage(resourceBundle
+							.getString("login.ErfolgreicheAnmeldung")));
 			angemeldet = true;
 		} else {
-			context.addMessage(null, new FacesMessage("Falsches Kennwort!"));
+			facesContext.addMessage(
+					null,
+					new FacesMessage(resourceBundle
+							.getString("login.ErfolgreicheAnmeldung")));
 			angemeldet = false;
 		}
-
 	}
 
 	/**
@@ -77,9 +86,16 @@ public class LoginBean implements Serializable {
 	 *            Wird nicht beachtet.
 	 */
 	public void logout(ActionEvent actionEvent) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(
-				"Sie haben sich erfolgreich abgemeldet!"));
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		String messageBundleName = facesContext.getApplication()
+				.getMessageBundle();
+		Locale locale = facesContext.getViewRoot().getLocale();
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(
+				messageBundleName, locale);
+		facesContext.addMessage(
+				null,
+				new FacesMessage(resourceBundle
+						.getString("login.ErfolgreicheAbmeldung")));
 		angemeldet = false;
 	}
 
