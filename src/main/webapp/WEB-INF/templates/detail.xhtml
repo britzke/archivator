@@ -6,8 +6,8 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:cc="http://java.sun.com/jsf/composite/composites">
 
-	<p:commandButton id="zurückButton"
-		icon="ui-icon-arrowreturnthick-1-w" action="index">
+	<p:commandButton id="zurückButton" icon="ui-icon-arrowreturnthick-1-w"
+		action="index">
 		<pe:tooltip for="zurückButton" value="#{msgs['detail.zurueckButton']}" />
 	</p:commandButton>
 	<p:commandButton id="editButton" icon="ui-icon-pencil"
@@ -31,15 +31,14 @@
 				label="Dokumentarten"></p:selectBooleanCheckbox>
 			<p:outputLabel value="Dokumentarten"></p:outputLabel>
 
-			<p:selectBooleanCheckbox
-				value="#{pdfExportBean.printKörperschaften}"
+			<p:selectBooleanCheckbox value="#{pdfExportBean.printKörperschaften}"
 				label="Körperschaften"></p:selectBooleanCheckbox>
 			<p:outputLabel value="Körperschaften"></p:outputLabel>
 
-			<p:commandButton ajax="false"
-				action="#{pdfExportBean.createPdfFromRecord(facesContext)}"
-				value="OK"></p:commandButton>
 		</h:panelGrid>
+		<p:commandButton ajax="false"
+			action="#{pdfExportBean.createPdfFromRecord(facesContext)}"
+			value="OK"></p:commandButton>
 	</p:overlayPanel>
 	<cc:confirmButton icon="ui-icon-minus"
 		header="#{msgs['detail.confirmButton.header']}"
@@ -73,9 +72,9 @@
 			<p:panelGrid id="rightDetailGrid" columns="1">
 				<p:panel style="float:right" header="Ort">
 					<p:panelGrid columns="2">
-						<h:outputText value="#{msgs['detail.Schubfach']}" styleClass="label" />
-						<h:outputText
-							value="#{detailBean.aktuellesArchivale.schubfach}" />
+						<h:outputText value="#{msgs['detail.Schubfach']}"
+							styleClass="label" />
+						<h:outputText value="#{detailBean.aktuellesArchivale.schubfach}" />
 						<h:outputText value="#{msgs['detail.Mappe']}" styleClass="label" />
 						<h:outputText value="#{detailBean.aktuellesArchivale.mappe}" />
 					</p:panelGrid>
