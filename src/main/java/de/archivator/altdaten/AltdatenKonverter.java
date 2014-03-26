@@ -47,10 +47,9 @@ import de.archivator.altdaten.model.Dataroot;
 import de.archivator.altdaten.model.TabelleX0020Archiv;
 import de.archivator.entities.Archivale;
 import de.archivator.entities.Dokumentart;
-import de.archivator.entities.Name;
 import de.archivator.entities.Körperschaft;
+import de.archivator.entities.Name;
 import de.archivator.entities.Schlagwort;
-import de.archivator.tests.unit.KörperschaftenBeanTest;
 
 /**
  * Konvertiert die Altdaten des Archivs des Lette-Vereins aus einer XML-Datei in
@@ -103,7 +102,7 @@ public class AltdatenKonverter {
 	 * 
 	 * @param args
 	 *            Wird nicht beachtet.
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		AltdatenKonverter me = new AltdatenKonverter(new FileInputStream(
@@ -143,7 +142,7 @@ public class AltdatenKonverter {
 			if (daten.size() != 0) {
 				// sortiert die einträge in der Liste
 				Collections.sort(daten);
-				// speichert den ersten Eintarg(niedrigstes Jahr) aus der Liste
+				// speichert den ersten Eintrag(niedrigstes Jahr) aus der Liste
 				archivale.setVonJahr(daten.get(0));
 				// speichert den letzten Eintrag(höchstes Jahr) aus der Liste
 				archivale.setBisJahr(daten.get(daten.size() - 1));
@@ -191,15 +190,14 @@ public class AltdatenKonverter {
 			// Körperschaft(en) hinzufügen
 			q = em.createQuery("select o from Körperschaft o");
 			@SuppressWarnings("unchecked")
-			List<Körperschaft> databaseKörperschaften = q
-					.getResultList();
-			addArchivaleKörperschaft(databaseKörperschaften,
-					archivale, altarchivale.getAbteilung());
+			List<Körperschaft> databaseKörperschaften = q.getResultList();
+			addArchivaleKörperschaft(databaseKörperschaften, archivale,
+					altarchivale.getAbteilung());
 
 			int schule = altarchivale.getSchule().intValue();
 			if (schule != 0) {
-				addArchivaleKörperschaft(databaseKörperschaften,
-						archivale, schulen[schule]);
+				addArchivaleKörperschaft(databaseKörperschaften, archivale,
+						schulen[schule]);
 			}
 			// Namen hinzufügen
 			q = em.createQuery("select n from Name n");
@@ -292,10 +290,9 @@ public class AltdatenKonverter {
 	}
 
 	/**
-	 * Fügt dem Archivale eine Körperschaft hinzu. Existiert die
-	 * Körperschaft in der Datenbank noch nicht, so wird sie der
-	 * Datenbank hinzugefügt, ansonsten wird die bestehende Körperschaft
-	 * refernziert.
+	 * Fügt dem Archivale eine Körperschaft hinzu. Existiert die Körperschaft in
+	 * der Datenbank noch nicht, so wird sie der Datenbank hinzugefügt,
+	 * ansonsten wird die bestehende Körperschaft refernziert.
 	 * 
 	 * @param databaseOrganisationeinheiten
 	 *            Die Organisationeinheiten die in der Datenbank schon vorhanden
@@ -306,38 +303,32 @@ public class AltdatenKonverter {
 	 *            Der Name der Körperschaft.
 	 */
 	private void addArchivaleKörperschaft(
-			List<Körperschaft> databaseKörperschaften,
-			Archivale archivale, String körperschaftName) {
+			List<Körperschaft> dbKörperschaften, Archivale archivale,
+			String körperschaftName) {
 		if (körperschaftName != null) {
-			körperschaftName = körperschaftName.replaceAll(
-					"\n", "");
+			körperschaftName = körperschaftName.replaceAll("\n", "");
 			String[] körperschaftenNamen = { körperschaftName };
 			if (körperschaftName.indexOf(",") != -1) {
-				körperschaftenNamen = körperschaftName
-						.split(",");
+				körperschaftenNamen = körperschaftName.split(",");
 			} else if (körperschaftName.indexOf("/") != -1) {
-				körperschaftenNamen = körperschaftName
-						.split("/");
+				körperschaftenNamen = körperschaftName.split("/");
 			}
 			for (String koerpName : körperschaftenNamen) {
 				List<Körperschaft> archivaleKörperschaften = archivale
 						.getKörperschaften();
-				Körperschaft körperschaft = new Körperschaft(
-						koerpName.trim());
-				for (Körperschaft databaseKoerperschaft : databaseKörperschaften) {
-					if (körperschaft
-							.equals(databaseKörperschaften)) {
-						körperschaft = databaseKoerperschaft;
+				Körperschaft körperschaft = new Körperschaft(koerpName.trim());
+				for (Körperschaft dbKörperschaft : dbKörperschaften) {
+					if (körperschaft.equals(dbKörperschaft)) {
+						körperschaft = dbKörperschaft;
 						break; // nur der erste Treffer wird genommen
 					}
 				}
 				if (körperschaft.getId() == 0) {
-					databaseKörperschaften.add(körperschaft);
+					dbKörperschaften.add(körperschaft);
 				}
 				boolean schonVorhanden = false;
 				for (Körperschaft archivaleKörperschaft : archivaleKörperschaften) {
-					if (körperschaft
-							.equals(archivaleKörperschaft)) {
+					if (körperschaft.equals(archivaleKörperschaft)) {
 						schonVorhanden = true;
 						break;
 					}
