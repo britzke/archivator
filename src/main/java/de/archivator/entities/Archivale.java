@@ -89,7 +89,7 @@ public class Archivale implements Serializable {
     @ManyToMany(mappedBy = "archivalien", cascade = { CascadeType.MERGE,
             CascadeType.REFRESH, CascadeType.PERSIST })
     
-    private List<Bilder> bilder;
+    private List<Bild> bild;
     /**
      * Erzeugt ein neues Archivale. Initialisiert die Liste der Namen,
      * Dokumentarten, Organisationseinheiten und Schlagwörter für dieses

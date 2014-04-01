@@ -1,11 +1,29 @@
+/*
+ * This file is part of archivator, a software system for managing
+ * and retrieving archived items.
+ *
+ * Copyright (C) 2014  e11_cheneaux
+ *                     burghard.britzke bubi@charmides.in-berlin.de
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package de.archivator.beans;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -17,8 +35,15 @@ import javax.persistence.EntityTransaction;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import de.archivator.entities.Bilder;
+import de.archivator.entities.Bild;
 
+/**
+ * Der FileUpdloadController speichert die Bilddateien in die Datenbank.
+ * 
+ * @author e11_cheneaux
+ * @author burghard.britzke bubi@charmides.in-berlin.de
+ * 
+ */
 @Named
 @ApplicationScoped
 public class FileUploadController {
@@ -26,41 +51,45 @@ public class FileUploadController {
 	@Inject
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
-	private Bilder bild;
+	private Bild bild;
 
+	/**
+	 * Listener, der ein hochgeladenes Bild in die Datenbank speichert.
+	 * 
+	 * @param event
+	 *            Informationen über den Upload
+	 */
 	public void handleFileUpload(FileUploadEvent event) {
-		System.out.println("tetsqufzguid"+event);
 		entityManager = entityManagerFactory.createEntityManager();
 		try {
-
-			InputStream inputStream = event.getFile().getInputstream();
-			int read = 0;
-			byte[] bytes = new byte[1024];
-			String fileName = event.getFile().getFileName();
+			int c;
+			UploadedFile uploadedFile = event.getFile();
+			InputStream inputStream = uploadedFile.getInputstream();
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			byte[] bildDaten;
-			while ((read = inputStream.read(bytes)) != -1) {
-				buffer.write(bytes, 0, read);
-			}
 
+			while ((c = inputStream.read()) != -1) {
+				buffer.write(c);
+			}
 			buffer.flush();
-			bildDaten = buffer.toByteArray();
 			inputStream.close();
+			bild = new Bild();
+			bild.setDatei(buffer.toByteArray());
 			buffer.close();
-			EntityTransaction uploadTransaction = entityManager.getTransaction();
-			uploadTransaction.begin();
-			bild = new Bilder();
-			bild.setDatei(bildDaten);
-			bild.setBeschreibung(fileName);
+			bild.setBeschreibung(uploadedFile.getFileName());
+			bild.setInhaltsTyp(uploadedFile.getContentType());
+
+			EntityTransaction transaction = entityManager.getTransaction();
+			transaction.begin();
 			entityManager.persist(bild);
-			uploadTransaction.commit();
-			System.out.println(bild);
+			transaction.commit();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println("Failed");
+			FacesContext context = FacesContext.getCurrentInstance();
+			FacesMessage message = new FacesMessage("Hochladefehler",
+					e.getLocalizedMessage());
+			context.addMessage(event.getComponent().getClientId(), message);
+			e.printStackTrace();
 		} finally {
 			entityManager.close();
 		}
-
 	}
 }

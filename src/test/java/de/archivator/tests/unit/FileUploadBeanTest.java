@@ -25,12 +25,12 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import de.archivator.beans.FileUploadController;
-import de.archivator.entities.Bilder;
+import de.archivator.entities.Bild;
 
 public class FileUploadBeanTest {
 
 	private FileUploadController proband;
-	private Bilder bild;
+	private Bild bild;
 	private EntityManagerFactory emf;
 	private EntityManager em;
 	private EntityTransaction et;
@@ -73,7 +73,7 @@ public class FileUploadBeanTest {
 		event = new FileUploadEvent(upload,file);
 		stream = IOUtils.toInputStream("some test data for my input stream");
 		when(event.getFile().getInputstream()).thenReturn(stream);
-		bild = mock(Bilder.class);
+		bild = mock(Bild.class);
 		// entityManager injizieren
 		f = proband.getClass().getDeclaredField("entityManagerFactory");
 		f.setAccessible(true);
