@@ -5,7 +5,7 @@
 	<persistence-unit name="archivator" transaction-type="JTA">
 		<jta-data-source>java:comp/env/jdbc/archivatorDB</jta-data-source>
 		<class>de.archivator.entities.Organisationseinheit</class>
-		<class>de.archivator.entities.Bilder</class>
+		<class>de.archivator.entities.Bild</class>
 		<class>de.archivator.entities.Schlagwort</class>
 		<class>de.archivator.entities.Archivale</class>
 		<class>de.archivator.entities.Dokumentart</class>
