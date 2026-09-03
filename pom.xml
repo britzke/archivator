@@ -7,7 +7,7 @@
 	<packaging>war</packaging>
 	<name>archivator</name>
 	<properties>
-		<tomcat.version>9.0.118</tomcat.version>
+		<tomcat.version>9.0.121</tomcat.version>
 	</properties>
 	<build>
 		<plugins>
